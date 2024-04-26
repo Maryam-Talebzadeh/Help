@@ -13,6 +13,8 @@ namespace Help.Domain.Core.ServiceAgg.Entities
             ApplicantId = applicantId; 
             ServiceId = serviceId; 
             ProposedPrice = proposedPrice;
+            IsDone = false;
+            StatusId = 1;
         }
 
         public string Title { get; private set; }
@@ -31,6 +33,16 @@ namespace Help.Domain.Core.ServiceAgg.Entities
             ExpirationDate = expirationDate;
             ServiceId = serviceId;
             ProposedPrice = proposedPrice;
+        }
+
+        public void ChangeSatus(long statusId)
+        {
+            StatusId = statusId;
+        }
+
+        public void Done()
+        {
+            IsDone = true;
         }
     }
 }
