@@ -13,6 +13,12 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         public string Title { get; private set; }
         public string Description { get; set; }
 
+        #region Navigation Properties
+
+        public List<HelpRequest> HelpRequests { get; private set; }
+
+        #endregion
+
         public void Edit(string title, string? description)
         {
             Title = title;

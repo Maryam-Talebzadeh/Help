@@ -26,6 +26,14 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         public long ServiceId { get; private set; }
         public double ProposedPrice { get; private set; }
 
+        #region Navigation Properties
+
+        public HelpRequestStatus Status { get; private set; }
+        public List<HelpRequestPicture> Pictures { get; private set; }
+        public Service Service { get; private set; }
+
+        #endregion
+
         public void Edit(string title, string description, DateTime expirationDate, long serviceId, double proposedPrice)
         {
             Title = title;

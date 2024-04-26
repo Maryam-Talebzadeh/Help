@@ -4,13 +4,12 @@ namespace Help.Domain.Core.ServiceAgg.Entities
 {
     public class Skill : BaseEntity
     {
-        public Skill(string title, string? description, Int16 level, long serviceId, long categoryId)
+        public Skill(string title, string? description, Int16 level, long serviceId)
         {
             Title = title; 
             Description = description; 
             Level = level; 
             ServiceId = serviceId; 
-            CategoryId = categoryId;
             
         }
 
@@ -18,15 +17,20 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         public string Description { get; private set; }
         public Int16 Level { get; private set; }
         public long ServiceId { get; private set; }
-        public long CategoryId { get; private set; }
+        public long ExpertId { get; private set; }
 
-        public void Edit(string title, string description, Int16 level, long serviceId, long categoryId)
+        #region Navigation Properties
+
+        public List<Service> Services { get; private set; }
+
+        #endregion
+
+        public void Edit(string title, string description, Int16 level, long serviceId)
         {
             Title = title;
             Description = description;
             Level = level;
             ServiceId = serviceId;
-            CategoryId = categoryId;
         }
     }
 }

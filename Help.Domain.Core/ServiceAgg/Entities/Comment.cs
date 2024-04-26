@@ -22,13 +22,18 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         public bool IsConfirmed { get; private set; }
         public Int16 Score { get; private set; }
         public long ParentId { get; private set; }
+
+        #region Navigation Properties
+
+        public HelpRequest HelpRequest { get; private set; }
         public Comment Parent { get; private set; }
 
-        public void Edit(string message, Int16 score, long parentId)
+        #endregion
+
+        public void Edit(string message, Int16 score)
         {
             Message = message;
             Score = score;
-            ParentId = parentId;
         }
 
     }
