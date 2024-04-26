@@ -4,7 +4,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
 {
     public class Skill : BaseEntity
     {
-        public Skill(string title, string description, Int16 level, long serviceId, long categoryId)
+        public Skill(string title, string? description, Int16 level, long serviceId, long categoryId)
         {
             Title = title; 
             Description = description; 
