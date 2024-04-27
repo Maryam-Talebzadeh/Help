@@ -27,7 +27,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.ServiceAgg
 
             builder.HasMany(h => h.Proposals)
              .WithOne(p => p.HelpRequest)
-             .HasForeignKey(p => p.HelpRequestId);
+             .HasForeignKey(p => p.HelpRequestId).OnDelete(DeleteBehavior.NoAction);
 
             #endregion
         }
