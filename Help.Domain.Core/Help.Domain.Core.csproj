@@ -15,6 +15,10 @@
     <Folder Include="ServiceAgg\Data\" />
     <Folder Include="ServiceAgg\AppServices\" />
     <Folder Include="ServiceAgg\Services\" />
+    <Folder Include="WalletAgg\DTOs\" />
+    <Folder Include="WalletAgg\Data\" />
+    <Folder Include="WalletAgg\Appservices\" />
+    <Folder Include="WalletAgg\Services\" />
   </ItemGroup>
 
   <ItemGroup>
