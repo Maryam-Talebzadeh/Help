@@ -32,6 +32,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         public List<HelpRequestPicture> Pictures { get; private set; }
         public Service Service { get; private set; }
         public List<Proposal> Proposals { get; private set; }
+        public List<Comment> Comments { get; private set; }
 
         #endregion
 
