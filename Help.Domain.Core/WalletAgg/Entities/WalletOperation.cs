@@ -20,6 +20,13 @@ namespace Help.Domain.Core.WalletAgg.Entities
         public long WalletId { get; private set; }
         public long TypeId { get; private set; }
 
+        #region Navigation Properties
+
+        public Wallet Wallet { get; private set; }
+        public OperationType Type { get; private set; }
+
+        #endregion
+
         public void Cancel()
         {
             IsCanceled = true;

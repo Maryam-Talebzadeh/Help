@@ -12,5 +12,11 @@ namespace Help.Domain.Core.WalletAgg.Entities
 
         public double Balance { get; private set; }
         public long CustomerId  { get; private set; }
+
+        #region Navigation Properties
+
+        public List<WalletOperation> Operations { get; private set; }
+
+        #endregion
     }
 }
