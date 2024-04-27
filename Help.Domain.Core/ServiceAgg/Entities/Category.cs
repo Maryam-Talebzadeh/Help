@@ -18,6 +18,8 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         #region Navigation Properties
 
         public List<ServiceCategory> Services { get; private set; }
+        public Category Parent { get; private set; }
+        public List<Category> Children { get; private set; }
 
         #endregion
 

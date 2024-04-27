@@ -17,7 +17,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.ServiceAgg
 
             builder.HasMany(c => c.Services)
              .WithOne(sc => sc.Category).OnDelete(deleteBehavior:DeleteBehavior.NoAction);
-        
+
+            builder.HasOne(c => c.Parent)
+           .WithMany(sc => sc.Children).OnDelete(deleteBehavior: DeleteBehavior.NoAction);
 
             #endregion
         }

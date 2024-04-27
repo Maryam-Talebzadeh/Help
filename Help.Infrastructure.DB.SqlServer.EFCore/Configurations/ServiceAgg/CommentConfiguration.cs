@@ -14,7 +14,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.ServiceAgg
 
             builder.HasOne(c => c.HelpRequest)
               .WithMany(h => h.Comments)
-              .HasForeignKey(c => c.HelpRequestId);
+              .HasForeignKey(c => c.HelpRequestId).OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(c => c.Parent)
+             .WithMany(h => h.Children)
+             .HasForeignKey(c => c.ParentId).OnDelete(DeleteBehavior.NoAction);
 
             #endregion
         }

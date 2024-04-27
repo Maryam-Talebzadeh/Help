@@ -4,6 +4,7 @@ using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 {
     [DbContext(typeof(HelpContext))]
-    partial class HelpContextModelSnapshot : ModelSnapshot
+    [Migration("20240427132139_comment test")]
+    partial class commenttest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,8 +53,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
 
                     b.ToTable("Category");
                 });
@@ -407,17 +408,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("Skills");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Category", b =>
-                {
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Category", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Parent");
-                });
-
             modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Comment", b =>
                 {
                     b.HasOne("Help.Domain.Core.ServiceAgg.Entities.HelpRequest", "HelpRequest")
@@ -521,8 +511,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Category", b =>
                 {
-                    b.Navigation("Children");
-
                     b.Navigation("Services");
                 });
 

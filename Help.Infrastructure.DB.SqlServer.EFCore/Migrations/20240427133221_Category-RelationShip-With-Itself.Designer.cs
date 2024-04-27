@@ -4,6 +4,7 @@ using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 {
     [DbContext(typeof(HelpContext))]
-    partial class HelpContextModelSnapshot : ModelSnapshot
+    [Migration("20240427133221_Category-RelationShip-With-Itself")]
+    partial class CategoryRelationShipWithItself
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
