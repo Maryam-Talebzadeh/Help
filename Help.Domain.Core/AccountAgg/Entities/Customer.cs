@@ -1,5 +1,6 @@
 ﻿using Base_Framework.Domain.Core.Entities;
 using Help.Domain.Core.ServiceAgg.Entities;
+using Help.Domain.Core.WalletAgg.Entities;
 
 namespace Help.Domain.Core.AccountAgg.Entities
 {
@@ -21,9 +22,9 @@ namespace Help.Domain.Core.AccountAgg.Entities
             Password = password;
         }
 
-        public string FullName { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public string FullName { get; private set; }
+        public string UserName { get; private set; }
+        public string Password { get; private set; }
         public Int64 CardNumber { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Bio { get; private set; }
@@ -40,7 +41,8 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public List<Comment> Comments { get; private set; }
         public List<HelpRequest> HelpRequests { get; private set; }
         public List<Skill> Skills { get; private set; }
-        public List<Proposal> Proposals { get; set; }
+        public List<Proposal> Proposals { get; private set; }
+        public Wallet Wallet { get; private set; }
 
         #endregion
 

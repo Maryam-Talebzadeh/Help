@@ -1,4 +1,5 @@
 ﻿using Base_Framework.Domain.Core.Entities;
+using Help.Domain.Core.AccountAgg.Entities;
 
 
 namespace Help.Domain.Core.WalletAgg.Entities
@@ -16,6 +17,7 @@ namespace Help.Domain.Core.WalletAgg.Entities
         #region Navigation Properties
 
         public List<WalletOperation> Operations { get; private set; }
+        public Customer Customer { get; private set; }
 
         #endregion
     }
