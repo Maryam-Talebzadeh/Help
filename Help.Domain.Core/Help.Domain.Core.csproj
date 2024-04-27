@@ -10,7 +10,6 @@
     <Folder Include="AccountAgg\DTOs\" />
     <Folder Include="AccountAgg\Data\" />
     <Folder Include="AccountAgg\AppServices\" />
-    <Folder Include="AccountAgg\Entities\" />
     <Folder Include="AccountAgg\Services\" />
     <Folder Include="ServiceAgg\DTOs\" />
     <Folder Include="ServiceAgg\Data\" />
