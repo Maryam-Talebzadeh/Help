@@ -16,7 +16,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.ServiceAgg
             #region Relations
 
             builder.HasMany(s => s.Categories)
-              .WithMany(c => c.Services);
+              .WithOne(c => c.Service);
 
             builder.HasMany(s => s.Skills)
                 .WithOne(s => s.Service)

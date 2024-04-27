@@ -4,12 +4,12 @@ namespace Help.Domain.Core.ServiceAgg.Entities
 {
     public class Service : BaseEntity
     {
-        public Service(string title, string description, string slug, string keywords)
+        public Service(string title, string description, string slug)
         {
             Title = title;
             Description = description;
             Slug = slug;
-            KeyWords = keywords;
+            //KeyWords = keywords;
         }
 
         public string Title { get; private set; }

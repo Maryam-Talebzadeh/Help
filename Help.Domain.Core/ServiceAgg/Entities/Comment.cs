@@ -26,7 +26,6 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         #region Navigation Properties
 
         public HelpRequest HelpRequest { get; private set; }
-        public Comment Parent { get; private set; }
 
         #endregion
 
