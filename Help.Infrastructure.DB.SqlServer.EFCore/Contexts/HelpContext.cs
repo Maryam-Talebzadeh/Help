@@ -1,5 +1,6 @@
 ﻿using Help.Domain.Core.AccountAgg.Entities;
 using Help.Domain.Core.ServiceAgg.Entities;
+using Help.Domain.Core.WalletAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Configurations.ServiceAgg;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Contexts
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerPicture> CustomerPictures { get; set; }
         public DbSet<CustomerRole> CustomerRoles { get; set; }
+
+        #endregion
+
+        #region Wallet Agg
+
+        public DbSet<Wallet> Wallets { get; set; }
+        public DbSet<WalletOperation> WalletOperations { get; set; }
+        public DbSet<OperationType> OperationTypes { get; set; }
 
         #endregion
 
