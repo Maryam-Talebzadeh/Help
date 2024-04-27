@@ -17,23 +17,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{8A6AFD3B-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{67B57FBE-EE70-4419-858E-ABFE18B0794F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Help.Domain.Core", "Help.Domain.Core\Help.Domain.Core.csproj", "{E16999C4-FBEE-4B2B-929E-42A0934E38E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Help.Domain.Core", "Help.Domain.Core\Help.Domain.Core.csproj", "{E16999C4-FBEE-4B2B-929E-42A0934E38E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Help.Domain.Services", "Help.Domain.Services\Help.Domain.Services.csproj", "{741FBFB2-7DFB-49C9-88AC-AD4751BF1EF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Help.Domain.Services", "Help.Domain.Services\Help.Domain.Services.csproj", "{741FBFB2-7DFB-49C9-88AC-AD4751BF1EF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Help.Domain.AppServices", "Help.Domain.AppServices\Help.Domain.AppServices.csproj", "{ABBAE40A-B0D4-439E-ABE5-FB900B0A9FE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Help.Domain.AppServices", "Help.Domain.AppServices\Help.Domain.AppServices.csproj", "{ABBAE40A-B0D4-439E-ABE5-FB900B0A9FE7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{DB10E3E9-4958-4958-BD0A-E4D589E271AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{BAF55D69-BE98-4B3E-B5E8-A8044E7C7E84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Help.Infrastructure.DataAccess.Repos.EFCore", "Help.Infrastructure.DataAccess.Repos.EFCore\Help.Infrastructure.DataAccess.Repos.EFCore.csproj", "{D4BD5A27-959D-4293-9CE3-85BB62F0AD36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Help.Infrastructure.DataAccess.Repos.EFCore", "Help.Infrastructure.DataAccess.Repos.EFCore\Help.Infrastructure.DataAccess.Repos.EFCore.csproj", "{D4BD5A27-959D-4293-9CE3-85BB62F0AD36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Help.Infrastructure.DB.SqlServer.EFCore", "Help.Infrastructure.DB.SqlServer.EFCore\Help.Infrastructure.DB.SqlServer.EFCore.csproj", "{3FA7B1A1-8B6A-4973-A658-8DFDAF5EC18A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Help.Infrastructure.DB.SqlServer.EFCore", "Help.Infrastructure.DB.SqlServer.EFCore\Help.Infrastructure.DB.SqlServer.EFCore.csproj", "{3FA7B1A1-8B6A-4973-A658-8DFDAF5EC18A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Help.EndPoints.MVC", "Help.EndPoints.MVC\Help.EndPoints.MVC.csproj", "{CE0BCDCD-3F7F-4948-88E4-A307096B8F81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base_Framework", "Base_Framework\Base_Framework.csproj", "{59DEDB14-D507-41BB-885D-7C1036B16390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base_Framework", "Base_Framework\Base_Framework.csproj", "{59DEDB14-D507-41BB-885D-7C1036B16390}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Help.EndPoints.API", "Help.EndPoints.API\Help.EndPoints.API.csproj", "{7FCCF318-5389-41EE-A87F-46F5EEF7ABB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,14 +61,14 @@ Global
 		{3FA7B1A1-8B6A-4973-A658-8DFDAF5EC18A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FA7B1A1-8B6A-4973-A658-8DFDAF5EC18A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FA7B1A1-8B6A-4973-A658-8DFDAF5EC18A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE0BCDCD-3F7F-4948-88E4-A307096B8F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE0BCDCD-3F7F-4948-88E4-A307096B8F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE0BCDCD-3F7F-4948-88E4-A307096B8F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE0BCDCD-3F7F-4948-88E4-A307096B8F81}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59DEDB14-D507-41BB-885D-7C1036B16390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{59DEDB14-D507-41BB-885D-7C1036B16390}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59DEDB14-D507-41BB-885D-7C1036B16390}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59DEDB14-D507-41BB-885D-7C1036B16390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FCCF318-5389-41EE-A87F-46F5EEF7ABB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FCCF318-5389-41EE-A87F-46F5EEF7ABB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FCCF318-5389-41EE-A87F-46F5EEF7ABB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FCCF318-5389-41EE-A87F-46F5EEF7ABB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,8 +87,8 @@ Global
 		{BAF55D69-BE98-4B3E-B5E8-A8044E7C7E84} = {C8D835EC-A87C-473F-AFCA-23F8FDC0B30F}
 		{D4BD5A27-959D-4293-9CE3-85BB62F0AD36} = {DB10E3E9-4958-4958-BD0A-E4D589E271AF}
 		{3FA7B1A1-8B6A-4973-A658-8DFDAF5EC18A} = {BAF55D69-BE98-4B3E-B5E8-A8044E7C7E84}
-		{CE0BCDCD-3F7F-4948-88E4-A307096B8F81} = {1EF3378B-DE4A-48FE-A6C2-D708883C007E}
 		{59DEDB14-D507-41BB-885D-7C1036B16390} = {18D8B6CB-1E2E-4897-B74A-4A2CC53AC605}
+		{7FCCF318-5389-41EE-A87F-46F5EEF7ABB9} = {1EF3378B-DE4A-48FE-A6C2-D708883C007E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F43F0F8E-A91F-4731-9D86-48431A0939D0}
