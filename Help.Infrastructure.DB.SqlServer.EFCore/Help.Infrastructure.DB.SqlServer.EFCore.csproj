@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Help.Domain.Core\Help.Domain.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Configurations\WalletAgg\" />
-  </ItemGroup>
-
 </Project>
