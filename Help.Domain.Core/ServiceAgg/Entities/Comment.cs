@@ -30,6 +30,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         public Comment Parent { get; private set; }
         public List<Comment> Children { get; private set; }
         public CustomerRole CustomerRole { get; set; }
+        public Customer Customer { get; private set; }
 
         #endregion
 

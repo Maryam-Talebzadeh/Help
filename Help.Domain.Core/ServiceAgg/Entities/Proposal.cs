@@ -1,4 +1,5 @@
 ﻿using Base_Framework.Domain.Core.Entities;
+using Help.Domain.Core.AccountAgg.Entities;
 
 namespace Help.Domain.Core.ServiceAgg.Entities
 {
@@ -24,6 +25,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         #region Navigation Properties
 
         public HelpRequest HelpRequest { get; private set; }
+        public Customer Customer { get; private set; }
 
         #endregion
 
