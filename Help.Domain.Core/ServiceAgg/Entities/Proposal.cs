@@ -4,13 +4,13 @@ namespace Help.Domain.Core.ServiceAgg.Entities
 {
     public class Proposal : BaseEntity
     {
-        public Proposal(string? description, DateTime suggestedTime, double suggestedPrice, long helpRequestId, long expertId)
+        public Proposal(string? description, DateTime suggestedTime, double suggestedPrice, long helpRequestId, long customerId)
         {
             Description = description; 
             SuggestedPrice = suggestedPrice;
             SuggestedTime = suggestedTime;
-            HelpRequestId = helpRequestId; 
-            ExpertId = expertId;
+            HelpRequestId = helpRequestId;
+            CustomerId = customerId;
             IsConfirmed = false;
         }
 
@@ -19,7 +19,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         public double SuggestedPrice { get; private set; }
         public bool IsConfirmed { get; private set; }
         public long HelpRequestId { get; private set; }
-        public long ExpertId { get; private set; }
+        public long CustomerId { get; private set; }
 
         #region Navigation Properties
 

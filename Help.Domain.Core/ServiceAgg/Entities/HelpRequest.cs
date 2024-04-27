@@ -1,16 +1,17 @@
 ﻿using Base_Framework.Domain.Core.Entities;
+using Help.Domain.Core.AccountAgg.Entities;
 
 
 namespace Help.Domain.Core.ServiceAgg.Entities
 {
     public class HelpRequest : BaseEntity
     {
-        public HelpRequest(string title, string description, DateTime expirationDate, long applicantId, long serviceId, double proposedPrice)
+        public HelpRequest(string title, string description, DateTime expirationDate, long customerId, long serviceId, double proposedPrice)
         {
             Title = title; 
             Description = description; 
             ExpirationDate = expirationDate; 
-            ApplicantId = applicantId; 
+            CustomerId = customerId; 
             ServiceId = serviceId; 
             ProposedPrice = proposedPrice;
             IsDone = false;
@@ -22,7 +23,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         public DateTime ExpirationDate { get; private set; }
         public bool IsDone { get; private set; }
         public long StatusId { get; private set; }
-        public long ApplicantId { get; private set; }
+        public long CustomerId { get; private set; }
         public long ServiceId { get; private set; }
         public double ProposedPrice { get; private set; }
 
@@ -33,6 +34,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         public Service Service { get; private set; }
         public List<Proposal> Proposals { get; private set; }
         public List<Comment> Comments { get; private set; }
+        public Customer Customer { get; private set; }
 
         #endregion
 

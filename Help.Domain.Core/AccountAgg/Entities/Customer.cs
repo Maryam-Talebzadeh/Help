@@ -1,4 +1,5 @@
 ﻿using Base_Framework.Domain.Core.Entities;
+using Help.Domain.Core.ServiceAgg.Entities;
 
 namespace Help.Domain.Core.AccountAgg.Entities
 {
@@ -36,6 +37,10 @@ namespace Help.Domain.Core.AccountAgg.Entities
         #region Navigation Properties
 
         public CustomerPicture Profile { get; private set; }
+        public List<Comment> Comments { get; private set; }
+        public List<HelpRequest> HelpRequests { get; private set; }
+        public List<Skill> Skills { get; private set; }
+        public List<Proposal> Proposals { get; set; }
 
         #endregion
 
@@ -54,9 +59,10 @@ namespace Help.Domain.Core.AccountAgg.Entities
             IsActive = true;
         }
 
-        public void ExpertIt() // input : list<Skill>
+        public void ExpertIt(List<Skill> skills) 
         {
             IsExpert = true;
+            Skills = skills;
         }
 
         public void ChangePassword(string password)
