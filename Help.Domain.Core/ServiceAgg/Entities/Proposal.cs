@@ -4,7 +4,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
 {
     public class Proposal : BaseEntity
     {
-        public Proposal(string description, DateTime suggestedTime, double suggestedPrice, long helpRequestId, long expertId)
+        public Proposal(string? description, DateTime suggestedTime, double suggestedPrice, long helpRequestId, long expertId)
         {
             Description = description; 
             SuggestedPrice = suggestedPrice;
