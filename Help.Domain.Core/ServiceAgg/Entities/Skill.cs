@@ -21,7 +21,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
 
         #region Navigation Properties
 
-        public List<Service> Services { get; private set; }
+        public Service Service { get; private set; }
 
         #endregion
 
