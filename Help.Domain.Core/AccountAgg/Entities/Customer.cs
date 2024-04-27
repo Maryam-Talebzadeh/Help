@@ -33,6 +33,12 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public bool IsActive { get; private set; }
         public bool IsExpert { get; private set; }
 
+        #region Navigation Properties
+
+        public CustomerPicture Profile { get; private set; }
+
+        #endregion
+
         public void Edit(string fullName, string userName, Int64 cardNumber, string phoneNumber, string? bio, DateTime birthday)
         {
             CardNumber = cardNumber;

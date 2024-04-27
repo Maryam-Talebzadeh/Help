@@ -1,6 +1,4 @@
-﻿
-
-using Base_Framework.Domain.Core.Entities;
+﻿using Base_Framework.Domain.Core.Entities;
 
 namespace Help.Domain.Core.AccountAgg.Entities
 {
@@ -12,5 +10,11 @@ namespace Help.Domain.Core.AccountAgg.Entities
         }
 
         public long CustomerId { get; private set; }
+
+        #region Navigation Properties
+
+        public Customer Customer { get; private set; }
+
+        #endregion
     }
 }
