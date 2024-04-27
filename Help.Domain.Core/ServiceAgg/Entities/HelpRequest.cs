@@ -31,6 +31,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         public HelpRequestStatus Status { get; private set; }
         public List<HelpRequestPicture> Pictures { get; private set; }
         public Service Service { get; private set; }
+        public List<Proposal> Proposals { get; private set; }
 
         #endregion
 
