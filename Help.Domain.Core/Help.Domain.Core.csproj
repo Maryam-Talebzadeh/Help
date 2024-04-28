@@ -11,10 +11,10 @@
     <Folder Include="AccountAgg\Data\" />
     <Folder Include="AccountAgg\AppServices\" />
     <Folder Include="AccountAgg\Services\" />
-    <Folder Include="ServiceAgg\DTOs\" />
-    <Folder Include="ServiceAgg\Data\" />
-    <Folder Include="ServiceAgg\AppServices\" />
-    <Folder Include="ServiceAgg\Services\" />
+    <Folder Include="HelpServiceAgg\DTOs\" />
+    <Folder Include="HelpServiceAgg\Data\" />
+    <Folder Include="HelpServiceAgg\AppServices\" />
+    <Folder Include="HelpServiceAgg\Services\" />
     <Folder Include="WalletAgg\DTOs\" />
     <Folder Include="WalletAgg\Data\" />
     <Folder Include="WalletAgg\Appservices\" />

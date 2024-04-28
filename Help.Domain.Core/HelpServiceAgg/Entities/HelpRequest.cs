@@ -2,7 +2,7 @@
 using Help.Domain.Core.AccountAgg.Entities;
 
 
-namespace Help.Domain.Core.ServiceAgg.Entities
+namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class HelpRequest : BaseEntity
     {

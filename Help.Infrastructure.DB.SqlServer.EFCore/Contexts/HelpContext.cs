@@ -1,7 +1,7 @@
 ﻿using Help.Domain.Core.AccountAgg.Entities;
-using Help.Domain.Core.ServiceAgg.Entities;
+using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Domain.Core.WalletAgg.Entities;
-using Help.Infrastructure.DB.SqlServer.EFCore.Configurations.ServiceAgg;
+using Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg;
 using Microsoft.EntityFrameworkCore;
 
 namespace Help.Infrastructure.DB.SqlServer.EFCore.Contexts

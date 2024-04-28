@@ -209,7 +209,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Category", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,7 +243,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("Category");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Comment", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Comment", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -288,7 +288,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.HelpRequest", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequest", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -341,7 +341,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("HelpRequests");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.HelpRequestPicture", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequestPicture", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -380,7 +380,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("HelpRequestPictures");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.HelpRequestStatus", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequestStatus", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -409,7 +409,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("HelpRequestStatuses");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Proposal", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Proposal", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -452,7 +452,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("Proposals");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Service", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Service", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -494,7 +494,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.ServiceCategory", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.ServiceCategory", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -517,7 +517,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("ServiceCategories");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.ServicePicture", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.ServicePicture", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -557,7 +557,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("ServicePictures");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Skill", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Skill", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -709,9 +709,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Category", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
                 {
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Category", "Parent")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Category", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -720,7 +720,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Comment", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Comment", b =>
                 {
                     b.HasOne("Help.Domain.Core.AccountAgg.Entities.CustomerRole", "CustomerRole")
                         .WithMany("Comments")
@@ -728,13 +728,13 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.HelpRequest", "HelpRequest")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequest", "HelpRequest")
                         .WithMany("Comments")
                         .HasForeignKey("HelpRequestId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Comment", "Parent")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Comment", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -747,7 +747,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("Parent");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.HelpRequest", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequest", b =>
                 {
                     b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
                         .WithMany("HelpRequests")
@@ -755,13 +755,13 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Service", "Service")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Service", "Service")
                         .WithMany("HelpRequests")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.HelpRequestStatus", "Status")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequestStatus", "Status")
                         .WithMany("HelpRequests")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -774,9 +774,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.HelpRequestPicture", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequestPicture", b =>
                 {
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.HelpRequest", "HelpRequest")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequest", "HelpRequest")
                         .WithMany("Pictures")
                         .HasForeignKey("HelpRequestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -785,7 +785,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("HelpRequest");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Proposal", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Proposal", b =>
                 {
                     b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
                         .WithMany("Proposals")
@@ -793,7 +793,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.HelpRequest", "HelpRequest")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequest", "HelpRequest")
                         .WithMany("Proposals")
                         .HasForeignKey("HelpRequestId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -804,15 +804,15 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("HelpRequest");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.ServiceCategory", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.ServiceCategory", b =>
                 {
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Category", "Category")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Category", "Category")
                         .WithMany("Services")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Service", "Service")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Service", "Service")
                         .WithMany("Categories")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -823,18 +823,18 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.ServicePicture", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.ServicePicture", b =>
                 {
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Service", "Service")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Service", "Service")
                         .WithOne("Picture")
-                        .HasForeignKey("Help.Domain.Core.ServiceAgg.Entities.ServicePicture", "ServiceId")
+                        .HasForeignKey("Help.Domain.Core.HelpServiceAgg.Entities.ServicePicture", "ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Skill", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Skill", b =>
                 {
                     b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
                         .WithMany("Skills")
@@ -842,7 +842,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Service", "Service")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Service", "Service")
                         .WithMany("Skills")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -910,19 +910,19 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("CustomerRoles");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Category", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
                 {
                     b.Navigation("Children");
 
                     b.Navigation("Services");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Comment", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Comment", b =>
                 {
                     b.Navigation("Children");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.HelpRequest", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequest", b =>
                 {
                     b.Navigation("Comments");
 
@@ -931,12 +931,12 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("Proposals");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.HelpRequestStatus", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequestStatus", b =>
                 {
                     b.Navigation("HelpRequests");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Service", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Service", b =>
                 {
                     b.Navigation("Categories");
 

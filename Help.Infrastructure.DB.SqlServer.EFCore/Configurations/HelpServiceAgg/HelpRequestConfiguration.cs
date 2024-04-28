@@ -1,8 +1,8 @@
-﻿using Help.Domain.Core.ServiceAgg.Entities;
+﻿using Help.Domain.Core.HelpServiceAgg.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.ServiceAgg
+namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
 {
     public class HelpRequestConfiguration : IEntityTypeConfiguration<HelpRequest>
     {

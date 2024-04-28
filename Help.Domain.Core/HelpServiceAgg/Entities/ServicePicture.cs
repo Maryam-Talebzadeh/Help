@@ -1,6 +1,6 @@
 ﻿using Base_Framework.Domain.Core.Entities;
 
-namespace Help.Domain.Core.ServiceAgg.Entities
+namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class ServicePicture : Picture
     {

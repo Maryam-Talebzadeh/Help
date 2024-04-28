@@ -1,4 +1,4 @@
-﻿using Help.Domain.Core.ServiceAgg.Entities;
+﻿using Help.Domain.Core.HelpServiceAgg.Entities;
 
 namespace Help.Domain.Core.AccountAgg.Entities
 {
