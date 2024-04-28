@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
 {
-    public class ServiceConfiguration : IEntityTypeConfiguration<Service>
+    public class ServiceConfiguration : IEntityTypeConfiguration<HelpService>
     {
-        public void Configure(EntityTypeBuilder<Service> builder)
+        public void Configure(EntityTypeBuilder<HelpService> builder)
         {
             builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(500);
@@ -16,18 +16,18 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
             #region Relations
 
             builder.HasMany(s => s.Categories)
-              .WithOne(c => c.Service);
+              .WithOne(c => c.HelpService);
 
             builder.HasMany(s => s.Skills)
-                .WithOne(s => s.Service)
+                .WithOne(s => s.HelpService)
                 .HasForeignKey(s => s.ServiceId);
 
             builder.HasOne(s => s.Picture)
-                .WithOne(p => p.Service)
+                .WithOne(p => p.HelpService)
                 .HasForeignKey<ServicePicture>(p => p.ServiceId);
 
             builder.HasMany(s => s.HelpRequests)
-               .WithOne(s => s.Service)
+               .WithOne(s => s.HelpService)
                .HasForeignKey(s => s.ServiceId);
 
             #endregion

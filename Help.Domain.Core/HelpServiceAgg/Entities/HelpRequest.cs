@@ -31,7 +31,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 
         public HelpRequestStatus Status { get; private set; }
         public List<HelpRequestPicture> Pictures { get; private set; }
-        public Service Service { get; private set; }
+        public HelpService HelpService { get; private set; }
         public List<Proposal> Proposals { get; private set; }
         public List<Comment> Comments { get; private set; }
         public Customer Customer { get; private set; }

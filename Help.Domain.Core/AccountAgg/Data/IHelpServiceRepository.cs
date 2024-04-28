@@ -1,8 +1,9 @@
-﻿using Help.Domain.Core.AccountAgg.DTOs.HelpService;
+﻿using Base_Framework.Domain.Core.Contracts;
+using Help.Domain.Core.AccountAgg.DTOs.HelpService;
 
 namespace Help.Domain.Core.AccountAgg.Data
 {
-    public interface IHelpServiceRepository
+    public interface IHelpServiceRepository : IRepository<HelpService>
     {
         List<HelpServiceDTO> GetAll();
         void Create(CreateHelpServiceDTO command);

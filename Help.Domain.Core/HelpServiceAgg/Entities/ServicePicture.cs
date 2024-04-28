@@ -13,7 +13,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 
         #region Navigation Properties
 
-        public Service Service { get; private set; }
+        public HelpService HelpService { get; private set; }
 
         #endregion
     }

@@ -2,9 +2,9 @@
 
 namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
-    public class Service : BaseEntity
+    public class HelpService : BaseEntity
     {
-        public Service(string title, string description, string slug, string tags)
+        public HelpService(string title, string description, string slug, string tags)
         {
             Title = title;
             Description = description;

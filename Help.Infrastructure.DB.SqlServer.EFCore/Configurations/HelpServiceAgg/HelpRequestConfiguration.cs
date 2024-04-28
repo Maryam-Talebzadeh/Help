@@ -17,7 +17,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
               .WithMany(s => s.HelpRequests)
               .HasForeignKey(h => h.StatusId);
 
-            builder.HasOne(h => h.Service)
+            builder.HasOne(h => h.HelpService)
             .WithMany(s => s.HelpRequests)
             .HasForeignKey(h => h.ServiceId);
 

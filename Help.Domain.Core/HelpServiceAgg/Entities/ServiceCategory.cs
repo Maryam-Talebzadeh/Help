@@ -10,7 +10,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 
         #region Relations
 
-        public Service Service { get; private set; }
+        public HelpService HelpService { get; private set; }
         public Category Category { get; private set; }
 
         #endregion
