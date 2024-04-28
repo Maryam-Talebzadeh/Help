@@ -19,7 +19,7 @@ namespace Base_Framework.Domain.Core.Entities
             IsRemoved = true;
         }
 
-        public void ReStore()
+        public void Restore()
         {
             IsRemoved = false;
         }

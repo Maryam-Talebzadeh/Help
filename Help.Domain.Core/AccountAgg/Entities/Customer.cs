@@ -1,12 +1,11 @@
-﻿using Base_Framework.Domain.Core.Entities;
-using Help.Domain.Core.ServiceAgg.Entities;
+﻿using Help.Domain.Core.ServiceAgg.Entities;
 using Help.Domain.Core.WalletAgg.Entities;
 
 namespace Help.Domain.Core.AccountAgg.Entities
 {
-    public class Customer : BaseEntity
+    public class Customer : User
     {
-        public Customer(string fullName, string userName, string password , Int64 cardNumber, string phoneNumber, string? bio, long pictureId, DateTime birthday, long addressId)
+        public Customer(string fullName, string userName, string password, string email, Int64 cardNumber, string phoneNumber, string? bio, long pictureId, DateTime birthday, long addressId) : base(fullName, userName, password, email)
         {
             CardNumber = cardNumber;
             PhoneNumber = phoneNumber;
@@ -17,14 +16,9 @@ namespace Help.Domain.Core.AccountAgg.Entities
             Score = 0;
             IsActive = false;
             IsExpert = false;
-            FullName = fullName;
-            UserName = userName;
-            Password = password;
         }
 
-        public string FullName { get; private set; }
-        public string UserName { get; private set; }
-        public string Password { get; private set; }
+     
         public Int64 CardNumber { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Bio { get; private set; }
@@ -38,22 +32,20 @@ namespace Help.Domain.Core.AccountAgg.Entities
         #region Navigation Properties
 
         public CustomerPicture Profile { get; private set; }
-        public List<Comment> Comments { get; private set; }
         public List<HelpRequest> HelpRequests { get; private set; }
         public List<Skill> Skills { get; private set; }
         public List<Proposal> Proposals { get; private set; }
         public Wallet Wallet { get; private set; }
+        public List<CustomerRole> CustomerRoles { get; private set; }
 
         #endregion
 
-        public void Edit(string fullName, string userName, Int64 cardNumber, string phoneNumber, string? bio, DateTime birthday)
+        public void Edit(Int64 cardNumber, string phoneNumber, string? bio, DateTime birthday)
         {
             CardNumber = cardNumber;
             PhoneNumber = phoneNumber;
             Birthday = birthday;
             Bio = bio;
-            FullName = fullName;
-            UserName = userName;
         }
 
         public void Activate()
@@ -67,9 +59,5 @@ namespace Help.Domain.Core.AccountAgg.Entities
             Skills = skills;
         }
 
-        public void ChangePassword(string password)
-        {
-            Password = password;
-        }
     }
 }

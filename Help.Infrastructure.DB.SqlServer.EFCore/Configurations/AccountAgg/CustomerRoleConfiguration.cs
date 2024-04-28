@@ -8,13 +8,16 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
     {
         public void Configure(EntityTypeBuilder<CustomerRole> builder)
         {
-            builder.Property(c => c.Title).HasMaxLength(50).IsRequired();
 
             #region Relations
 
             builder.HasMany(cr => cr.Comments)
                .WithOne(c => c.CustomerRole)
                .HasForeignKey(c => c.CustomerRoleId);
+
+            builder.HasOne(cr => cr.Role)
+              .WithMany(r => r.CustomerRoles)
+              .HasForeignKey(cr => cr.RoleId);
 
             #endregion
         }

@@ -11,7 +11,7 @@ namespace Help.Domain.Core.ServiceAgg.Entities
         }
 
         public string Title { get; private set; }
-        public string Description { get; set; }
+        public string Description { get; private set; }
 
         #region Navigation Properties
 

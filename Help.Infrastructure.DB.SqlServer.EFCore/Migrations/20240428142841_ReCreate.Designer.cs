@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 {
     [DbContext(typeof(HelpContext))]
-    [Migration("20240427132139_comment test")]
-    partial class commenttest
+    [Migration("20240428142841_ReCreate")]
+    partial class ReCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,190 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Admin", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("PersonalCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Admins");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Customer", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AddressId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Birthday")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CardNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsExpert")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("PictureId")
+                        .HasColumnType("bigint");
+
+                    b.Property<short>("Score")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerPicture", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Alt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
+
+                    b.ToTable("CustomerPictures");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerRole", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte>("RoleId")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("CustomerRoles");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Role", b =>
+                {
+                    b.Property<byte>("Id")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
 
             modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Category", b =>
                 {
@@ -54,6 +238,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ParentId");
+
                     b.ToTable("Category");
                 });
 
@@ -65,13 +251,10 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ApplicantId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("ExpertId")
+                    b.Property<long>("CustomerRoleId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("HelpRequestId")
@@ -96,6 +279,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerRoleId");
+
                     b.HasIndex("HelpRequestId");
 
                     b.HasIndex("ParentId");
@@ -111,11 +296,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ApplicantId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -146,6 +331,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("ServiceId");
 
@@ -233,13 +420,13 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<long>("ExpertId")
-                        .HasColumnType("bigint");
 
                     b.Property<long>("HelpRequestId")
                         .HasColumnType("bigint");
@@ -257,6 +444,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("HelpRequestId");
 
@@ -282,11 +471,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<string>("KeyWords")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
-
                     b.Property<long>("PictureId")
                         .HasColumnType("bigint");
 
@@ -294,6 +478,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Tags")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -379,13 +568,13 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<long>("ExpertId")
-                        .HasColumnType("bigint");
 
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
@@ -403,13 +592,142 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerId");
+
                     b.HasIndex("ServiceId");
 
                     b.ToTable("Skills");
                 });
 
+            modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.OperationType", b =>
+                {
+                    b.Property<byte>("Id")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OperationTypes");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.Wallet", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<double>("Balance")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("CustomerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
+
+                    b.ToTable("Wallets");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.WalletOperation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<byte>("TypeId")
+                        .HasColumnType("tinyint");
+
+                    b.Property<long>("WalletId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeId");
+
+                    b.HasIndex("WalletId");
+
+                    b.ToTable("WalletOperations");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerPicture", b =>
+                {
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
+                        .WithOne("Profile")
+                        .HasForeignKey("Help.Domain.Core.AccountAgg.Entities.CustomerPicture", "CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerRole", b =>
+                {
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
+                        .WithMany("CustomerRoles")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Role", "Role")
+                        .WithMany("CustomerRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Category", b =>
+                {
+                    b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Category", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Parent");
+                });
+
             modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Comment", b =>
                 {
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.CustomerRole", "CustomerRole")
+                        .WithMany("Comments")
+                        .HasForeignKey("CustomerRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Help.Domain.Core.ServiceAgg.Entities.HelpRequest", "HelpRequest")
                         .WithMany("Comments")
                         .HasForeignKey("HelpRequestId")
@@ -422,6 +740,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.Navigation("CustomerRole");
+
                     b.Navigation("HelpRequest");
 
                     b.Navigation("Parent");
@@ -429,6 +749,12 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.HelpRequest", b =>
                 {
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
+                        .WithMany("HelpRequests")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Service", "Service")
                         .WithMany("HelpRequests")
                         .HasForeignKey("ServiceId")
@@ -440,6 +766,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Service");
 
@@ -459,11 +787,19 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Proposal", b =>
                 {
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
+                        .WithMany("Proposals")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Help.Domain.Core.ServiceAgg.Entities.HelpRequest", "HelpRequest")
                         .WithMany("Proposals")
                         .HasForeignKey("HelpRequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Customer");
 
                     b.Navigation("HelpRequest");
                 });
@@ -500,17 +836,84 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Skill", b =>
                 {
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
+                        .WithMany("Skills")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Help.Domain.Core.ServiceAgg.Entities.Service", "Service")
                         .WithMany("Skills")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Customer");
+
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.Wallet", b =>
+                {
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
+                        .WithOne("Wallet")
+                        .HasForeignKey("Help.Domain.Core.WalletAgg.Entities.Wallet", "CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.WalletOperation", b =>
+                {
+                    b.HasOne("Help.Domain.Core.WalletAgg.Entities.OperationType", "Type")
+                        .WithMany("Operations")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Help.Domain.Core.WalletAgg.Entities.Wallet", "Wallet")
+                        .WithMany("Operations")
+                        .HasForeignKey("WalletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Type");
+
+                    b.Navigation("Wallet");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Customer", b =>
+                {
+                    b.Navigation("CustomerRoles");
+
+                    b.Navigation("HelpRequests");
+
+                    b.Navigation("Profile")
+                        .IsRequired();
+
+                    b.Navigation("Proposals");
+
+                    b.Navigation("Skills");
+
+                    b.Navigation("Wallet")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerRole", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Role", b =>
+                {
+                    b.Navigation("CustomerRoles");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.ServiceAgg.Entities.Category", b =>
                 {
+                    b.Navigation("Children");
+
                     b.Navigation("Services");
                 });
 
@@ -543,6 +946,16 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Skills");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.OperationType", b =>
+                {
+                    b.Navigation("Operations");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.Wallet", b =>
+                {
+                    b.Navigation("Operations");
                 });
 #pragma warning restore 612, 618
         }

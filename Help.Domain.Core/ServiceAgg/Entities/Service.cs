@@ -4,19 +4,19 @@ namespace Help.Domain.Core.ServiceAgg.Entities
 {
     public class Service : BaseEntity
     {
-        public Service(string title, string description, string slug)
+        public Service(string title, string description, string slug, string tags)
         {
             Title = title;
             Description = description;
             Slug = slug;
-            //KeyWords = keywords;
+            Tags = tags;
         }
 
         public string Title { get; private set; }
         public string Description { get; private set; }
         public string Slug { get; private set; }
-        public string KeyWords { get; private set; }
         public long PictureId { get; private set; }
+        public string Tags { get; private set; }
 
 
         #region Navigation Properties
@@ -28,12 +28,12 @@ namespace Help.Domain.Core.ServiceAgg.Entities
 
         #endregion
 
-        public void Edit(string title, string description, string slug, string keywords)
+        public void Edit(string title, string description, string slug, string tags)
         {
             Title = title;
             Description = description;
             Slug = slug;
-            KeyWords = keywords;
+            Tags = tags;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.ServiceAgg
         {
             builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(500);
-            builder.Property(x => x.KeyWords).HasMaxLength(80).IsRequired();
+            builder.Property(x => x.Tags).HasMaxLength(80).IsRequired();
             builder.Property(x => x.Slug).HasMaxLength(300).IsRequired();
 
             #region Relations

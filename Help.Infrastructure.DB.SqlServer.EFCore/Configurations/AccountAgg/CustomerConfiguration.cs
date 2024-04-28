@@ -13,7 +13,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
             builder.Property(c => c.FullName).HasMaxLength(50).IsRequired();
             builder.Property(c => c.UserName).HasMaxLength(50).IsRequired();
             builder.Property(c => c.Password).HasMaxLength(256).IsRequired();
-            builder.Property(c => c.Password).HasMaxLength(11).IsRequired();
+            builder.Property(c => c.Email).HasMaxLength(100).IsRequired();
 
             #region Relations
 
@@ -21,9 +21,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
                 .WithOne(p => p.Customer)
                 .HasForeignKey<CustomerPicture>(p => p.CustomerId);
 
-            builder.HasMany(c => c.Comments)
-               .WithOne(c => c.Customer)
-               .HasForeignKey(c => c.CustomerId);
+            builder.HasMany(c => c.CustomerRoles)
+               .WithOne(cr => cr.Customer)
+               .HasForeignKey(cr => cr.CustomerId);
 
             builder.HasMany(c => c.HelpRequests)
              .WithOne(h => h.Customer)

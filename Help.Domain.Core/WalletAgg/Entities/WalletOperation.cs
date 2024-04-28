@@ -5,7 +5,7 @@ namespace Help.Domain.Core.WalletAgg.Entities
 {
     public class WalletOperation : BaseEntity
     {
-        public WalletOperation(double amount, long walletId, long typeId)
+        public WalletOperation(double amount, long walletId, byte typeId)
         {
             Amount = amount;
             IsPaid = false;
@@ -18,7 +18,7 @@ namespace Help.Domain.Core.WalletAgg.Entities
         public bool IsPaid { get; private set; }
         public bool IsCanceled { get; private set; }
         public long WalletId { get; private set; }
-        public long TypeId { get; private set; }
+        public byte TypeId { get; private set; }
 
         #region Navigation Properties
 
