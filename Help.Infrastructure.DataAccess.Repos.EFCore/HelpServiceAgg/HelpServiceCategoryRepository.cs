@@ -46,7 +46,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 ParentId = c.ParentId,
                 Title = c.Title,
                 Children = c.Children.Select(c =>
-                    new TransferHelpServiceCategoryDTO()
+                    new IdTitleCategoryDTO()
                     {
                         Id = c.Id,
                         Title = c.Title
@@ -64,7 +64,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Description = c.Description,
                 CreationDate = c.CreationDate.ToFarsi(),
                 Children =c.Children.Select(c =>
-                    new TransferHelpServiceCategoryDTO()
+                    new IdTitleCategoryDTO()
                     {
                         Id = c.Id,
                         Title = c.Title

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
 {
-    public class TransferHelpServiceCategoryDTO
+    public class IdTitleCategoryDTO
     {
         public long Id  { get; set; }
         public string Title { get; set; }

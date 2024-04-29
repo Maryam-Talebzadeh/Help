@@ -8,6 +8,6 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
 {
     public class HelpServiceCategoryDetailDTO : EditHelpServiceCategoryDTO
     {
-        public List<TransferHelpServiceCategoryDTO> Children { get; set; }
+        public List<IdTitleCategoryDTO> Children { get; set; }
     }
 }

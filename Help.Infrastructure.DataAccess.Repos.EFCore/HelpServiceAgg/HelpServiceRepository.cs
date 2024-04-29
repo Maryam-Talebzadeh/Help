@@ -53,7 +53,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Picture = s.Picture.Name,
                 CreationDate = s.CreationDate.ToFarsi(),
                 Categories = s.Categories.Select(category =>
-                     new TransferHelpServiceCategoryDTO()
+                     new IdTitleCategoryDTO()
                      {
                          Id = category.Category.Id,
                          Title = category.Category.Title
