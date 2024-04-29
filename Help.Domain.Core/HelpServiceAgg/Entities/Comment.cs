@@ -37,5 +37,10 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
             Score = score;
         }
 
+        public void Confirm()
+        {
+            IsConfirmed = true;
+        }
+
     }
 }
