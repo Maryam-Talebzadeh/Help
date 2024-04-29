@@ -49,6 +49,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             {
                 Id = s.Id,
                 Title = s.Title,
+                Picture = s.Picture.Name,
                 CreationDate = s.CreationDate.ToFarsi()
             }) ;
 
@@ -56,6 +57,11 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             {
                 query = query.Where(s =>
                 s.Title == searchModel.Title);
+            }
+
+            if(!searchModel.Category.IsNullOrEmpty())
+            {
+               //Will Do
             }
 
             return query.OrderByDescending(s => s.CreationDate).ToList();
