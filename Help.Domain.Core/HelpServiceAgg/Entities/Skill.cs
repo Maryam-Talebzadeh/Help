@@ -12,13 +12,14 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
             Level = level; 
             ServiceId = serviceId;
             CustomerId = customerId;
-
+            IsConfirmed = false;
 
         }
 
         public string Title { get; private set; }
         public string Description { get; private set; }
         public Int16 Level { get; private set; }
+        public bool IsConfirmed { get; private set; }
         public long ServiceId { get; private set; }
         public long CustomerId { get; private set; }
 
@@ -35,6 +36,11 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
             Description = description;
             Level = level;
             ServiceId = serviceId;
+        }
+
+        public void Confirm()
+        {
+            IsConfirmed = true;
         }
     }
 }
