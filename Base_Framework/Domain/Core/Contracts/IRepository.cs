@@ -7,5 +7,7 @@ namespace Base_Framework.Domain.Core.Contracts
     {
         public bool IsExist(Expression<Func<T, bool>> expression);
         public void Save();
+        public void Remove(long id);
+        public void Restore(long id);
     }
 }

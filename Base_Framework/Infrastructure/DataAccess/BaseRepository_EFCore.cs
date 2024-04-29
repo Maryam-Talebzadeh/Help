@@ -28,5 +28,17 @@ namespace Base_Framework.Infrastructure.DataAccess
         {
             return _context.Set<T>().SingleOrDefault(e => e.Id == id);
         }
+
+        public void Remove(long id)
+        {
+            var entity = Get(id);
+            entity.Remove();
+        }
+
+        public void Restore(long id)
+        {
+            var entity = Get(id);
+            entity.Restore();
+        }
     }
 }
