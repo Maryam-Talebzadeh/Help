@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="HelpServiceAgg\" />
+    <ProjectReference Include="..\Base_Framework\Base_Framework.csproj" />
+    <ProjectReference Include="..\Help.Domain.Core\Help.Domain.Core.csproj" />
+    <ProjectReference Include="..\Help.Infrastructure.DB.SqlServer.EFCore\Help.Infrastructure.DB.SqlServer.EFCore.csproj" />
   </ItemGroup>
 
 </Project>

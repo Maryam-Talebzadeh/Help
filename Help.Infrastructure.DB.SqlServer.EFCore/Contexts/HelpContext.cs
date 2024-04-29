@@ -15,7 +15,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Contexts
 
         #region Service Agg
 
-        public DbSet<Service> Services { get; set; }
+        public DbSet<HelpService> HelpServices { get; set; }
         public DbSet<ServiceCategory> ServiceCategories { get; set; }
         public DbSet<ServicePicture> ServicePictures { get; set; }
         public DbSet<Skill> Skills { get; set; }
