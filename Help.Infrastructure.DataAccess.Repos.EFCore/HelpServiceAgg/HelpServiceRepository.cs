@@ -5,6 +5,7 @@ using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Microsoft.IdentityModel.Tokens;
 using Base_Framework.General;
+using Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 {
@@ -50,8 +51,14 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Id = s.Id,
                 Title = s.Title,
                 Picture = s.Picture.Name,
-                CreationDate = s.CreationDate.ToFarsi()
-            }) ;
+                CreationDate = s.CreationDate.ToFarsi(),
+                Categories = s.Categories.Select(category =>
+                     new TransferHelpServiceCategoryDTO()
+                     {
+                         Id = category.Category.Id,
+                         Title = category.Category.Title
+                     }).ToList()
+            });
 
             if (!searchModel.Title.IsNullOrEmpty())
             {
@@ -61,7 +68,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
             if(!searchModel.Category.IsNullOrEmpty())
             {
-               //Will Do
+                query = query.Where(service => service.Categories.Any(category => category.Title == searchModel.Category));
             }
 
             return query.OrderByDescending(s => s.CreationDate).ToList();

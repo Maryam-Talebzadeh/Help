@@ -1,12 +1,10 @@
 ﻿using Base_Framework.General;
 using Base_Framework.Infrastructure.DataAccess;
 using Help.Domain.Core.HelpServiceAgg.Data;
-using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory;
 using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Microsoft.IdentityModel.Tokens;
-using System.Linq.Expressions;
 
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
@@ -48,30 +46,11 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 ParentId = c.ParentId,
                 Title = c.Title,
                 Children = c.Children.Select(c =>
-                    new HelpServiceCategoryDTO()
-            {
-                   Id = c.Id,
-                   Title = c.Title,
-                   Description = c.Description,
-                   CreationDate = c.CreationDate.ToFarsi(),
-                   Children = c.Children.Select(child =>
-                        new HelpServiceCategoryDTO
-                            {
-                            Id = child.Id,
-                            Title = child.Title,
-                            Description = child.Description
-                            }).ToList(),
-                   HelpServices = c.Services.Select(service =>
-                         new HelpServiceDTO()
-                            {
-                             Id = service.ServiceId,
-                             Title = service.HelpService.Title,
-                             CreationDate = service.HelpService.CreationDate.ToFarsi(),
-                             Picture = service.HelpService.Picture.Name
-                            }).ToList()
-
-            }).ToList()
-
+                    new TransferHelpServiceCategoryDTO()
+                    {
+                        Id = c.Id,
+                        Title = c.Title
+                    } ).ToList()
             }).SingleOrDefault(c => c.Id == id);
         }
 
@@ -84,21 +63,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Title = c.Title,
                 Description = c.Description,
                 CreationDate = c.CreationDate.ToFarsi(),
-                Children = c.Children.Select(child =>
-                new HelpServiceCategoryDTO
-                {
-                    Id = child.Id,
-                    Title = child.Title,
-                    Description = child.Description
-                }).ToList(),
-                HelpServices = c.Services.Select(service=>
-                new HelpServiceDTO()
-                {
-                    Id = service.ServiceId,
-                    Title = service.HelpService.Title,
-                    CreationDate = service.HelpService.CreationDate.ToFarsi(),
-                    Picture = service.HelpService.Picture.Name
-                }).ToList()
+                Children =c.Children.Select(c =>
+                    new TransferHelpServiceCategoryDTO()
+                    {
+                        Id = c.Id,
+                        Title = c.Title
+                    }).ToList()
             });
 
             if(!searchModel.Title.IsNullOrEmpty())

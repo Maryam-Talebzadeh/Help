@@ -11,7 +11,7 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
         public string Description { get;  set; }
         public string CreationDate { get; set; }
         public HelpServiceCategoryDTO Parent { get;  set; }
-        public List<HelpServiceCategoryDTO> Children { get; set; }
+        public List<TransferHelpServiceCategoryDTO> Children { get; set; }
         public List<HelpServiceDTO> HelpServices { get; set; }
     }
 }
