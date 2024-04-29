@@ -13,10 +13,10 @@ namespace Help.Domain.Core.AccountAgg.Entities
             Email = email;
         }
 
-        public string FullName { get; private set; }
-        public string UserName { get; private set; }
-        public string Password { get; private set; }
-        public string Email { get; private set; }
+        public string FullName { get; internal set; }
+        public string UserName { get; internal set; }
+        public string Password { get; internal set; }
+        public string Email { get; internal set; }
 
         public void ChangePassword(string password)
         {

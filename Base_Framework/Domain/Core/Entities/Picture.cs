@@ -11,9 +11,9 @@ namespace Base_Framework.Domain.Core.Entities
             Alt = alt;
         }
 
-        public string Name { get; private set; }
-        public string Title { get; private set; }
-        public string Alt { get; private set; }
+        public string Name { get; internal set; }
+        public string Title { get; internal set; }
+        public string Alt { get; internal set; }
 
         public void Edit(string name, string title, string alt)
         {

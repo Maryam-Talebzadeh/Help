@@ -38,12 +38,16 @@ namespace Help.Domain.Core.AccountAgg.Entities
 
         #endregion
 
-        public void Edit(Int64 cardNumber, string phoneNumber, string? bio, DateTime birthday)
+        public void Edit(string fullName, string userName, string email, Int64 cardNumber, string phoneNumber, string? bio, DateTime birthday)
         {
+            FullName = fullName;
+            UserName = userName;
+            Email = email;
             CardNumber = cardNumber;
             PhoneNumber = phoneNumber;
             Birthday = birthday;
             Bio = bio;
+            IsActive = false;
         }
 
         public void Activate()
