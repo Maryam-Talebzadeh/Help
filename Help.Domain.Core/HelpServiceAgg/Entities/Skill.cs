@@ -36,6 +36,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
             Description = description;
             Level = level;
             ServiceId = serviceId;
+            IsConfirmed = false;
         }
 
         public void Confirm()
