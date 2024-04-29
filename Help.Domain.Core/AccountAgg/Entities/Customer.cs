@@ -34,7 +34,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public List<Skill> Skills { get; private set; }
         public List<Proposal> Proposals { get; private set; }
         public Wallet Wallet { get; private set; }
-        public List<CustomerRole> CustomerRoles { get; private set; }
+        public Address Address { get; set; }
 
         #endregion
 

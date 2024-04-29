@@ -50,13 +50,13 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                          HelpRequestId = c.HelpRequestId,
                          Message = c.Message,
                          Score = c.Score,
-                         CustomerRoleId = c.CustomerRoleId,
+                         CustomerId = c.CustomerId,
                          Parent = new CommentDTO()
                              {
                              HelpRequestId = c.HelpRequestId,
                              Message = c.Message,
                              Score = c.Score,
-                             CustomerRoleId = c.CustomerRoleId
+                             CustomerId = c.CustomerId
                              },
                          Children = c.Children.Select(c =>
                               new CommentDTO()
@@ -64,7 +64,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                                HelpRequestId = c.HelpRequestId,
                                Message = c.Message,
                                Score = c.Score,
-                               CustomerRoleId = c.CustomerRoleId
+                               CustomerId = c.CustomerId
                               }).ToList()
                      }).ToList()
             }).SingleOrDefault(hr => hr.Id == id);

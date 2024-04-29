@@ -11,6 +11,6 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.Comment
         public string CreationDate { get; set; }
         public CommentDTO Parent { get; set; }
         public List<CommentDTO> Children { get; set; }
-        public long CustomerRoleId { get; set; } //Temporary
+        public long CustomerId { get; set; } //Temporary
     }
 }

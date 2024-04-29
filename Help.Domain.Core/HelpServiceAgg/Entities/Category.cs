@@ -27,7 +27,6 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         {
             Title = title;
             Description = description;
-            ParentId = parentId;
         }
     }
 }

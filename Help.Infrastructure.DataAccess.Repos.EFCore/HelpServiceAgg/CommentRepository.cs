@@ -24,7 +24,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
         public void Create(CreateCommentDTO command)
         {
-            var comment = new Comment(command.Message, command.Score, command.ParentId, command.HelpRequestId, command.CustomerRoleId);
+            var comment = new Comment(command.Message, command.Score, command.ParentId, command.HelpRequestId, command.CustomerId);
             _context.Comments.Add(comment);
         }
 
@@ -42,13 +42,13 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 HelpRequestId = c.HelpRequestId,
                 Message = c.Message,
                 Score = c.Score,
-                CustomerRoleId = c.CustomerRoleId,
+                CustomerId = c.CustomerId,
                 Parent = new CommentDTO()
                     {
                     HelpRequestId = c.HelpRequestId,
                     Message = c.Message,
                     Score = c.Score,
-                    CustomerRoleId = c.CustomerRoleId
+                    CustomerId = c.CustomerId
                 }
             });
 
@@ -69,7 +69,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 HelpRequestId = c.HelpRequestId,
                 Message = c.Message,
                 Score = c.Score,
-                CustomerRoleId = c.CustomerRoleId,
+                CustomerId = c.CustomerId,
                 Id = c.Id,
                 ParentId = c.ParentId,
                 Parent = new CommentDTO()
@@ -77,7 +77,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                     HelpRequestId = c.HelpRequestId,
                     Message = c.Message,
                     Score = c.Score,
-                    CustomerRoleId = c.CustomerRoleId
+                    CustomerId = c.CustomerId
                 },
                 Children = c.Children.Select(c =>
                     new CommentDTO()
@@ -85,7 +85,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                         HelpRequestId = c.HelpRequestId,
                         Message = c.Message,
                         Score = c.Score,
-                        CustomerRoleId = c.CustomerRoleId
+                        CustomerId = c.CustomerId
                     }).ToList()
             }).SingleOrDefault(c => c.Id == id);
         }
@@ -99,13 +99,13 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                HelpRequestId = c.HelpRequestId,
                Message = c.Message,
                Score = c.Score,
-               CustomerRoleId = c.CustomerRoleId,
+               CustomerId = c.CustomerId,
                Parent = new CommentDTO()
                {
                    HelpRequestId = c.HelpRequestId,
                    Message = c.Message,
                    Score = c.Score,
-                   CustomerRoleId = c.CustomerRoleId
+                   CustomerId = c.CustomerId
                },
                Children = c.Children.Select(c =>
                    new CommentDTO()
@@ -113,7 +113,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                        HelpRequestId = c.HelpRequestId,
                        Message = c.Message,
                        Score = c.Score,
-                       CustomerRoleId = c.CustomerRoleId
+                       CustomerId = c.CustomerId
                    }).ToList()
            });
 

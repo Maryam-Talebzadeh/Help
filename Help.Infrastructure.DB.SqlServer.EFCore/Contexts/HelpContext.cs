@@ -32,8 +32,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Contexts
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerPicture> CustomerPictures { get; set; }
-        public DbSet<CustomerRole> CustomerRoles { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Admin> Admins { get; set; }
 
         #endregion

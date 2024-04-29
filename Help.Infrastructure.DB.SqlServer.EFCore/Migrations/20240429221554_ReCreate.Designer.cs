@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 {
     [DbContext(typeof(HelpContext))]
-    [Migration("20240428142841_ReCreate")]
+    [Migration("20240429221554_ReCreate")]
     partial class ReCreate
     {
         /// <inheritdoc />
@@ -24,6 +24,43 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Address", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("AlleyNumber")
+                        .HasColumnType("int");
+
+                    b.Property<long>("CityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("Address");
+                });
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Admin", b =>
                 {
@@ -67,6 +104,36 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("Admins");
                 });
 
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.City", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProvinceName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("City");
+                });
+
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Customer", b =>
                 {
                     b.Property<long>("Id")
@@ -104,9 +171,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsExpert")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
@@ -131,6 +195,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.ToTable("Customers");
                 });
@@ -172,43 +239,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("CustomerPictures");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerRole", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
-
-                    b.Property<byte>("RoleId")
-                        .HasColumnType("tinyint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("CustomerRoles");
-                });
-
-            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Role", b =>
-                {
-                    b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
                 {
                     b.Property<long>("Id")
@@ -240,7 +270,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Comment", b =>
@@ -254,7 +284,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CustomerRoleId")
+                    b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("HelpRequestId")
@@ -279,7 +309,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerRoleId");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("HelpRequestId");
 
@@ -409,6 +439,48 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("HelpRequestStatuses");
                 });
 
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("PictureId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Tags")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HelpServices");
+                });
+
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Proposal", b =>
                 {
                     b.Property<long>("Id")
@@ -452,48 +524,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("Proposals");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Service", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("PictureId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Services");
-                });
-
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.ServiceCategory", b =>
                 {
                     b.Property<long>("Id")
@@ -505,6 +535,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("HelpServiceId")
+                        .HasColumnType("bigint");
+
                     b.Property<long>("ServiceId")
                         .HasColumnType("bigint");
 
@@ -512,7 +545,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ServiceId");
+                    b.HasIndex("HelpServiceId");
 
                     b.ToTable("ServiceCategories");
                 });
@@ -575,6 +608,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
@@ -679,6 +715,28 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.ToTable("WalletOperations");
                 });
 
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Address", b =>
+                {
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.City", "City")
+                        .WithMany("Addresses")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Customer", b =>
+                {
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Address", "Address")
+                        .WithOne("Customer")
+                        .HasForeignKey("Help.Domain.Core.AccountAgg.Entities.Customer", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerPicture", b =>
                 {
                     b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
@@ -688,25 +746,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerRole", b =>
-                {
-                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
-                        .WithMany("CustomerRoles")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Role", "Role")
-                        .WithMany("CustomerRoles")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
@@ -722,9 +761,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Comment", b =>
                 {
-                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.CustomerRole", "CustomerRole")
-                        .WithMany("Comments")
-                        .HasForeignKey("CustomerRoleId")
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -740,7 +779,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("CustomerRole");
+                    b.Navigation("Customer");
 
                     b.Navigation("HelpRequest");
 
@@ -755,7 +794,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Service", "Service")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", "HelpService")
                         .WithMany("HelpRequests")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -769,7 +808,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Service");
+                    b.Navigation("HelpService");
 
                     b.Navigation("Status");
                 });
@@ -812,26 +851,26 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Service", "Service")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", "HelpService")
                         .WithMany("Categories")
-                        .HasForeignKey("ServiceId")
+                        .HasForeignKey("HelpServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
 
-                    b.Navigation("Service");
+                    b.Navigation("HelpService");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.ServicePicture", b =>
                 {
-                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Service", "Service")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", "HelpService")
                         .WithOne("Picture")
                         .HasForeignKey("Help.Domain.Core.HelpServiceAgg.Entities.ServicePicture", "ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Service");
+                    b.Navigation("HelpService");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Skill", b =>
@@ -842,7 +881,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Service", "Service")
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", "HelpService")
                         .WithMany("Skills")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -850,7 +889,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Service");
+                    b.Navigation("HelpService");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.Wallet", b =>
@@ -883,10 +922,19 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("Wallet");
                 });
 
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Address", b =>
+                {
+                    b.Navigation("Customer")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.City", b =>
+                {
+                    b.Navigation("Addresses");
+                });
+
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Customer", b =>
                 {
-                    b.Navigation("CustomerRoles");
-
                     b.Navigation("HelpRequests");
 
                     b.Navigation("Profile")
@@ -898,16 +946,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.Navigation("Wallet")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerRole", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Role", b =>
-                {
-                    b.Navigation("CustomerRoles");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
@@ -936,7 +974,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Navigation("HelpRequests");
                 });
 
-            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Service", b =>
+            modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", b =>
                 {
                     b.Navigation("Categories");
 

@@ -21,10 +21,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
                 .WithOne(p => p.Customer)
                 .HasForeignKey<CustomerPicture>(p => p.CustomerId);
 
-            builder.HasMany(c => c.CustomerRoles)
-               .WithOne(cr => cr.Customer)
-               .HasForeignKey(cr => cr.CustomerId);
-
             builder.HasMany(c => c.HelpRequests)
              .WithOne(h => h.Customer)
              .HasForeignKey(h => h.CustomerId);
