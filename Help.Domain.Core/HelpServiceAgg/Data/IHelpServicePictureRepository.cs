@@ -6,7 +6,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
 {
     public interface IHelpServicePictureRepository : IRepository<ServicePicture>
     {
-        void CreateParent(CreateHelpServicePictureDTO command);
+        void Create(CreateHelpServicePictureDTO command);
         void Edit(EditHelpServicePictureDTO command);
     }
 }
