@@ -1,6 +1,7 @@
 ﻿using Base_Framework.General;
 using Base_Framework.Infrastructure.DataAccess;
 using Help.Domain.Core.HelpServiceAgg.Data;
+using Help.Domain.Core.HelpServiceAgg.DTOs.Comment;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 using Help.Domain.Core.HelpServiceAgg.Entities;
@@ -30,10 +31,10 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             helpRequest.Edit(command.Title, command.Description, command.ExpirationDate.ToGregorianDateTime(), command.ServiceId, command.ProposedPrice);
         }
 
-        public EditHelpRequestDTO GetDetails(long id)
+        public HelpRequestDetailDTO GetDetails(long id)
         {
             return _context.HelpRequests.Select(hr =>
-            new EditHelpRequestDTO()
+            new HelpRequestDetailDTO()
             {
                 CustomerId = hr.Id,
                 Description = hr.Description,
@@ -41,7 +42,31 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Id = hr.Id,
                 Title = hr.Title,
                 ProposedPrice = hr.ProposedPrice,
-                ServiceId = hr.ServiceId
+                ServiceId = hr.ServiceId,
+                Comments = hr.Comments.Select(c =>
+                     new CommentDTO()
+                     {
+                         Id = c.Id,
+                         HelpRequestId = c.HelpRequestId,
+                         Message = c.Message,
+                         Score = c.Score,
+                         CustomerRoleId = c.CustomerRoleId,
+                         Parent = new CommentDTO()
+                             {
+                             HelpRequestId = c.HelpRequestId,
+                             Message = c.Message,
+                             Score = c.Score,
+                             CustomerRoleId = c.CustomerRoleId
+                             },
+                         Children = c.Children.Select(c =>
+                              new CommentDTO()
+                              {
+                               HelpRequestId = c.HelpRequestId,
+                               Message = c.Message,
+                               Score = c.Score,
+                               CustomerRoleId = c.CustomerRoleId
+                              }).ToList()
+                     }).ToList()
             }).SingleOrDefault(hr => hr.Id == id);
         }
 
@@ -56,10 +81,10 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Title = hr.Title,
                 ExpirationDate = hr.ExpirationDate.ToFarsi(),
                 HelpService = new IdTitleHelpServiceDTO()
-                    {
+                {
                     Id = hr.HelpService.Id,
                     Title = hr.HelpService.Title
-                    },
+                },
                 IsDone = hr.IsDone
             });
 

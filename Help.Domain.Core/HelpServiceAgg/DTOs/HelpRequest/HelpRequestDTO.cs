@@ -1,5 +1,5 @@
 ﻿
-
+using Help.Domain.Core.HelpServiceAgg.DTOs.Comment;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 
 namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest
