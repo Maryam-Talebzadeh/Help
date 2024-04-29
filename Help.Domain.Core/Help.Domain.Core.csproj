@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="AccountAgg\AppServices\" />
-    <Folder Include="AccountAgg\Data\" />
-    <Folder Include="AccountAgg\DTOs\" />
     <Folder Include="AccountAgg\Services\" />
     <Folder Include="HelpServiceAgg\AppServices\" />
     <Folder Include="HelpServiceAgg\Services\" />

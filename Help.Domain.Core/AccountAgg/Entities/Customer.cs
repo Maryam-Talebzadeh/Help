@@ -15,7 +15,6 @@ namespace Help.Domain.Core.AccountAgg.Entities
             Bio = bio;
             Score = 0;
             IsActive = false;
-            IsExpert = false;
         }
 
      
@@ -27,7 +26,6 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public Int16 Score { get; private set; }
         public long AddressId { get; private set; }
         public bool IsActive { get; private set; }
-        public bool IsExpert { get; private set; }
 
         #region Navigation Properties
 
@@ -53,11 +51,6 @@ namespace Help.Domain.Core.AccountAgg.Entities
             IsActive = true;
         }
 
-        public void ExpertIt(List<Skill> skills) 
-        {
-            IsExpert = true;
-            Skills = skills;
-        }
 
     }
 }
