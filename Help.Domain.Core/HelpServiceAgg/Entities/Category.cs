@@ -23,7 +23,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 
         #endregion
 
-        public void Edit(string title, string description, long parentId)
+        public void Edit(string title, string description)
         {
             Title = title;
             Description = description;

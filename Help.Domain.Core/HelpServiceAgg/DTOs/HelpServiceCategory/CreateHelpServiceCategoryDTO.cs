@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
 {
-    public class CreateHelpServiceCategoryDTO
+    public class CreateChildHelpServiceCategoryDTO
     {
         public string Title { get; set; }
         public string Description { get; set; }

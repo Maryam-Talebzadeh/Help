@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
 {
-    public class EditHelpServiceCategoryDTO : CreateChildHelpServiceCategoryDTO
+    public class HelpServiceCategoryDetailDTO : EditHelpServiceCategoryDTO
     {
-        public long Id { get; set; }
+        public List<HelpServiceCategoryDTO> Children { get; set; }
     }
 }
