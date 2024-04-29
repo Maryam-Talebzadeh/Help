@@ -4,6 +4,7 @@ using Help.Domain.Core.AccountAgg.DTOs.HelpService;
 using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Microsoft.IdentityModel.Tokens;
+using Base_Framework.General;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 {
@@ -48,8 +49,8 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             {
                 Id = s.Id,
                 Title = s.Title,
-                CreationDate = s.CreationDate.ToString()  //Temporary
-            });
+                CreationDate = s.CreationDate.ToFarsi()
+            }) ;
 
             if (!searchModel.Title.IsNullOrEmpty())
             {
