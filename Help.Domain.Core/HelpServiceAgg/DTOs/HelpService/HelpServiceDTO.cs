@@ -1,4 +1,4 @@
-﻿namespace Help.Domain.Core.AccountAgg.DTOs.HelpService
+﻿namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpService
 {
     public class HelpServiceDTO
     {

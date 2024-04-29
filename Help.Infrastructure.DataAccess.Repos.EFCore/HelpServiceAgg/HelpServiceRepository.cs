@@ -1,6 +1,6 @@
 ﻿using Base_Framework.Infrastructure.DataAccess;
-using Help.Domain.Core.AccountAgg.Data;
-using Help.Domain.Core.AccountAgg.DTOs.HelpService;
+using Help.Domain.Core.HelpServiceAgg.Data;
+using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Microsoft.IdentityModel.Tokens;
