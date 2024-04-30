@@ -11,8 +11,6 @@
     <Folder Include="AccountAgg\Services\" />
     <Folder Include="HelpServiceAgg\AppServices\" />
     <Folder Include="HelpServiceAgg\Services\" />
-    <Folder Include="WalletAgg\DTOs\" />
-    <Folder Include="WalletAgg\Data\" />
     <Folder Include="WalletAgg\Appservices\" />
     <Folder Include="WalletAgg\Services\" />
   </ItemGroup>
