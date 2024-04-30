@@ -4,6 +4,7 @@ using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory;
 using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 
@@ -34,6 +35,24 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
         {
             var category = Get(command.Id);
             category.Edit(command.Title, command.Description);
+        }
+
+        public List<HelpServiceCategoryDTO> GetAllRemoved()
+        {
+            return _context.Categories.Select(c =>
+            new HelpServiceCategoryDTO()
+            {
+                Id = c.Id,
+                Title = c.Title,
+                Description = c.Description,
+                CreationDate = c.CreationDate.ToFarsi(),
+                Children = c.Children.Select(c =>
+                    new IdTitleCategoryDTO()
+                    {
+                        Id = c.Id,
+                        Title = c.Title
+                    }).ToList()
+            }).IgnoreQueryFilters().ToList();
         }
 
         public HelpServiceCategoryDetailDTO GetDetails(long id)

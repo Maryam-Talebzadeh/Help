@@ -10,5 +10,6 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
         void Edit(EditHelpServiceDTO command);
         EditHelpServiceDTO GetDetails(long id);
         List<HelpServiceDTO> Search(SearchHelpServiceDTO searchModel);
+        List<HelpServiceDTO> GetAllRemoved();
     }
 }

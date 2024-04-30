@@ -11,5 +11,6 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
         void Edit(EditHelpServiceCategoryDTO command);
         HelpServiceCategoryDetailDTO GetDetails(long id);
         List<HelpServiceCategoryDTO> Search(SearchHelpServiceCategoryDTO searchModel);
+        List<HelpServiceCategoryDTO> GetAllRemoved();
     }
 }

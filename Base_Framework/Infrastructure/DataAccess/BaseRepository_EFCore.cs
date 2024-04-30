@@ -40,5 +40,6 @@ namespace Base_Framework.Infrastructure.DataAccess
             var entity = Get(id);
             entity.Restore();
         }
+
     }
 }
