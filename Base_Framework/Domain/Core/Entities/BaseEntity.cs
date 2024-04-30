@@ -11,8 +11,8 @@ namespace Base_Framework.Domain.Core.Entities
         }
 
         public int Id { get; set; }
-        public bool IsRemoved { get; set; }
-        public DateTime CreationDate { get; set; }
+        public bool IsRemoved { get; protected set; }
+        public DateTime CreationDate { get; protected set; }
 
         public void Remove()
         {
