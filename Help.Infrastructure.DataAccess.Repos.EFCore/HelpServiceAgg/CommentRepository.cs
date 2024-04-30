@@ -1,4 +1,6 @@
 ﻿using Base_Framework.Infrastructure.DataAccess;
+using Help.Domain.Core.AccountAgg.DTOs.Customer;
+using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.Comment;
 using Help.Domain.Core.HelpServiceAgg.Entities;
@@ -42,13 +44,17 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 HelpRequestId = c.HelpRequestId,
                 Message = c.Message,
                 Score = c.Score,
-                CustomerId = c.CustomerId,
-                Parent = new CommentDTO()
+                Writer = new CustomerDTO()
+                {
+                    Id = c.Id,
+                    Picture = new CustomerPictureDTO()
                     {
-                    HelpRequestId = c.HelpRequestId,
-                    Message = c.Message,
-                    Score = c.Score,
-                    CustomerId = c.CustomerId
+                        Title = c.Customer.Profile.Title,
+                        Name = c.Customer.Profile.Name,
+                        Alt = c.Customer.Profile.Alt,
+                        CustomerId = c.Id
+                    },
+                    FullName = c.Customer.FullName
                 }
             });
 
@@ -77,7 +83,18 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                     HelpRequestId = c.HelpRequestId,
                     Message = c.Message,
                     Score = c.Score,
-                    CustomerId = c.CustomerId
+                    Writer = new CustomerDTO()
+                    {
+                        Id = c.Id,
+                        Picture = new CustomerPictureDTO()
+                        {
+                            Title = c.Customer.Profile.Title,
+                            Name = c.Customer.Profile.Name,
+                            Alt = c.Customer.Profile.Alt,
+                            CustomerId = c.Id
+                        },
+                        FullName = c.Customer.FullName
+                    }
                 },
                 Children = c.Children.Select(c =>
                     new CommentDTO()
@@ -85,7 +102,18 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                         HelpRequestId = c.HelpRequestId,
                         Message = c.Message,
                         Score = c.Score,
-                        CustomerId = c.CustomerId
+                        Writer = new CustomerDTO()
+                        {
+                            Id = c.Id,
+                            Picture = new CustomerPictureDTO()
+                            {
+                                Title = c.Customer.Profile.Title,
+                                Name = c.Customer.Profile.Name,
+                                Alt = c.Customer.Profile.Alt,
+                                CustomerId = c.Id
+                            },
+                            FullName = c.Customer.FullName
+                        }
                     }).ToList()
             }).SingleOrDefault(c => c.Id == id);
         }
@@ -99,13 +127,17 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                HelpRequestId = c.HelpRequestId,
                Message = c.Message,
                Score = c.Score,
-               CustomerId = c.CustomerId,
-               Parent = new CommentDTO()
+               Writer = new CustomerDTO()
                {
-                   HelpRequestId = c.HelpRequestId,
-                   Message = c.Message,
-                   Score = c.Score,
-                   CustomerId = c.CustomerId
+                   Id = c.Id,
+                   Picture = new CustomerPictureDTO()
+                   {
+                       Title = c.Customer.Profile.Title,
+                       Name = c.Customer.Profile.Name,
+                       Alt = c.Customer.Profile.Alt,
+                       CustomerId = c.Id
+                   },
+                   FullName = c.Customer.FullName
                },
                Children = c.Children.Select(c =>
                    new CommentDTO()
@@ -113,7 +145,18 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                        HelpRequestId = c.HelpRequestId,
                        Message = c.Message,
                        Score = c.Score,
-                       CustomerId = c.CustomerId
+                       Writer = new CustomerDTO()
+                       {
+                           Id = c.Id,
+                           Picture = new CustomerPictureDTO()
+                           {
+                               Title = c.Customer.Profile.Title,
+                               Name = c.Customer.Profile.Name,
+                               Alt = c.Customer.Profile.Alt,
+                               CustomerId = c.Id
+                           },
+                           FullName = c.Customer.FullName
+                       }
                    }).ToList()
            });
 

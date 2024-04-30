@@ -6,6 +6,8 @@ using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Base_Framework.General;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
+using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
+using Help.Domain.Core.AccountAgg.DTOs.Customer;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 {
@@ -45,11 +47,31 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                Description = p.Description,
                CreationDate = p.CreationDate.ToFarsi(),
                SuggestedPrice = p.SuggestedPrice,
-               CustomerId = p.CustomerId,
+               Customer = new CustomerDTO()
+                {
+                    Id = p.Customer.Id,
+                    Picture = new CustomerPictureDTO()
+                    {
+                        Title = p.Customer.Profile.Title,
+                        Name = p.Customer.Profile.Name,
+                        Alt = p.Customer.Profile.Alt,
+                        CustomerId = p.Customer.Id
+                    }
+                },
                HelpRequest = new HelpRequestDTO()
                {
                    Id = p.HelpRequest.Id,
-                   CustomerId = p.HelpRequest.Id,
+                   Customer = new CustomerDTO()
+                   {
+                       Id = p.Customer.Id,
+                       Picture = new CustomerPictureDTO()
+                       {
+                           Title = p.Customer.Profile.Title,
+                           Name = p.Customer.Profile.Name,
+                           Alt = p.Customer.Profile.Alt,
+                           CustomerId = p.Customer.Id
+                       }
+                   },
                    Description = p.HelpRequest.Description,
                    Title = p.HelpRequest.Title,
                    ExpirationDate = p.HelpRequest.ExpirationDate.ToFarsi(),
@@ -91,11 +113,31 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Description = p.Description,
                 CreationDate = p.CreationDate.ToFarsi(),
                 SuggestedPrice = p.SuggestedPrice,
-                CustomerId = p.CustomerId,
+                Customer = new CustomerDTO()
+                {
+                    Id = p.Customer.Id,
+                    Picture = new CustomerPictureDTO()
+                    {
+                        Title = p.Customer.Profile.Title,
+                        Name = p.Customer.Profile.Name,
+                        Alt = p.Customer.Profile.Alt,
+                        CustomerId = p.Customer.Id
+                    }
+                },
                 HelpRequest = new HelpRequestDTO()
                 {
                     Id = p.HelpRequest.Id,
-                    CustomerId = p.HelpRequest.Id,
+                    Customer = new CustomerDTO()
+                    {
+                        Id = p.Customer.Id,
+                        Picture = new CustomerPictureDTO()
+                        {
+                            Title = p.Customer.Profile.Title,
+                            Name = p.Customer.Profile.Name,
+                            Alt = p.Customer.Profile.Alt,
+                            CustomerId = p.Customer.Id
+                        }
+                    },
                     Description = p.HelpRequest.Description,
                     Title = p.HelpRequest.Title,
                     ExpirationDate = p.HelpRequest.ExpirationDate.ToFarsi(),

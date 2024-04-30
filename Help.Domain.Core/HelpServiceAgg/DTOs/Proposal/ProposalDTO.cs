@@ -1,5 +1,6 @@
 ﻿
 
+using Help.Domain.Core.AccountAgg.DTOs.Customer;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 
 namespace Help.Domain.Core.HelpServiceAgg.DTOs.Proposal
@@ -11,6 +12,6 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.Proposal
         public string Description { get; set; }
         public double SuggestedPrice { get; set; }
         public HelpRequestDTO HelpRequest { get; set; }
-        public long CustomerId { get; set; } //Temporary
+        public CustomerDTO Customer { get; set; } 
     }
 }

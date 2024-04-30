@@ -8,7 +8,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
     {
         void Create(CreateHelpRequestDTO command);
         void Edit(EditHelpRequestDTO command);
-        HelpRequestDetailDTO GetDetails(long id);
+        EditHelpRequestDTO GetDetails(long id);
         List<HelpRequestDTO> Search(SearchHelpRequestDTO searchModel);
     }
 }

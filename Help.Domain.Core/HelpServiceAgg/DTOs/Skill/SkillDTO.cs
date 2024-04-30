@@ -12,6 +12,6 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.Skill
         public string Description { get; set; }
         public Int16 Level { get; set; }
         public IdTitleHelpServiceDTO HelpService { get; set; }
-        public long CustomerId { get; set; } //Temporary
+        public long CustomerId { get; set; } 
     }
 }

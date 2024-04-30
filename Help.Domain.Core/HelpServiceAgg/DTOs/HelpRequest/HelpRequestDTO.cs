@@ -1,5 +1,5 @@
 ﻿
-using Help.Domain.Core.HelpServiceAgg.DTOs.Comment;
+using Help.Domain.Core.AccountAgg.DTOs.Customer;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 
 namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest
@@ -11,7 +11,7 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest
         public string Description { get; set; }
         public string ExpirationDate { get; set; }
         public bool IsDone { get; set; }
-        public long CustomerId { get; set; } //Temporary > IdTitleDTo
+        public CustomerDTO Customer { get; set; } 
         public IdTitleHelpServiceDTO HelpService { get; set; }
     }
 }
