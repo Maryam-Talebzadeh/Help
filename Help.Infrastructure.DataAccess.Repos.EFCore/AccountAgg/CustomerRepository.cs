@@ -53,8 +53,13 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                 CardNumber = c.CardNumber,
                 PhoneNumber = c.PhoneNumber,
                 PictureId = c.PictureId,
-                Profile = c.Profile.Name,
-                WalletId = c.Wallet.Id
+                Profile = new CustomerPictureDTO()
+                {
+                    Title = c.Profile.Title,
+                    Name = c.Profile.Name,
+                    Alt = c.Profile.Alt,
+                    CustomerId = c.Id
+                }
             }).SingleOrDefault(c => c.Id == id);
         }
 
