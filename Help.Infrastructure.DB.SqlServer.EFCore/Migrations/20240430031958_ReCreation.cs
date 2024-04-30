@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 {
     /// <inheritdoc />
-    public partial class ReCreate : Migration
+    public partial class ReCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Admins",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PersonalCode = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
@@ -34,11 +34,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    ParentId = table.Column<int>(type: "bigint", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -53,10 +53,10 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "City",
+                name: "Cities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProvinceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -66,14 +66,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_City", x => x.Id);
+                    table.PrimaryKey("PK_Cities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "HelpRequestStatuses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
@@ -89,12 +89,12 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "HelpServices",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    PictureId = table.Column<int>(type: "bigint", nullable: false),
+                    PictureId = table.Column<int>(type: "int", nullable: false),
                     Tags = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -117,13 +117,13 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Address",
+                name: "Addresses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    CityId = table.Column<int>(type: "bigint", nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
                     StreetName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     AlleyNumber = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
@@ -131,35 +131,35 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Address_City_CityId",
+                        name: "FK_Addresses_Cities_CityId",
                         column: x => x.CityId,
-                        principalTable: "City",
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServiceCategories",
+                name: "HelpServiceCategories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceId = table.Column<int>(type: "bigint", nullable: false),
-                    CategoryId = table.Column<int>(type: "bigint", nullable: false),
-                    HelpServiceId = table.Column<int>(type: "bigint", nullable: false)
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    HelpServiceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServiceCategories", x => x.Id);
+                    table.PrimaryKey("PK_HelpServiceCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ServiceCategories_Categories_CategoryId",
+                        name: "FK_HelpServiceCategories_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ServiceCategories_HelpServices_HelpServiceId",
+                        name: "FK_HelpServiceCategories_HelpServices_HelpServiceId",
                         column: x => x.HelpServiceId,
                         principalTable: "HelpServices",
                         principalColumn: "Id",
@@ -167,12 +167,12 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServicePictures",
+                name: "HelpServicePictures",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceId = table.Column<int>(type: "bigint", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -181,9 +181,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServicePictures", x => x.Id);
+                    table.PrimaryKey("PK_HelpServicePictures", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ServicePictures_HelpServices_ServiceId",
+                        name: "FK_HelpServicePictures_HelpServices_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "HelpServices",
                         principalColumn: "Id",
@@ -194,15 +194,15 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CardNumber = table.Column<int>(type: "bigint", nullable: false),
+                    CardNumber = table.Column<long>(type: "bigint", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Bio = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PictureId = table.Column<int>(type: "bigint", nullable: false),
+                    PictureId = table.Column<int>(type: "int", nullable: false),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Score = table.Column<short>(type: "smallint", nullable: false),
-                    AddressId = table.Column<int>(type: "bigint", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -215,9 +215,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Customers_Address_AddressId",
+                        name: "FK_Customers_Addresses_AddressId",
                         column: x => x.AddressId,
-                        principalTable: "Address",
+                        principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -226,9 +226,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "CustomerPictures",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -250,15 +250,15 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "HelpRequests",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDone = table.Column<bool>(type: "bit", nullable: false),
-                    StatusId = table.Column<int>(type: "bigint", nullable: false),
-                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
-                    ServiceId = table.Column<int>(type: "bigint", nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
                     ProposedPrice = table.Column<double>(type: "float", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -290,14 +290,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Skills",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Level = table.Column<short>(type: "smallint", nullable: false),
                     IsConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    ServiceId = table.Column<int>(type: "bigint", nullable: false),
-                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -322,10 +322,10 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Wallets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Balance = table.Column<double>(type: "float", nullable: false),
-                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -344,14 +344,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HelpRequestId = table.Column<int>(type: "bigint", nullable: false),
+                    HelpRequestId = table.Column<int>(type: "int", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     IsConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     Score = table.Column<short>(type: "smallint", nullable: false),
-                    ParentId = table.Column<int>(type: "bigint", nullable: false),
-                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -380,9 +380,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "HelpRequestPictures",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HelpRequestId = table.Column<int>(type: "bigint", nullable: false),
+                    HelpRequestId = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -404,14 +404,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Proposals",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     SuggestedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SuggestedPrice = table.Column<double>(type: "float", nullable: false),
                     IsConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    HelpRequestId = table.Column<int>(type: "bigint", nullable: false),
-                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
+                    HelpRequestId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -434,12 +434,12 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "WalletOperations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     IsPaid = table.Column<bool>(type: "bit", nullable: false),
                     IsCanceled = table.Column<bool>(type: "bit", nullable: false),
-                    WalletId = table.Column<int>(type: "bigint", nullable: false),
+                    WalletId = table.Column<int>(type: "int", nullable: false),
                     TypeId = table.Column<byte>(type: "tinyint", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -462,8 +462,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Address_CityId",
-                table: "Address",
+                name: "IX_Addresses_CityId",
+                table: "Addresses",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
@@ -519,6 +519,22 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_HelpServiceCategories_CategoryId",
+                table: "HelpServiceCategories",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HelpServiceCategories_HelpServiceId",
+                table: "HelpServiceCategories",
+                column: "HelpServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HelpServicePictures_ServiceId",
+                table: "HelpServicePictures",
+                column: "ServiceId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Proposals_CustomerId",
                 table: "Proposals",
                 column: "CustomerId");
@@ -527,22 +543,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "IX_Proposals_HelpRequestId",
                 table: "Proposals",
                 column: "HelpRequestId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiceCategories_CategoryId",
-                table: "ServiceCategories",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServiceCategories_HelpServiceId",
-                table: "ServiceCategories",
-                column: "HelpServiceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ServicePictures_ServiceId",
-                table: "ServicePictures",
-                column: "ServiceId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Skills_CustomerId",
@@ -587,13 +587,13 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "HelpRequestPictures");
 
             migrationBuilder.DropTable(
+                name: "HelpServiceCategories");
+
+            migrationBuilder.DropTable(
+                name: "HelpServicePictures");
+
+            migrationBuilder.DropTable(
                 name: "Proposals");
-
-            migrationBuilder.DropTable(
-                name: "ServiceCategories");
-
-            migrationBuilder.DropTable(
-                name: "ServicePictures");
 
             migrationBuilder.DropTable(
                 name: "Skills");
@@ -602,10 +602,10 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "WalletOperations");
 
             migrationBuilder.DropTable(
-                name: "HelpRequests");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "HelpRequests");
 
             migrationBuilder.DropTable(
                 name: "OperationTypes");
@@ -623,10 +623,10 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "Addresses");
 
             migrationBuilder.DropTable(
-                name: "City");
+                name: "Cities");
         }
     }
 }
