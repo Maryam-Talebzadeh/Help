@@ -35,6 +35,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         {
             Message = message;
             Score = score;
+            IsConfirmed = false;
         }
 
         public void Confirm()

@@ -34,6 +34,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
             Description = description;
             SuggestedPrice = suggestedPrice;
             SuggestedTime = suggestedTime;
+            IsConfirmed = false;
         }
 
         public void Confirm()
