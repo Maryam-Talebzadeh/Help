@@ -5,6 +5,8 @@ using Help.Domain.Core.AccountAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Base_Framework.General;
 using Microsoft.IdentityModel.Tokens;
+using Help.Domain.Core.WalletAgg.DTOs.Wallet;
+using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 {
@@ -62,8 +64,15 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             new CustomerDTO()
             {
                 Id = c.Id,
-               Picture = c.Profile.Name,
-                FullName = c.FullName               
+               Picture = new CustomerPictureDTO()
+                   {
+                   Title = c.Profile.Title,
+                   Name = c.Profile.Name,
+                   Alt = c.Profile.Alt,
+                   CustomerId = c.Id
+                   },
+                FullName = c.FullName,
+               
             });
 
             if (!searchModel.Information.IsNullOrEmpty())
