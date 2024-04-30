@@ -6,7 +6,7 @@ namespace Help.Domain.Core.AccountAgg.Data
 {
     public interface ICustomerPictureRepository : IRepository<CustomerPicture>
     {
-        void Create(CreateCustomerPictureDTO command);
+        int Create(CreateCustomerPictureDTO command);
         void Edit(EditCustomerPictureDTO command);
     }
 }

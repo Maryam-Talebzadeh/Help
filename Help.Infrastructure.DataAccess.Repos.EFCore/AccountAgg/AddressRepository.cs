@@ -15,10 +15,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             _context = context;
         }
 
-        public void Create(CreateAddressDTO command)
+        public int Create(CreateAddressDTO command)
         {
             var address = new Address(command.Description, command.CityId, command.StreetName, command.AlleyNumber);
             _context.Addresses.Add(address);
+            Save();
+            return address.Id;
         }
 
         public void Edit(EditAddressDTO command)

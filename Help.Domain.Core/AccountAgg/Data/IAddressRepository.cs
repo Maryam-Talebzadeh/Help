@@ -6,7 +6,7 @@ namespace Help.Domain.Core.AccountAgg.Data
 {
     public interface IAddressRepository: IRepository<Address>
     {
-        void Create(CreateAddressDTO command);
+        int Create(CreateAddressDTO command);
         void Edit(EditAddressDTO command);
     }
 }

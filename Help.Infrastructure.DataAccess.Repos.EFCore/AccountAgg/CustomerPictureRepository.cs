@@ -3,6 +3,7 @@ using Help.Domain.Core.AccountAgg.Data;
 using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
 using Help.Domain.Core.AccountAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
+using System.Net;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 {
@@ -15,10 +16,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             _context = context;
         }
 
-        public void Create(CreateCustomerPictureDTO command)
+        public int Create(CreateCustomerPictureDTO command)
         {
             var picture = new CustomerPicture(command.Name, command.Title, command.Alt);
             _context.CustomerPictures.Add(picture);
+            Save();
+            return picture.Id;
         }
 
         public void Edit(EditCustomerPictureDTO command)

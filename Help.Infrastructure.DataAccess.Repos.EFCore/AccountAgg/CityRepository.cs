@@ -4,6 +4,7 @@ using Help.Domain.Core.AccountAgg.DTOs.City;
 using Help.Domain.Core.AccountAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 {
@@ -16,10 +17,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             _context = context;
         }
 
-        public void Create(CreateCityDTO command)
+        public int Create(CreateCityDTO command)
         {
             var city = new City(command.Name, command.ProvinceName, command.Code);
             _context.Cities.Add(city);
+            Save();
+            return city.Id;
         }
 
         public void Edit(EditCityDTO command)

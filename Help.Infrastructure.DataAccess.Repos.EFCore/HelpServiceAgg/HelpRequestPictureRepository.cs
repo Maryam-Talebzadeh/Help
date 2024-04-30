@@ -1,4 +1,5 @@
 ﻿using Base_Framework.Infrastructure.DataAccess;
+using Help.Domain.Core.AccountAgg.Entities;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
 using Help.Domain.Core.HelpServiceAgg.Entities;
@@ -15,10 +16,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public void Create(CreateHelpRequestPictureDTO command)
+        public int Create(CreateHelpRequestPictureDTO command)
         {
             var picture = new HelpRequestPicture(command.Name, command.Title, command.Alt, command.HelpRequestId);
             _context.HelpRequestPictures.Add(picture);
+            Save();
+            return picture.Id;
         }
 
         public void Edit(EditHelpRequestPictureDTO command)
