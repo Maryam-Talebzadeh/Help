@@ -6,7 +6,7 @@ using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 {
-    public class HelpServicePictureRepository : BaseRepository_EFCore<ServicePicture>, IHelpServicePictureRepository
+    public class HelpServicePictureRepository : BaseRepository_EFCore<HelpServicePicture>, IHelpServicePictureRepository
     {
         private readonly HelpContext _context;
 
@@ -17,8 +17,8 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
         public void Create(CreateHelpServicePictureDTO command)
         {
-            var picture = new ServicePicture(command.Name, command.Title, command.Alt, command.HelpServiceId);
-            _context.ServicePictures.Add(picture);
+            var picture = new HelpServicePicture(command.Name, command.Title, command.Alt, command.HelpServiceId);
+            _context.HelpServicePictures.Add(picture);
         }
 
         public void Edit(EditHelpServicePictureDTO command)

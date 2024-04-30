@@ -4,7 +4,7 @@ using Help.Domain.Core.HelpServiceAgg.Entities;
 
 namespace Help.Domain.Core.HelpServiceAgg.Data
 {
-    public interface IHelpServicePictureRepository : IRepository<ServicePicture>
+    public interface IHelpServicePictureRepository : IRepository<HelpServicePicture>
     {
         void Create(CreateHelpServicePictureDTO command);
         void Edit(EditHelpServicePictureDTO command);

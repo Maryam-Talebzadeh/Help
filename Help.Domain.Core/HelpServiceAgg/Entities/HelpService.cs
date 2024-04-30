@@ -21,10 +21,10 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 
         #region Navigation Properties
 
-        public List<ServiceCategory> Categories { get; private set; }
+        public List<HelpServiceCategory> Categories { get; private set; }
         public List<Skill> Skills { get; private set; }
         public List<HelpRequest> HelpRequests { get; private set; }
-        public ServicePicture Picture { get; private set; }
+        public HelpServicePicture Picture { get; private set; }
 
         #endregion
 

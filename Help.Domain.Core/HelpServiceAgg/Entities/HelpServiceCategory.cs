@@ -2,7 +2,7 @@
 
 namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
-    public class ServiceCategory 
+    public class HelpServiceCategory 
     {     
         public long Id { get; private set; }
         public long ServiceId { get; private set; }

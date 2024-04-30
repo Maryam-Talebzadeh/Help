@@ -25,7 +25,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
 
             builder.HasOne(s => s.Picture)
                 .WithOne(p => p.HelpService)
-                .HasForeignKey<ServicePicture>(p => p.ServiceId);
+                .HasForeignKey<HelpServicePicture>(p => p.ServiceId);
 
             builder.HasMany(s => s.HelpRequests)
                .WithOne(s => s.HelpService)

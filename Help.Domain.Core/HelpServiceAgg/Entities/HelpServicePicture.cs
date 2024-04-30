@@ -2,9 +2,9 @@
 
 namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
-    public class ServicePicture : Picture
+    public class HelpServicePicture : Picture
     {
-        public ServicePicture(string name, string title, string alt, long serviceId) : base(name, title, alt)
+        public HelpServicePicture(string name, string title, string alt, long serviceId) : base(name, title, alt)
         {
             ServiceId = serviceId;
         }
