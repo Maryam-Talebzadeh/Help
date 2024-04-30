@@ -8,6 +8,6 @@ namespace Help.Domain.Core.AccountAgg.Data
     {
         void Create(CreateCityDTO command);
         void Edit(EditCityDTO command);
-        List<CityDTO> GetBy(long customerId);
+        List<CityDTO> Search(SearchCityDTO searchModel);
     }
 }
