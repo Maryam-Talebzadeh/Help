@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Help.Infrastructure.DataAccess.Repos.EFCore\Help.Infrastructure.DataAccess.Repos.EFCore.csproj" />
     <ProjectReference Include="..\Help.Infrastructure.DB.SqlServer.EFCore\Help.Infrastructure.DB.SqlServer.EFCore.csproj" />
   </ItemGroup>
 

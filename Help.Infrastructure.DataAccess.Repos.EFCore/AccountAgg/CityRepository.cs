@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 {
-    internal class CityRepository : BaseRepository_EFCore<City>, ICityRepository
+    public class CityRepository : BaseRepository_EFCore<City>, ICityRepository
     {
         private readonly HelpContext _context;
 
