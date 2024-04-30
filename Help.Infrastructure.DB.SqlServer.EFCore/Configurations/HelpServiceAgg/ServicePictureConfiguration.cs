@@ -11,6 +11,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
             builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
             builder.Property(x => x.Name).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Alt).HasMaxLength(100).IsRequired();
+            builder.HasQueryFilter(x => !x.IsRemoved);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
             builder.Property(x => x.Description).HasMaxLength(500);
             builder.Property(x => x.Tags).HasMaxLength(80).IsRequired();
             builder.Property(x => x.Slug).HasMaxLength(300).IsRequired();
+            builder.HasQueryFilter(x => !x.IsRemoved);
 
             #region Relations
 

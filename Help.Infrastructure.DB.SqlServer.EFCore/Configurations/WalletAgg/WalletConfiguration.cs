@@ -10,6 +10,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.WalletAgg
     {
         public void Configure(EntityTypeBuilder<Wallet> builder)
         {
+            builder.HasQueryFilter(x => !x.IsRemoved);
+
             #region Relations
 
             builder.HasMany(w => w.Operations)

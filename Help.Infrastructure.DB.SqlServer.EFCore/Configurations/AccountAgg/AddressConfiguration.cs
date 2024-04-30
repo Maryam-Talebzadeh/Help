@@ -10,6 +10,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
         {
             builder.Property(a => a.Description).HasMaxLength(1000);
             builder.Property(a => a.StreetName).HasMaxLength(100).IsRequired();
+            builder.HasQueryFilter(x => !x.IsRemoved);
 
             #region Relations
 

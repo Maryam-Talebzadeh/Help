@@ -9,6 +9,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
         public void Configure(EntityTypeBuilder<Proposal> builder)
         {
             builder.Property(x => x.Description).HasMaxLength(500);
+            builder.HasQueryFilter(x => !x.IsRemoved);
         }
     }
 }

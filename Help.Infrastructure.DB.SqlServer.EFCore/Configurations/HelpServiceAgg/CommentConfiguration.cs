@@ -9,6 +9,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
             builder.Property(x => x.Message).HasMaxLength(1000).IsRequired();
+            builder.HasQueryFilter(x => !x.IsRemoved);
 
             #region Relations
 
