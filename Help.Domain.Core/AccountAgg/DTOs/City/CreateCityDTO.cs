@@ -6,6 +6,6 @@ namespace Help.Domain.Core.AccountAgg.DTOs.City
     {
         public string Name { get; set; }
         public string ProvinceName { get; set; }
-        public int Code { get; set; }
+        public string Code { get; set; }
     }
 }

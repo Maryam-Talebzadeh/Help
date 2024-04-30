@@ -41,7 +41,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             if(!searchModel.Name.IsNullOrEmpty())
                 query = query.Where(c => c.Name.Contains(searchModel.Name));
 
-            if (searchModel.Code > 0)
+            if (!searchModel.Code.IsNullOrEmpty())
                 query = query.Where(c => c.Code == searchModel.Code);
 
             return query.OrderBy(c => c.Name).ToList();

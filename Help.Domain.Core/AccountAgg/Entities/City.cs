@@ -4,7 +4,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
 {
     public class City : BaseEntity
     {
-        public City(string name, string provinceName, int code)
+        public City(string name, string provinceName, string code)
         {
             Name = name;
             ProvinceName = provinceName;
@@ -13,7 +13,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
 
         public string Name { get; private set; }
         public string ProvinceName { get; private set; }
-        public int Code { get; private set; }
+        public string Code { get; private set; }
 
         #region Navigation Properties
 
@@ -21,7 +21,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
 
         #endregion
 
-        public void Edit(string name, string provinceName, int code)
+        public void Edit(string name, string provinceName, string code)
         {
             Name = name;
             ProvinceName = provinceName;

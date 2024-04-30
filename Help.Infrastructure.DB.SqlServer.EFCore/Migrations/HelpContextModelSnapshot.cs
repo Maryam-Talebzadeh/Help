@@ -57,6 +57,18 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Addresses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AlleyNumber = 2,
+                            CityId = 1,
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 158, DateTimeKind.Local).AddTicks(5515),
+                            Description = "فاز دو",
+                            IsRemoved = false,
+                            StreetName = "سعدی"
+                        });
                 });
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Admin", b =>
@@ -109,8 +121,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Code")
-                        .HasColumnType("int");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -124,11 +137,23 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.Property<string>("ProvinceName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = "731",
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 160, DateTimeKind.Local).AddTicks(6521),
+                            IsRemoved = false,
+                            Name = "شیراز",
+                            ProvinceName = "فارس"
+                        });
                 });
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Customer", b =>
@@ -196,7 +221,30 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.HasIndex("AddressId")
                         .IsUnique();
 
+                    b.HasIndex("PictureId")
+                        .IsUnique();
+
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 100,
+                            AddressId = 1,
+                            Bio = "first customer",
+                            Birthday = new DateTime(2024, 4, 30, 4, 52, 46, 165, DateTimeKind.Local).AddTicks(4007),
+                            CardNumber = 5022201097588592L,
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 165, DateTimeKind.Local).AddTicks(4046),
+                            Email = "marya.6t@gmail.com",
+                            FullName = "MaryamTalebzadeh",
+                            IsActive = false,
+                            IsRemoved = false,
+                            Password = "1234",
+                            PhoneNumber = "09386485663",
+                            PictureId = 1,
+                            Score = (short)0,
+                            UserName = "Mary"
+                        });
                 });
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerPicture", b =>
@@ -209,31 +257,39 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.Property<string>("Alt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId")
-                        .IsUnique();
-
                     b.ToTable("CustomerPictures");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Alt = "Profile",
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 165, DateTimeKind.Local).AddTicks(7935),
+                            IsRemoved = false,
+                            Name = "Default.jpg",
+                            Title = "Default Customer Profile"
+                        });
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
@@ -255,7 +311,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ParentId")
+                    b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -268,6 +324,16 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 166, DateTimeKind.Local).AddTicks(1458),
+                            Description = "تعمیر انواع لوازم خانگی",
+                            IsRemoved = false,
+                            Title = "تعمیرات"
+                        });
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Comment", b =>
@@ -298,7 +364,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<int>("ParentId")
+                    b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
                     b.Property<short>("Score")
@@ -434,6 +500,40 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HelpRequestStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 170, DateTimeKind.Local).AddTicks(3385),
+                            Description = "درخواست شما اول باید توسط ادمین تایید شود. از صبوری شما سپاس گذاریم.",
+                            IsRemoved = false,
+                            Title = "منتظر تایید ادمین"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 170, DateTimeKind.Local).AddTicks(3470),
+                            Description = "منتظر پیشنهادات",
+                            IsRemoved = false,
+                            Title = "انجام نشده"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 170, DateTimeKind.Local).AddTicks(3482),
+                            Description = "این درخواست در حال انجام می باشد.",
+                            IsRemoved = false,
+                            Title = "در حال انجام"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 170, DateTimeKind.Local).AddTicks(3490),
+                            Description = "این درخواست منقضی شده.",
+                            IsRemoved = false,
+                            Title = "تمام شده"
+                        });
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", b =>
@@ -476,6 +576,19 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HelpServices");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 170, DateTimeKind.Local).AddTicks(8647),
+                            Description = "شیرآلات برای یک دلیل آشکار قسمت مهمی از خانه شما هستند: آن‌ها آب را برای انجام کارهای گوناگون توزیع می‌کنند. بنابراین، سالم نگه داشتن شیرآلات آشپزخانه، دستشویی و حمامدر شرایط درست کارکردشان امری ضروری است. برخی از موارد ممکن است باعث شود نیاز به تعمیر شیرآلات برند خاص پیدا کنید، از نشت آب گرفته تا سر و صدای اضافی. گاهی اوقات این مشکلات ناشی از قدیمی بودن شیرآلات است.",
+                            IsRemoved = false,
+                            PictureId = 0,
+                            Slug = "تعمیرات شیرآلات",
+                            Tags = "تعمیرات-شیرآلات",
+                            Title = "تعمیرات شیرآلات"
+                        });
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpServiceCategory", b =>
@@ -644,6 +757,18 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OperationTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = (byte)1,
+                            Title = "واریز"
+                        },
+                        new
+                        {
+                            Id = (byte)2,
+                            Title = "برداشت"
+                        });
                 });
 
             modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.Wallet", b =>
@@ -672,6 +797,16 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .IsUnique();
 
                     b.ToTable("Wallets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Balance = 0.0,
+                            CreationDate = new DateTime(2024, 4, 30, 4, 52, 46, 192, DateTimeKind.Local).AddTicks(9672),
+                            CustomerId = 100,
+                            IsRemoved = false
+                        });
                 });
 
             modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.WalletOperation", b =>
@@ -731,18 +866,15 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Address");
-                });
-
-            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerPicture", b =>
-                {
-                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
-                        .WithOne("Profile")
-                        .HasForeignKey("Help.Domain.Core.AccountAgg.Entities.CustomerPicture", "CustomerId")
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.CustomerPicture", "Profile")
+                        .WithOne("Customer")
+                        .HasForeignKey("Help.Domain.Core.AccountAgg.Entities.Customer", "PictureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("Address");
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
@@ -750,8 +882,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Category", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Parent");
                 });
@@ -773,8 +904,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.Comment", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Customer");
 
@@ -934,14 +1064,17 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 {
                     b.Navigation("HelpRequests");
 
-                    b.Navigation("Profile")
-                        .IsRequired();
-
                     b.Navigation("Proposals");
 
                     b.Navigation("Skills");
 
                     b.Navigation("Wallet")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerPicture", b =>
+                {
+                    b.Navigation("Customer")
                         .IsRequired();
                 });
 

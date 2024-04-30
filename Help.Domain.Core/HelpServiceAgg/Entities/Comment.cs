@@ -5,7 +5,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class Comment : BaseEntity
     {
-        public Comment(string message, Int16 score, int parentId, int helpRequestId, int customerId)
+        public Comment(string message, Int16 score, int? parentId, int helpRequestId, int customerId)
         {
             Message = message; 
             Score = score; 
@@ -19,7 +19,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public string Message { get; private set; }
         public bool IsConfirmed { get; private set; }
         public Int16 Score { get; private set; }
-        public int ParentId { get; private set; }
+        public int? ParentId { get; private set; }
         public int CustomerId { get; private set; }
 
         #region Navigation Properties

@@ -17,7 +17,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 
         public void Create(CreateCustomerPictureDTO command)
         {
-            var picture = new CustomerPicture(command.Name, command.Title, command.Alt, command.CustomerID);
+            var picture = new CustomerPicture(command.Name, command.Title, command.Alt);
             _context.CustomerPictures.Add(picture);
         }
 

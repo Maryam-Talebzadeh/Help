@@ -4,7 +4,12 @@ namespace Help.Domain.Core.WalletAgg.Entities
 {
     public class OperationType
     {
-        public byte Id { get; private set; }
+        public OperationType( string title)
+        {
+            Title = title;
+        }
+
+        public byte Id { get; set; }
         public string Title { get; private set; }
 
         #region Navigation Properties

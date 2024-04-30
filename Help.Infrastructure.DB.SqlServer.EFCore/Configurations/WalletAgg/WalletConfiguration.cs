@@ -12,6 +12,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.WalletAgg
         {
             builder.HasQueryFilter(x => !x.IsRemoved);
 
+            #region Seed Data
+
+            var data = new Wallet(100);
+            data.Id = 1;
+            builder.HasData(data);
+
+            #endregion
+
             #region Relations
 
             builder.HasMany(w => w.Operations)

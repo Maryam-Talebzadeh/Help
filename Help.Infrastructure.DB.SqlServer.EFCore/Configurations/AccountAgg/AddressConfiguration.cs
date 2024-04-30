@@ -12,6 +12,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
             builder.Property(a => a.StreetName).HasMaxLength(100).IsRequired();
             builder.HasQueryFilter(x => !x.IsRemoved);
 
+            #region Seed Data
+
+            var data = new Address("فاز دو", 1, "سعدی", 2);
+            data.Id = 1;
+            builder.HasData(data);
+
+            #endregion
+
             #region Relations
 
             builder.HasOne(a => a.City)

@@ -4,7 +4,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class Category : BaseEntity
     {
-        public Category(string title, string description, int parentId)
+        public Category(string title, string description, int? parentId)
         {
             Title = title;
             Description = description;
@@ -13,7 +13,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 
         public string Title { get; private set; }
         public string Description { get; private set; }
-        public int ParentId { get; private set; }
+        public int? ParentId { get; private set; }
 
         #region Navigation Properties
 

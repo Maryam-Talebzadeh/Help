@@ -12,6 +12,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
             builder.Property(c => c.Description).HasMaxLength(500);
             builder.HasQueryFilter(x => !x.IsRemoved);
 
+            #region Seed Data
+
+            var data = new Category("تعمیرات", "تعمیر انواع لوازم خانگی", null);
+            data.Id = 1;
+            builder.HasData(data);
+
+            #endregion
+
             #region Relation
 
             builder.HasMany(c => c.Services)
