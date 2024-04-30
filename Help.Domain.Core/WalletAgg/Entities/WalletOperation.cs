@@ -32,7 +32,7 @@ namespace Help.Domain.Core.WalletAgg.Entities
             IsCanceled = true;
         }
 
-        public void finalize()
+        public void Finalize()
         {
             IsPaid = true;
         }
