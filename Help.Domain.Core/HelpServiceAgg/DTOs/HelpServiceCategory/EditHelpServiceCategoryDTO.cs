@@ -8,6 +8,6 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
 {
     public class EditHelpServiceCategoryDTO : CreateChildHelpServiceCategoryDTO
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
     }
 }

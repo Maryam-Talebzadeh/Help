@@ -4,12 +4,12 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class HelpRequestPicture : Picture
     {
-        public HelpRequestPicture(string name, string title, string alt, long helpRequestId) :base(name, title, alt)
+        public HelpRequestPicture(string name, string title, string alt, int helpRequestId) :base(name, title, alt)
         {
             HelpRequestId = helpRequestId;
         }
 
-        public long HelpRequestId { get; private set; }
+        public int HelpRequestId { get; private set; }
 
         #region Navigation Properties
 

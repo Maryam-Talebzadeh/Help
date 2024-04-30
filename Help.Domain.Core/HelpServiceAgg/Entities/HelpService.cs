@@ -15,7 +15,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public string Title { get; private set; }
         public string Description { get; private set; }
         public string Slug { get; private set; }
-        public long PictureId { get; private set; }
+        public int PictureId { get; private set; }
         public string Tags { get; private set; }
 
 

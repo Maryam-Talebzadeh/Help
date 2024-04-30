@@ -9,9 +9,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
     {
         void Create(CreateCommentDTO command);
         void Edit(EditCommentDTO command);
-        CommentDetailDTO GetDetails(long id);
+        CommentDetailDTO GetDetails(int id);
         List<CommentDTO> Search(SearchCommentDTO searchModel);
         List<CommentDTO> GetAllUnConfirmed(SearchCommentDTO searchModel);
-        void Confirm(long id);
+        void Confirm(int id);
     }
 }

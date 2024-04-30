@@ -32,7 +32,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             helpRequest.Edit(command.Title, command.Description, command.ExpirationDate.ToGregorianDateTime(), command.ServiceId, command.ProposedPrice);
         }
 
-        public EditHelpRequestDTO GetDetails(long id)
+        public EditHelpRequestDTO GetDetails(int id)
         {
             return _context.HelpRequests.Select(hr =>
             new EditHelpRequestDTO()

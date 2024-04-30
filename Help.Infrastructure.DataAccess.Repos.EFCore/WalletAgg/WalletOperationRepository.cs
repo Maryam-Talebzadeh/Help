@@ -15,7 +15,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.WalletAgg
             _context = context;
         }
 
-        public void Cancel(long id)
+        public void Cancel(int id)
         {
             var operation = Get(id);
             operation.Cancel();
@@ -27,13 +27,13 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.WalletAgg
             _context.WalletOperations.Add(operation);
         }
 
-        public void finalize(long id)
+        public void finalize(int id)
         {
             var operation = Get(id);
             operation.Finalize();
         }
 
-        public List<WalletOperationDTO> GetBy(long walletId)
+        public List<WalletOperationDTO> GetBy(int walletId)
         {
             return _context.WalletOperations.Where(o => o.WalletId == walletId)
                 .Select(o =>

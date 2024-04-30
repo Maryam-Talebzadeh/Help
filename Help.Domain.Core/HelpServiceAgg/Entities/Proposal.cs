@@ -5,7 +5,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class Proposal : BaseEntity
     {
-        public Proposal(string? description, DateTime suggestedTime, double suggestedPrice, long helpRequestId, long customerId)
+        public Proposal(string? description, DateTime suggestedTime, double suggestedPrice, int helpRequestId, int customerId)
         {
             Description = description; 
             SuggestedPrice = suggestedPrice;
@@ -19,8 +19,8 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public DateTime SuggestedTime { get; private set; }
         public double SuggestedPrice { get; private set; }
         public bool IsConfirmed { get; private set; }
-        public long HelpRequestId { get; private set; }
-        public long CustomerId { get; private set; }
+        public int HelpRequestId { get; private set; }
+        public int CustomerId { get; private set; }
 
         #region Navigation Properties
 

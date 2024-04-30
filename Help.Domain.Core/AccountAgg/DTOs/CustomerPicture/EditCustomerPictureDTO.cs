@@ -8,6 +8,6 @@ namespace Help.Domain.Core.AccountAgg.DTOs.CustomerPicture
 {
    public class EditCustomerPictureDTO : CreateCustomerPictureDTO
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
     }
 }

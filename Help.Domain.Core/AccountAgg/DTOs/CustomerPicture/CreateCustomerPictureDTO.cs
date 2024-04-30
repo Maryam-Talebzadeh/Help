@@ -4,6 +4,6 @@ namespace Help.Domain.Core.AccountAgg.DTOs.CustomerPicture
 {
     public class CreateCustomerPictureDTO : PictureDTO
     {
-        public long CustomerID { get; set; }
+        public int CustomerID { get; set; }
     }
 }

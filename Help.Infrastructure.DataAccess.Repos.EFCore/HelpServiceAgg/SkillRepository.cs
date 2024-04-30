@@ -17,7 +17,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public void Confirm(long id)
+        public void Confirm(int id)
         {
             var skill = Get(id);
             skill.Confirm();
@@ -35,7 +35,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             skill.Edit(command.Title, command.Description, command.Level, command.ServiceId);
         }
 
-        public List<SkillDTO> GetBy(long customerId)
+        public List<SkillDTO> GetBy(int customerId)
         {
             return _context.Skills.Where(s => s.CustomerId == customerId && s.IsConfirmed)
                 .Select(s => new SkillDTO()
@@ -54,7 +54,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 }).ToList();
         }
 
-        public EditSkillDTO GetDetails(long id)
+        public EditSkillDTO GetDetails(int id)
         {
             return _context.Skills.Select(s =>
            new EditSkillDTO()

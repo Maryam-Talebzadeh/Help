@@ -7,7 +7,7 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.Proposal
         public string Description { get; set; }
         public string SuggestedTime { get; set; }
         public double SuggestedPrice { get; set; }
-        public long HelpRequestId { get; set; }
-        public long CustomerId { get; set; }
+        public int HelpRequestId { get; set; }
+        public int CustomerId { get; set; }
     }
 }

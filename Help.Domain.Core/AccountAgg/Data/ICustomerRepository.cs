@@ -8,8 +8,8 @@ namespace Help.Domain.Core.AccountAgg.Data
     {
         void Create(CreateCustomerDTO command);
         void Edit(EditCustomerDTO command);
-        CustomerDetailDTO GetDetails(long id);
+        CustomerDetailDTO GetDetails(int id);
         List<CustomerDTO> Search(SearchCustomerDTO searchModel);
-        void Active(long id);
+        void Active(int id);
     }
 }

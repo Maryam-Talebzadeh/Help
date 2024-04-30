@@ -4,12 +4,12 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class HelpServicePicture : Picture
     {
-        public HelpServicePicture(string name, string title, string alt, long serviceId) : base(name, title, alt)
+        public HelpServicePicture(string name, string title, string alt, int serviceId) : base(name, title, alt)
         {
             ServiceId = serviceId;
         }
 
-        public long ServiceId { get; private set; }
+        public int ServiceId { get; private set; }
 
         #region Navigation Properties
 

@@ -5,7 +5,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
 {
     public class Customer : User
     {
-        public Customer(string fullName, string userName, string password, string email, Int64 cardNumber, string phoneNumber, string? bio, long pictureId, DateTime birthday, long addressId) : base(fullName, userName, password, email)
+        public Customer(string fullName, string userName, string password, string email, Int64 cardNumber, string phoneNumber, string? bio, int pictureId, DateTime birthday, int addressId) : base(fullName, userName, password, email)
         {
             CardNumber = cardNumber;
             PhoneNumber = phoneNumber;
@@ -21,10 +21,10 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public Int64 CardNumber { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Bio { get; private set; }
-        public long PictureId { get; private set; }
+        public int PictureId { get; private set; }
         public DateTime Birthday { get; private set; }
         public Int16 Score { get; private set; }
-        public long AddressId { get; private set; }
+        public int AddressId { get; private set; }
         public bool IsActive { get; private set; }
 
         #region Navigation Properties

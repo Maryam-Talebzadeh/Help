@@ -7,8 +7,8 @@ namespace Help.Domain.Core.WalletAgg.Data
     public interface IWalletOperationRepository : IRepository<WalletOperation>
     {
         void Create(CreateWalleOperationtDTO command);
-        List<WalletOperationDTO> GetBy(long walletId);
-        public void Cancel(long id);
-        public void finalize(long id);
+        List<WalletOperationDTO> GetBy(int walletId);
+        public void Cancel(int id);
+        public void finalize(int id);
     }
 }

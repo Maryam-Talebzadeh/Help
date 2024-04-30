@@ -20,7 +20,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public void Confirm(long id)
+        public void Confirm(int id)
         {
             var proposal = Get(id);
             proposal.Confirm();
@@ -90,7 +90,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             return query.OrderByDescending(c => c.CreationDate).ToList();
         }
 
-        public EditProposalDTO GetDetails(long id)
+        public EditProposalDTO GetDetails(int id)
         {
             return _context.Proposals.Select(p =>
             new EditProposalDTO()

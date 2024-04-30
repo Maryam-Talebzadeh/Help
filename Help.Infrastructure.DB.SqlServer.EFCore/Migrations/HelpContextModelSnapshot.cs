@@ -24,16 +24,16 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Address", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AlleyNumber")
                         .HasColumnType("int");
 
-                    b.Property<long>("CityId")
+                    b.Property<int>("CityId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreationDate")
@@ -61,11 +61,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Admin", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -103,11 +103,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.City", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Code")
                         .HasColumnType("int");
@@ -133,13 +133,13 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Customer", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Bio")
@@ -149,7 +149,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CardNumber")
+                    b.Property<int>("CardNumber")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreationDate")
@@ -180,7 +180,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("PictureId")
+                    b.Property<int>("PictureId")
                         .HasColumnType("bigint");
 
                     b.Property<short>("Score")
@@ -201,11 +201,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.CustomerPicture", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Alt")
                         .IsRequired()
@@ -214,7 +214,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsRemoved")
@@ -238,11 +238,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -255,7 +255,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<long>("ParentId")
+                    b.Property<int>("ParentId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Title")
@@ -272,19 +272,19 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Comment", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("HelpRequestId")
+                    b.Property<int>("HelpRequestId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsConfirmed")
@@ -298,7 +298,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<long>("ParentId")
+                    b.Property<int>("ParentId")
                         .HasColumnType("bigint");
 
                     b.Property<short>("Score")
@@ -317,16 +317,16 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequest", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
@@ -346,10 +346,10 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<double>("ProposedPrice")
                         .HasColumnType("float");
 
-                    b.Property<long>("ServiceId")
+                    b.Property<int>("ServiceId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("StatusId")
+                    b.Property<int>("StatusId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Title")
@@ -370,11 +370,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequestPicture", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Alt")
                         .IsRequired()
@@ -384,7 +384,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("HelpRequestId")
+                    b.Property<int>("HelpRequestId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsRemoved")
@@ -409,11 +409,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpRequestStatus", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -438,11 +438,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -455,7 +455,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("bit");
 
-                    b.Property<long>("PictureId")
+                    b.Property<int>("PictureId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Slug")
@@ -480,16 +480,16 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Proposal", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
@@ -497,7 +497,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<long>("HelpRequestId")
+                    b.Property<int>("HelpRequestId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsConfirmed")
@@ -523,19 +523,19 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.ServiceCategory", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("HelpServiceId")
+                    b.Property<int>("HelpServiceId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ServiceId")
+                    b.Property<int>("ServiceId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -549,11 +549,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.ServicePicture", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Alt")
                         .IsRequired()
@@ -571,7 +571,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<long>("ServiceId")
+                    b.Property<int>("ServiceId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Title")
@@ -589,16 +589,16 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Skill", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Description")
@@ -615,7 +615,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<short>("Level")
                         .HasColumnType("smallint");
 
-                    b.Property<long>("ServiceId")
+                    b.Property<int>("ServiceId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Title")
@@ -648,11 +648,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.Wallet", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<double>("Balance")
                         .HasColumnType("float");
@@ -660,7 +660,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsRemoved")
@@ -676,11 +676,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
             modelBuilder.Entity("Help.Domain.Core.WalletAgg.Entities.WalletOperation", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<double>("Amount")
                         .HasColumnType("float");
@@ -700,7 +700,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.Property<byte>("TypeId")
                         .HasColumnType("tinyint");
 
-                    b.Property<long>("WalletId")
+                    b.Property<int>("WalletId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");

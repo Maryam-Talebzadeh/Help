@@ -6,7 +6,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class HelpRequest : BaseEntity
     {
-        public HelpRequest(string title, string description, DateTime expirationDate, long customerId, long serviceId, double proposedPrice)
+        public HelpRequest(string title, string description, DateTime expirationDate, int customerId, int serviceId, double proposedPrice)
         {
             Title = title; 
             Description = description; 
@@ -22,9 +22,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public string Description { get; private set; }
         public DateTime ExpirationDate { get; private set; }
         public bool IsDone { get; private set; }
-        public long StatusId { get; private set; }
-        public long CustomerId { get; private set; }
-        public long ServiceId { get; private set; }
+        public int StatusId { get; private set; }
+        public int CustomerId { get; private set; }
+        public int ServiceId { get; private set; }
         public double ProposedPrice { get; private set; }
 
         #region Navigation Properties
@@ -38,7 +38,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 
         #endregion
 
-        public void Edit(string title, string description, DateTime expirationDate, long serviceId, double proposedPrice)
+        public void Edit(string title, string description, DateTime expirationDate, int serviceId, double proposedPrice)
         {
             Title = title;
             Description = description;
@@ -47,7 +47,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
             ProposedPrice = proposedPrice;
         }
 
-        public void ChangeSatus(long statusId)
+        public void ChangeSatus(int statusId)
         {
             StatusId = statusId;
         }

@@ -7,7 +7,7 @@ namespace Help.Domain.Core.AccountAgg.DTOs.Customer
 {
     public class CustomerDTO
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public CustomerPictureDTO Picture { get; set; }
         public string FullName { get; set; }
         public string UserName { get; set; }

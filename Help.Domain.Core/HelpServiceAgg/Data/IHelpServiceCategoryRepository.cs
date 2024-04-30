@@ -9,7 +9,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
         void CreateChild(CreateChildHelpServiceCategoryDTO command);
         void CreateParent(CreateParentHelpServiceCategoryDTO command);
         void Edit(EditHelpServiceCategoryDTO command);
-        HelpServiceCategoryDetailDTO GetDetails(long id);
+        HelpServiceCategoryDetailDTO GetDetails(int id);
         List<HelpServiceCategoryDTO> Search(SearchHelpServiceCategoryDTO searchModel);
         List<HelpServiceCategoryDTO> GetAllRemoved();
     }

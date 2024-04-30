@@ -18,7 +18,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public void Confirm(long id)
+        public void Confirm(int id)
         {
             var comment = Get(id);
             comment.Confirm();
@@ -67,7 +67,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             return query.OrderByDescending(c => c.CreationDate).ToList();
         }
 
-        public CommentDetailDTO GetDetails(long id)
+        public CommentDetailDTO GetDetails(int id)
         {
             return _context.Comments.Select(c =>
             new CommentDetailDTO()

@@ -22,7 +22,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.WalletAgg
             _context.Wallets.Add(wallet);
         }
 
-        public List<WalletDTO> GetBy(long customerId)
+        public List<WalletDTO> GetBy(int customerId)
         {
             return _context.Wallets.Where(w => w.CustomerId == customerId)
                  .Select(w =>

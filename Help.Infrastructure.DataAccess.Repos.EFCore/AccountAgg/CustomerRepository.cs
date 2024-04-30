@@ -19,7 +19,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             _context = context;
         }
 
-        public void Active(long id)
+        public void Active(int id)
         {
             var customer = Get(id);
             customer.Activate();
@@ -37,7 +37,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             customer.Edit(command.FullName, command.UserName,command.Email, command.CardNumber, command.PhoneNumber, command.Bio, command.Birthday.ToGregorianDateTime());
         }
 
-        public CustomerDetailDTO GetDetails(long id)
+        public CustomerDetailDTO GetDetails(int id)
         {
             return _context.Customers.Select(c =>
             new CustomerDetailDTO()

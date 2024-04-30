@@ -7,6 +7,6 @@ namespace Help.Domain.Core.WalletAgg.Data
     public interface IWalletRepository : IRepository<Wallet>
     {
         void Create(CreateWalletDTO command);
-        List<WalletDTO> GetBy(long customerId); 
+        List<WalletDTO> GetBy(int customerId); 
     }
 }

@@ -10,7 +10,7 @@ namespace Base_Framework.Domain.Core.Entities
             CreationDate = DateTime.Now;
         }
 
-        public long Id { get; set; }
+        public int Id { get; set; }
         public bool IsRemoved { get; set; }
         public DateTime CreationDate { get; set; }
 

@@ -6,6 +6,6 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture
 {
     public class CreateHelpRequestPictureDTO : PictureDTO
     {
-        public long HelpRequestId { get; set; }
+        public int HelpRequestId { get; set; }
     }
 }

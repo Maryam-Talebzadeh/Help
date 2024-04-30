@@ -6,7 +6,7 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
 {
     public class HelpServiceCategoryDTO
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Title { get;  set; }
         public string Description { get;  set; }
         public string CreationDate { get; set; }

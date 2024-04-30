@@ -6,13 +6,13 @@ namespace Help.Domain.Core.WalletAgg.Entities
 {
     public class Wallet : BaseEntity
     {
-        public Wallet(long customerId)
+        public Wallet(int customerId)
         {
             CustomerId = customerId;
         }
 
         public double Balance { get; private set; }
-        public long CustomerId  { get; private set; }
+        public int CustomerId  { get; private set; }
 
         #region Navigation Properties
 

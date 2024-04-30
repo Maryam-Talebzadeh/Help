@@ -8,9 +8,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
     {
         void Create(CreateProposalDTO command);
         void Edit(EditProposalDTO command);
-        EditProposalDTO GetDetails(long id);
+        EditProposalDTO GetDetails(int id);
         List<ProposalDTO> Search(SearchProposaltDTO searchModel);
         List<ProposalDTO> GetAllUnConfirmed(SearchProposaltDTO searchModel);
-        void Confirm(long id);
+        void Confirm(int id);
     }
 }

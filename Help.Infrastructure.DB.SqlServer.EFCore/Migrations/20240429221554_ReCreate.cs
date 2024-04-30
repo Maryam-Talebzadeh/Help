@@ -15,7 +15,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Admins",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PersonalCode = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
@@ -34,11 +34,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    ParentId = table.Column<long>(type: "bigint", nullable: false),
+                    ParentId = table.Column<int>(type: "bigint", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -56,7 +56,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "City",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProvinceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -73,7 +73,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "HelpRequestStatuses",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
@@ -89,12 +89,12 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "HelpServices",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    PictureId = table.Column<long>(type: "bigint", nullable: false),
+                    PictureId = table.Column<int>(type: "bigint", nullable: false),
                     Tags = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -120,10 +120,10 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Address",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    CityId = table.Column<long>(type: "bigint", nullable: false),
+                    CityId = table.Column<int>(type: "bigint", nullable: false),
                     StreetName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     AlleyNumber = table.Column<int>(type: "int", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
@@ -144,11 +144,11 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "ServiceCategories",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceId = table.Column<long>(type: "bigint", nullable: false),
-                    CategoryId = table.Column<long>(type: "bigint", nullable: false),
-                    HelpServiceId = table.Column<long>(type: "bigint", nullable: false)
+                    ServiceId = table.Column<int>(type: "bigint", nullable: false),
+                    CategoryId = table.Column<int>(type: "bigint", nullable: false),
+                    HelpServiceId = table.Column<int>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -170,9 +170,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "ServicePictures",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ServiceId = table.Column<long>(type: "bigint", nullable: false),
+                    ServiceId = table.Column<int>(type: "bigint", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -194,15 +194,15 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CardNumber = table.Column<long>(type: "bigint", nullable: false),
+                    CardNumber = table.Column<int>(type: "bigint", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Bio = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PictureId = table.Column<long>(type: "bigint", nullable: false),
+                    PictureId = table.Column<int>(type: "bigint", nullable: false),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Score = table.Column<short>(type: "smallint", nullable: false),
-                    AddressId = table.Column<long>(type: "bigint", nullable: false),
+                    AddressId = table.Column<int>(type: "bigint", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -226,9 +226,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "CustomerPictures",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -250,15 +250,15 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "HelpRequests",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDone = table.Column<bool>(type: "bit", nullable: false),
-                    StatusId = table.Column<long>(type: "bigint", nullable: false),
-                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
-                    ServiceId = table.Column<long>(type: "bigint", nullable: false),
+                    StatusId = table.Column<int>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
+                    ServiceId = table.Column<int>(type: "bigint", nullable: false),
                     ProposedPrice = table.Column<double>(type: "float", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -290,14 +290,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Skills",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Level = table.Column<short>(type: "smallint", nullable: false),
                     IsConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    ServiceId = table.Column<long>(type: "bigint", nullable: false),
-                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
+                    ServiceId = table.Column<int>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -322,10 +322,10 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Wallets",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Balance = table.Column<double>(type: "float", nullable: false),
-                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -344,14 +344,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HelpRequestId = table.Column<long>(type: "bigint", nullable: false),
+                    HelpRequestId = table.Column<int>(type: "bigint", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     IsConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     Score = table.Column<short>(type: "smallint", nullable: false),
-                    ParentId = table.Column<long>(type: "bigint", nullable: false),
-                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
+                    ParentId = table.Column<int>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -380,9 +380,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "HelpRequestPictures",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HelpRequestId = table.Column<long>(type: "bigint", nullable: false),
+                    HelpRequestId = table.Column<int>(type: "bigint", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
@@ -404,14 +404,14 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "Proposals",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     SuggestedTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SuggestedPrice = table.Column<double>(type: "float", nullable: false),
                     IsConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    HelpRequestId = table.Column<long>(type: "bigint", nullable: false),
-                    CustomerId = table.Column<long>(type: "bigint", nullable: false),
+                    HelpRequestId = table.Column<int>(type: "bigint", nullable: false),
+                    CustomerId = table.Column<int>(type: "bigint", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -434,12 +434,12 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "WalletOperations",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<int>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     IsPaid = table.Column<bool>(type: "bit", nullable: false),
                     IsCanceled = table.Column<bool>(type: "bit", nullable: false),
-                    WalletId = table.Column<long>(type: "bigint", nullable: false),
+                    WalletId = table.Column<int>(type: "bigint", nullable: false),
                     TypeId = table.Column<byte>(type: "tinyint", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)

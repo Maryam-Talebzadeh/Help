@@ -11,8 +11,8 @@ namespace Help.Domain.Core.AccountAgg.DTOs.Customer
         public Int64 CardNumber { get; set; }
         public string PhoneNumber { get; set; }
         public string Bio { get; set; }
-        public long PictureId { get; set; }
+        public int PictureId { get; set; }
         public string Birthday { get; set; }
-        public long AddressId { get; set; }
+        public int AddressId { get; set; }
     }
 }

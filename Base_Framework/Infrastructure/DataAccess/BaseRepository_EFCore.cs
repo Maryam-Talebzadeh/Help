@@ -24,18 +24,18 @@ namespace Base_Framework.Infrastructure.DataAccess
             _context.SaveChanges();
         }
 
-        public T Get(long id)
+        public T Get(int id)
         {
             return _context.Set<T>().SingleOrDefault(e => e.Id == id);
         }
 
-        public void Remove(long id)
+        public void Remove(int id)
         {
             var entity = Get(id);
             entity.Remove();
         }
 
-        public void Restore(long id)
+        public void Restore(int id)
         {
             var entity = Get(id);
             entity.Restore();

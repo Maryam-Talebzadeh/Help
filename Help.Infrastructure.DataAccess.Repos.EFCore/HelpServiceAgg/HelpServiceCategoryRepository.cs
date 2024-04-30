@@ -55,7 +55,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).IgnoreQueryFilters().ToList();
         }
 
-        public HelpServiceCategoryDetailDTO GetDetails(long id)
+        public HelpServiceCategoryDetailDTO GetDetails(int id)
         {
             return _context.Categories.Select(c =>
             new HelpServiceCategoryDetailDTO()

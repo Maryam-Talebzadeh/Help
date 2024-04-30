@@ -4,9 +4,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class HelpServiceCategory 
     {     
-        public long Id { get; private set; }
-        public long ServiceId { get; private set; }
-        public long CategoryId { get; private set; }
+        public int Id { get; private set; }
+        public int ServiceId { get; private set; }
+        public int CategoryId { get; private set; }
 
         #region Relations
 

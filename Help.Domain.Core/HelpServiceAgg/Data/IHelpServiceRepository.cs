@@ -8,7 +8,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
     {
         void Create(CreateHelpServiceDTO command);
         void Edit(EditHelpServiceDTO command);
-        EditHelpServiceDTO GetDetails(long id);
+        EditHelpServiceDTO GetDetails(int id);
         List<HelpServiceDTO> Search(SearchHelpServiceDTO searchModel);
         List<HelpServiceDTO> GetAllRemoved();
     }

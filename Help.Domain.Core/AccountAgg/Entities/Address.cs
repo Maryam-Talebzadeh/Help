@@ -4,7 +4,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
 {
     public class Address : BaseEntity
     {
-        public Address(string description, long cityId, string streetName, int alleyNumber)
+        public Address(string description, int cityId, string streetName, int alleyNumber)
         {
             Description = description;
             CityId = cityId;
@@ -13,7 +13,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
         }
 
         public string Description { get; private set; }
-        public long CityId { get; private set; }
+        public int CityId { get; private set; }
         public string StreetName { get; private set; }
         public int AlleyNumber { get; private set; }
 
@@ -24,7 +24,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
 
         #endregion
 
-        public void Edit(string description, long cityId, string streetName, int alleyNumber)
+        public void Edit(string description, int cityId, string streetName, int alleyNumber)
         {
             Description = description;
             CityId = cityId;

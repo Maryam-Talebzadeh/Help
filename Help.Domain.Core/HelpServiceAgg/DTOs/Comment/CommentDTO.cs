@@ -6,8 +6,8 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.Comment
 {
     public class CommentDTO 
     {
-        public long Id { get; set; }
-        public long HelpRequestId { get; set; }
+        public int Id { get; set; }
+        public int HelpRequestId { get; set; }
         public string Message { get; set; }
         public Int16 Score { get; set; }
         public string CreationDate { get; set; }

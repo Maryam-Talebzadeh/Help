@@ -49,7 +49,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).IgnoreQueryFilters().ToList();
         }
 
-        public EditHelpServiceDTO GetDetails(long id)
+        public EditHelpServiceDTO GetDetails(int id)
         {
             return _context.HelpServices.Select(s =>
             new EditHelpServiceDTO()

@@ -4,12 +4,12 @@ namespace Help.Domain.Core.AccountAgg.Entities
 {
     public class CustomerPicture : Picture
     {
-        public CustomerPicture(string name, string title, string alt, long customerId) : base(name, title, alt)
+        public CustomerPicture(string name, string title, string alt, int customerId) : base(name, title, alt)
         {
             
         }
 
-        public long CustomerId { get; private set; }
+        public int CustomerId { get; private set; }
 
         #region Navigation Properties
 

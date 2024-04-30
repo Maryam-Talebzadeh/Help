@@ -4,10 +4,10 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.Comment
 {
     public class CreateCommentDTO
     {
-        public long HelpRequestId { get; set; }
+        public int HelpRequestId { get; set; }
         public string Message { get; set; }
         public Int16 Score { get; set; }
-        public long ParentId { get; set; }
-        public long CustomerId { get; set; }
+        public int ParentId { get; set; }
+        public int CustomerId { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class Skill : BaseEntity
     {
-        public Skill(string title, string? description, Int16 level, long serviceId, long customerId)
+        public Skill(string title, string? description, Int16 level, int serviceId, int customerId)
         {
             Title = title; 
             Description = description; 
@@ -20,8 +20,8 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public string Description { get; private set; }
         public Int16 Level { get; private set; }
         public bool IsConfirmed { get; private set; }
-        public long ServiceId { get; private set; }
-        public long CustomerId { get; private set; }
+        public int ServiceId { get; private set; }
+        public int CustomerId { get; private set; }
 
         #region Navigation Properties
 
@@ -30,7 +30,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 
         #endregion
 
-        public void Edit(string title, string description, Int16 level, long serviceId)
+        public void Edit(string title, string description, Int16 level, int serviceId)
         {
             Title = title;
             Description = description;
