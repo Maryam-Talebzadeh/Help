@@ -92,7 +92,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
             if(!searchModel.Title.IsNullOrEmpty())
             {
-                query = query.Where(category => category.Title == searchModel.Title);
+                query = query.Where(category => category.Title.Contains(searchModel.Title));
             }
 
             return query.OrderByDescending(c => c.CreationDate).ToList();

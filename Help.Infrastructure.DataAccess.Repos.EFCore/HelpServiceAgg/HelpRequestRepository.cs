@@ -81,7 +81,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 query = query.Where(hr => hr.Title == searchModel.Title);
 
             if (!searchModel.ServiceName.IsNullOrEmpty())
-                query = query.Where(hr => hr.HelpService.Title == searchModel.Title);
+                query = query.Where(hr => hr.HelpService.Title.Contains(searchModel.Title));
 
             return query.OrderBy(hr => hr.ExpirationDate).ToList();
         }

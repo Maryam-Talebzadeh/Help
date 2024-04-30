@@ -88,7 +88,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
             if(!searchModel.Category.IsNullOrEmpty())
             {
-                query = query.Where(service => service.Categories.Any(category => category.Title == searchModel.Category));
+                query = query.Where(service => service.Categories.Any(category => category.Title.Contains(searchModel.Category)));
             }
 
             return query.OrderByDescending(s => s.CreationDate).ToList();
