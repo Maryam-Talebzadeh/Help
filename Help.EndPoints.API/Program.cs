@@ -10,6 +10,18 @@ LocalServiceConfigurations.Configure(builder.Services, builder.Configuration.Get
 
 #endregion
 
+#region CachingService
+
+builder.Services.AddStackExchangeRedisCache(redisOptions =>
+{
+    string connectionString = builder.Configuration
+    .GetConnectionString("Redis");
+    redisOptions.Configuration = connectionString;
+
+});
+
+#endregion
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
