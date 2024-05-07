@@ -65,7 +65,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                Description = s.Description,
                CustomerId = s.CustomerId,
                ServiceId = s.ServiceId
-           }).SingleOrDefault(s => s.Id == id);
+           }).FirstOrDefault(s => s.Id == id);
         }
 
         public List<SkillDTO> SearchUnConfirmed(SearchSkillDTO searchModel)  //Just for admin

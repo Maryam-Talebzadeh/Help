@@ -26,7 +26,7 @@ namespace Base_Framework.Infrastructure.DataAccess
 
         public T Get(int id)
         {
-            return _context.Set<T>().SingleOrDefault(e => e.Id == id);
+            return _context.Set<T>().FirstOrDefault(e => e.Id == id);
         }
 
         public void Remove(int id)

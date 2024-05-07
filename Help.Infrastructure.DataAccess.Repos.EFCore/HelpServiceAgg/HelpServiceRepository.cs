@@ -60,7 +60,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Tags = s.Tags,
                 Title = s.Title
 
-            }).SingleOrDefault(s => s.Id == id);
+            }).FirstOrDefault(s => s.Id == id);
         }
 
         public List<HelpServiceDTO> Search(SearchHelpServiceDTO searchModel)

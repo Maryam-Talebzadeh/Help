@@ -70,7 +70,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                         Id = c.Id,
                         Title = c.Title
                     } ).ToList()
-            }).SingleOrDefault(c => c.Id == id);
+            }).FirstOrDefault(c => c.Id == id);
         }
 
             public List<HelpServiceCategoryDTO> Search(SearchHelpServiceCategoryDTO searchModel)

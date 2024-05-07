@@ -60,7 +60,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                     Alt = c.Profile.Alt,
                     CustomerId = c.Id
                 }
-            }).SingleOrDefault(c => c.Id == id);
+            }).FirstOrDefault(c => c.Id == id);
         }
 
         public List<CustomerDTO> Search(SearchCustomerDTO searchModel)

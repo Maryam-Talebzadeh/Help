@@ -44,7 +44,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Title = hr.Title,
                 ProposedPrice = hr.ProposedPrice,
                 ServiceId = hr.ServiceId
-            }).SingleOrDefault(hr => hr.Id == id);
+            }).FirstOrDefault(hr => hr.Id == id);
         }
 
         public List<HelpRequestDTO> Search(SearchHelpRequestDTO searchModel)

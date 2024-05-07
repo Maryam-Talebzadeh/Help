@@ -115,7 +115,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                             FullName = c.Customer.FullName
                         }
                     }).ToList()
-            }).SingleOrDefault(c => c.Id == id);
+            }).FirstOrDefault(c => c.Id == id);
         }
 
         public List<CommentDTO> Search(SearchCommentDTO searchModel)

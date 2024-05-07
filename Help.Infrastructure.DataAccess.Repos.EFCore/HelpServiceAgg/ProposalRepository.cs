@@ -101,7 +101,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 CustomerId = p.CustomerId,
                 HelpRequestId = p.HelpRequestId,
                 SuggestedTime = p.SuggestedTime.ToFarsi()
-            }).SingleOrDefault(p => p.Id == id);
+            }).FirstOrDefault(p => p.Id == id);
         }
 
         public List<ProposalDTO> Search(SearchProposaltDTO searchModel)
