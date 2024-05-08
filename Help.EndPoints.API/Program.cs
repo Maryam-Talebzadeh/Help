@@ -1,6 +1,7 @@
 using Help.EndPoints.API.ServiceConfigurations;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
 
 // Add services to the container.
 
@@ -18,6 +19,15 @@ builder.Services.AddStackExchangeRedisCache(redisOptions =>
     .GetConnectionString("Redis");
     redisOptions.Configuration = connectionString;
 
+});
+
+#endregion
+
+#region Logging
+
+builder.Services.AddLogging(loggerBuilder =>
+{
+    loggerBuilder.AddSeq("http://localhost:5341", "VhKsy1B9lJDwxHVohwst");
 });
 
 #endregion
