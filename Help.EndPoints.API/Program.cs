@@ -17,13 +17,20 @@ builder.Services.AddStackExchangeRedisCache(redisOptions =>
 {
     string connectionString = builder.Configuration
     .GetConnectionString("Redis");
+
     redisOptions.Configuration = connectionString;
+    redisOptions.ConfigurationOptions = new()
+    {
+        Password = string.Empty,
+        DefaultDatabase = 0,
+        ConnectTimeout = 30000
+    };
 
 });
 
 #endregion
 
-#region Logging
+#region Logging Services
 
 builder.Services.AddLogging(loggerBuilder =>
 {

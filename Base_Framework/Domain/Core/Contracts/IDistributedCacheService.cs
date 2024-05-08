@@ -2,7 +2,7 @@
 
 namespace Base_Framework.Domain.Core.Contracts
 {
-    public interface IDistributedCacheRepository
+    public interface IDistributedCacheService
     {
         Task SetAsync<T>(string key, List<T> value, int expiratonDay, TimeSpan slidingExpiration);
         void Set<T>(string key, List<T> value, int expiratonDay, TimeSpan slidingExpiration);

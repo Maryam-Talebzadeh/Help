@@ -2,12 +2,12 @@
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace Base_Framework.Infrastructure.DataAccess.Cache
+namespace Base_Framework.Domain.Services.Cache
 {
-    public class RedisCacheRepository : IDistributedCacheRepository
+    public class RedisCacheService : IDistributedCacheService
     {
         private readonly IDistributedCache _distributedCache;
-        public RedisCacheRepository(IDistributedCache distributedCache)
+        public RedisCacheService(IDistributedCache distributedCache)
         {
             _distributedCache = distributedCache;
         }

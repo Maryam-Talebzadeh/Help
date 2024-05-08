@@ -1,5 +1,5 @@
 ﻿using Base_Framework.Domain.Core.Contracts;
-using Base_Framework.Infrastructure.DataAccess.Cache;
+using Base_Framework.Domain.Services.Cache;
 using Help.Domain.Core.AccountAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.WalletAgg.Data;
@@ -52,7 +52,7 @@ namespace Help.EndPoints.API.ServiceConfigurations
 
             #region Caching
 
-            services.AddScoped<IDistributedCacheRepository, RedisCacheRepository>();
+            services.AddScoped<IDistributedCacheService, RedisCacheService>();
 
             #endregion
         }
