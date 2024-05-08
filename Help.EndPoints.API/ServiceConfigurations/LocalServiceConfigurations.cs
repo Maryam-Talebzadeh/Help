@@ -1,4 +1,6 @@
-﻿using Help.Domain.Core.AccountAgg.Data;
+﻿using Base_Framework.Domain.Core.Contracts;
+using Base_Framework.Infrastructure.DataAccess.Cache;
+using Help.Domain.Core.AccountAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.WalletAgg.Data;
 using Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg;
@@ -45,6 +47,12 @@ namespace Help.EndPoints.API.ServiceConfigurations
             #region DBContext
 
             services.AddDbContext<HelpContext>(x => x.UseSqlServer(connectionString));
+
+            #endregion
+
+            #region Caching
+
+            services.AddScoped<IDistributedCacheRepository, RedisCacheRepository>();
 
             #endregion
         }

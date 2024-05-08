@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Help.Infrastructure.DB.SqlS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base_Framework", "Base_Framework\Base_Framework.csproj", "{59DEDB14-D507-41BB-885D-7C1036B16390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Help.EndPoints.API", "Help.EndPoints.API\Help.EndPoints.API.csproj", "{7FCCF318-5389-41EE-A87F-46F5EEF7ABB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Help.EndPoints.API", "Help.EndPoints.API\Help.EndPoints.API.csproj", "{7FCCF318-5389-41EE-A87F-46F5EEF7ABB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
