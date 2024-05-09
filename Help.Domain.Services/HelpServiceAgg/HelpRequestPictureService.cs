@@ -1,4 +1,6 @@
-﻿using Base_Framework.Domain.Services;
+﻿using Base_Framework.Domain.Core.Entities;
+using Base_Framework.Domain.Services;
+using Base_Framework.General;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
 using Help.Domain.Core.HelpServiceAgg.Services;
@@ -17,6 +19,15 @@ namespace Help.Domain.Services.HelpServiceAgg
         public async Task<OperationResult<HelpRequestPictureDTO>> Create(CreateHelpRequestPictureDTO command, CancellationToken cancellationToken)
         {
             var operation = new OperationResult<HelpRequestPictureDTO>(new HelpRequestPictureDTO());
+
+            #region Save picture
+
+            command.Name = NameGenarator.GenerateUniqeCode() + Path.GetExtension(command.Picture.FileName);
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Temporary", command.Name);
+            FileHandler.SaveImage(path, command.Picture);
+
+            #endregion
+
             await _helpRequestPictureRepository.Create(command, cancellationToken);
 
             return operation.Succedded();
@@ -24,6 +35,26 @@ namespace Help.Domain.Services.HelpServiceAgg
 
         public async Task<OperationResult<HelpRequestPictureDTO>> Edit(EditHelpRequestPictureDTO command, CancellationToken cancellationToken)
         {
+            if (command.Picture != null)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "Temporary");
+
+                #region Delete Old Image
+
+                 FileHandler.DeleteFile(Path.Combine(path, command.Name));
+
+                #endregion
+
+                #region Save picture
+
+                command.Name = NameGenarator.GenerateUniqeCode() + Path.GetExtension(command.Picture.FileName);
+                path = Path.Combine(path, command.Name);
+                FileHandler.SaveImage(path, command.Picture);
+
+                #endregion
+
+            }
+
             var operation = new OperationResult<HelpRequestPictureDTO>(new HelpRequestPictureDTO()
             {
                 Id = command.Id
