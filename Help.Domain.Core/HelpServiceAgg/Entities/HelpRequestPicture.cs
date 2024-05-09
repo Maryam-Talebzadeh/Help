@@ -10,6 +10,16 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         }
 
         public int HelpRequestId { get; private set; }
+        public bool IsConfirmed { get; private set; }
+        public void Confirm()
+        {
+            IsConfirmed = true;
+        }
+
+        public void Reject()
+        {
+            IsConfirmed = false;
+        }
 
         #region Navigation Properties
 

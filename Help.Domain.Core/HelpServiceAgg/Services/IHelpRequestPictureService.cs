@@ -9,6 +9,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Services
         Task<OperationResult<HelpRequestPictureDTO>> Edit(EditHelpRequestPictureDTO command, CancellationToken cancellationToken);
         Task<OperationResult<HelpRequestPictureDTO>> Remove(int id, CancellationToken cancellationToken);
         Task<EditHelpRequestPictureDTO> GetDetails(int id, CancellationToken cancellationToken);
-        Task<List<HelpRequestPictureDTO>> GetAll(CancellationToken cancellationToken);
+        Task<List<HelpRequestPictureDTO>> GetAll(int helpRequestId, CancellationToken cancellationToken);
+        Task<List<HelpRequestPictureDTO>> GetAllUnConfirmed(int helpRequestId, CancellationToken cancellationToken);
     }
 }

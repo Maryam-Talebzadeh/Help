@@ -1,5 +1,4 @@
 ﻿using Base_Framework.Infrastructure.DataAccess;
-using Help.Domain.Core.AccountAgg.Entities;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
 using Help.Domain.Core.HelpServiceAgg.Entities;
@@ -31,9 +30,11 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             picture.Edit(command.Name, command.Title, command.Alt);
         }
 
-        public async Task<List<HelpRequestPictureDTO>> GetAll(CancellationToken cancellationToken)
+        public async Task<List<HelpRequestPictureDTO>> GetAll(int helpRequestId, CancellationToken cancellationToken)
         {
-            return _context.HelpRequestPictures.Select(p =>
+            return _context.HelpRequestPictures
+                .Where(p => p.HelpRequestId == helpRequestId && p.IsConfirmed)
+                .Select(p =>
                 new HelpRequestPictureDTO
                 {
                     Id = p.Id,
@@ -42,6 +43,21 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                     Alt = p.Alt,
                     HelpRequestId = p.HelpRequestId
                 }).ToList();
+        }
+
+        public async Task<List<HelpRequestPictureDTO>> GetAllUnConfirmed(int helpRequestId, CancellationToken cancellationToken)
+        {
+            return _context.HelpRequestPictures
+               .Where(p => p.HelpRequestId == helpRequestId && !p.IsConfirmed)
+               .Select(p =>
+               new HelpRequestPictureDTO
+               {
+                   Id = p.Id,
+                   Title = p.Title,
+                   Name = p.Name,
+                   Alt = p.Alt,
+                   HelpRequestId = p.HelpRequestId
+               }).ToList();
         }
 
         public async Task<EditHelpRequestPictureDTO> GetDetails(int id, CancellationToken cancellationToken)

@@ -38,9 +38,14 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
-        public async Task<List<HelpRequestPictureDTO>> GetAll(CancellationToken cancellationToken)
+        public async Task<List<HelpRequestPictureDTO>> GetAll(int helpRequestId, CancellationToken cancellationToken)
         {
-            return await _helpRequestPictureRepository.GetAll(cancellationToken);
+            return await _helpRequestPictureRepository.GetAll(helpRequestId, cancellationToken);
+        }
+
+        public async Task<List<HelpRequestPictureDTO>> GetAllUnConfirmed(int helpRequestId, CancellationToken cancellationToken)
+        {
+            return await _helpRequestPictureRepository.GetAllUnConfirmed(helpRequestId, cancellationToken);
         }
 
         public async Task<EditHelpRequestPictureDTO> GetDetails(int id, CancellationToken cancellationToken)

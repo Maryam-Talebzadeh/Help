@@ -143,7 +143,7 @@ namespace Help.Domain.Services.HelpServiceAgg
             var helpRequests = await _helpRequestRepository.Search(searchModel, cancellationToken);
 
             foreach (var request in helpRequests)
-                request.Pictures = await _helpRequestPictureRepository.GetAll(cancellationToken);
+                request.Pictures = await _helpRequestPictureRepository.GetAll(request.Id, cancellationToken);
 
             return helpRequests;
         }
