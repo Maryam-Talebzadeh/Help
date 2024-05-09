@@ -29,17 +29,21 @@ namespace Base_Framework.Infrastructure.DataAccess
             return _context.Set<T>().FirstOrDefault(e => e.Id == id);
         }
 
-        public void Remove(int id)
+        public async Task Remove(int id, CancellationToken cancellationToken)
         {
             var entity = Get(id);
             entity.Remove();
         }
 
-        public void Restore(int id)
+       public async Task Restore(int id, CancellationToken cancellationToken)
         {
             var entity = Get(id);
             entity.Restore();
         }
 
+        public async Task<int> Count(CancellationToken cancellationToken)
+        {
+            return _context.Set<T>().Count();
+        }
     }
 }

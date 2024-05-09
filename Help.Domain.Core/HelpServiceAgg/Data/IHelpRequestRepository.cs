@@ -10,5 +10,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
         Task Edit(EditHelpRequestDTO command, CancellationToken cancellationToken);
         Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<HelpRequestDTO>> Search(SearchHelpRequestDTO searchModel, CancellationToken cancellationToken);
+        Task Confirm(int id, CancellationToken cancellation);
+        Task Reject(int id, CancellationToken cancellation);
+        Task ChangeStatus(int HelpRequestId, int statusId, CancellationToken cancellation);
+        Task Done(int id, CancellationToken cancellation);
     }
 }

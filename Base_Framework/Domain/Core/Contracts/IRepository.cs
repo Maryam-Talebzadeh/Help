@@ -7,7 +7,8 @@ namespace Base_Framework.Domain.Core.Contracts
     {
          Task<bool> IsExist(Expression<Func<T, bool>> expression, CancellationToken cancellationToken);
         Task Save(CancellationToken cancellationToken);
-        public void Remove(int id);
-        public void Restore(int id);
+        Task Remove(int id, CancellationToken cancellationToken);
+        Task Restore(int id, CancellationToken cancellationToken);
+        Task<int> Count(CancellationToken cancellationToken);
     }
 }

@@ -27,5 +27,6 @@ namespace Base_Framework.Domain.Services
             Message = message;
             return this;
         }
-    }
+    
+}
 }

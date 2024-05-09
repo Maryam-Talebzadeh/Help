@@ -10,7 +10,6 @@
     <Folder Include="AccountAgg\AppServices\" />
     <Folder Include="AccountAgg\Services\" />
     <Folder Include="HelpServiceAgg\AppServices\" />
-    <Folder Include="HelpServiceAgg\Services\" />
     <Folder Include="WalletAgg\Appservices\" />
     <Folder Include="WalletAgg\Services\" />
   </ItemGroup>

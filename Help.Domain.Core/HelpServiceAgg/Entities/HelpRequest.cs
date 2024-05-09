@@ -21,8 +21,10 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public string Title { get; private set; }
         public string Description { get; private set; }
         public DateTime ExpirationDate { get; private set; }
+        public string Slug { get; private set; }
         public bool IsDone { get; private set; }
         public int StatusId { get; private set; }
+        public bool IsConfirmed { get; private set; }
         public int CustomerId { get; private set; }
         public int ServiceId { get; private set; }
         public double ProposedPrice { get; private set; }
@@ -56,6 +58,16 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         {
             IsDone = true;
             StatusId = 4;
+        }
+
+        public void Confirm()
+        {
+            IsConfirmed = true;
+        }
+
+        public void Reject()
+        {
+            IsConfirmed = false;
         }
     }
 }
