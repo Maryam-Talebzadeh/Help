@@ -1,5 +1,6 @@
 ﻿
 using Help.Domain.Core.AccountAgg.DTOs.Customer;
+using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 
 namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest
@@ -13,5 +14,6 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest
         public bool IsDone { get; set; }
         public CustomerDTO Customer { get; set; } 
         public IdTitleHelpServiceDTO HelpService { get; set; }
+        public List<HelpRequestPictureDTO> Pictures { get; set; }
     }
 }

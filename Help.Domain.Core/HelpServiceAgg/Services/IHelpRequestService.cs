@@ -1,5 +1,4 @@
-﻿using Base_Framework.Domain.Core.Contracts;
-using Base_Framework.Domain.Services;
+﻿using Base_Framework.Domain.Services;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 
 namespace Help.Domain.Core.HelpServiceAgg.Services
@@ -16,6 +15,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Services
         Task<OperationResult<HelpRequestDTO>> Reject(int id, int adminCode, CancellationToken cancellationToken);
         Task<OperationResult<HelpRequestDTO>> ChangeStatus(int helpRequestId, int customerId, int statusId, CancellationToken cancellationToken);
         Task<OperationResult<HelpRequestDTO>> Done(int helpRequestId, int customerId, CancellationToken cancellationToken);
+        Task<List<HelpRequestDTO>> GetAllUnConfirmed(CancellationToken cancellation);
 
     }
 }

@@ -8,10 +8,12 @@ namespace Help.Domain.Services.HelpServiceAgg
     public class HelpRequestService : IHelpRequestService
     {
         private readonly IHelpRequestRepository _helpRequestRepository;
+        private readonly IHelpRequestPictureRepository _helpRequestPictureRepository;
 
-        public HelpRequestService(IHelpRequestRepository helpRequestRepository)
+        public HelpRequestService(IHelpRequestRepository helpRequestRepository, IHelpRequestPictureRepository helpRequestPictureRepository)
         {
             _helpRequestRepository = helpRequestRepository;
+            _helpRequestPictureRepository = helpRequestPictureRepository;
         }
 
         public async Task<global::Base_Framework.Domain.Services.OperationResult<HelpRequestDTO>> ChangeStatus(int helpRequestId, int customerId, int statusId, CancellationToken cancellationToken)
@@ -94,6 +96,11 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
+        public async Task<List<HelpRequestDTO>> GetAllUnConfirmed(CancellationToken cancellation)
+        {
+            return await _helpRequestRepository.GetAllUnConfirmed(cancellation);
+        }
+
         public Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _helpRequestRepository.GetDetails(id, cancellationToken);
@@ -133,7 +140,12 @@ namespace Help.Domain.Services.HelpServiceAgg
 
         public async Task<List<HelpRequestDTO>> Search(SearchHelpRequestDTO searchModel, CancellationToken cancellationToken)
         {
-            return await _helpRequestRepository.Search(searchModel, cancellationToken);
+            var helpRequests = await _helpRequestRepository.Search(searchModel, cancellationToken);
+
+            foreach (var request in helpRequests)
+                request.Pictures = await _helpRequestPictureRepository.GetAll(cancellationToken);
+
+            return helpRequests;
         }
     }
 }
