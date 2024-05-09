@@ -6,7 +6,7 @@ namespace Help.Domain.Core.WalletAgg.Data
 {
     public interface IWalletRepository : IRepository<Wallet>
     {
-        void Create(CreateWalletDTO command);
-        List<WalletDTO> GetBy(int customerId); 
+        Task Create(CreateWalletDTO command, CancellationToken cancellationToken);
+        Task<List<WalletDTO>> GetBy(int customerId, CancellationToken cancellationToken); 
     }
 }

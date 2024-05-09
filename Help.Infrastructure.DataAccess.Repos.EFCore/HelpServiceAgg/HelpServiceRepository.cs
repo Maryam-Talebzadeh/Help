@@ -19,19 +19,19 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public void Create(CreateHelpServiceDTO command)
+        public async Task Create(CreateHelpServiceDTO command, CancellationToken cancellationToken)
         {
             var helpService = new HelpService(command.Title, command.Description, command.Slug, command.Tags);
             _context.HelpServices.Add(helpService);
         }
 
-        public void Edit(EditHelpServiceDTO command)
+        public async Task Edit(EditHelpServiceDTO command, CancellationToken cancellationToken)
         {
             var helpService = Get(command.Id);
             helpService.Edit(command.Title, command.Description, command.Slug, command.Tags);
         }
 
-        public List<HelpServiceDTO> GetAllRemoved()
+        public async Task<List<HelpServiceDTO>> GetAllRemoved(CancellationToken cancellationToken)
         {
             return _context.HelpServices.Select(s =>
             new HelpServiceDTO()
@@ -49,7 +49,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).IgnoreQueryFilters().ToList();
         }
 
-        public EditHelpServiceDTO GetDetails(int id)
+        public async Task<EditHelpServiceDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.HelpServices.Select(s =>
             new EditHelpServiceDTO()
@@ -63,7 +63,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).FirstOrDefault(s => s.Id == id);
         }
 
-        public List<HelpServiceDTO> Search(SearchHelpServiceDTO searchModel)
+        public async Task<List<HelpServiceDTO>> Search(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.HelpServices.Select(s =>
             new HelpServiceDTO()

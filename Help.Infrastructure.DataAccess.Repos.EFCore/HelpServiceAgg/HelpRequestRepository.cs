@@ -20,19 +20,19 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public void Create(CreateHelpRequestDTO command)
+        public async Task Create(CreateHelpRequestDTO command, CancellationToken cancellationToken)
         {
             var helpRequest = new HelpRequest(command.Title, command.Description, command.ExpirationDate.ToGregorianDateTime(), command.CustomerId, command.ServiceId, command.ProposedPrice);
             _context.HelpRequests.Add(helpRequest);
         }
 
-        public void Edit(EditHelpRequestDTO command)
+        public async Task Edit(EditHelpRequestDTO command, CancellationToken cancellationToken)
         {
             var helpRequest = Get(command.Id);
             helpRequest.Edit(command.Title, command.Description, command.ExpirationDate.ToGregorianDateTime(), command.ServiceId, command.ProposedPrice);
         }
 
-        public EditHelpRequestDTO GetDetails(int id)
+        public async Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.HelpRequests.Select(hr =>
             new EditHelpRequestDTO()
@@ -47,7 +47,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).FirstOrDefault(hr => hr.Id == id);
         }
 
-        public List<HelpRequestDTO> Search(SearchHelpRequestDTO searchModel)
+        public async Task<List<HelpRequestDTO>> Search(SearchHelpRequestDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.HelpRequests.Select(hr =>
             new HelpRequestDTO()

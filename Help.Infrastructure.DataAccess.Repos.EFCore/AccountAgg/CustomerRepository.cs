@@ -5,7 +5,6 @@ using Help.Domain.Core.AccountAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Base_Framework.General;
 using Microsoft.IdentityModel.Tokens;
-using Help.Domain.Core.WalletAgg.DTOs.Wallet;
 using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
@@ -19,25 +18,25 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             _context = context;
         }
 
-        public void Active(int id)
+        public async Task Active(int id, CancellationToken cancellationToken)
         {
             var customer = Get(id);
             customer.Activate();
         }
 
-        public void Create(CreateCustomerDTO command)
+        public async Task Create(CreateCustomerDTO command, CancellationToken cancellationToken)
         {
             var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.CardNumber, command.PhoneNumber,command.Bio, command.PictureId, command.Birthday.ToGregorianDateTime(), command.AddressId);
             _context.Customers.Add(customer);
         }
 
-        public void Edit(EditCustomerDTO command)
+        public async Task Edit(EditCustomerDTO command, CancellationToken cancellationToken)
         {
             var customer = Get(command.Id);
             customer.Edit(command.FullName, command.UserName,command.Email, command.CardNumber, command.PhoneNumber, command.Bio, command.Birthday.ToGregorianDateTime());
         }
 
-        public CustomerDetailDTO GetDetails(int id)
+        public async Task<CustomerDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.Customers.Select(c =>
             new CustomerDetailDTO()
@@ -63,7 +62,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             }).FirstOrDefault(c => c.Id == id);
         }
 
-        public List<CustomerDTO> Search(SearchCustomerDTO searchModel)
+        public async Task<List<CustomerDTO>> Search(SearchCustomerDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.Customers.Select(c =>
             new CustomerDTO()

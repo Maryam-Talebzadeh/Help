@@ -5,8 +5,8 @@ namespace Base_Framework.Domain.Core.Contracts
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        public bool IsExist(Expression<Func<T, bool>> expression);
-        public void Save();
+         Task<bool> IsExist(Expression<Func<T, bool>> expression, CancellationToken cancellationToken);
+        Task Save(CancellationToken cancellationToken);
         public void Remove(int id);
         public void Restore(int id);
     }

@@ -15,15 +15,15 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             _context = context;
         }
 
-        public int Create(CreateAddressDTO command)
+        public async Task<int> Create(CreateAddressDTO command, CancellationToken cancellationToken)
         {
             var address = new Address(command.Description, command.CityId, command.StreetName, command.AlleyNumber);
             _context.Addresses.Add(address);
-            Save();
+            await Save(cancellationToken);
             return address.Id;
         }
 
-        public void Edit(EditAddressDTO command)
+        public async Task Edit(EditAddressDTO command, CancellationToken cancellationToken)
         {
             var address = Get(command.Id);
             address.Edit(command.Description, command.CityId, command.StreetName, command.AlleyNumber);

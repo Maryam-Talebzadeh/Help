@@ -18,25 +18,25 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public void Confirm(int id)
+        public async Task Confirm(int id, CancellationToken cancellationToken)
         {
             var comment = Get(id);
             comment.Confirm();
         }
 
-        public void Create(CreateCommentDTO command)
+        public async Task Create(CreateCommentDTO command, CancellationToken cancellationToken)
         {
             var comment = new Comment(command.Message, command.Score, command.ParentId, command.HelpRequestId, command.CustomerId);
             _context.Comments.Add(comment);
         }
 
-        public void Edit(EditCommentDTO command)
+        public async Task Edit(EditCommentDTO command, CancellationToken cancellationToken)
         {
             var comment = Get(command.Id);
             comment.Edit(command.Message, command.Score);
         }
 
-        public List<CommentDTO> GetAllUnConfirmed(SearchCommentDTO searchModel)
+        public async Task<List<CommentDTO>> GetAllUnConfirmed(SearchCommentDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.Comments.Where(c => !c.IsConfirmed).Select(c =>
             new CommentDTO()
@@ -67,7 +67,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             return query.OrderByDescending(c => c.CreationDate).ToList();
         }
 
-        public CommentDetailDTO GetDetails(int id)
+        public async Task<CommentDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.Comments.Select(c =>
             new CommentDetailDTO()
@@ -118,7 +118,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).FirstOrDefault(c => c.Id == id);
         }
 
-        public List<CommentDTO> Search(SearchCommentDTO searchModel)
+        public async Task<List<CommentDTO>> Search(SearchCommentDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.Comments.Where(c => c.IsConfirmed).Select(c =>
            new CommentDTO()

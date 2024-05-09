@@ -14,14 +14,14 @@ namespace Base_Framework.Infrastructure.DataAccess
             _context = context;
         }
 
-        public bool IsExist(Expression<Func<T, bool>> expression)
+        public async Task<bool> IsExist(Expression<Func<T, bool>> expression, CancellationToken cancellationToken)
         {
             return _context.Set<T>().Any(expression);
         }
 
-        public void Save()
+        public async Task Save(CancellationToken cancellationToken)
         {
-            _context.SaveChanges();
+            _context.SaveChangesAsync();
         }
 
         public T Get(int id)

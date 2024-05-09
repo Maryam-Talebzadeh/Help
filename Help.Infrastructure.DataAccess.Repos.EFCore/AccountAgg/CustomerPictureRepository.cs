@@ -16,15 +16,15 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             _context = context;
         }
 
-        public int Create(CreateCustomerPictureDTO command)
+        public async Task<int> Create(CreateCustomerPictureDTO command, CancellationToken cancellationToken)
         {
             var picture = new CustomerPicture(command.Name, command.Title, command.Alt);
             _context.CustomerPictures.Add(picture);
-            Save();
+            await Save(cancellationToken);
             return picture.Id;
         }
 
-        public void Edit(EditCustomerPictureDTO command)
+        public async Task Edit(EditCustomerPictureDTO command, CancellationToken cancellationToken)
         {
             var picture = Get(command.Id);
             picture.Edit(command.Name, command.Title, command.Alt);

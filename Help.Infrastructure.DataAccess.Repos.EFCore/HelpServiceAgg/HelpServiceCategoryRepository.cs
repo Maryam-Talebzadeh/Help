@@ -19,25 +19,25 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public void CreateChild(CreateChildHelpServiceCategoryDTO command)
+        public async Task CreateChild(CreateChildHelpServiceCategoryDTO command, CancellationToken cancellationToken)
         {
             var category = new Category(command.Title, command.Description, command.ParentId);
             _context.Categories.Add(category);
         }
 
-        public void CreateParent(CreateParentHelpServiceCategoryDTO command)
+        public async Task CreateParent(CreateParentHelpServiceCategoryDTO command, CancellationToken cancellationToken)
         {
             var category = new Category(command.Title, command.Description, 0);
             _context.Categories.Add(category);
         }
 
-        public void Edit(EditHelpServiceCategoryDTO command)
+        public async Task Edit(EditHelpServiceCategoryDTO command, CancellationToken cancellationToken)
         {
             var category = Get(command.Id);
             category.Edit(command.Title, command.Description);
         }
 
-        public List<HelpServiceCategoryDTO> GetAllRemoved()
+        public async Task<List<HelpServiceCategoryDTO>> GetAllRemoved(CancellationToken cancellationToken)
         {
             return _context.Categories.Select(c =>
             new HelpServiceCategoryDTO()
@@ -55,7 +55,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).IgnoreQueryFilters().ToList();
         }
 
-        public HelpServiceCategoryDetailDTO GetDetails(int id)
+        public async Task<HelpServiceCategoryDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.Categories.Select(c =>
             new HelpServiceCategoryDetailDTO()
@@ -73,7 +73,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).FirstOrDefault(c => c.Id == id);
         }
 
-            public List<HelpServiceCategoryDTO> Search(SearchHelpServiceCategoryDTO searchModel)
+            public async Task<List<HelpServiceCategoryDTO>> Search(SearchHelpServiceCategoryDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.Categories.Select(c =>
             new HelpServiceCategoryDTO()

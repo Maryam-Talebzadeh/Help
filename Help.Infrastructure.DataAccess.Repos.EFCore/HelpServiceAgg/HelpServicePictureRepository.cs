@@ -1,5 +1,4 @@
 ﻿using Base_Framework.Infrastructure.DataAccess;
-using Help.Domain.Core.AccountAgg.Entities;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpServicePicture;
 using Help.Domain.Core.HelpServiceAgg.Entities;
@@ -16,15 +15,15 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public int Create(CreateHelpServicePictureDTO command)
+        public async Task<int> Create(CreateHelpServicePictureDTO command, CancellationToken cancellationToken)
         {
             var picture = new HelpServicePicture(command.Name, command.Title, command.Alt, command.HelpServiceId);
             _context.HelpServicePictures.Add(picture);
-            Save();
+            await Save(cancellationToken);
             return picture.Id;
         }
 
-        public void Edit(EditHelpServicePictureDTO command)
+        public async Task Edit(EditHelpServicePictureDTO command, CancellationToken cancellationToken)
         {
             var picture = Get(command.Id);
             picture.Edit(command.Name, command.Title, command.Alt);

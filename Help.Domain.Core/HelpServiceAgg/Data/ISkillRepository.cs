@@ -6,11 +6,11 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
 {
     public interface ISkillRepository : IRepository<Skill>
     {
-        void Confirm(int id);
-        void Create(CreateSkillDTO command);
-        void Edit(EditSkillDTO command);
-        EditSkillDTO GetDetails(int id);
-        List<SkillDTO> SearchUnConfirmed(SearchSkillDTO searchModel);
-        List<SkillDTO> GetBy(int customerId);
+        Task Confirm(int id, CancellationToken cancellationToken);
+        Task Create(CreateSkillDTO command, CancellationToken cancellationToken);
+        Task Edit(EditSkillDTO command, CancellationToken cancellationToken);
+        Task<EditSkillDTO> GetDetails(int id, CancellationToken cancellationToken);
+        Task<List<SkillDTO>> SearchUnConfirmed(SearchSkillDTO searchModel, CancellationToken cancellationToken);
+        Task<List<SkillDTO>> GetBy(int customerId, CancellationToken cancellationToken);
     }
 }

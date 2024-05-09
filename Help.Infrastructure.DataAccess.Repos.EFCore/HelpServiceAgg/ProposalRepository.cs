@@ -20,25 +20,25 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public void Confirm(int id)
+        public async Task Confirm(int id, CancellationToken cancellationToken)
         {
             var proposal = Get(id);
             proposal.Confirm();
         }
 
-        public void Create(CreateProposalDTO command)
+        public async Task Create(CreateProposalDTO command, CancellationToken cancellationToken)
         {
             var proposal = new Proposal(command.Description, command.SuggestedTime.ToGregorianDateTime(), command.SuggestedPrice, command.HelpRequestId, command.CustomerId);
             _context.Proposals.Add(proposal);
         }
 
-        public void Edit(EditProposalDTO command)
+        public async Task Edit(EditProposalDTO command, CancellationToken cancellationToken)
         {
             var proposal = Get(command.Id);
             proposal.Edit(command.Description, command.SuggestedTime.ToGregorianDateTime(), command.SuggestedPrice);
         }
 
-        public List<ProposalDTO> GetAllUnConfirmed(SearchProposaltDTO searchModel)
+        public async Task<List<ProposalDTO>> GetAllUnConfirmed(SearchProposaltDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.Proposals.Where(p => !p.IsConfirmed).Select(p =>
             new ProposalDTO()
@@ -90,7 +90,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             return query.OrderByDescending(c => c.CreationDate).ToList();
         }
 
-        public EditProposalDTO GetDetails(int id)
+        public async Task<EditProposalDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.Proposals.Select(p =>
             new EditProposalDTO()
@@ -104,7 +104,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).FirstOrDefault(p => p.Id == id);
         }
 
-        public List<ProposalDTO> Search(SearchProposaltDTO searchModel)
+        public async Task<List<ProposalDTO>> Search(SearchProposaltDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.Proposals.Where(p => p.IsConfirmed).Select(p =>
             new ProposalDTO()

@@ -6,7 +6,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
 {
     public interface IHelpRequestPictureRepository : IRepository<HelpRequestPicture>
     {
-        int Create(CreateHelpRequestPictureDTO command);
-        void Edit(EditHelpRequestPictureDTO command);
+        Task<int> Create(CreateHelpRequestPictureDTO command, CancellationToken cancellationToken);
+        Task Edit(EditHelpRequestPictureDTO command, CancellationToken cancellationToken);
     }
 }

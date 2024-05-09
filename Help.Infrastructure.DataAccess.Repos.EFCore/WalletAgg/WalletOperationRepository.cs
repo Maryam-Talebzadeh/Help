@@ -15,25 +15,25 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.WalletAgg
             _context = context;
         }
 
-        public void Cancel(int id)
+        public async Task Cancel(int id, CancellationToken cancellationToken)
         {
             var operation = Get(id);
             operation.Cancel();
         }
 
-        public void Create(CreateWalleOperationtDTO command)
+        public async Task Create(CreateWalleOperationtDTO command, CancellationToken cancellationToken)
         {
             var operation = new WalletOperation(command.Amount, command.WalletId, command.TypeId);
             _context.WalletOperations.Add(operation);
         }
 
-        public void finalize(int id)
+        public async Task finalize(int id, CancellationToken cancellationToken)
         {
             var operation = Get(id);
             operation.Finalize();
         }
 
-        public List<WalletOperationDTO> GetBy(int walletId)
+        public async Task<List<WalletOperationDTO>> GetBy(int walletId, CancellationToken cancellationToken)
         {
             return _context.WalletOperations.Where(o => o.WalletId == walletId)
                 .Select(o =>

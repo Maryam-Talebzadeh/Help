@@ -6,10 +6,10 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
 {
     public interface IHelpServiceRepository : IRepository<HelpService>
     {
-        void Create(CreateHelpServiceDTO command);
-        void Edit(EditHelpServiceDTO command);
-        EditHelpServiceDTO GetDetails(int id);
-        List<HelpServiceDTO> Search(SearchHelpServiceDTO searchModel);
-        List<HelpServiceDTO> GetAllRemoved();
+        Task Create(CreateHelpServiceDTO command, CancellationToken cancellationToken);
+        Task Edit(EditHelpServiceDTO command, CancellationToken cancellationToken);
+        Task<EditHelpServiceDTO> GetDetails(int id, CancellationToken cancellationToken);
+        Task<List<HelpServiceDTO>> Search(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken);
+        Task<List<HelpServiceDTO>> GetAllRemoved(CancellationToken cancellationToken);
     }
 }

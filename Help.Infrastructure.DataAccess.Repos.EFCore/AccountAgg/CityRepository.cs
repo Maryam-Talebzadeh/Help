@@ -4,7 +4,6 @@ using Help.Domain.Core.AccountAgg.DTOs.City;
 using Help.Domain.Core.AccountAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Microsoft.IdentityModel.Tokens;
-using System.Net;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 {
@@ -17,21 +16,21 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             _context = context;
         }
 
-        public int Create(CreateCityDTO command)
+        public async Task<int> Create(CreateCityDTO command, CancellationToken cancellationToken)
         {
             var city = new City(command.Name, command.ProvinceName, command.Code);
-            _context.Cities.Add(city);
-            Save();
+            _context.Cities.AddAsync(city);
+            await Save(cancellationToken);
             return city.Id;
         }
 
-        public void Edit(EditCityDTO command)
+        public async Task Edit(EditCityDTO command, CancellationToken cancellationToken)
         {
             var city = Get(command.Id);
             city.Edit(command.Name, command.ProvinceName, command.Code);
         }
 
-       public List<CityDTO> Search(SearchCityDTO searchModel)
+       public async Task<List<CityDTO>> Search(SearchCityDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.Cities.Select(c =>
             new CityDTO()

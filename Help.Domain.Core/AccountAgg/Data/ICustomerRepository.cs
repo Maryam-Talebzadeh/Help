@@ -6,10 +6,10 @@ namespace Help.Domain.Core.AccountAgg.Data
 {
     public interface ICustomerRepository : IRepository<Customer>
     {
-        void Create(CreateCustomerDTO command);
-        void Edit(EditCustomerDTO command);
-        CustomerDetailDTO GetDetails(int id);
-        List<CustomerDTO> Search(SearchCustomerDTO searchModel);
-        void Active(int id);
+        Task Create(CreateCustomerDTO command, CancellationToken cancellationToken);
+        Task Edit(EditCustomerDTO command, CancellationToken cancellationToken);
+        Task<CustomerDetailDTO> GetDetails(int id, CancellationToken cancellationToken);
+        Task<List<CustomerDTO>> Search(SearchCustomerDTO searchModel, CancellationToken cancellationToken);
+        Task Active(int id, CancellationToken cancellationToken);
     }
 }

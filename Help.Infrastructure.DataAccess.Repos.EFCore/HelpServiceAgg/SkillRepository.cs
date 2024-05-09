@@ -17,25 +17,25 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public void Confirm(int id)
+        public async Task Confirm(int id, CancellationToken cancellationToken)
         {
             var skill = Get(id);
             skill.Confirm();
         }
 
-        public void Create(CreateSkillDTO command)
+        public async Task Create(CreateSkillDTO command, CancellationToken cancellationToken)
         {
             var skill = new Skill(command.Title, command.Description, command.Level, command.ServiceId, command.CustomerId);
             _context.Skills.Add(skill);
         }
 
-        public void Edit(EditSkillDTO command)
+        public async Task Edit(EditSkillDTO command, CancellationToken cancellationToken)
         {
             var skill = Get(command.Id);
             skill.Edit(command.Title, command.Description, command.Level, command.ServiceId);
         }
 
-        public List<SkillDTO> GetBy(int customerId)
+        public async Task<List<SkillDTO>> GetBy(int customerId, CancellationToken cancellationToken)
         {
             return _context.Skills.Where(s => s.CustomerId == customerId && s.IsConfirmed)
                 .Select(s => new SkillDTO()
@@ -54,7 +54,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 }).ToList();
         }
 
-        public EditSkillDTO GetDetails(int id)
+        public async Task<EditSkillDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.Skills.Select(s =>
            new EditSkillDTO()
@@ -68,7 +68,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
            }).FirstOrDefault(s => s.Id == id);
         }
 
-        public List<SkillDTO> SearchUnConfirmed(SearchSkillDTO searchModel)  //Just for admin
+        public async Task<List<SkillDTO>> SearchUnConfirmed(SearchSkillDTO searchModel, CancellationToken cancellationToken)  //Just for admin
         {
             var query = _context.Skills.Where(s => !s.IsConfirmed)
                  .Select(s => new SkillDTO()

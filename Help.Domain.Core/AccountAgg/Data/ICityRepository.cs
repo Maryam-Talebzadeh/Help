@@ -6,8 +6,8 @@ namespace Help.Domain.Core.AccountAgg.Data
 {
     public interface ICityRepository : IRepository<City>
     {
-        int Create(CreateCityDTO command);
-        void Edit(EditCityDTO command);
-        List<CityDTO> Search(SearchCityDTO searchModel);
+        Task<int> Create(CreateCityDTO command, CancellationToken cancellationToken);
+        Task Edit(EditCityDTO command, CancellationToken cancellationToken);
+        Task<List<CityDTO>> Search(SearchCityDTO searchModel, CancellationToken cancellationToken);
     }
 }

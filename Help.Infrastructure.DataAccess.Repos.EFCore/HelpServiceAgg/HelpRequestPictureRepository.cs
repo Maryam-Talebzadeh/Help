@@ -16,15 +16,15 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public int Create(CreateHelpRequestPictureDTO command)
+        public async Task<int> Create(CreateHelpRequestPictureDTO command, CancellationToken cancellationToken)
         {
             var picture = new HelpRequestPicture(command.Name, command.Title, command.Alt, command.HelpRequestId);
             _context.HelpRequestPictures.Add(picture);
-            Save();
+            await Save(cancellationToken);
             return picture.Id;
         }
 
-        public void Edit(EditHelpRequestPictureDTO command)
+        public async Task Edit(EditHelpRequestPictureDTO command, CancellationToken cancellationToken)
         {
             var picture = Get(command.Id);
             picture.Edit(command.Name, command.Title, command.Alt);

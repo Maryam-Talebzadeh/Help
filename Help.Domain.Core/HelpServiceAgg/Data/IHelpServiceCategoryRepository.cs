@@ -6,11 +6,11 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
 {
     public interface IHelpServiceCategoryRepository : IRepository<Category>
     {
-        void CreateChild(CreateChildHelpServiceCategoryDTO command);
-        void CreateParent(CreateParentHelpServiceCategoryDTO command);
-        void Edit(EditHelpServiceCategoryDTO command);
-        HelpServiceCategoryDetailDTO GetDetails(int id);
-        List<HelpServiceCategoryDTO> Search(SearchHelpServiceCategoryDTO searchModel);
-        List<HelpServiceCategoryDTO> GetAllRemoved();
+        Task CreateChild(CreateChildHelpServiceCategoryDTO command, CancellationToken cancellationToken);
+        Task CreateParent(CreateParentHelpServiceCategoryDTO command, CancellationToken cancellationToken);
+        Task Edit(EditHelpServiceCategoryDTO command, CancellationToken cancellationToken);
+        Task<HelpServiceCategoryDetailDTO> GetDetails(int id, CancellationToken cancellationToken);
+        Task<List<HelpServiceCategoryDTO>> Search(SearchHelpServiceCategoryDTO searchModel, CancellationToken cancellationToken);
+        Task<List<HelpServiceCategoryDTO>> GetAllRemoved(CancellationToken cancellationToken);
     }
 }

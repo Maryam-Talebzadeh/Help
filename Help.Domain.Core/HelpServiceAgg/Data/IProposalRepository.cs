@@ -6,11 +6,11 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
 {
     public interface IProposalRepository : IRepository<Proposal>
     {
-        void Create(CreateProposalDTO command);
-        void Edit(EditProposalDTO command);
-        EditProposalDTO GetDetails(int id);
-        List<ProposalDTO> Search(SearchProposaltDTO searchModel);
-        List<ProposalDTO> GetAllUnConfirmed(SearchProposaltDTO searchModel);
-        void Confirm(int id);
+        Task Create(CreateProposalDTO command, CancellationToken cancellationToken);
+        Task Edit(EditProposalDTO command, CancellationToken cancellationToken);
+        Task<EditProposalDTO> GetDetails(int id, CancellationToken cancellationToken);
+        Task<List<ProposalDTO>> Search(SearchProposaltDTO searchModel, CancellationToken cancellationToken);
+        Task<List<ProposalDTO>> GetAllUnConfirmed(SearchProposaltDTO searchModel, CancellationToken cancellationToken);
+        Task Confirm(int id, CancellationToken cancellationToken);
     }
 }
