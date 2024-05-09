@@ -55,6 +55,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public void Done()
         {
             IsDone = true;
+            StatusId = 4;
         }
     }
 }
