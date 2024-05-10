@@ -1,9 +1,7 @@
 ﻿using Base_Framework.Domain.Services;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
-using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Domain.Core.HelpServiceAgg.Services;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Help.Domain.Services.HelpServiceAgg
 {
@@ -87,9 +85,9 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
-        public async Task<List<HelpRequestDTO>> GetAllUnConfirmed(CancellationToken cancellation)
+        public async Task<List<HelpRequestDTO>> SearchInUnConfirmed(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
         {
-            return await _helpRequestRepository.GetAllUnConfirmed(cancellation);
+            return await _helpRequestRepository.SearchInUnConfirmed(searchModel, cancellation);
         }
 
         public Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)

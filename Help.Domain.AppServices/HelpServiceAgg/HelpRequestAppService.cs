@@ -100,9 +100,9 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             }
         }
 
-        public async Task<List<HelpRequestDTO>> GetAllUnConfirmed(CancellationToken cancellation)
+        public async Task<List<HelpRequestDTO>> SearchInUnConfirmed(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
         {
-            return await _helpRequestService.GetAllUnConfirmed(cancellation);
+            return await _helpRequestService.SearchInUnConfirmed(searchModel, cancellation);
         }
 
         public async Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)
