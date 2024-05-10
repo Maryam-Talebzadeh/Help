@@ -1,27 +1,29 @@
-﻿
+﻿using Base_Framework.Domain.Core.Entities;
 
 namespace Base_Framework.Domain.Services
 {
-    public class OperationResult<T>
+    public class OperationResult
     {
-        public OperationResult(T obj)
+        public OperationResult(Type recordReferenceType, int recordReferenceId)
         {
             IsSuccedded = false;
-            OperationReference = obj;
+            RecordReferenceType = recordReferenceType;
+            RecordReferenceId = recordReferenceId;
         }
 
         public bool IsSuccedded { get; set; }
         public string Message { get; set; }
-        public T OperationReference { get; set; }
+        public Type RecordReferenceType { get; set; }
+        public int RecordReferenceId { get; set; }
 
-        public OperationResult<T> Succedded(string message = "عملیات با موفقیت انجام شد")
+        public OperationResult Succedded(string message = "عملیات با موفقیت انجام شد")
         {
             IsSuccedded = true;
             Message = message;
             return this;
         }
 
-        public OperationResult<T> Failed(string message)
+        public OperationResult Failed(string message)
         {
             IsSuccedded = false;
             Message = message;

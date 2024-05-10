@@ -16,13 +16,13 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.WalletAgg
             _context = context;
         }
 
-        public void Create(CreateWalletDTO command)
+        public async Task Create(CreateWalletDTO command, CancellationToken cancellationToken)
         {
             var wallet = new Wallet(command.CustomerId);
             _context.Wallets.Add(wallet);
         }
 
-        public List<WalletDTO> GetBy(int customerId)
+        public async Task<List<WalletDTO>> GetBy(int customerId, CancellationToken cancellationToken)
         {
             return _context.Wallets.Where(w => w.CustomerId == customerId)
                  .Select(w =>

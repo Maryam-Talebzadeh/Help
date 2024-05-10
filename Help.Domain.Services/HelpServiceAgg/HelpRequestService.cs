@@ -1,7 +1,9 @@
 ﻿using Base_Framework.Domain.Services;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
+using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Domain.Core.HelpServiceAgg.Services;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Help.Domain.Services.HelpServiceAgg
 {
@@ -9,6 +11,7 @@ namespace Help.Domain.Services.HelpServiceAgg
     {
         private readonly IHelpRequestRepository _helpRequestRepository;
         private readonly IHelpRequestPictureRepository _helpRequestPictureRepository;
+        private readonly Type _type = new HelpRequestDTO().GetType();
 
         public HelpRequestService(IHelpRequestRepository helpRequestRepository, IHelpRequestPictureRepository helpRequestPictureRepository)
         {
@@ -16,12 +19,9 @@ namespace Help.Domain.Services.HelpServiceAgg
             _helpRequestPictureRepository = helpRequestPictureRepository;
         }
 
-        public async Task<global::Base_Framework.Domain.Services.OperationResult<HelpRequestDTO>> ChangeStatus(int helpRequestId, int customerId, int statusId, CancellationToken cancellationToken)
+        public async Task<global::Base_Framework.Domain.Services.OperationResult> ChangeStatus(int helpRequestId, int customerId, int statusId, CancellationToken cancellationToken)
         {
-            var operation = new OperationResult<HelpRequestDTO>(new HelpRequestDTO()
-            {
-                Id = helpRequestId
-            });
+            var operation = new OperationResult(_type, helpRequestId);
 
             if (!await _helpRequestRepository.IsExist(x => x.Id == helpRequestId, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
@@ -35,12 +35,9 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
-        public async Task<global::Base_Framework.Domain.Services.OperationResult<HelpRequestDTO>> Confirm(int id, CancellationToken cancellationToken)
+        public async Task<global::Base_Framework.Domain.Services.OperationResult> Confirm(int id, CancellationToken cancellationToken)
         {
-            var operation = new OperationResult<HelpRequestDTO>(new HelpRequestDTO()
-            {
-                Id = id
-            });
+            var operation = new OperationResult(_type, id);
 
             if (!await _helpRequestRepository.IsExist(x => x.Id == id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
@@ -56,20 +53,17 @@ namespace Help.Domain.Services.HelpServiceAgg
            return await _helpRequestRepository.Count(cancellationToken);
         }
 
-        public async Task<global::Base_Framework.Domain.Services.OperationResult<HelpRequestDTO>> Create(CreateHelpRequestDTO command, CancellationToken cancellationToken)
+        public async Task<global::Base_Framework.Domain.Services.OperationResult> Create(CreateHelpRequestDTO command, CancellationToken cancellationToken)
         {
-            var operation = new OperationResult<HelpRequestDTO>(new HelpRequestDTO());
+            var operation = new OperationResult(_type, 0);
             await _helpRequestRepository.Create(command, cancellationToken);
 
             return operation.Succedded();         
         }
 
-        public async Task<global::Base_Framework.Domain.Services.OperationResult<HelpRequestDTO>> Done(int helpRequestId, int customerId, CancellationToken cancellationToken)
+        public async Task<global::Base_Framework.Domain.Services.OperationResult> Done(int helpRequestId, int customerId, CancellationToken cancellationToken)
         {
-            var operation = new OperationResult<HelpRequestDTO>(new HelpRequestDTO()
-            {
-                Id = helpRequestId
-            });
+            var operation = new OperationResult(_type, helpRequestId);
 
             if (!await _helpRequestRepository.IsExist(x => x.Id == helpRequestId, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
@@ -80,12 +74,9 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
-        public async Task<global::Base_Framework.Domain.Services.OperationResult<HelpRequestDTO>> Edit(EditHelpRequestDTO command, CancellationToken cancellationToken)
+        public async Task<global::Base_Framework.Domain.Services.OperationResult> Edit(EditHelpRequestDTO command, CancellationToken cancellationToken)
         {
-            var operation = new OperationResult<HelpRequestDTO>(new HelpRequestDTO()
-            {
-                Id = command.Id
-            });
+            var operation = new OperationResult(_type, command.Id);
 
             if (!await _helpRequestRepository.IsExist(x => x.Id == command.Id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
@@ -106,12 +97,9 @@ namespace Help.Domain.Services.HelpServiceAgg
             return _helpRequestRepository.GetDetails(id, cancellationToken);
         }
 
-        public async Task<global::Base_Framework.Domain.Services.OperationResult<HelpRequestDTO>> Reject(int id, int adminCode, CancellationToken cancellationToken)
+        public async Task<global::Base_Framework.Domain.Services.OperationResult> Reject(int id, CancellationToken cancellationToken)
         {
-            var operation = new OperationResult<HelpRequestDTO>(new HelpRequestDTO()
-            {
-                Id = id
-            });
+            var operation = new OperationResult(_type, id);
 
             if (!await _helpRequestRepository.IsExist(x => x.Id == id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
@@ -122,12 +110,9 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
-        public async Task<global::Base_Framework.Domain.Services.OperationResult<HelpRequestDTO>> Remove(int id, int adminCode, CancellationToken cancellationToken)
+        public async Task<global::Base_Framework.Domain.Services.OperationResult> Remove(int id, CancellationToken cancellationToken)
         {
-            var operation = new OperationResult<HelpRequestDTO>(new HelpRequestDTO()
-            {
-                Id = id
-            });
+            var operation = new OperationResult(_type, id);
 
             if (!await _helpRequestRepository.IsExist(x => x.Id == id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
@@ -140,12 +125,7 @@ namespace Help.Domain.Services.HelpServiceAgg
 
         public async Task<List<HelpRequestDTO>> Search(SearchHelpRequestDTO searchModel, CancellationToken cancellationToken)
         {
-            var helpRequests = await _helpRequestRepository.Search(searchModel, cancellationToken);
-
-            foreach (var request in helpRequests)
-                request.Pictures = await _helpRequestPictureRepository.GetAll(request.Id, cancellationToken);
-
-            return helpRequests;
+            return await _helpRequestRepository.Search(searchModel, cancellationToken);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Base_Framework.Domain.Core.Contracts;
 using Base_Framework.Domain.Services.Cache;
+using Base_Framework.LogError;
 using Help.Domain.Core.AccountAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.WalletAgg.Data;
@@ -13,7 +14,7 @@ namespace Help.EndPoints.MVC.ServiceConfigurations
 {
     public class LocalServiceConfigurations
     {
-        public static void Configure(IServiceCollection services, string connectionString)
+        public static void Configure(IServiceCollection services, string connectionString, ILogger logger)
         {
 
             #region HelpServiceAgg
@@ -53,6 +54,12 @@ namespace Help.EndPoints.MVC.ServiceConfigurations
             #region Caching
 
             services.AddScoped<IDistributedCacheService, RedisCacheService>();
+
+            #endregion
+
+            #region Framework
+
+            services.AddScoped<IOperationResultLogging>(provider => new OperationResultLogging(logger));
 
             #endregion
         }

@@ -39,7 +39,7 @@ builder.Services.AddLogging(loggerBuilder =>
 
 #endregion
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

@@ -9,15 +9,16 @@ namespace Help.Domain.Services.HelpServiceAgg
     public class HelpRequestPictureService : IHelpRequestPictureService
     {
         private readonly IHelpRequestPictureRepository _helpRequestPictureRepository;
+        private readonly Type _type = new HelpRequestPictureDTO().GetType();
 
         public HelpRequestPictureService(IHelpRequestPictureRepository helpRequestPictureRepository)
         {
             _helpRequestPictureRepository = helpRequestPictureRepository;
         }
 
-        public async Task<OperationResult<HelpRequestPictureDTO>> Create(CreateHelpRequestPictureDTO command, CancellationToken cancellationToken)
+        public async Task<OperationResult> Create(CreateHelpRequestPictureDTO command, CancellationToken cancellationToken)
         {
-            var operation = new OperationResult<HelpRequestPictureDTO>(new HelpRequestPictureDTO());
+            var operation = new OperationResult(_type, 0);
 
             #region Save picture
 
@@ -32,7 +33,7 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
-        public async Task<OperationResult<HelpRequestPictureDTO>> Edit(EditHelpRequestPictureDTO command, CancellationToken cancellationToken)
+        public async Task<OperationResult> Edit(EditHelpRequestPictureDTO command, CancellationToken cancellationToken)
         {
             if (command.Picture != null)
             {
@@ -54,10 +55,7 @@ namespace Help.Domain.Services.HelpServiceAgg
 
             }
 
-            var operation = new OperationResult<HelpRequestPictureDTO>(new HelpRequestPictureDTO()
-            {
-                Id = command.Id
-            });
+            var operation = new OperationResult(_type, command.Id);
 
             if (!await _helpRequestPictureRepository.IsExist(x => x.Id == command.Id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
@@ -88,12 +86,9 @@ namespace Help.Domain.Services.HelpServiceAgg
             return await _helpRequestPictureRepository.GetDetails(id, cancellationToken);
         }
 
-        public async Task<OperationResult<HelpRequestPictureDTO>> Remove(int id, CancellationToken cancellationToken)
+        public async Task<OperationResult> Remove(int id, CancellationToken cancellationToken)
         {
-            var operation = new OperationResult<HelpRequestPictureDTO>(new HelpRequestPictureDTO()
-            {
-                Id = id
-            });
+            var operation = new OperationResult(_type, id);
 
             if (!await _helpRequestPictureRepository.IsExist(x => x.Id == id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
