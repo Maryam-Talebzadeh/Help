@@ -1,9 +1,7 @@
-﻿using Base_Framework.Domain.Core.Entities;
-using Base_Framework.Domain.Services;
+﻿using Base_Framework.Domain.Services;
 using Base_Framework.General;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
-using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Domain.Core.HelpServiceAgg.Services;
 
 namespace Help.Domain.Services.HelpServiceAgg
@@ -24,7 +22,7 @@ namespace Help.Domain.Services.HelpServiceAgg
             #region Save picture
 
             command.Name = NameGenarator.GenerateUniqeCode() + Path.GetExtension(command.Picture.FileName);
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "Temporary", command.Name);
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "HelpRequestPictures", command.Name);
             FileHandler.SaveImage(path, command.Picture);
 
             #endregion
@@ -38,7 +36,7 @@ namespace Help.Domain.Services.HelpServiceAgg
         {
             if (command.Picture != null)
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "Temporary");
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "HelpRequestPictures");
 
                 #region Delete Old Image
 
