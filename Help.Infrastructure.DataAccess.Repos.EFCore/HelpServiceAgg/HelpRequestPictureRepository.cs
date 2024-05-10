@@ -60,6 +60,21 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                }).ToList();
         }
 
+        public async Task<List<HelpRequestPictureDTO>> GetAllUnConfirmed(CancellationToken cancellationToken)
+        {
+            return _context.HelpRequestPictures
+              .Where(p => !p.IsConfirmed)
+              .Select(p =>
+              new HelpRequestPictureDTO
+              {
+                  Id = p.Id,
+                  Title = p.Title,
+                  Name = p.Name,
+                  Alt = p.Alt,
+                  HelpRequestId = p.HelpRequestId
+              }).ToList();
+        }
+
         public async Task<EditHelpRequestPictureDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.HelpRequestPictures.Select(p =>

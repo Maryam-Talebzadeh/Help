@@ -3,6 +3,7 @@ using Base_Framework.Domain.Services;
 using Base_Framework.General;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
+using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Domain.Core.HelpServiceAgg.Services;
 
 namespace Help.Domain.Services.HelpServiceAgg
@@ -77,6 +78,11 @@ namespace Help.Domain.Services.HelpServiceAgg
         public async Task<List<HelpRequestPictureDTO>> GetAllUnConfirmed(int helpRequestId, CancellationToken cancellationToken)
         {
             return await _helpRequestPictureRepository.GetAllUnConfirmed(helpRequestId, cancellationToken);
+        }
+
+        public async Task<List<HelpRequestPictureDTO>> GetAllUnConfirmed(CancellationToken cancellationToken)
+        {
+            return await _helpRequestPictureRepository.GetAllUnConfirmed(cancellationToken);
         }
 
         public async Task<EditHelpRequestPictureDTO> GetDetails(int id, CancellationToken cancellationToken)

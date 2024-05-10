@@ -1,5 +1,6 @@
 ﻿using Base_Framework.Domain.Services;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
+using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
 
 namespace Help.Domain.Core.HelpServiceAgg.Services
 {
