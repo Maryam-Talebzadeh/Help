@@ -8,13 +8,11 @@ namespace Help.Domain.Services.HelpServiceAgg
     public class HelpRequestService : IHelpRequestService
     {
         private readonly IHelpRequestRepository _helpRequestRepository;
-        private readonly IHelpRequestPictureRepository _helpRequestPictureRepository;
         private readonly Type _type = new HelpRequestDTO().GetType();
 
-        public HelpRequestService(IHelpRequestRepository helpRequestRepository, IHelpRequestPictureRepository helpRequestPictureRepository)
+        public HelpRequestService(IHelpRequestRepository helpRequestRepository)
         {
             _helpRequestRepository = helpRequestRepository;
-            _helpRequestPictureRepository = helpRequestPictureRepository;
         }
 
         public async Task<global::Base_Framework.Domain.Services.OperationResult> ChangeStatus(int helpRequestId, int customerId, int statusId, CancellationToken cancellationToken)

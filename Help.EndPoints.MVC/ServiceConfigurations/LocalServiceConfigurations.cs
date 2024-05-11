@@ -14,7 +14,7 @@ namespace Help.EndPoints.MVC.ServiceConfigurations
 {
     public class LocalServiceConfigurations
     {
-        public static void Configure(IServiceCollection services, string connectionString, ILogger logger)
+        public static void Configure(IServiceCollection services, string connectionString)
         {
 
             #region HelpServiceAgg
@@ -59,7 +59,7 @@ namespace Help.EndPoints.MVC.ServiceConfigurations
 
             #region Framework
 
-            services.AddScoped<IOperationResultLogging>(provider => new OperationResultLogging(logger));
+            services.AddScoped<IOperationResultLogging, OperationResultLogging>();
 
             #endregion
         }

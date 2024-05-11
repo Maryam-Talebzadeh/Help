@@ -1,5 +1,4 @@
-﻿using Base_Framework.Domain.Core.Contracts;
-using Base_Framework.Domain.Services;
+﻿using Base_Framework.Domain.Services;
 using Base_Framework.LogError;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
@@ -11,15 +10,13 @@ namespace Help.Domain.AppServices.HelpServiceAgg
     {
         private readonly IHelpRequestService _helpRequestService;
         private readonly IHelpRequestPictureService _helpRequestPictureService;
-        private readonly IDistributedCacheService _cacheService;
-        private readonly OperationResultLogging _operationResultLogging;
+        private readonly IOperationResultLogging _operationResultLogging;
         private readonly string _nameSpace = "Help.Domain.AppServices.HelpServiceAgg";
         private readonly Type _type = new HelpRequestDTO().GetType();
 
-        public HelpRequestAppService(IHelpRequestService helpRequestService, IDistributedCacheService cacheService, OperationResultLogging operationResultLogging, IHelpRequestPictureService helpRequestPictureService)
+        public HelpRequestAppService(IHelpRequestService helpRequestService, IOperationResultLogging operationResultLogging, IHelpRequestPictureService helpRequestPictureService)
         {
             _helpRequestService = helpRequestService;
-            _cacheService = cacheService;
             _operationResultLogging = operationResultLogging;
             _helpRequestPictureService = helpRequestPictureService;
             _helpRequestPictureService = helpRequestPictureService;
