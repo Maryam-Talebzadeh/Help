@@ -1,6 +1,7 @@
 ﻿using Base_Framework.Domain.Core.Contracts;
 using Base_Framework.Domain.Services.Cache;
 using Base_Framework.LogError;
+using Help.Domain.Core;
 using Help.Domain.Core.AccountAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.WalletAgg.Data;
@@ -14,7 +15,7 @@ namespace Help.EndPoints.MVC.ServiceConfigurations
 {
     public class LocalServiceConfigurations
     {
-        public static void Configure(IServiceCollection services, string connectionString)
+        public static void Configure(IServiceCollection services, SiteSetting siteSetting)
         {
 
             #region HelpServiceAgg
@@ -47,7 +48,7 @@ namespace Help.EndPoints.MVC.ServiceConfigurations
 
             #region DBContext
 
-            services.AddDbContext<HelpContext>(x => x.UseSqlServer(connectionString));
+            services.AddDbContext<HelpContext>(x => x.UseSqlServer(siteSetting.HelpConnectionString));
 
             #endregion
 

@@ -1,3 +1,4 @@
+using Help.Domain.Core;
 using Help.EndPoints.MVC.ServiceConfigurations;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,9 +6,12 @@ builder.Logging.ClearProviders();
 
 // Add services to the container.
 
+var siteSetting = new SiteSetting(builder.Configuration);
+builder.Services.AddSingleton(siteSetting);
+
 #region Custom Services
 
-LocalServiceConfigurations.Configure(builder.Services, builder.Configuration.GetConnectionString("HelpConnectionString"));
+LocalServiceConfigurations.Configure(builder.Services, siteSetting);
 
 #endregion
 
@@ -15,8 +19,7 @@ LocalServiceConfigurations.Configure(builder.Services, builder.Configuration.Get
 
 builder.Services.AddStackExchangeRedisCache(redisOptions =>
 {
-    string connectionString = builder.Configuration
-    .GetConnectionString("Redis");
+    string connectionString = siteSetting.RedisConnectionString;
 
     redisOptions.Configuration = connectionString;
     redisOptions.ConfigurationOptions = new()
@@ -34,7 +37,7 @@ builder.Services.AddStackExchangeRedisCache(redisOptions =>
 
 builder.Services.AddLogging(loggerBuilder =>
 {
-    loggerBuilder.AddSeq("http://localhost:5341", "VhKsy1B9lJDwxHVohwst");
+    loggerBuilder.AddSeq(siteSetting.SeqServerAddress, siteSetting.SeqApiKey);
 });
 
 #endregion

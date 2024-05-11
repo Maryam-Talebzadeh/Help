@@ -10,14 +10,14 @@ namespace Help.Domain.Core
             RedisConnectionString = configuration.GetConnectionString("RedisConnectionString");
             HelpServiceCategoriesCacheKey = configuration["CacheKeys:helpServiceCategories"].ToString();
             HelpServicesCacheKey = configuration["CacheKeys:helpServices"].ToString();
-            RedisApiKey = configuration["Redis:ApiKey"].ToString();
-            RedisApiKey = configuration["Redis:ServerAddress"].ToString();
+            SeqApiKey = configuration["Seq:ApiKey"].ToString();
+            SeqApiKey = configuration["Seq:ServerAddress"].ToString();
         }
 
         public string HelpConnectionString { get; private set; }
         public string RedisConnectionString { get; private set; }
-        public string RedisApiKey { get; private set; }
-        public string RedisServerAddress { get; private set; }
+        public string SeqApiKey { get; private set; }
+        public string SeqServerAddress { get; private set; }
         public string HelpServiceCategoriesCacheKey { get; private set; }
         public string HelpServicesCacheKey { get; private set; }
     }
