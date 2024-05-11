@@ -1,7 +1,6 @@
 ﻿using Base_Framework.Domain.Services;
 using Base_Framework.LogError;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
-using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestStatus;
 using Help.Domain.Core.HelpServiceAgg.Services;
 
@@ -12,7 +11,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
         private readonly IHelpRequestStatusService _helpRequestStatusService;
         private readonly IOperationResultLogging _operationResultLogging;
         private readonly string _nameSpace = "Help.Domain.AppServices.HelpServiceAgg";
-        private readonly Type _type = new HelpRequestDTO().GetType();
+        private readonly Type _type = new HelpRequestStatusDTO().GetType();
 
         public HelpRequestStatusAppService(IHelpRequestStatusService helpRequestStatusService, IOperationResultLogging operationResultLogging)
         {

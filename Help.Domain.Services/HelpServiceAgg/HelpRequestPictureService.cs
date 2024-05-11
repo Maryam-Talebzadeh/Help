@@ -76,11 +76,6 @@ namespace Help.Domain.Services.HelpServiceAgg
             return await _helpRequestPictureRepository.GetAllUnConfirmed(helpRequestId, cancellationToken);
         }
 
-        public async Task<List<HelpRequestPictureDTO>> GetAllUnConfirmed(CancellationToken cancellationToken)
-        {
-            return await _helpRequestPictureRepository.GetAllUnConfirmed(cancellationToken);
-        }
-
         public async Task<EditHelpRequestPictureDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return await _helpRequestPictureRepository.GetDetails(id, cancellationToken);

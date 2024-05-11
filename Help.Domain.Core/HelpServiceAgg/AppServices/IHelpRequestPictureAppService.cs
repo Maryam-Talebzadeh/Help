@@ -1,9 +1,9 @@
 ﻿using Base_Framework.Domain.Services;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
 
-namespace Help.Domain.Core.HelpServiceAgg.Services
+namespace Help.Domain.Core.HelpServiceAgg.AppServices
 {
-    public interface IHelpRequestPictureService
+    public interface IHelpRequestPictureAppService
     {
         Task<OperationResult> Create(CreateHelpRequestPictureDTO command, CancellationToken cancellationToken);
         Task<OperationResult> Edit(EditHelpRequestPictureDTO command, CancellationToken cancellationToken);
