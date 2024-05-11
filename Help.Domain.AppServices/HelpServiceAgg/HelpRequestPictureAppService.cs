@@ -2,6 +2,7 @@
 using Base_Framework.LogError;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
+using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 using Help.Domain.Core.HelpServiceAgg.Services;
 
 namespace Help.Domain.AppServices.HelpServiceAgg
