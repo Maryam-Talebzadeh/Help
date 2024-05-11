@@ -83,6 +83,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
         public Task<List<HelpServiceDTO>> Search(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
         {
             //Caching
+            //Fill IdTitleCategoryDTO
             return _helpServiceService.Search(searchModel, cancellationToken);
         }
     }
