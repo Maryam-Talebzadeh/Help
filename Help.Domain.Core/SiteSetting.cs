@@ -8,8 +8,9 @@ namespace Help.Domain.Core
         {
             HelpConnectionString = configuration.GetConnectionString("HelpConnectionString");
             RedisConnectionString = configuration.GetConnectionString("RedisConnectionString");
-            HelpServiceCategoriesCacheKey = configuration["CacheKeys:helpServiceCategories"].ToString();
-            HelpServicesCacheKey = configuration["CacheKeys:helpServices"].ToString();
+            HelpServiceCategoriesCacheKey = configuration["CacheKeys:HelpServiceCategories"].ToString();
+            HelpServicePicturessCacheKey = configuration["CacheKeys:HelpServicePictures"].ToString();
+            HelpServicesCacheKey = configuration["CacheKeys:HelpServices"].ToString();
             SeqApiKey = configuration["Seq:ApiKey"].ToString();
             SeqApiKey = configuration["Seq:ServerAddress"].ToString();
         }
@@ -20,5 +21,7 @@ namespace Help.Domain.Core
         public string SeqServerAddress { get; private set; }
         public string HelpServiceCategoriesCacheKey { get; private set; }
         public string HelpServicesCacheKey { get; private set; }
+        public string HelpServicePicturessCacheKey { get; private set; }
+
     }
 }

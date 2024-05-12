@@ -3,6 +3,7 @@ using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpServicePicture;
 using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 {
@@ -27,6 +28,19 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
         {
             var picture = Get(command.Id);
             picture.Edit(command.Name, command.Title, command.Alt);
+        }
+
+        public async Task<EditHelpServicePictureDTO> GetDetails(int id, CancellationToken cancellationToken)
+        {
+            return await _context.HelpServicePictures.Select(p =>
+            new EditHelpServicePictureDTO
+            {
+                Id = p.Id,
+                HelpServiceId = p.ServiceId,
+                Alt = p.Alt,
+                Name = p.Name,
+                Title = p.Title
+            }).FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

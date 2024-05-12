@@ -66,7 +66,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             if(res == null)
             {
                 var detail = await _helpServiceService.GetDetails(id, cancellationToken);
-                await _distributedCache.SetAsync(_appSetting.HelpServicesCacheKey, detail, 7, TimeSpan.FromHours(2));
+                await _distributedCache.SetAsync((_appSetting.HelpServicesCacheKey + "_" + id), detail, 7, TimeSpan.FromHours(2));
                 res = detail;
             }
 

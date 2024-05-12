@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Images\HelpRequestPictures\" />
+    <Folder Include="wwwroot\Images\HelpServicePictures\" />
   </ItemGroup>
 
 </Project>
