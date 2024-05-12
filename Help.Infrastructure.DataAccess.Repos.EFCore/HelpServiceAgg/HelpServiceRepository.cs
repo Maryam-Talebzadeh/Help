@@ -63,35 +63,5 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).FirstOrDefault(s => s.Id == id);
         }
 
-        public async Task<List<HelpServiceDTO>> Search(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
-        {
-            var query = _context.HelpServices.Select(s =>
-            new HelpServiceDTO()
-            {
-                Id = s.Id,
-                Title = s.Title,
-                Picture = s.Picture.Name,
-                CreationDate = s.CreationDate.ToFarsi(),
-                Categories = s.Categories.Select(category =>
-                     new IdTitleCategoryDTO()
-                     {
-                         Id = category.Category.Id,
-                         Title = category.Category.Title
-                     }).ToList()
-            });
-
-            if (!searchModel.Title.IsNullOrEmpty())
-            {
-                query = query.Where(s =>
-                s.Title == searchModel.Title);
-            }
-
-            if(!searchModel.Category.IsNullOrEmpty())
-            {
-                query = query.Where(service => service.Categories.Any(category => category.Title.Contains(searchModel.Category)));
-            }
-
-            return query.OrderByDescending(s => s.CreationDate).ToList();
-        }
     }
 }

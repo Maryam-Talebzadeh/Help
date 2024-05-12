@@ -14,7 +14,17 @@ namespace Base_Framework.Domain.Services.Cache
 
         #region General Set
 
-        public async Task SetAsync<T>(string key, List<T> value, int expiratonDay, TimeSpan slidingExpiration)
+        public async Task SetListAsync<T>(string key, List<T> value, int expiratonDay, TimeSpan slidingExpiration)
+        {
+            var cacheOption = new DistributedCacheEntryOptions
+            {
+                AbsoluteExpiration = DateTimeOffset.Now.AddDays(expiratonDay),
+                SlidingExpiration = slidingExpiration
+            };
+            await _distributedCache.SetStringAsync(key, JsonSerializer.Serialize(value), cacheOption);
+        }
+
+        public async Task SetAsync<T>(string key, T value, int expiratonDay, TimeSpan slidingExpiration)
         {
             var cacheOption = new DistributedCacheEntryOptions
             {
@@ -77,7 +87,7 @@ namespace Base_Framework.Domain.Services.Cache
         #endregion
 
         #region Get
-        public async Task<List<T>?> GetAsync<T>(string key)
+        public async Task<List<T>?> GetListAsync<T>(string key)
         {
             var value = await _distributedCache.GetStringAsync(key);
             if (value != null)
@@ -86,6 +96,17 @@ namespace Base_Framework.Domain.Services.Cache
             }
             return default;
         }
+
+        public async Task<T?> GetAsync<T>(string key)
+        {
+            var value = await _distributedCache.GetStringAsync(key);
+            if (value != null)
+            {
+                return JsonSerializer.Deserialize<T>(value);
+            }
+            return default;
+        }
+
         public List<T>? Get<T>(string key)
         {
             var value = _distributedCache.GetString(key);

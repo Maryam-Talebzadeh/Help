@@ -2,6 +2,7 @@
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 using Help.Domain.Core.HelpServiceAgg.Services;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Help.Domain.Services.HelpServiceAgg
 {
@@ -73,9 +74,20 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
-        public Task<List<HelpServiceDTO>> Search(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
+       public async Task<List<HelpServiceDTO>> Search(List<HelpServiceDTO> searchList, SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
         {
-            return _helpServiceRepository.Search(searchModel, cancellationToken);
+           if(searchModel.Title != null)
+            {
+                searchList = searchList.Where(s =>
+                s.Title == searchModel.Title).ToList();
+            }
+
+            if (searchModel.Category != null)
+            {
+                searchList = searchList.Where(service => service.Categories.Any(category => category.Title.Contains(searchModel.Category))).ToList();
+            }
+
+            return searchList;
         }
     }
 }

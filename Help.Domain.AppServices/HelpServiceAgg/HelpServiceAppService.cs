@@ -1,5 +1,7 @@
-﻿using Base_Framework.Domain.Services;
+﻿using Base_Framework.Domain.Core.Contracts;
+using Base_Framework.Domain.Services;
 using Base_Framework.LogError;
+using Help.Domain.Core;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 using Help.Domain.Core.HelpServiceAgg.Services;
@@ -12,11 +14,15 @@ namespace Help.Domain.AppServices.HelpServiceAgg
         private readonly IOperationResultLogging _operationResultLogging;
         private readonly string _nameSpace = "Help.Domain.AppServices.HelpServiceAgg";
         private readonly Type _type = new HelpServiceDTO().GetType();
+        private readonly IDistributedCacheService _distributedCache;
+        private readonly SiteSetting _appSetting;
 
-        public HelpServiceAppService(IHelpServiceService helpServiceService, IOperationResultLogging operationResultLogging)
+        public HelpServiceAppService(IHelpServiceService helpServiceService, IOperationResultLogging operationResultLogging, IDistributedCacheService distributedCache, SiteSetting appSetting)
         {
             _helpServiceService = helpServiceService;
             _operationResultLogging = operationResultLogging;
+            _distributedCache = distributedCache;
+            _appSetting = appSetting;
         }
 
         public async Task<OperationResult> Create(CreateHelpServiceDTO command, CancellationToken cancellationToken)
@@ -55,15 +61,22 @@ namespace Help.Domain.AppServices.HelpServiceAgg
 
         public async Task<EditHelpServiceDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
-            var detail = await _helpServiceService.GetDetails(id, cancellationToken);
+            var res = await _distributedCache.GetAsync<EditHelpServiceDTO>(_appSetting.HelpServicesCacheKey+"_"+id);
 
-            if (detail == null)
+            if(res == null)
+            {
+                var detail = await _helpServiceService.GetDetails(id, cancellationToken);
+                await _distributedCache.SetAsync(_appSetting.HelpServicesCacheKey, detail, 7, TimeSpan.FromHours(2));
+                res = detail;
+            }
+
+            if (res == null)
             {
                 var operation = new OperationResult(_type, id);
                 _operationResultLogging.LogOperationResult(operation, nameof(GetDetails), _nameSpace, cancellationToken);
             }
 
-            return detail;
+            return res;
         }
 
         public async Task<OperationResult> Remove(int id, CancellationToken cancellationToken)
@@ -80,11 +93,18 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             }
         }
 
-        public Task<List<HelpServiceDTO>> Search(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<HelpServiceDTO>> Search(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
         {
-            //Caching
             //Fill IdTitleCategoryDTO
-            return _helpServiceService.Search(searchModel, cancellationToken);
+
+            var res = await _distributedCache.GetListAsync<HelpServiceDTO>(_appSetting.HelpServicesCacheKey);
+            if (res == null)
+            {
+                var helpServices = await _helpServiceService.GetAll(cancellationToken);
+                await _distributedCache.SetAsync(_appSetting.HelpServicesCacheKey, helpServices, 7, TimeSpan.FromHours(2));
+                res = helpServices;
+            }
+            return await _helpServiceService.Search(res, searchModel, cancellationToken);
         }
     }
 }
