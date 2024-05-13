@@ -11,6 +11,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
         private readonly IHelpRequestStatusService _helpRequestStatusService;
         private readonly IOperationResultLogging _operationResultLogging;
         private readonly string _nameSpace = "Help.Domain.AppServices.HelpServiceAgg";
+        private readonly Type _type = new HelpRequestStatusDTO().GetType();
 
         public HelpRequestStatusAppService(IHelpRequestStatusService helpRequestStatusService, IOperationResultLogging operationResultLogging)
         {
@@ -74,6 +75,20 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             {
                 var operation = await _helpRequestStatusService.Remove(id, cancellationToken);
                 _operationResultLogging.LogOperationResult(operation, nameof(Remove), _nameSpace, cancellationToken);
+                return operation;
+            }
+        }
+
+        public async Task<OperationResult> Restore(int id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await _helpRequestStatusService.Restore(id, cancellationToken);
+            }
+            catch
+            {
+                var operation = await _helpRequestStatusService.Restore(id, cancellationToken);
+                _operationResultLogging.LogOperationResult(operation, nameof(Restore), _nameSpace, cancellationToken);
                 return operation;
             }
         }

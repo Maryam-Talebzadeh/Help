@@ -11,6 +11,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Services
         Task<List<HelpServiceDTO>> Search(List<HelpServiceDTO> searchList, SearchHelpServiceDTO searchModel, CancellationToken cancellationToken);
         Task<List<HelpServiceDTO>> GetAllRemoved(CancellationToken cancellationToken);
         Task<OperationResult> Remove(int id, CancellationToken cancellationToken);
+        Task<OperationResult> Restore(int id, CancellationToken cancellationToken);
         Task<List<HelpServiceDTO>> GetAll(CancellationToken cancellationToken); //For Cache
     }
 }

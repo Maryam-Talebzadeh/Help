@@ -93,6 +93,20 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             }
         }
 
+        public async Task<OperationResult> Restore(int id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await _helpServiceService.Restore(id, cancellationToken);
+            }
+            catch
+            {
+                var operation = await _helpServiceService.Restore(id, cancellationToken);
+                _operationResultLogging.LogOperationResult(operation, nameof(Restore), _nameSpace, cancellationToken);
+                return operation;
+            }
+        }
+
         public async Task<List<HelpServiceDTO>> Search(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
         {
            

@@ -10,5 +10,6 @@ namespace Help.Domain.Core.HelpServiceAgg.AppServices
         Task<List<HelpRequestStatusDTO>> GetAll(CancellationToken cancellationToken);
         Task<EditHelpRequestStatusDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<OperationResult> Remove(int id, CancellationToken cancellationToken);
+        Task<OperationResult> Restore(int id, CancellationToken cancellationToken);
     }
 }

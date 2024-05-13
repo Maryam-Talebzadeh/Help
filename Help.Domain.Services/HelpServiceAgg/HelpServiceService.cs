@@ -72,7 +72,20 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
-       public async Task<List<HelpServiceDTO>> Search(List<HelpServiceDTO> searchList, SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
+        public async Task<OperationResult> Restore(int id, CancellationToken cancellationToken)
+        {
+            var operation = new OperationResult(_type, id);
+
+            if (await _helpServiceRepository.IsExist(s => s.Id == id, cancellationToken))
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+
+            await _helpServiceRepository.Restore(id, cancellationToken);
+            await _helpServiceRepository.Save(cancellationToken);
+
+            return operation.Succedded();
+        }
+
+        public async Task<List<HelpServiceDTO>> Search(List<HelpServiceDTO> searchList, SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
         {
            if(searchModel.Title != null)
             {

@@ -66,5 +66,18 @@ namespace Help.Domain.Services.HelpServiceAgg
 
             return operation.Succedded();
         }
+
+        public async Task<OperationResult> Restore(int id, CancellationToken cancellationToken)
+        {
+            var operation = new OperationResult(_type, id);
+
+            if (await _helpRequestStatusRepository.IsExist(s => s.Id == id, cancellationToken))
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+
+            await _helpRequestStatusRepository.Restore(id, cancellationToken);
+            await _helpRequestStatusRepository.Save(cancellationToken);
+
+            return operation.Succedded();
+        }
     }
 }

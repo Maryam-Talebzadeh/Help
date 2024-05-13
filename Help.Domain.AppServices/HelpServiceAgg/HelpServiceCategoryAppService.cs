@@ -116,6 +116,20 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             }
         }
 
+        public async Task<OperationResult> Restore(int id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await _helpServiceCategoryService.Restore(id, cancellationToken);
+            }
+            catch
+            {
+                var operation = await _helpServiceCategoryService.Restore(id, cancellationToken);
+                _operationResultLogging.LogOperationResult(operation, nameof(Restore), _nameSpace, cancellationToken);
+                return operation;
+            }
+        }
+
         public async Task<List<HelpServiceCategoryDTO>> Search(List<HelpServiceCategoryDTO> searchList, SearchHelpServiceCategoryDTO searchModel, CancellationToken cancellationToken)
         {
             var res = await _distributedCache.GetListAsync<HelpServiceCategoryDTO>(_appSetting.HelpServiceCategoriesCacheKey);
