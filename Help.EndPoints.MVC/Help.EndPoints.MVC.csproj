@@ -8,6 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -21,6 +25,7 @@
     <ProjectReference Include="..\Base_Framework\Base_Framework.csproj" />
     <ProjectReference Include="..\Help.Domain.Core\Help.Domain.Core.csproj" />
     <ProjectReference Include="..\Help.Infrastructure.DataAccess.Repos.EFCore\Help.Infrastructure.DataAccess.Repos.EFCore.csproj" />
+    <ProjectReference Include="..\HelpConfiguration\HelpConfiguration.csproj" />
   </ItemGroup>
 
   <ItemGroup>

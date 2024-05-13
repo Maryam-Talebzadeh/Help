@@ -12,7 +12,7 @@ namespace Help.Domain.Core
             HelpServicePicturessCacheKey = configuration["CacheKeys:HelpServicePictures"].ToString();
             HelpServicesCacheKey = configuration["CacheKeys:HelpServices"].ToString();
             SeqApiKey = configuration["Seq:ApiKey"].ToString();
-            SeqApiKey = configuration["Seq:ServerAddress"].ToString();
+            SeqServerAddress = configuration["Seq:ServerAddress"].ToString();
         }
 
         public string HelpConnectionString { get; private set; }

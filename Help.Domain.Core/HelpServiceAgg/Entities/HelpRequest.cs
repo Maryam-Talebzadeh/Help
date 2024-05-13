@@ -47,6 +47,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
             ExpirationDate = expirationDate;
             ServiceId = serviceId;
             ProposedPrice = proposedPrice;
+            IsConfirmed = false;
         }
 
         public void ChangeSatus(int statusId)

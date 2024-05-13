@@ -1,5 +1,8 @@
 using Help.Domain.Core;
-using Help.EndPoints.MVC.ServiceConfigurations;
+using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
+using HelpConfiguration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -9,10 +12,12 @@ builder.Logging.ClearProviders();
 var siteSetting = new SiteSetting(builder.Configuration);
 builder.Services.AddSingleton(siteSetting);
 
-#region Custom Services
 
-LocalServiceConfigurations.Configure(builder.Services, siteSetting);
 
+#region DBContext
+
+builder.Services.AddDbContext<HelpContext>(options =>
+        options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HelpiDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
 #endregion
 
 #region CachingService

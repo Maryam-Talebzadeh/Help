@@ -14,12 +14,6 @@ namespace Base_Framework.Domain.Core.Entities
         public string Name { get; protected set; }
         public string Title { get; protected set; }
         public string Alt { get; protected set; }
-
-        public void Edit(string name, string title, string alt)
-        {
-            Name = name;
-            Title = title;
-            Alt = alt;
-        }
+      
     }
 }

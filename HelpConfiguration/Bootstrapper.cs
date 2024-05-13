@@ -15,12 +15,13 @@ using Help.Infrastructure.DataAccess.Repos.EFCore.WalletAgg;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace HelpConfiguration
 {
     public static class Bootstrapper
     {
-        public static void Configure(IServiceCollection services, SiteSetting siteSetting)
+        public static void Configure(IServiceCollection services, ILogger<OperationResultLogging>? logger)
         {
 
             #region HelpServiceAgg
@@ -30,8 +31,10 @@ namespace HelpConfiguration
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IHelpRequestPictureRepository, HelpRequestPictureRepository>();
             services.AddScoped<IHelpRequestRepository, HelpRequestRepository>();
+            services.AddScoped<IHelpRequestStatusRepository, HelpRequestStatusRepository>();
             services.AddScoped<IHelpServicePictureRepository, HelpServicePictureRepository>();
             services.AddScoped<IHelpServiceRepository, HelpServiceRepository>();
+            services.AddScoped<IHelpServiceCategoryRepository, HelpServiceCategoryRepository>();
             services.AddScoped<IProposalRepository, ProposalRepository>();
             services.AddScoped<ISkillRepository, SkillRepository>();
 
@@ -79,12 +82,6 @@ namespace HelpConfiguration
 
             #endregion
 
-            #region DBContext
-
-            services.AddDbContext<HelpContext>(x => x.UseSqlServer(siteSetting.HelpConnectionString));
-
-            #endregion
-
             #region Caching
 
             services.AddScoped<IDistributedCacheService, RedisCacheService>();
@@ -93,7 +90,7 @@ namespace HelpConfiguration
 
             #region Framework
 
-            services.AddScoped<IOperationResultLogging, OperationResultLogging>();
+            services.AddScoped<IOperationResultLogging>(provider => new OperationResultLogging(logger));
 
             #endregion
         }

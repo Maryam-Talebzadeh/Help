@@ -12,11 +12,11 @@ namespace Base_Framework.LogError
 
     public class OperationResultLogging : IOperationResultLogging
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<OperationResultLogging>? _logger;
 
-        public OperationResultLogging(ILogger logger)
+        public OperationResultLogging(ILogger<OperationResultLogging>? logger)
         {
-            
+            _logger = logger;
         }
 
         public async Task LogOperationResult(OperationResult operation, string methodName, string methodNameSpace, CancellationToken cancellationToken)

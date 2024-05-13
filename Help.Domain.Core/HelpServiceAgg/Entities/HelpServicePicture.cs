@@ -16,5 +16,12 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public HelpService HelpService { get; private set; }
 
         #endregion
+
+        public void Edit(string name, string title, string alt)
+        {
+            Name = name;
+            Title = title;
+            Alt = alt;
+        }
     }
 }

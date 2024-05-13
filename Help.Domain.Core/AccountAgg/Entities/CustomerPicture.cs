@@ -15,5 +15,12 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public Customer Customer { get; private set; }
 
         #endregion
+
+        public void Edit(string name, string title, string alt)
+        {
+            Name = name;
+            Title = title;
+            Alt = alt;
+        }
     }
 }
