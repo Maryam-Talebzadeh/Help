@@ -10,7 +10,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
     {
         private readonly IHelpRequestStatusService _helpRequestStatusService;
         private readonly IOperationResultLogging _operationResultLogging;
-        private readonly string _nameSpace = "Help.Domain.AppServices.HelpServiceAgg";
+        private readonly string _nameSpace = typeof(HelpRequestStatusAppService).Namespace;
         private readonly Type _type = new HelpRequestStatusDTO().GetType();
 
         public HelpRequestStatusAppService(IHelpRequestStatusService helpRequestStatusService, IOperationResultLogging operationResultLogging)

@@ -12,7 +12,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
     {
         private readonly IHelpServiceCategoryService _helpServiceCategoryService;
         private readonly IOperationResultLogging _operationResultLogging;
-        private readonly string _nameSpace = "Help.Domain.AppServices.HelpServiceAgg";
+        private readonly string _nameSpace = typeof(HelpServiceCategoryAppService).Namespace;
         private readonly Type _type = new HelpServiceCategoryDTO().GetType();
         private readonly IDistributedCacheService _distributedCache;
         private readonly SiteSetting _appSetting;

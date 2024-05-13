@@ -11,7 +11,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
     {
         private readonly IHelpRequestPictureService _helpRequestPictureService;
         private readonly IOperationResultLogging _operationResultLogging;
-        private readonly string _nameSpace = "Help.Domain.AppServices.HelpServiceAgg";
+        private readonly string _nameSpace = typeof(HelpRequestPictureAppService).Namespace;
         private readonly Type _type = new HelpRequestPictureDTO().GetType();
 
         public HelpRequestPictureAppService(IHelpRequestPictureService helpRequestPictureService, IOperationResultLogging operationResultLogging)
