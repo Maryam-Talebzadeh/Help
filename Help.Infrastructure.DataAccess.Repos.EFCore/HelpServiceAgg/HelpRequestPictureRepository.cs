@@ -45,7 +45,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 }).ToList();
         }
 
-        public async Task<List<HelpRequestPictureDTO>> GetAllUnConfirmed(int helpRequestId, CancellationToken cancellationToken)
+        public async Task<List<HelpRequestPictureDTO>> SearchUnConfirmed(int helpRequestId, CancellationToken cancellationToken)
         {
             return _context.HelpRequestPictures
                .Where(p => p.HelpRequestId == helpRequestId && !p.IsConfirmed)
@@ -60,7 +60,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                }).ToList();
         }
 
-        public async Task<List<HelpRequestPictureDTO>> GetAllUnConfirmed(CancellationToken cancellationToken)
+        public async Task<List<HelpRequestPictureDTO>> SearchUnConfirmed(CancellationToken cancellationToken)
         {
             return _context.HelpRequestPictures
               .Where(p => !p.IsConfirmed)

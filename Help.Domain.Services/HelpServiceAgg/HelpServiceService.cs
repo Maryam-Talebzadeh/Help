@@ -2,7 +2,6 @@
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 using Help.Domain.Core.HelpServiceAgg.Services;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Help.Domain.Services.HelpServiceAgg
 {

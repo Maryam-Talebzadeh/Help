@@ -36,7 +36,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             comment.Edit(command.Message, command.Score);
         }
 
-        public async Task<List<CommentDTO>> GetAllUnConfirmed(SearchCommentDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<CommentDTO>> SearchUnConfirmed(SearchCommentDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.Comments.Where(c => !c.IsConfirmed).Select(c =>
             new CommentDTO()
@@ -65,6 +65,49 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 query = query.Where(c => c.Message.Contains(searchModel.Message));
 
             return query.OrderByDescending(c => c.CreationDate).ToList();
+        }
+
+        public async Task<List<CommentDTO>> GetChildsByParentId(int parentId, CancellationToken cancellationToken)
+        {
+            return _context.Comments.Where(c => c.ParentId == parentId).Select(c =>
+          new CommentDTO()
+          {
+              Id = c.Id,
+              HelpRequestId = c.HelpRequestId,
+              Message = c.Message,
+              Score = c.Score,
+              Writer = new CustomerDTO()
+              {
+                  Id = c.Id,
+                  Picture = new CustomerPictureDTO()
+                  {
+                      Title = c.Customer.Profile.Title,
+                      Name = c.Customer.Profile.Name,
+                      Alt = c.Customer.Profile.Alt,
+                      CustomerId = c.Id
+                  },
+                  FullName = c.Customer.FullName
+              },
+              Children = c.Children.Select(c =>
+                  new CommentDTO()
+                  {
+                      HelpRequestId = c.HelpRequestId,
+                      Message = c.Message,
+                      Score = c.Score,
+                      Writer = new CustomerDTO()
+                      {
+                          Id = c.Id,
+                          Picture = new CustomerPictureDTO()
+                          {
+                              Title = c.Customer.Profile.Title,
+                              Name = c.Customer.Profile.Name,
+                              Alt = c.Customer.Profile.Alt,
+                              CustomerId = c.Id
+                          },
+                          FullName = c.Customer.FullName
+                      }
+                  }).ToList()
+          }).ToList();
         }
 
         public async Task<CommentDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
@@ -116,6 +159,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                         }
                     }).ToList()
             }).FirstOrDefault(c => c.Id == id);
+        }
+
+        public async Task Reject(int id, CancellationToken cancellationToken)
+        {
+            var comment = Get(id);
+            comment.Reject();
         }
 
         public async Task<List<CommentDTO>> Search(SearchCommentDTO searchModel, CancellationToken cancellationToken)

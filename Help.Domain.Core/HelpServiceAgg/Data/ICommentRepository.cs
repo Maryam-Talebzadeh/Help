@@ -11,7 +11,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
         Task Edit(EditCommentDTO command, CancellationToken cancellationToken);
         Task<CommentDetailDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<CommentDTO>> Search(SearchCommentDTO searchModel, CancellationToken cancellationToken);
-        Task<List<CommentDTO>> GetAllUnConfirmed(SearchCommentDTO searchModel, CancellationToken cancellationToken);
+        Task<List<CommentDTO>> SearchUnConfirmed(SearchCommentDTO searchModel, CancellationToken cancellationToken);
         Task Confirm(int id, CancellationToken cancellationToken);
+        Task Reject(int id, CancellationToken cancellationToken);
+        Task<List<CommentDTO>> GetChildsByParentId(int parentId, CancellationToken cancellationToken);
     }
 }

@@ -38,7 +38,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             proposal.Edit(command.Description, command.SuggestedTime.ToGregorianDateTime(), command.SuggestedPrice);
         }
 
-        public async Task<List<ProposalDTO>> GetAllUnConfirmed(SearchProposaltDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<ProposalDTO>> SearchUnConfirmed(SearchProposaltDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.Proposals.Where(p => !p.IsConfirmed).Select(p =>
             new ProposalDTO()

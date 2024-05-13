@@ -43,5 +43,10 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
             IsConfirmed = true;
         }
 
+        public void Reject()
+        {
+            IsConfirmed = false;
+        }
+
     }
 }

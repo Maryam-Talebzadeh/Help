@@ -10,6 +10,6 @@ namespace Help.Domain.Core.HelpServiceAgg.Services
         Task<OperationResult> Remove(int id, CancellationToken cancellationToken);
         Task<EditHelpRequestPictureDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<HelpRequestPictureDTO>> GetAll(int helpRequestId, CancellationToken cancellationToken);
-        Task<List<HelpRequestPictureDTO>> GetAllUnConfirmed(int helpRequestId, CancellationToken cancellationToken);
+        Task<List<HelpRequestPictureDTO>> SearchUnConfirmed(int helpRequestId, CancellationToken cancellationToken);
     }
 }

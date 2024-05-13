@@ -19,7 +19,6 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             _helpRequestService = helpRequestService;
             _operationResultLogging = operationResultLogging;
             _helpRequestPictureService = helpRequestPictureService;
-            _helpRequestPictureService = helpRequestPictureService;
         }
 
         public async Task<OperationResult> ChangeStatus(int helpRequestId, int customerId, int statusId, CancellationToken cancellationToken)
@@ -150,8 +149,6 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             foreach (var request in requests)
             {
                 request.Pictures = await _helpRequestPictureService.GetAll(request.Id, cancellationToken);
-                //customerDTO
-                //HelpServiceDTOO
             }
 
             return requests;
