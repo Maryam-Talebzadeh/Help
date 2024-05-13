@@ -47,8 +47,7 @@ namespace Help.Domain.Services.HelpServiceAgg
 
         public async Task<List<HelpServiceDTO>> GetAll(CancellationToken cancellationToken)
         {
-           var serachModel = new SearchHelpServiceDTO();
-           return await _helpServiceRepository.Search(serachModel, cancellationToken);
+           return  await _helpServiceRepository.GetAll(cancellationToken);
         }
 
         public async Task<List<HelpServiceDTO>> GetAllRemoved(CancellationToken cancellationToken)

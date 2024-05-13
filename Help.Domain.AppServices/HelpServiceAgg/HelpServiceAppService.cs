@@ -95,8 +95,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
 
         public async Task<List<HelpServiceDTO>> Search(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
         {
-            //Fill IdTitleCategoryDTO
-
+           
             var res = await _distributedCache.GetListAsync<HelpServiceDTO>(_appSetting.HelpServicesCacheKey);
             if (res == null)
             {

@@ -8,7 +8,7 @@ namespace Base_Framework.Domain.Core.DTOs
 {
     public class IdTitleDTO
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string Title { get; set; }
     }
 }

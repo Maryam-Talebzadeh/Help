@@ -14,7 +14,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
     {
         private readonly HelpContext _context;
 
-        public HelpServiceCategoryRepository(HelpContext context) :base(context)
+        public HelpServiceCategoryRepository(HelpContext context) : base(context)
         {
             _context = context;
         }
@@ -27,7 +27,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
         public async Task CreateParent(CreateParentHelpServiceCategoryDTO command, CancellationToken cancellationToken)
         {
-            var category = new Category(command.Title, command.Description, 0);
+            var category = new Category(command.Title, command.Description, null);
             _context.Categories.Add(category);
         }
 
@@ -35,6 +35,26 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
         {
             var category = Get(command.Id);
             category.Edit(command.Title, command.Description);
+        }
+
+        public async Task<List<HelpServiceCategoryDTO>> GetAllParents(CancellationToken cancellationToken)
+        {
+            return _context.Categories
+                .Where(c=> c.ParentId == null)
+                .Select(c =>
+          new HelpServiceCategoryDTO()
+          {
+              Id = c.Id,
+              Title = c.Title,
+              Description = c.Description,
+              CreationDate = c.CreationDate.ToFarsi(),
+              Children = c.Children.Select(c =>
+                  new IdTitleCategoryDTO()
+                  {
+                      Id = c.Id,
+                      Title = c.Title
+                  }).ToList()
+          }).ToList();
         }
 
         public async Task<List<HelpServiceCategoryDTO>> GetAllRemoved(CancellationToken cancellationToken)
@@ -51,8 +71,32 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                     {
                         Id = c.Id,
                         Title = c.Title
-                    }).ToList()
+                    }).ToList(),
+                Parent = (c.ParentId != null) ? new IdTitleCategoryDTO
+                {
+                    Id = c.ParentId,
+                    Title = c.Parent.Title
+                } : null
             }).IgnoreQueryFilters().ToList();
+        }
+
+        public async Task<List<HelpServiceCategoryDTO>> GetChildsByParentId(int parentId, CancellationToken cancellationToken)
+        {
+            return _context.Categories
+                .Where(c => c.ParentId == parentId)
+                .Select(c =>
+            new HelpServiceCategoryDTO()
+            {
+                Id = c.Id,
+                Description = c.Description,
+                Title = c.Title,
+                Children = c.Children.Select(c =>
+                    new IdTitleCategoryDTO()
+                    {
+                        Id = c.Id,
+                        Title = c.Title
+                    }).ToList()
+            }).ToList();
         }
 
         public async Task<HelpServiceCategoryDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
@@ -64,38 +108,37 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Description = c.Description,
                 ParentId = c.ParentId,
                 Title = c.Title,
-                Children = c.Children.Select(c =>
+                Children = c.Children.Select(child =>
                     new IdTitleCategoryDTO()
                     {
-                        Id = c.Id,
-                        Title = c.Title
-                    } ).ToList()
+                        Id = child.Id,
+                        Title = child.Title
+                    }).ToList()
             }).FirstOrDefault(c => c.Id == id);
         }
 
-            public async Task<List<HelpServiceCategoryDTO>> Search(SearchHelpServiceCategoryDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<HelpServiceCategoryDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var query = _context.Categories.Select(c =>
+            return _context.Categories.Select(c =>
             new HelpServiceCategoryDTO()
             {
                 Id = c.Id,
                 Title = c.Title,
                 Description = c.Description,
-                CreationDate = c.CreationDate.ToFarsi(),
-                Children =c.Children.Select(c =>
+                Children = c.Children.Select(child =>
                     new IdTitleCategoryDTO()
                     {
-                        Id = c.Id,
-                        Title = c.Title
-                    }).ToList()
-            });
+                        Id = child.Id,
+                        Title = child.Title
+                    }).ToList(),
+                CreationDate = c.CreationDate.ToFarsi(),
+                Parent = (c.ParentId != null) ? new IdTitleCategoryDTO
+                {
+                    Id = c.ParentId,
+                    Title = c.Parent.Title
+                } : null
+            }).ToList();
 
-            if(!searchModel.Title.IsNullOrEmpty())
-            {
-                query = query.Where(category => category.Title.Contains(searchModel.Title));
-            }
-
-            return query.OrderByDescending(c => c.CreationDate).ToList();
         }
     }
 }

@@ -10,8 +10,7 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
         public string Title { get;  set; }
         public string Description { get;  set; }
         public string CreationDate { get; set; }
-        public HelpServiceCategoryDTO Parent { get;  set; }
+        public IdTitleCategoryDTO Parent { get;  set; }
         public List<IdTitleCategoryDTO> Children { get; set; }
-        public List<HelpServiceDTO> HelpServices { get; set; }
     }
 }

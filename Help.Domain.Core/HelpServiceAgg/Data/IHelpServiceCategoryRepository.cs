@@ -10,7 +10,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
         Task CreateParent(CreateParentHelpServiceCategoryDTO command, CancellationToken cancellationToken);
         Task Edit(EditHelpServiceCategoryDTO command, CancellationToken cancellationToken);
         Task<HelpServiceCategoryDetailDTO> GetDetails(int id, CancellationToken cancellationToken);
-        Task<List<HelpServiceCategoryDTO>> Search(SearchHelpServiceCategoryDTO searchModel, CancellationToken cancellationToken);
+        Task<List<HelpServiceCategoryDTO>> GetAll(CancellationToken cancellationToken);
         Task<List<HelpServiceCategoryDTO>> GetAllRemoved(CancellationToken cancellationToken);
+        Task<List<HelpServiceCategoryDTO>> GetAllParents(CancellationToken cancellationToken);
+        Task<List<HelpServiceCategoryDTO>> GetChildsByParentId(int parentId, CancellationToken cancellationToken);
     }
 }
