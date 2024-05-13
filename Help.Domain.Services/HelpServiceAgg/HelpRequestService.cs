@@ -2,6 +2,7 @@
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 using Help.Domain.Core.HelpServiceAgg.Services;
+using System.Threading;
 
 namespace Help.Domain.Services.HelpServiceAgg
 {
@@ -83,9 +84,9 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
-        public async Task<List<HelpRequestDTO>> SearchInUnConfirmed(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
+        public async Task<List<HelpRequestDTO>> SearchInUnChecked(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
         {
-            return await _helpRequestRepository.SearchInUnConfirmed(searchModel, cancellation);
+            return await _helpRequestRepository.SearchInUnChecked(searchModel, cancellation);
         }
 
         public Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)
@@ -122,6 +123,11 @@ namespace Help.Domain.Services.HelpServiceAgg
         public async Task<List<HelpRequestDTO>> Search(SearchHelpRequestDTO searchModel, CancellationToken cancellationToken)
         {
             return await _helpRequestRepository.Search(searchModel, cancellationToken);
+        }
+
+        public async Task<List<HelpRequestDTO>> SearchInRejected(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
+        {
+            return await _helpRequestRepository.SearchInRejected(searchModel, cancellation);
         }
     }
 }

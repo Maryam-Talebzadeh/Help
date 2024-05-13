@@ -35,7 +35,8 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             {
                 Id = s.Id,
                 Title = s.Title,
-                Description = s.Description
+                Description = s.Description,
+                
             }).OrderBy(s => s.Title).ToList();
         }
 

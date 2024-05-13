@@ -21,7 +21,7 @@ namespace Base_Framework.Infrastructure.DataAccess
 
         public async Task Save(CancellationToken cancellationToken)
         {
-            _context.SaveChangesAsync();
+           await _context.SaveChangesAsync();
         }
 
         public T Get(int id)

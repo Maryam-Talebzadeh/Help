@@ -96,9 +96,9 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             }
         }
 
-        public async Task<List<HelpRequestDTO>> SearchInUnConfirmed(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
+        public async Task<List<HelpRequestDTO>> SearchInUnChecked(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
         {
-            return await _helpRequestService.SearchInUnConfirmed(searchModel, cancellation);
+            return await _helpRequestService.SearchInUnChecked(searchModel, cancellation);
         }
 
         public async Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)
@@ -152,6 +152,11 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             }
 
             return requests;
+        }
+
+        public async Task<List<HelpRequestDTO>> SearchInRejected(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
+        {
+            return await _helpRequestService.SearchInRejected(searchModel, cancellation);
         }
     }
 }
