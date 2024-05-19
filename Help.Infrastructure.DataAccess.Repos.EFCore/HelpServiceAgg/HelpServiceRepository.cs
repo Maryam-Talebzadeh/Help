@@ -20,7 +20,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
         public async Task Create(CreateHelpServiceDTO command, CancellationToken cancellationToken)
         {
-            var helpService = new HelpService(command.Title, command.Description, command.Slug, command.Tags);
+            var helpService = new HelpService(command.Title, command.Description, command.Slug, command.Tags, command.CategoryId);
             _context.HelpServices.Add(helpService);
         }
 
@@ -39,12 +39,11 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                  Title = s.Title,
                  Picture = s.Picture.Name,
                  CreationDate = s.CreationDate.ToFarsi(),
-                 Categories = s.Categories.Select(category =>
-                      new IdTitleCategoryDTO()
-                      {
-                          Id = category.Category.Id,
-                          Title = category.Category.Title
-                      }).ToList()
+                Category = new IdTitleCategoryDTO()
+                {
+                    Id = s.CategoryId,
+                    Title = s.Category.Title
+                }
              }).ToList();
         }
 
@@ -57,12 +56,11 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Title = s.Title,
                 Picture = s.Picture.Name,
                 CreationDate = s.CreationDate.ToFarsi(),
-                Categories = s.Categories.Select(category =>
-                     new IdTitleCategoryDTO()
-                     {
-                         Id = category.Category.Id,
-                         Title = category.Category.Title
-                     }).ToList()
+                Category = new IdTitleCategoryDTO()
+                {
+                    Id = s.CategoryId,
+                    Title = s.Category.Title
+                }
             }).IgnoreQueryFilters().ToList();
         }
 
@@ -75,7 +73,8 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Description = s.Description,
                 Slug = s.Slug,
                 Tags = s.Tags,
-                Title = s.Title
+                Title = s.Title,
+                CategoryId = s.CategoryId
 
             }).FirstOrDefault(s => s.Id == id);
         }

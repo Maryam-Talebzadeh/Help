@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Base_Framework", "Base_Fram
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpConfiguration", "HelpConfiguration\HelpConfiguration.csproj", "{81062536-75C9-42D9-A4FD-29F09B38599D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Help.EndPoints.RazorPage", "Help.EndPoints.RazorPage\Help.EndPoints.RazorPage.csproj", "{9BA4D7BD-3D19-4D82-AEA8-00AA7E1FD649}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Help.EndPoints.RazorPage", "Help.EndPoints.RazorPage\Help.EndPoints.RazorPage.csproj", "{9BA4D7BD-3D19-4D82-AEA8-00AA7E1FD649}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

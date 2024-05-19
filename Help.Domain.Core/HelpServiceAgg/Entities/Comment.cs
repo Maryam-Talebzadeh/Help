@@ -18,6 +18,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public int HelpRequestId { get; private set; }
         public string Message { get; private set; }
         public bool IsConfirmed { get; private set; }
+        public bool IsRejected { get; private set; }
         public Int16 Score { get; private set; }
         public int? ParentId { get; private set; }
         public int CustomerId { get; private set; }
@@ -41,10 +42,12 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public void Confirm()
         {
             IsConfirmed = true;
+            IsRejected = false;
         }
 
         public void Reject()
         {
+            IsRejected = true;
             IsConfirmed = false;
         }
 

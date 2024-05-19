@@ -51,7 +51,7 @@ namespace Help.Domain.Services.HelpServiceAgg
         {
             var operation = new OperationResult(_type, command.Id);
 
-            if (await _helpServiceCategoryRepository.IsExist(s => s.Id == command.Id, cancellationToken))
+            if (!await _helpServiceCategoryRepository.IsExist(s => s.Id == command.Id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
 
             await _helpServiceCategoryRepository.Edit(command, cancellationToken);
@@ -63,6 +63,11 @@ namespace Help.Domain.Services.HelpServiceAgg
         public async Task<List<HelpServiceCategoryDTO>> GetAll(CancellationToken cancellationToken)
         {
             return await _helpServiceCategoryRepository.GetAll(cancellationToken);
+        }
+
+        public async Task<List<IdTitleCategoryDTO>> GetAllIdTitleDTO( CancellationToken cancellationToken)
+        {
+            return await _helpServiceCategoryRepository.GetAllIdTitleDTO(cancellationToken);
         }
 
         public async Task<List<HelpServiceCategoryDTO>> GetAllParents(CancellationToken cancellationToken)
@@ -89,7 +94,7 @@ namespace Help.Domain.Services.HelpServiceAgg
         {
             var operation = new OperationResult(_type, id);
 
-            if (await _helpServiceCategoryRepository.IsExist(s => s.Id == id, cancellationToken))
+            if (!await _helpServiceCategoryRepository.IsExist(s => s.Id == id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
 
             await _helpServiceCategoryRepository.Remove(id, cancellationToken);

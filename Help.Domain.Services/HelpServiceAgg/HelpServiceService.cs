@@ -35,7 +35,7 @@ namespace Help.Domain.Services.HelpServiceAgg
         {
             var operation = new OperationResult(_type, command.Id);
 
-            if (await _helpServiceRepository.IsExist(s => s.Id == command.Id, cancellationToken))
+            if (!await _helpServiceRepository.IsExist(s => s.Id == command.Id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
 
             await _helpServiceRepository.Edit(command, cancellationToken);
@@ -63,7 +63,7 @@ namespace Help.Domain.Services.HelpServiceAgg
         {
             var operation = new OperationResult(_type, id);
 
-            if (await _helpServiceRepository.IsExist(s => s.Id == id, cancellationToken))
+            if (!await _helpServiceRepository.IsExist(s => s.Id == id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
 
             await _helpServiceRepository.Remove(id, cancellationToken);
@@ -95,7 +95,7 @@ namespace Help.Domain.Services.HelpServiceAgg
 
             if (searchModel.Category != null)
             {
-                searchList = searchList.Where(service => service.Categories.Any(category => category.Title.Contains(searchModel.Category))).ToList();
+                searchList = searchList.Where(service => service.Category.Title.Contains(searchModel.Category)).ToList();
             }
 
             return searchList;

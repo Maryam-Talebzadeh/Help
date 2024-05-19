@@ -9,6 +9,8 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.Comment
         public int Id { get; set; }
         public int HelpRequestId { get; set; }
         public string Message { get; set; }
+        public bool IsConfirmed { get; set; }
+        public bool IsRejected { get; set; }
         public Int16 Score { get; set; }
         public string CreationDate { get; set; }
         public CustomerDTO Writer { get; set; }

@@ -52,5 +52,18 @@ namespace Help.EndPoints.RazorPage.Areas.Administration.Pages.HelpServiceAgg.Hel
             Message = result.Message;
             return RedirectToPage("./Index");
         }
+
+        public async Task<IActionResult> OnGetReject(int id, CancellationToken cancellationToken)
+        {
+            var result = await _helpRequestAppService.Reject(id, cancellationToken);
+
+            if (result.IsSuccedded)
+            {
+                return RedirectToPage("./Index");
+            }
+
+            Message = result.Message;
+            return RedirectToPage("./Index");
+        }
     }
 }

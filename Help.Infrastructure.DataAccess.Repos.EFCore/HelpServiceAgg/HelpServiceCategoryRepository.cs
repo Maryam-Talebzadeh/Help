@@ -140,5 +140,15 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).ToList();
 
         }
+
+        public async Task<List<IdTitleCategoryDTO>> GetAllIdTitleDTO( CancellationToken cancellationToken)
+        {
+            return _context.Categories.Select(c =>
+            new IdTitleCategoryDTO()
+            {
+                Id = c.Id,
+                Title = c.Title
+            }).ToList();
+        }
     }
 }

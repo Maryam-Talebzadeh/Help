@@ -16,5 +16,6 @@ namespace Help.Domain.Core.HelpServiceAgg.Services
         Task<List<HelpServiceCategoryDTO>> GetChildsByParentId(int parentId, CancellationToken cancellationToken);
         Task<OperationResult> Remove(int id, CancellationToken cancellationToken);
         Task<OperationResult> Restore(int id, CancellationToken cancellationToken);
+        Task<List<IdTitleCategoryDTO>> GetAllIdTitleDTO( CancellationToken cancellationToken);
     }
 }

@@ -5,6 +5,8 @@ using HelpConfiguration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,7 @@ builder.Services.AddSingleton(new SiteSetting(builder.Configuration));
 #region DBContext
 
 builder.Services.AddDbContext<HelpContext>(options =>
-        options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HelpiDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("HelpConnectionString")));
 #endregion
 
 #region Logging Services
@@ -30,6 +32,9 @@ builder.Services.AddLogging(loggerBuilder =>
 
 #region CachingService
 
+var multiplexer = ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnectionString"));
+builder.Services.AddSingleton<IConnectionMultiplexer>(multiplexer);
+
 builder.Services.AddStackExchangeRedisCache(redisOptions =>
 {
     string connectionString =builder.Configuration.GetConnectionString("RedisConnectionString");
@@ -39,10 +44,14 @@ builder.Services.AddStackExchangeRedisCache(redisOptions =>
     {
         Password = string.Empty,
         DefaultDatabase = 0,
-        ConnectTimeout = 30000
+        ConnectTimeout = 30000,
+        AbortOnConnectFail = false
     };
 
+    redisOptions.ConfigurationOptions.EndPoints.Add(connectionString);
+
 });
+
 
 #endregion
 

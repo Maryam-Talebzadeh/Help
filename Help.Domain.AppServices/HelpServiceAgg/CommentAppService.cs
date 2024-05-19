@@ -4,6 +4,7 @@ using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.Comment;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 using Help.Domain.Core.HelpServiceAgg.Services;
+using System.Threading;
 
 namespace Help.Domain.AppServices.HelpServiceAgg
 {
@@ -66,7 +67,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             return await _commentService.GetChildsByParentId(parentId, cancellationToken);
         }
 
-        public async Task<CommentDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<EditCommentDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             var detail = await _commentService.GetDetails(id, cancellationToken);
 
@@ -113,9 +114,15 @@ namespace Help.Domain.AppServices.HelpServiceAgg
         return await _commentService.Search(searchModel, cancellationToken);
     }
 
-        public async Task<List<CommentDTO>> SearchUnConfirmed(SearchCommentDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<CommentDTO>> SearchInRejected(SearchCommentDTO searchModel, CancellationToken cancellation)
         {
-            return await _commentService.SearchUnConfirmed(searchModel, cancellationToken);
+            return await _commentService.SearchInRejected(searchModel, cancellation);
         }
+
+        public async Task<List<CommentDTO>> SearchInUnChecked(SearchCommentDTO searchModel, CancellationToken cancellation)
+        {
+            return await _commentService.SearchInUnChecked(searchModel, cancellation);
+        }
+
     }
 }

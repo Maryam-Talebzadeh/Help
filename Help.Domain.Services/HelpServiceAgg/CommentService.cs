@@ -2,6 +2,7 @@
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.Comment;
 using Help.Domain.Core.HelpServiceAgg.Services;
+using System.Threading;
 
 namespace Help.Domain.Services.HelpServiceAgg
 {
@@ -57,17 +58,13 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
-        public async Task<List<CommentDTO>> SearchUnConfirmed(SearchCommentDTO searchModel, CancellationToken cancellationToken)
-        {
-            return await _commentRepository.SearchUnConfirmed(searchModel, cancellationToken);
-        }
 
         public async Task<List<CommentDTO>> GetChildsByParentId(int parentId, CancellationToken cancellationToken)
         {
             return await _commentRepository.GetChildsByParentId(parentId, cancellationToken);
         }
 
-        public async Task<CommentDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<EditCommentDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return await _commentRepository.GetDetails(id, cancellationToken);
         }
@@ -89,7 +86,7 @@ namespace Help.Domain.Services.HelpServiceAgg
         {
             var operation = new OperationResult(_type, id);
 
-            if (await _commentRepository.IsExist(s => s.Id == id, cancellationToken))
+            if (!await _commentRepository.IsExist(s => s.Id == id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
 
             await _commentRepository.Remove(id, cancellationToken);
@@ -101,6 +98,16 @@ namespace Help.Domain.Services.HelpServiceAgg
         public async Task<List<CommentDTO>> Search(SearchCommentDTO searchModel, CancellationToken cancellationToken)
         {
             return await _commentRepository.Search(searchModel, cancellationToken);
+        }
+
+        public async Task<List<CommentDTO>> SearchInUnChecked(SearchCommentDTO searchModel, CancellationToken cancellation)
+        {
+            return await _commentRepository.SearchInUnChecked(searchModel, cancellation);
+        }
+
+        public async Task<List<CommentDTO>> SearchInRejected(SearchCommentDTO searchModel, CancellationToken cancellation)
+        {
+            return await _commentRepository.SearchInUnChecked(searchModel, cancellation);
         }
     }
 }

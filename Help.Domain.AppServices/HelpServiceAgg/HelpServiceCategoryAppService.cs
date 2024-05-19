@@ -67,6 +67,11 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             }
         }
 
+        public async Task<List<IdTitleCategoryDTO>> GetAllIdTitleDTO(CancellationToken cancellationToken)
+        {
+            return await _helpServiceCategoryService.GetAllIdTitleDTO(cancellationToken);
+        }
+
         public async Task<List<HelpServiceCategoryDTO>> GetAllParents(CancellationToken cancellationToken)
         {
             return await  _helpServiceCategoryService.GetAllParents(cancellationToken);
@@ -89,7 +94,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             if (res == null)
             {
                 var detail = await  _helpServiceCategoryService.GetDetails(id, cancellationToken);
-                await _distributedCache.SetAsync((_appSetting.HelpServiceCategoriesCacheKey + "_" + id), detail, 7, TimeSpan.FromHours(2));
+                await _distributedCache.SetAsync((_appSetting.HelpServiceCategoriesCacheKey + "_" + id), detail, 7, TimeSpan.FromMinutes(2));
                 res = detail;
             }
 
@@ -130,13 +135,13 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             }
         }
 
-        public async Task<List<HelpServiceCategoryDTO>> Search(List<HelpServiceCategoryDTO> searchList, SearchHelpServiceCategoryDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<HelpServiceCategoryDTO>> Search( SearchHelpServiceCategoryDTO searchModel, CancellationToken cancellationToken)
         {
             var res = await _distributedCache.GetListAsync<HelpServiceCategoryDTO>(_appSetting.HelpServiceCategoriesCacheKey);
             if (res == null)
             {
                 var categories = await  _helpServiceCategoryService.GetAll(cancellationToken);
-                await _distributedCache.SetAsync(_appSetting.HelpServiceCategoriesCacheKey, categories, 7, TimeSpan.FromHours(2));
+                await _distributedCache.SetAsync(_appSetting.HelpServiceCategoriesCacheKey, categories, 7, TimeSpan.FromMinutes(2));
                 res = categories;
             }
             return await  _helpServiceCategoryService.Search(res, searchModel, cancellationToken);

@@ -24,6 +24,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             comment.Confirm();
         }
 
+        public async Task Reject(int id, CancellationToken cancellationToken)
+        {
+            var comment = Get(id);
+            comment.Reject();
+        }
+
         public async Task Create(CreateCommentDTO command, CancellationToken cancellationToken)
         {
             var comment = new Comment(command.Message, command.Score, command.ParentId, command.HelpRequestId, command.CustomerId);
@@ -76,6 +82,8 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
               HelpRequestId = c.HelpRequestId,
               Message = c.Message,
               Score = c.Score,
+              IsConfirmed = c.IsConfirmed,
+              IsRejected = c.IsRejected,
               Writer = new CustomerDTO()
               {
                   Id = c.Id,
@@ -110,10 +118,10 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
           }).ToList();
         }
 
-        public async Task<CommentDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<EditCommentDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.Comments.Select(c =>
-            new CommentDetailDTO()
+            new EditCommentDTO()
             {
                 HelpRequestId = c.HelpRequestId,
                 Message = c.Message,
@@ -161,21 +169,18 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).FirstOrDefault(c => c.Id == id);
         }
 
-        public async Task Reject(int id, CancellationToken cancellationToken)
-        {
-            var comment = Get(id);
-            comment.Reject();
-        }
 
         public async Task<List<CommentDTO>> Search(SearchCommentDTO searchModel, CancellationToken cancellationToken)
         {
-            var query = _context.Comments.Where(c => c.IsConfirmed).Select(c =>
+            var query = _context.Comments.Where(c => c.IsConfirmed != false && c.ParentId == null).Select(c =>
            new CommentDTO()
            {
                Id = c.Id,
                HelpRequestId = c.HelpRequestId,
                Message = c.Message,
                Score = c.Score,
+               IsConfirmed = c.IsConfirmed,
+               IsRejected = c.IsRejected,
                Writer = new CustomerDTO()
                {
                    Id = c.Id,
@@ -215,7 +220,113 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             if (!searchModel.Message.IsNullOrEmpty())
                 query = query.Where(c => c.Message.Contains(searchModel.Message));
 
-            return query.OrderByDescending(c => c.CreationDate).ToList();
+            return query.ToList();
+        }
+
+        public async Task<List<CommentDTO>> SearchInUnChecked(SearchCommentDTO searchModel, CancellationToken cancellation)
+        {
+            var query = _context.Comments.Where(c => c.IsConfirmed == false && !c.IsRejected == false).Select(c =>
+           new CommentDTO()
+           {
+               Id = c.Id,
+               HelpRequestId = c.HelpRequestId,
+               Message = c.Message,
+               Score = c.Score,
+               IsConfirmed = c.IsConfirmed,
+               IsRejected = c.IsRejected,
+               Writer = new CustomerDTO()
+               {
+                   Id = c.Id,
+                   Picture = new CustomerPictureDTO()
+                   {
+                       Title = c.Customer.Profile.Title,
+                       Name = c.Customer.Profile.Name,
+                       Alt = c.Customer.Profile.Alt,
+                       CustomerId = c.Id
+                   },
+                   FullName = c.Customer.FullName
+               },
+               Children = c.Children.Select(c =>
+                   new CommentDTO()
+                   {
+                       HelpRequestId = c.HelpRequestId,
+                       Message = c.Message,
+                       Score = c.Score,
+                       Writer = new CustomerDTO()
+                       {
+                           Id = c.Id,
+                           Picture = new CustomerPictureDTO()
+                           {
+                               Title = c.Customer.Profile.Title,
+                               Name = c.Customer.Profile.Name,
+                               Alt = c.Customer.Profile.Alt,
+                               CustomerId = c.Id
+                           },
+                           FullName = c.Customer.FullName
+                       }
+                   }).ToList()
+           });
+
+            if (searchModel.HelpRequestId > 0)
+                query = query.Where(c => c.HelpRequestId == searchModel.HelpRequestId);
+
+            if (!searchModel.Message.IsNullOrEmpty())
+                query = query.Where(c => c.Message.Contains(searchModel.Message));
+
+            return query.ToList();
+        }
+
+        public async Task<List<CommentDTO>> SearchInRejected(SearchCommentDTO searchModel, CancellationToken cancellation)
+        {
+            var query = _context.Comments.Where(c => c.IsRejected).Select(c =>
+          new CommentDTO()
+          {
+              Id = c.Id,
+              HelpRequestId = c.HelpRequestId,
+              Message = c.Message,
+              Score = c.Score,
+              IsConfirmed = c.IsConfirmed,
+              IsRejected = c.IsRejected,
+              Writer = new CustomerDTO()
+              {
+                  Id = c.Id,
+                  Picture = new CustomerPictureDTO()
+                  {
+                      Title = c.Customer.Profile.Title,
+                      Name = c.Customer.Profile.Name,
+                      Alt = c.Customer.Profile.Alt,
+                      CustomerId = c.Id
+                  },
+                  FullName = c.Customer.FullName
+              },
+              Children = c.Children.Select(c =>
+                  new CommentDTO()
+                  {
+                      HelpRequestId = c.HelpRequestId,
+                      Message = c.Message,
+                      Score = c.Score,
+                      Writer = new CustomerDTO()
+                      {
+                          Id = c.Id,
+                          Picture = new CustomerPictureDTO()
+                          {
+                              Title = c.Customer.Profile.Title,
+                              Name = c.Customer.Profile.Name,
+                              Alt = c.Customer.Profile.Alt,
+                              CustomerId = c.Id
+                          },
+                          FullName = c.Customer.FullName
+                      }
+                  }).ToList()
+          });
+
+            if (searchModel.HelpRequestId > 0)
+                query = query.Where(c => c.HelpRequestId == searchModel.HelpRequestId);
+
+            if (!searchModel.Message.IsNullOrEmpty())
+                query = query.Where(c => c.Message.Contains(searchModel.Message));
+
+            return query.ToList();
         }
     }
 }

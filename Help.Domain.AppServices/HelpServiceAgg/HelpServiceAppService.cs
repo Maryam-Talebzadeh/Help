@@ -66,7 +66,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             if(res == null)
             {
                 var detail = await _helpServiceService.GetDetails(id, cancellationToken);
-                await _distributedCache.SetAsync((_appSetting.HelpServicesCacheKey + "_" + id), detail, 7, TimeSpan.FromHours(2));
+                await _distributedCache.SetAsync((_appSetting.HelpServicesCacheKey + "_" + id), detail, 7, TimeSpan.FromMinutes(2));
                 res = detail;
             }
 
@@ -109,15 +109,15 @@ namespace Help.Domain.AppServices.HelpServiceAgg
 
         public async Task<List<HelpServiceDTO>> Search(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
         {
-           
-            var res = await _distributedCache.GetListAsync<HelpServiceDTO>(_appSetting.HelpServicesCacheKey);
-            if (res == null)
-            {
+
+            //var res; ;/* await _distributedCache.GetListAsync<HelpServiceDTO>(_appSetting.HelpServicesCacheKey);*/
+            //if (res == null)
+            //{
                 var helpServices = await _helpServiceService.GetAll(cancellationToken);
                 await _distributedCache.SetAsync(_appSetting.HelpServicesCacheKey, helpServices, 7, TimeSpan.FromHours(2));
-                res = helpServices;
-            }
-            return await _helpServiceService.Search(res, searchModel, cancellationToken);
+                //res = helpServices;
+            
+            return await _helpServiceService.Search(helpServices, searchModel, cancellationToken);
         }
     }
 }

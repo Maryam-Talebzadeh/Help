@@ -1,4 +1,4 @@
-var SinglePage = {};
+﻿var SinglePage = {};
 
 SinglePage.LoadModal = function () {
     var url = window.location.hash.toLowerCase();
@@ -16,7 +16,7 @@ SinglePage.LoadModal = function () {
             $.validator.unobtrusive.parse(newForm);
             showModal();
         }).fail(function (error) {
-            alert("خطایی رخ داده، لطفا با مدیر سیستم تماس بگیرید.");
+            
         });
 };
 
@@ -29,7 +29,7 @@ function hideModal() {
 }
 
 
-   
+
 document.addEventListener('DOMContentLoaded', function () {
     window.onhashchange = function () {
         SinglePage.LoadModal();
@@ -73,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         CallBackHandler(data, action, form);
                     },
                     error: function (data) {
-                        alert("خطایی رخ داده است. لطفا با مدیر سیستم تماس بگیرید.");
+                      
+                        CallBackHandler(data, action, form);
                     }
                 });
             }
@@ -89,7 +90,7 @@ function CallBackHandler(data, action, form) {
             if (data.isSuccedded) {
                 window.location.reload();
             } else {
-                alert(data.message);
+                window.location.reload();
             }
             break;
         case "RefereshList":

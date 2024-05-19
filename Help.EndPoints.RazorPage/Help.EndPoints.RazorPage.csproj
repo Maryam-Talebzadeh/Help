@@ -186,6 +186,14 @@
     <None Include="wwwroot\AdminTheme\assets\timepicker\bootstrap-datepicker.js" />
     <None Include="wwwroot\AdminTheme\assets\timepicker\bootstrap-timepicker.min.js" />
     <None Include="wwwroot\AdminTheme\assets\toggles\toggles.min.js" />
+    <None Include="wwwroot\AdminTheme\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\AdminTheme\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\AdminTheme\fonts\IranianSans.svg" />
+    <None Include="wwwroot\AdminTheme\fonts\IranianSans.woff2" />
+    <None Include="wwwroot\AdminTheme\fonts\Material-Design-Iconic-Font.svg" />
+    <None Include="wwwroot\AdminTheme\images\big\Thumbs.db" />
+    <None Include="wwwroot\AdminTheme\images\small\Thumbs.db" />
+    <None Include="wwwroot\AdminTheme\images\users\Thumbs.db" />
   </ItemGroup>
 
 </Project>

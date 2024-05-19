@@ -62,7 +62,8 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                Status = hr.Status.Title,
                IsConfirmed = hr.IsConfirmed,
                IsRejected = hr.IsRejected,
-               /* ExpirationDate =*/ /*hr.ExpirationDate.ToFarsi(),*/
+               CustomerId = hr.CustomerId,
+               ExpirationDate = hr.ExpirationDate.ToFarsi(),
                HelpService = new IdTitleHelpServiceDTO()
                {
                    Id = hr.HelpService.Id,
@@ -122,8 +123,9 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 IsDone = hr.IsDone,
                 Status = hr.Status.Title,
                 IsConfirmed = hr.IsConfirmed,
-                IsRejected= hr.IsRejected,
-                //ExpirationDate = hr.ExpirationDate.ToFarsi(),
+                CustomerId = hr.CustomerId,
+                IsRejected = hr.IsRejected,
+                ExpirationDate = hr.ExpirationDate.ToFarsi(),
                 HelpService = new IdTitleHelpServiceDTO()
                 {
                     Id = hr.HelpService.Id,
@@ -140,7 +142,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                         CustomerId = hr.Customer.Id
                     }
                 }
-            });      
+            });
 
             if (!searchModel.Title.IsNullOrEmpty())
                 query = query.Where(hr => hr.Title == searchModel.Title);
@@ -148,12 +150,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             if (!searchModel.ServiceName.IsNullOrEmpty())
                 query = query.Where(hr => hr.HelpService.Title.Contains(searchModel.Title));
 
-            return query/*.OrderBy(hr => hr.ExpirationDate)*/.ToList();
+            return query.ToList();
         }
 
         public async Task<List<HelpRequestDTO>> SearchInRejected(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
         {
-            var query = _context.HelpRequests.Where(hr => hr.IsRejected == true).Select(hr =>
+            var query = _context.HelpRequests.Where(hr => hr.IsRejected == true && hr.IsConfirmed == false).Select(hr =>
           new HelpRequestDTO()
           {
               Id = hr.Id,
@@ -162,8 +164,9 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
               IsDone = hr.IsDone,
               Status = hr.Status.Title,
               IsConfirmed = hr.IsConfirmed,
+              CustomerId = hr.CustomerId,
               IsRejected = hr.IsRejected,
-              /* ExpirationDate =*/ /*hr.ExpirationDate.ToFarsi(),*/
+               ExpirationDate = hr.ExpirationDate.ToFarsi(),
               HelpService = new IdTitleHelpServiceDTO()
               {
                   Id = hr.HelpService.Id,
@@ -182,7 +185,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
               }
           });
 
-            if (!searchModel.Title.IsNullOrEmpty())
+            if (searchModel.Title.IsNullOrEmpty())
                 query = query.Where(hr => hr.Title == searchModel.Title);
 
             if (!searchModel.ServiceName.IsNullOrEmpty())

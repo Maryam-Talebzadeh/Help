@@ -1,34 +1,46 @@
 ﻿@page
-@model Help.EndPoints.RazorPage.Areas.Administration.Pages.HelpServiceAgg.HelpRequest.IndexModel
+@model Help.EndPoints.RazorPage.Areas.Administration.Pages.HelpServiceAgg.Comments.IndexModel
 @{
-    ViewData["title"] = "مدیریت درخواست های کمک";
+    ViewData["title"] = "مدیریت کامنت ها";
 }
+
+@if (Model.Message != null)
+{
+    <script>
+        alert(TempData[Message]);
+    </script>
+}
+
+
 
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">جستجو دردرخواست ها</h3>
+                <h3 class="panel-title">جستجو در کامنت ها</h3>
             </div>
             <div class="panel-body">
                 <form class="form-inline" role="form" method="get">
                     <div class="form-group">
-                        <label class="sr-only" asp-for="SearchModel.Title"></label>
-                        <input class="form-control" asp-for="SearchModel.Title" placeholder="عنوان">
+                        <label class="sr-only" asp-for="SearchModel.Message"></label>
+                        <input class="form-control" asp-for="SearchModel.Message" placeholder=" متن">
                     </div>
+
                     <div class="form-group">
-                        <label class="sr-only" asp-for="SearchModel.ServiceName"></label>
-                        <input class="form-control" asp-for="SearchModel.ServiceName" placeholder="خدمات">
+                        <label class="sr-only" asp-for="SearchModel.HelpRequestId"></label>
+                        <input class="form-control" asp-for="SearchModel.HelpRequestId" placeholder=" آیدی درخواست کمک مربوطه">
                     </div>
+
                     <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
                     <a class="btn btn-primary waves-effect waves-light m-l-10" asp-page="./Index">مشاهده همه</a>
                 </form>
                 <hr />
-              @*  <div class="row">
-                    <a class="btn btn-warning waves-effect waves-light m-b-5" asp-page-handler="RejectedList">درخواست های رد شده</a>
-                 
-                    <a class="btn btn-warning waves-effect waves-light m-b-5" asp-page-handler="UnCheckedList">درخواست های بررسی نشده</a>
-               </div> *@
+              @*   <div class="row">
+                    <a class="btn btn-warning waves-effect waves-light m-b-5" asp-page-handler="RejectedList">کامنت های رد شده</a>
+                   
+                    <a class="btn btn-warning waves-effect waves-light m-b-5" asp-page-handler="UnCheckedList">کامنت های بررسی نشده</a>
+                </div> *@
+
             </div>
         </div>
     </div>
@@ -38,7 +50,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">لیست درخواست ها  (@Model.HelpRequests.Count())</h3>
+                <h3 class="panel-title">لیست کامنت ها @Model.Comments.Count()</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -47,27 +59,20 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>عنوان</th>
-                                    <th>توضیحات</th>
-                                    <th>تاریخ انقضا</th>     
-                                    <th>وضعیت</th>
-                                    <th>سازنده</th>
-                                    <th>سرویس</th>
-                                   <td>تایید شده</td>
+                                    <th>متن کامنت</th>
+                                    <th>امتیاز</th>
+                                    <td>تایید شده</td>
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.HelpRequests)
+                                @foreach (var item in Model.Comments)
                                 {
                                     <tr>
                                         <td>@item.Id</td>
-                                        <td>@item.Title</td>
-                                        <td>@item.Description</td>
-                                        <td>@item.ExpirationDate</td>
-                                        <td>@item.Status</td>
-                                        <td>@item.CustomerId</td>
-                                        <td>@item.HelpService.Title</td>
+                                        <td>@item.Message</td>
+                                        <td>@item.Score</td>
+
                                         <td class="text-center">
                                             @if (item.IsConfirmed == true)
                                             {
@@ -83,17 +88,23 @@
                                             }
 
                                         </td>
+
+                                     
+
+
+
                                         <td>
-                                            @if(item.IsConfirmed == true)
+
+                                            @if (item.IsConfirmed == true)
                                             {
                                                 <a asp-page="./Index" asp-page-handler="Reject" asp-route-id="@item.Id" class="btn btn-danger btn-custom waves-effect waves-light m-b-5">
-                                                   رد
-                                                   </a>
+                                                    رد
+                                                </a>
                                             }
                                             else if (item.IsRejected == true)
                                             {
                                                 <a asp-page-handler="Confirm" asp-route-id="@item.Id" class="btn btn-success btn-custom waves-effect waves-light m-b-5">
-                                                  تایید
+                                                    تایید
                                                 </a>
                                             }
                                             else
@@ -106,9 +117,9 @@
                                                 </a>
                                             }
 
-
-                                            <a class="btn btn-warning waves-effect waves-light m-b-5" href=" /administration/HelpServiceAgg/HelpRequestPicture#handler=GetAll">عکس ها</a>
-
+                                            <a class="btn btn-Danger waves-effect waves-light m-b-5" asp-page-handler="Remove" asp-route-id="@item.Id">حذف</a>
+                                            <a class="btn btn-Primary waves-effect waves-light m-b-5" asp-page-handler="GetChilds" asp-route-parentId="@item.Id">پاسخ ها</a>
+                                            <a class="btn btn-primary waves-effect waves-light m-b-5" href="#showmodal=@Url.Page("./Index", "CreateChild", new { parentId = item.Id})">ایجاد پاسخ</a>
                                         </td>
                                     </tr>
                                 }
@@ -131,3 +142,4 @@
         });
     </script>
 }
+

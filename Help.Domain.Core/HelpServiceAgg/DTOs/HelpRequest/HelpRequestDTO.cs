@@ -13,6 +13,7 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest
         public string ExpirationDate { get; set; }
         public bool IsDone { get; set; }
         public bool IsConfirmed { get; set; }
+        public int CustomerId { get; set; }
         public bool IsRejected { get; set; }
         public string Status { get; set; }
         public CustomerDTO Customer { get; set; } 
