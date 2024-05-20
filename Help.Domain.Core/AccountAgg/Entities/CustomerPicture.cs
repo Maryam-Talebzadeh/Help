@@ -5,12 +5,12 @@ namespace Help.Domain.Core.AccountAgg.Entities
 {
     public class CustomerPicture : Picture
     {
-        public CustomerPicture(string name, string title, string alt) : base(name, title, alt)
+        public CustomerPicture(string name, string title, string alt, int customerId) : base(name, title, alt)
         {
-            
+            CustomerId = customerId;
         }
 
-        public int HelpRequestId { get; private set; }
+        public int CustomerId { get; private set; }
         public bool IsConfirmed { get; protected set; }
 
         #region Navigation Properties

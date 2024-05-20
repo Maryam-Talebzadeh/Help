@@ -68,6 +68,20 @@ namespace Help.Domain.AppServices.AccountAgg
 
         }
 
+        public async Task<OperationResult> DeActive(int id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await _customerService.DeActive(id, cancellationToken);
+            }
+            catch
+            {
+                var operation = await _customerService.DeActive(id, cancellationToken);
+                _operationResultLogging.LogOperationResult(operation, nameof(DeActive), _nameSpace, cancellationToken);
+                return operation;
+            }
+        }
+
         public async Task<OperationResult> Edit(EditCustomerDTO command, CancellationToken cancellationToken)
         {
             try

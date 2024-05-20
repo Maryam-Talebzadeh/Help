@@ -15,7 +15,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
 
             #region Seed Data
 
-            var data = new CustomerPicture("Default.jpg", "Default Customer Profile","Profile");
+            var data = new CustomerPicture("DefaultProfile.jpg", "Default Customer Profile","Profile", 100);
             data.Id = 1;
             builder.HasData(data);
 

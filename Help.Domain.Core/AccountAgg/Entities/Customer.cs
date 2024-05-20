@@ -5,13 +5,12 @@ namespace Help.Domain.Core.AccountAgg.Entities
 {
     public class Customer : User
     {
-        public Customer(string fullName, string userName, string password, string email, string mobile, int roleId, Int64 cardNumber, string phoneNumber, string? bio, int pictureId, DateTime birthday, int addressId) : base(fullName, userName, password, email, mobile, roleId)
+        public Customer(string fullName, string userName, string password, string email, string mobile, int roleId, Int64 cardNumber, string phoneNumber, string? bio, DateTime birthday, int addressId) : base(fullName, userName, password, email, mobile, roleId)
         {
             CardNumber = cardNumber;
             PhoneNumber = phoneNumber;
             Birthday = birthday;
             AddressId = addressId;
-            PictureId = pictureId;
             Bio = bio;
             Score = 0;
             IsActive = false;
@@ -21,7 +20,6 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public Int64 CardNumber { get; private set; }
         public string PhoneNumber { get; private set; }
         public string Bio { get; private set; }
-        public int PictureId { get; private set; }
         public DateTime Birthday { get; private set; }
         public Int16 Score { get; private set; }
         public int AddressId { get; private set; }
@@ -55,6 +53,10 @@ namespace Help.Domain.Core.AccountAgg.Entities
             IsActive = true;
         }
 
+        public void DeActive()
+        {
+            IsActive = false;
+        }
 
     }
 }

@@ -66,6 +66,19 @@ namespace Help.Domain.Services.AccountAgg
 
         }
 
+        public async Task<OperationResult> DeActive(int id, CancellationToken cancellationToken)
+        {
+            var operation = new OperationResult(_type, id);
+
+            if (!await _customerRepository.IsExist(x => x.Id == id, cancellationToken))
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+
+            await _customerRepository.DeActive(id, cancellationToken);
+            await _customerRepository.Save(cancellationToken);
+
+            return operation.Succedded();
+        }
+
         public async Task<OperationResult> Edit(EditCustomerDTO command, CancellationToken cancellationToken)
         {
             var operation = new OperationResult(_type, command.Id);

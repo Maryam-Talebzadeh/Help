@@ -23,7 +23,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 
         public async Task<int> Create(CreateCustomerPictureDTO command, CancellationToken cancellationToken)
         {
-            var picture = new CustomerPicture(command.Name, command.Title, command.Alt);
+            var picture = new CustomerPicture(command.Name, command.Title, command.Alt, command.CustomerID);
             _context.CustomerPictures.Add(picture);
             await Save(cancellationToken);
             return picture.Id;

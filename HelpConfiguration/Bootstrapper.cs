@@ -2,7 +2,9 @@
 using Base_Framework.Domain.Services.Cache;
 using Base_Framework.General.Hashing;
 using Base_Framework.LogError;
+using Help.Domain.AppServices.AccountAgg;
 using Help.Domain.AppServices.HelpServiceAgg;
+using Help.Domain.Core.AccountAgg.AppServices;
 using Help.Domain.Core.AccountAgg.Data;
 using Help.Domain.Core.AccountAgg.Services;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
@@ -81,6 +83,13 @@ namespace HelpConfiguration
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ICustomerPictureService, CustomerPictureService>();
+
+            #endregion
+
+            #region AppServices
+
+            services.AddScoped<ICustomerAppService, CustomerAppService>();
+            services.AddScoped<ICustomerPictureAppService, CustomerPictureAppService>();
 
             #endregion
 

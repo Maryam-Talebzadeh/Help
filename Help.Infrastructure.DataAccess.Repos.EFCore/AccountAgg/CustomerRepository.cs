@@ -32,10 +32,16 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 
         public async Task<int> Create(CreateCustomerDTO command, CancellationToken cancellationToken)
         {
-            var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.Mobile, command.RoleId, command.CardNumber, command.PhoneNumber,command.Bio, command.PictureId, command.Birthday.ToGregorianDateTime(), command.AddressId);
+            var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.Mobile, command.RoleId, command.CardNumber, command.PhoneNumber,command.Bio, command.Birthday.ToGregorianDateTime(), command.AddressId);
             _context.Customers.Add(customer);
            await Save(cancellationToken);
             return customer.Id;
+        }
+
+        public async Task DeActive(int id, CancellationToken cancellationToken)
+        {
+            var customer = Get(id);
+            customer.DeActive();
         }
 
         public async Task Edit(EditCustomerDTO command, CancellationToken cancellationToken)
@@ -60,7 +66,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                 AddressId = c.AddressId,
                 CardNumber = c.CardNumber,
                 PhoneNumber = c.PhoneNumber,
-                PictureId = c.PictureId,
                 Profile = new CustomerPictureDTO()
                 {
                     Title = c.Profile.Title,
@@ -93,8 +98,10 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                 RoleId = c.RoleId,
                 UserName = c.UserName,
                 Email = c.Email,
-                Mobile = c.Mobile
-            });
+                Mobile = c.Mobile,
+                IsActive = c.IsActive,
+                CreationDate = c.CreationDate.ToFarsi()
+            });;
 
             if (!searchModel.FullName.IsNullOrEmpty())
                 query = query.Where(c => c.FullName.Contains(searchModel.FullName));
