@@ -1,9 +1,9 @@
 ﻿using Base_Framework.Domain.Services;
 using Help.Domain.Core.AccountAgg.DTOs.Customer;
 
-namespace Help.Domain.Core.AccountAgg.Services
+namespace Help.Domain.Core.AccountAgg.AppServices
 {
-    public interface ICustomerService
+    public interface ICustomerAppService
     {
         Task<OperationResult> Create(CreateCustomerDTO command, CancellationToken cancellationToken);
         Task<OperationResult> Edit(EditCustomerDTO command, CancellationToken cancellationToken);

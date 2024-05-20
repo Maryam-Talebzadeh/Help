@@ -69,6 +69,11 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             }).FirstOrDefault(c => c.Id == id);
         }
 
+        public async Task<string> GetUserNameById(int id, CancellationToken cancellationToken)
+        {
+            return _context.Customers.Where( c => c.Id == id).Select(c => c.UserName).FirstOrDefault();
+        }
+
         public async Task<List<CustomerDTO>> Search(SearchCustomerDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.Customers.Select(c =>

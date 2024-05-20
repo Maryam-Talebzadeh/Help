@@ -3,7 +3,6 @@ using Base_Framework.General.Hashing;
 using Help.Domain.Core.AccountAgg.Data;
 using Help.Domain.Core.AccountAgg.DTOs.Customer;
 using Help.Domain.Core.AccountAgg.Services;
-using System.Data;
 
 namespace Help.Domain.Services.AccountAgg
 {
@@ -83,6 +82,19 @@ namespace Help.Domain.Services.AccountAgg
         public async Task<CustomerDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return await _customerRepository.GetDetails(id, cancellationToken);
+        }
+
+        public async Task<OperationResult> Remove(int id, CancellationToken cancellationToken)
+        {
+            var operation = new OperationResult(_type, id);
+
+            if (!await _customerRepository.IsExist(x => x.Id == id, cancellationToken))
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+
+            await _customerRepository.Remove(id, cancellationToken);
+            await _customerRepository.Save(cancellationToken);
+
+            return operation.Succedded();
         }
 
         public async Task<List<CustomerDTO>> Search(SearchCustomerDTO searchModel, CancellationToken cancellationToken)

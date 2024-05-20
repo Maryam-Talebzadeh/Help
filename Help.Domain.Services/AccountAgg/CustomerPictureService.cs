@@ -9,11 +9,13 @@ namespace Help.Domain.Services.AccountAgg
     public class CustomerPictureService : ICustomerPictureService
     {
         private readonly ICustomerPictureRepository _customerPictureRepository;
+        private readonly ICustomerRepository _customerRepository;
         private readonly Type _type = new CustomerPictureDTO().GetType();
 
-        public CustomerPictureService(ICustomerPictureRepository customerPictureRepository)
+        public CustomerPictureService(ICustomerPictureRepository customerPictureRepository, ICustomerRepository customerRepository)
         {
             _customerPictureRepository = customerPictureRepository;
+            _customerRepository = customerRepository;
         }
 
         public async Task<OperationResult> Confirm(int id, CancellationToken cancellationToken)
@@ -57,6 +59,10 @@ namespace Help.Domain.Services.AccountAgg
 
         public async Task<OperationResult> Edit(EditCustomerPictureDTO command, CancellationToken cancellationToken)
         {
+            var customerUserName = await _customerRepository.GetUserNameById(command.CustomerID, cancellationToken);
+            command.Alt = "پروفایل" + customerUserName;
+            command.Title = "پروفایل" + customerUserName;
+
             if (command.Picture != null)
             {
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "ProfilePictures");
