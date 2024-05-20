@@ -80,6 +80,7 @@ namespace HelpConfiguration
             #region Services
 
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ICustomerPictureService, CustomerPictureService>();
 
             #endregion
 
