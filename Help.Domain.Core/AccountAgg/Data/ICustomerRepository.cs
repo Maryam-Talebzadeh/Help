@@ -11,5 +11,6 @@ namespace Help.Domain.Core.AccountAgg.Data
         Task<CustomerDetailDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<CustomerDTO>> Search(SearchCustomerDTO searchModel, CancellationToken cancellationToken);
         Task Active(int id, CancellationToken cancellationToken);
+        Task ChangePassword(ChangeCustomerPasswordDTO changePasswordModel, CancellationToken cancellationToken);
     }
 }

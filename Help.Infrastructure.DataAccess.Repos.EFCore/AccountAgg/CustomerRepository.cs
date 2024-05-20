@@ -24,6 +24,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             customer.Activate();
         }
 
+        public async Task ChangePassword(ChangeCustomerPasswordDTO changePasswordModel, CancellationToken cancellationToken)
+        {
+            var customer = Get(changePasswordModel.Id);
+            customer.ChangePassword(changePasswordModel.Password);
+        }
+
         public async Task Create(CreateCustomerDTO command, CancellationToken cancellationToken)
         {
             var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.Mobile, command.RoleId, command.CardNumber, command.PhoneNumber,command.Bio, command.PictureId, command.Birthday.ToGregorianDateTime(), command.AddressId);
@@ -50,7 +56,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                 Birthday = c.Birthday.ToFarsi(),
                 UserName = c.UserName,
                 AddressId = c.AddressId,
-                Password = c.Password,
                 CardNumber = c.CardNumber,
                 PhoneNumber = c.PhoneNumber,
                 PictureId = c.PictureId,
@@ -84,8 +89,17 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                 Mobile = c.Mobile
             });
 
-            if (!searchModel.Information.IsNullOrEmpty())
-                query = query.Where(c => c.FullName.Contains(searchModel.Information) || c.UserName.Contains(searchModel.Information) || c.Email.Contains(searchModel.Information));
+            if (!searchModel.FullName.IsNullOrEmpty())
+                query = query.Where(c => c.FullName.Contains(searchModel.FullName));
+
+            if (!searchModel.UserName.IsNullOrEmpty())
+                query = query.Where(c => c.UserName.Contains(searchModel.UserName));
+
+            if (!searchModel.Mobile.IsNullOrEmpty())
+                query = query.Where(c => c.Mobile.Contains(searchModel.Mobile));
+
+            if (searchModel.RoleId > 0)
+                query = query.Where(c => c.RoleId == searchModel.RoleId);
 
             return query.OrderBy(c => c.UserName).ToList();
         }

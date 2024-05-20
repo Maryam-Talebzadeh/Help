@@ -10,7 +10,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
         {
             builder.Property(c => c.FullName).HasMaxLength(50).IsRequired();
             builder.Property(c => c.UserName).HasMaxLength(50).IsRequired();
-            builder.Property(c => c.Password).HasMaxLength(256).IsRequired();
+            builder.Property(c => c.Password).HasMaxLength(1000).IsRequired();
+            builder.Property(c => c.Mobile).HasMaxLength(20).IsRequired();
             builder.Property(c => c.Email).HasMaxLength(100).IsRequired();
             builder.HasQueryFilter(x => !x.IsRemoved);
 
@@ -36,7 +37,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
 
             #region Seed Data
 
-            var data = new Customer("MaryamTalebzadeh", "Mary", "1234", "marya.6t@gmail.com", 5022201097588592, "09386485663", "first customer", 1, DateTime.Now, 1);
+            var data = new Customer("MaryamTalebzadeh", "Mary", "1234", "marya.6t@gmail.com", "09380000000", 1, 5022201097588592, "09386485663", "first customer", 1, DateTime.Now, 1);
             data.Id = 100;
             builder.HasData(data);
 
