@@ -59,8 +59,8 @@ namespace Help.Domain.Services.AccountAgg
                 operation.Failed("شماره موبایل تکراری می باشد. لطفا شماره موبایل دیگری وارد کنید.");
 
             command.Password = _passwordHasher.Hash(command.Password);
-            await _customerRepository.Create(command, cancellationToken);
-            await _customerRepository.Save(cancellationToken);
+           int customerId = await _customerRepository.Create(command, cancellationToken);
+            operation.RecordReferenceId = customerId;
 
             return operation.Succedded();
 

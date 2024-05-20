@@ -1,11 +1,10 @@
 ﻿using Base_Framework.Domain.Services;
 using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
 
-namespace Help.Domain.Core.AccountAgg.Services
+namespace Help.Domain.Core.AccountAgg.AppServices
 {
-    public interface ICustomerPictureService
+    public interface ICustomerPictureAppService
     {
-        Task<OperationResult> CreateDefault(CreateCustomerPictureDTO command, CancellationToken cancellationToken);
         Task<OperationResult> Edit(EditCustomerPictureDTO command, CancellationToken cancellationToken);
         Task<OperationResult> Remove(int id, CancellationToken cancellationToken);
         Task<EditCustomerPictureDTO> GetDetails(int id, CancellationToken cancellationToken);

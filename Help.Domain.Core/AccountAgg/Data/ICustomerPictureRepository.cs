@@ -11,7 +11,7 @@ namespace Help.Domain.Core.AccountAgg.Data
         Task<EditCustomerPictureDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<CustomerPictureDTO> GetByCustomerId(int customerId, CancellationToken cancellationToken);
         Task<List<CustomerPictureDTO>> SearchUnConfirmed(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken);
-        Task<List<CustomerPictureDTO>> Serach(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken);
+        Task<List<CustomerPictureDTO>> Search(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken);
         Task Confirm(int id, CancellationToken cancellationToken);
         Task Reject(int id, CancellationToken cancellationToken);
     }

@@ -7,7 +7,7 @@ namespace Help.Domain.Core.AccountAgg.Data
 {
     public interface ICustomerRepository : IRepository<Customer>
     {
-        Task Create(CreateCustomerDTO command, CancellationToken cancellationToken);
+        Task<int> Create(CreateCustomerDTO command, CancellationToken cancellationToken);
         Task Edit(EditCustomerDTO command, CancellationToken cancellationToken);
         Task<CustomerDetailDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<CustomerDTO>> Search(SearchCustomerDTO searchModel, CancellationToken cancellationToken);

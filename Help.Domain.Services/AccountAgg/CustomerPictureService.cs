@@ -3,6 +3,7 @@ using Base_Framework.General;
 using Help.Domain.Core.AccountAgg.Data;
 using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
 using Help.Domain.Core.AccountAgg.Services;
+using System.IO;
 
 namespace Help.Domain.Services.AccountAgg
 {
@@ -40,13 +41,6 @@ namespace Help.Domain.Services.AccountAgg
 
             try
             {
-                #region Save picture
-
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "ProfilePictures", command.Name);
-                FileHandler.SaveImage(path, command.Picture);
-
-                #endregion
-
                 await _customerPictureRepository.Create(command, cancellationToken);
                 await _customerPictureRepository.Save(cancellationToken);
                 return operation.Succedded();
@@ -67,11 +61,17 @@ namespace Help.Domain.Services.AccountAgg
             {
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "ProfilePictures");
 
-                #region Delete Old Image
+                if (command.Name != "DefaultProfile.jpg")
+                {
 
-                FileHandler.DeleteFile(Path.Combine(path, command.Name));
+                    #region Delete Old Image
 
-                #endregion
+
+                    FileHandler.DeleteFile(Path.Combine(path, command.Name));
+
+                    #endregion
+
+                }
 
                 #region Save picture
 
@@ -120,9 +120,23 @@ namespace Help.Domain.Services.AccountAgg
         public async Task<OperationResult> Remove(int id, CancellationToken cancellationToken)
         {
             var operation = new OperationResult(_type, id);
+            var picture = await GetDetails(id, cancellationToken);
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "ProfilePictures", picture.Name);
 
             if (!await _customerPictureRepository.IsExist(s => s.Id == id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
+
+            if (picture.Name != "DefaultProfile.jpg")
+            {
+
+                #region Delete Old Image
+
+
+                FileHandler.DeleteFile(Path.Combine(path, picture.Name));
+
+                #endregion
+
+            }
 
             await _customerPictureRepository.Remove(id, cancellationToken);
             await _customerPictureRepository.Save(cancellationToken);
@@ -135,9 +149,9 @@ namespace Help.Domain.Services.AccountAgg
             return await _customerPictureRepository.SearchUnConfirmed(searchModel, cancellationToken);
         }
 
-        public async Task<List<CustomerPictureDTO>> Serach(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<CustomerPictureDTO>> Search(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
         {
-            return await _customerPictureRepository.Serach(searchModel, cancellationToken);
+            return await _customerPictureRepository.Search(searchModel, cancellationToken);
         }
     }
 }

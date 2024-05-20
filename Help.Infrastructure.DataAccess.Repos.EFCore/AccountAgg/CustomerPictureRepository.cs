@@ -87,7 +87,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             return query.OrderByDescending(p => p.Id).ToList();
         }
 
-        public async Task<List<CustomerPictureDTO>> Serach(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<CustomerPictureDTO>> Search(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.CustomerPictures.Select(p =>
              new CustomerPictureDTO
