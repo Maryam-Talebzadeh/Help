@@ -9,9 +9,9 @@ namespace Base_Framework.Domain.Core.DTOs
 {
     public class PictureDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public string Alt { get; set; }
-        public IFormFile Picture { get; set; }
     }
 }
