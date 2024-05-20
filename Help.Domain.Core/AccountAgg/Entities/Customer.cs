@@ -5,7 +5,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
 {
     public class Customer : User
     {
-        public Customer(string fullName, string userName, string password, string email, Int64 cardNumber, string phoneNumber, string? bio, int pictureId, DateTime birthday, int addressId) : base(fullName, userName, password, email)
+        public Customer(string fullName, string userName, string password, string email, string mobile, int roleId, Int64 cardNumber, string phoneNumber, string? bio, int pictureId, DateTime birthday, int addressId) : base(fullName, userName, password, email, mobile, roleId)
         {
             CardNumber = cardNumber;
             PhoneNumber = phoneNumber;

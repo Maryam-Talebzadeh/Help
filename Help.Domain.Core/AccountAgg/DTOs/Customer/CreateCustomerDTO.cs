@@ -14,5 +14,7 @@ namespace Help.Domain.Core.AccountAgg.DTOs.Customer
         public int PictureId { get; set; }
         public string Birthday { get; set; }
         public int AddressId { get; set; }
+        public string Mobile { get; set; }
+        public int RoleId { get;  set; }
     }
 }

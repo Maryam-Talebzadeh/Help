@@ -26,7 +26,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 
         public async Task Create(CreateCustomerDTO command, CancellationToken cancellationToken)
         {
-            var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.CardNumber, command.PhoneNumber,command.Bio, command.PictureId, command.Birthday.ToGregorianDateTime(), command.AddressId);
+            var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.Mobile, command.RoleId, command.CardNumber, command.PhoneNumber,command.Bio, command.PictureId, command.Birthday.ToGregorianDateTime(), command.AddressId);
             _context.Customers.Add(customer);
         }
 
@@ -44,6 +44,8 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                 Id = c.Id,
                 Bio = c.Bio,
                 Email = c.Email,
+                Mobile = c.Mobile,
+                RoleId = c.RoleId,
                 FullName = c.FullName,
                 Birthday = c.Birthday.ToFarsi(),
                 UserName = c.UserName,
@@ -76,7 +78,10 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                    CustomerId = c.Id
                    },
                 FullName = c.FullName,
-               
+                RoleId = c.RoleId,
+                UserName = c.UserName,
+                Email = c.Email,
+                Mobile = c.Mobile
             });
 
             if (!searchModel.Information.IsNullOrEmpty())
