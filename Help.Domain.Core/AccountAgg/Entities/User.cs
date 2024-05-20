@@ -27,12 +27,5 @@ namespace Help.Domain.Core.AccountAgg.Entities
             Password = password;
         }
 
-        public void Edit(string fullName, string userName, string email, string mobile, int roleId)
-        {
-            FullName = fullName;
-            UserName = userName;
-            Mobile = mobile;
-            RoleId = roleId;
-        }
     }
 }

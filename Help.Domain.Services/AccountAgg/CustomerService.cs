@@ -83,8 +83,11 @@ namespace Help.Domain.Services.AccountAgg
         {
             var operation = new OperationResult(_type, command.Id);
 
-            if (await _customerRepository.IsExist(s => s.Id == command.Id, cancellationToken))
-                return operation.Failed(ApplicationMessages.RecordNotFound);
+            if (await _customerRepository.IsExist(c => c.UserName == command.UserName && c.Id != command.Id, cancellationToken))
+                operation.Failed("نام کاربری تکراری می باشد. لطفا نام کاربری دیگری برای خود انتخاب کنید.");
+
+            if (await _customerRepository.IsExist(c => c.Mobile == command.Mobile && c.Id != command.Id, cancellationToken))
+                operation.Failed("شماره موبایل تکراری می باشد. لطفا شماره موبایل دیگری وارد کنید.");
 
             await _customerRepository.Edit(command, cancellationToken);
             await _customerRepository.Save(cancellationToken);

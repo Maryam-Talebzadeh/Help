@@ -144,14 +144,50 @@ namespace Help.Domain.Services.AccountAgg
             return operation.Succedded();
         }
 
-        public async Task<List<CustomerPictureDTO>> SearchUnConfirmed(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<CustomerPictureDTO>> SearchUnChecked(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
         {
-            return await _customerPictureRepository.SearchUnConfirmed(searchModel, cancellationToken);
+            return await _customerPictureRepository.SearchUnChecked(searchModel, cancellationToken);
         }
 
         public async Task<List<CustomerPictureDTO>> Search(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
         {
             return await _customerPictureRepository.Search(searchModel, cancellationToken);
+        }
+
+        public async Task<OperationResult> EditDefaultProfile(EditCustomerPictureDTO command, CancellationToken cancellationToken)
+        {
+            var operation = new OperationResult(_type, 0);
+
+            try
+            {
+                if (command.Picture != null)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "ProfilePictures");
+
+                    #region Delete Old Image
+
+                    FileHandler.DeleteFile(Path.Combine(path, "DefaultProfile.jpg"));
+
+                    #endregion
+
+                    #region Save picture
+
+                    command.Name = NameGenarator.GenerateUniqeCode() + Path.GetExtension(command.Picture.FileName);
+                    path = Path.Combine(path, command.Name);
+                    FileHandler.SaveImage(path, command.Picture);
+
+                    #endregion
+
+                }
+
+                return operation.Succedded();
+            }
+            catch
+            {
+                return operation.Failed(ApplicationMessages.CreationFailed);
+            }
+
+
         }
     }
 }

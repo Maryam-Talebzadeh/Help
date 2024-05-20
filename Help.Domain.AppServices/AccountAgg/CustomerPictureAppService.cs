@@ -2,10 +2,7 @@
 using Base_Framework.LogError;
 using Help.Domain.Core.AccountAgg.AppServices;
 using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
-using Help.Domain.Core.AccountAgg.Entities;
 using Help.Domain.Core.AccountAgg.Services;
-using Help.Domain.Services.AccountAgg;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Help.Domain.AppServices.AccountAgg
 {
@@ -103,14 +100,27 @@ namespace Help.Domain.AppServices.AccountAgg
             return operation;
         }
 
-        public async Task<List<CustomerPictureDTO>> SearchUnConfirmed(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<CustomerPictureDTO>> SearchUnChecked(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
         {
-            return await _customerPictureService.SearchUnConfirmed(searchModel, cancellationToken);
+            return await _customerPictureService.SearchUnChecked(searchModel, cancellationToken);
         }
 
         public async Task<List<CustomerPictureDTO>> Search(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
         {
             return await _customerPictureService.Search(searchModel, cancellationToken);
+        }
+
+        public async Task<OperationResult> EditDefaultProfile(EditCustomerPictureDTO command, CancellationToken cancellationToken)
+        {
+            var operation = await _customerPictureService.EditDefaultProfile(command, cancellationToken);
+
+            if (!operation.IsSuccedded)
+            {
+                _operationResultLogging.LogOperationResult(operation, nameof(EditDefaultProfile), _nameSpace, cancellationToken);
+                return operation;
+            }
+
+            return operation;
         }
     }
 }

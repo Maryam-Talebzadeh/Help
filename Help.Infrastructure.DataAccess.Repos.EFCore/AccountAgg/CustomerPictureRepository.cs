@@ -67,10 +67,10 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             picture.Reject();
         }
 
-        public async Task<List<CustomerPictureDTO>> SearchUnConfirmed(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
+        public async Task<List<CustomerPictureDTO>> SearchUnChecked(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken)
         {
             var query = _context.CustomerPictures
-                .Where(p => !p.IsConfirmed)
+                .Where(p => !p.IsConfirmed && !p.IsRejected)
                 .Select(p =>
              new CustomerPictureDTO
              {
@@ -78,7 +78,10 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                  Name = p.Name,
                  Alt = p.Alt,
                  Title = p.Title,
-                 CustomerId = p.Customer.Id
+                 CustomerId = p.Customer.Id,
+                 CustomerName = p.Customer.UserName,
+                 IsConfirmed = p.IsConfirmed,
+                 IsRejected = p.IsRejected
              });
 
             if (searchModel.CustomerId > 0)
@@ -96,7 +99,10 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                  Name = p.Name,
                  Alt = p.Alt,
                  Title = p.Title,
-                 CustomerId = p.Customer.Id
+                 CustomerId = p.Customer.Id,
+                 CustomerName = p.Customer.UserName,
+                 IsConfirmed = p.IsConfirmed,
+                 IsRejected = p.IsRejected
              });
 
             if (searchModel.CustomerId > 0)

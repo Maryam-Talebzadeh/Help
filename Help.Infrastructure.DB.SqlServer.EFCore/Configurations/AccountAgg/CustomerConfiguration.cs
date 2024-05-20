@@ -37,7 +37,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
 
             #region Seed Data
 
-            var data = new Customer("MaryamTalebzadeh", "Mary", "1234", "marya.6t@gmail.com", "09380000000",1, 5022201097588592, "09386485663", "first customer", DateTime.Now, 1);
+            var data = new Customer("MaryamTalebzadeh", "Mary", "1234", "marya.6t@gmail.com", "09380000000",1, 5022201097588592, "first customer", DateTime.Now, 1);
             data.Id = 100;
             builder.HasData(data);
 

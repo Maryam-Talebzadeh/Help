@@ -32,7 +32,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 
         public async Task<int> Create(CreateCustomerDTO command, CancellationToken cancellationToken)
         {
-            var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.Mobile, command.RoleId, command.CardNumber, command.PhoneNumber,command.Bio, command.Birthday.ToGregorianDateTime(), command.AddressId);
+            var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.Mobile, command.RoleId, command.CardNumber,command.Bio, command.Birthday.ToGregorianDateTime(), command.AddressId);
             _context.Customers.Add(customer);
            await Save(cancellationToken);
             return customer.Id;
@@ -47,7 +47,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
         public async Task Edit(EditCustomerDTO command, CancellationToken cancellationToken)
         {
             var customer = Get(command.Id);
-            customer.Edit(command.FullName, command.UserName,command.Email, command.CardNumber, command.PhoneNumber, command.Bio, command.Birthday.ToGregorianDateTime());
+            customer.Edit(command.FullName, command.UserName,command.Email, command.CardNumber, command.Bio, command.Birthday.ToGregorianDateTime(), command.Mobile, command.RoleId);
         }
 
         public async Task<CustomerDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
@@ -65,7 +65,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                 UserName = c.UserName,
                 AddressId = c.AddressId,
                 CardNumber = c.CardNumber,
-                PhoneNumber = c.PhoneNumber,
                 Profile = new CustomerPictureDTO()
                 {
                     Title = c.Profile.Title,

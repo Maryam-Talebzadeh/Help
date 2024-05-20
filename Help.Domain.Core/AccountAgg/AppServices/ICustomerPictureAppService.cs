@@ -9,9 +9,10 @@ namespace Help.Domain.Core.AccountAgg.AppServices
         Task<OperationResult> Remove(int id, CancellationToken cancellationToken);
         Task<EditCustomerPictureDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<CustomerPictureDTO> GetByCustomerId(int customerId, CancellationToken cancellationToken);
-        Task<List<CustomerPictureDTO>> SearchUnConfirmed(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken);
+        Task<List<CustomerPictureDTO>> SearchUnChecked(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken);
         Task<List<CustomerPictureDTO>> Search(SearchCustomerPictureDTO searchModel, CancellationToken cancellationToken);
         Task<OperationResult> Confirm(int id, CancellationToken cancellationToken);
         Task<OperationResult> Reject(int id, CancellationToken cancellationToken);
+        Task<OperationResult> EditDefaultProfile(EditCustomerPictureDTO command, CancellationToken cancellationToken);
     }
 }

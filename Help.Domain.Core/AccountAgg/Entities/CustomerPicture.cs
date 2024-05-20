@@ -1,5 +1,4 @@
 ﻿using Base_Framework.Domain.Core.Entities;
-using Help.Domain.Core.HelpServiceAgg.Entities;
 
 namespace Help.Domain.Core.AccountAgg.Entities
 {
@@ -8,10 +7,13 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public CustomerPicture(string name, string title, string alt, int customerId) : base(name, title, alt)
         {
             CustomerId = customerId;
+            IsConfirmed = false;
+            IsRejected = false;
         }
 
         public int CustomerId { get; private set; }
-        public bool IsConfirmed { get; protected set; }
+        public bool IsConfirmed { get; private set; }
+        public bool IsRejected { get; private set; }
 
         #region Navigation Properties
 
@@ -30,10 +32,12 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public void Confirm()
         {
             IsConfirmed = true;
+            IsRejected = false;
         }
 
         public void Reject()
         {
+            IsRejected = true;
             IsConfirmed = false;
         }
     }
