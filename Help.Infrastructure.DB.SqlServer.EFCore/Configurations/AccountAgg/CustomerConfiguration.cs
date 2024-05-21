@@ -17,6 +17,9 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
 
             #region Relations
 
+            builder.HasOne(c => c.Role)
+                .WithMany(r => r.Customers).HasForeignKey(c => c.RoleId);
+
             builder.HasOne(c => c.Profile)
                 .WithOne(p => p.Customer)
                 .HasForeignKey<CustomerPicture>(cp => cp.CustomerId);

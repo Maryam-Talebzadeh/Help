@@ -30,6 +30,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Contexts
         #region Account Agg
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<CustomerPicture> CustomerPictures { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<City> Cities { get; set; }

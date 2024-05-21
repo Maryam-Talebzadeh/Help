@@ -21,6 +21,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public string Email { get; internal set; }
         public string Mobile { get; internal set; }
         public int RoleId { get; internal set; }
+        public Role Role { get; internal set; }
 
         public void ChangePassword(string password)
         {
