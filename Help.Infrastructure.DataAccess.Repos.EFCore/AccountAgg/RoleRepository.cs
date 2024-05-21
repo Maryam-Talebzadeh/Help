@@ -26,7 +26,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             role.Edit(command.Title);
         }
 
-        public List<RoleDTO> GetAll(CancellationToken cancellationToken)
+        public async Task<List<RoleDTO>> GetAll(CancellationToken cancellationToken)
         {
             return _context.Roles.Select(r =>
             new RoleDTO()

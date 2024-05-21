@@ -55,7 +55,10 @@ namespace Help.Domain.AppServices.AccountAgg
             var operation = await _customerService.Create(command, cancellationToken);
 
             if (!operation.IsSuccedded)
+            {
+                _operationResultLogging.LogOperationResult(operation, nameof(Create), _nameSpace, cancellationToken);
                 return operation;
+            }
 
             var picture = new CreateCustomerPictureDTO()
             {
@@ -63,9 +66,8 @@ namespace Help.Domain.AppServices.AccountAgg
             };
 
             operation = await _customerPictureService.CreateDefault(picture, cancellationToken);
-            _operationResultLogging.LogOperationResult(operation, nameof(Create), _nameSpace, cancellationToken);
-            return operation;
 
+            return operation;
         }
 
         public async Task<OperationResult> DeActive(int id, CancellationToken cancellationToken)

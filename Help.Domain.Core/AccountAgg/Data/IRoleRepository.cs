@@ -8,6 +8,6 @@ namespace Help.Domain.Core.AccountAgg.Data
         Task Create(CreateRoleDTO command, CancellationToken cancellationToken);
         Task Edit(EditRoleDTO command, CancellationToken cancellationToken);
         Task<EditRoleDTO> GetDetails(int id, CancellationToken cancellationToken);
-        List<RoleDTO> GetAll(CancellationToken cancellationToken);
+        Task<List<RoleDTO>> GetAll(CancellationToken cancellationToken);
     }
 }
