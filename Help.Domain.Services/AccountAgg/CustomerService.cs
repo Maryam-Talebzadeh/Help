@@ -51,6 +51,7 @@ namespace Help.Domain.Services.AccountAgg
         public async Task<OperationResult> Create(CreateCustomerDTO command, CancellationToken cancellationToken)
         {
             var operation = new OperationResult(_type, 0);
+            command.RoleId = 2;
 
             if (await _customerRepository.IsExist(c => c.UserName == command.UserName, cancellationToken))
                 operation.Failed("نام کاربری تکراری می باشد. لطفا نام کاربری دیگری برای خود انتخاب کنید.");
