@@ -1,4 +1,5 @@
 ﻿using Base_Framework.Domain.Core.Contracts;
+using Base_Framework.Domain.Services.Authentication;
 using Base_Framework.Domain.Services.Cache;
 using Base_Framework.General.Hashing;
 using Base_Framework.LogError;
@@ -75,7 +76,8 @@ namespace HelpConfiguration
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<ICustomerPictureRepository, CustomerPictureRepository>();
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
 
             #endregion
 
@@ -83,6 +85,8 @@ namespace HelpConfiguration
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ICustomerPictureService, CustomerPictureService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             #endregion
 
@@ -90,6 +94,7 @@ namespace HelpConfiguration
 
             services.AddScoped<ICustomerAppService, CustomerAppService>();
             services.AddScoped<ICustomerPictureAppService, CustomerPictureAppService>();
+            services.AddScoped<IRoleAppService, RoleAppService>();
 
             #endregion
 
@@ -112,6 +117,8 @@ namespace HelpConfiguration
 
             services.AddScoped<IOperationResultLogging>(provider => new OperationResultLogging(logger));
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+            services.AddHttpContextAccessor();
+            services.AddScoped<IAuthHelper, AuthHelper>();
 
             #endregion
         }
