@@ -9,7 +9,7 @@ namespace Base_Framework.Domain.Core.Contracts
         void Signin(AuthDTO account);
         string CurrentAccountRole();
         AuthDTO CurrentAccountInfo();
-        long CurrentAccountId();
+        int CurrentAccountId();
         string CurrentAccountMobile();
     }
 }

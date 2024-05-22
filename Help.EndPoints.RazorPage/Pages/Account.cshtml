@@ -4,6 +4,22 @@
     ViewData["Title"] = "ورود و ثبت نام";
 }
 
+
+@if(Model.LoginMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+       @Model.LoginMessage
+</div>    
+}
+
+
+@if (Model.RegisterMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @Model.RegisterMessage
+    </div>
+}
+
 <div class="breadcrumb-area section-space--half">
     <div class="container wide">
         <div class="row">

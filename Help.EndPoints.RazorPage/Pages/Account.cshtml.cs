@@ -8,10 +8,9 @@ namespace Help.EndPoints.RazorPage.Pages
 {
     public class AccountModel : PageModel
     {
-        [TempData]
+
         public string LoginMessage { get; set; }
 
-        [TempData]
         public string RegisterMessage { get; set; }
 
 
@@ -36,7 +35,7 @@ namespace Help.EndPoints.RazorPage.Pages
                 return RedirectToPage("/Index");
 
             LoginMessage = result.Message;
-            return RedirectToPage("/Account");
+            return Page();
         }
 
         public async Task<IActionResult> OnGetLogout(CancellationToken cancellationToken)

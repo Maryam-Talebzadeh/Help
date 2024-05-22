@@ -1,3 +1,4 @@
+using Base_Framework.Infrastructure;
 using Base_Framework.LogError;
 using Help.Domain.Core;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
@@ -68,6 +69,22 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                    o.LogoutPath = new PathString("/Account");
                    o.AccessDeniedPath = new PathString("/AccessDenied");
                });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminArea",
+        builder => builder.RequireRole(new List<string> { Roles.Administrator, Roles.Assistant }));
+
+    options.AddPolicy("AdminAccountsControl",
+        builder => builder.RequireRole(new List<string> { Roles.Administrator }));
+});
+
+builder.Services.AddRazorPages()
+			   .AddRazorPagesOptions(options =>
+			   {
+				   options.Conventions.AuthorizeAreaFolder("Administration", "/", "AdminArea");
+				   options.Conventions.AuthorizeAreaFolder("Administration", "/AccountAgg/Admin", "AdminAccountsControl");
+			   });
 
 #endregion
 

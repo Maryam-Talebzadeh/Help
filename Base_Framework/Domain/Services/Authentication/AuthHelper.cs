@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Base_Framework.Domain.Core.DTOs;
+using Base_Framework.Infrastructure;
 
 namespace Base_Framework.Domain.Services.Authentication
 {
@@ -28,14 +29,15 @@ namespace Base_Framework.Domain.Services.Authentication
             result.Username = claims.FirstOrDefault(x => x.Type == "Username").Value;
             result.RoleId = long.Parse(claims.FirstOrDefault(x => x.Type == ClaimTypes.Role).Value);
             result.Fullname = claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
+            result.Role = Roles.GetRoleBy(result.RoleId);
             return result;
         }
 
 
-        public long CurrentAccountId()
+        public int CurrentAccountId()
         {
             return IsAuthenticated()
-                ? long.Parse(_contextAccessor.HttpContext.User.Claims.First(x => x.Type == "AccountId")?.Value)
+                ? int.Parse(_contextAccessor.HttpContext.User.Claims.First(x => x.Type == "AccountId")?.Value)
                 : 0;
         }
 
