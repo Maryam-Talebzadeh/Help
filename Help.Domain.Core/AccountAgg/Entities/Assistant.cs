@@ -2,9 +2,9 @@
 
 namespace Help.Domain.Core.AccountAgg.Entities
 {
-    public class Admin : User
+    public class Assistant : User
     {
-        public Admin(int employeeID, DateTime terminationDateContract, string fullName, string userName, string password, string? email, string mobile, int roleId) : base(fullName, userName, password, email, mobile, roleId)
+        public Assistant(int employeeID, DateTime terminationDateContract, string fullName, string userName, string password, string? email, string mobile, int roleId) : base(fullName, userName, password, email, mobile, roleId)
         {
             DateOfEmployeement = DateTime.Now;
             EmployeeID = employeeID;
@@ -16,15 +16,14 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public DateTime TerminationDateContract { get; private set; }
 
         public void Edit(int employeeID, DateTime terminationDateContract, string fullName, string userName, string? email, string mobile)
-            {
+        {
             FullName = fullName;
             Email = email;
             EmployeeID = employeeID;
-             FullName = fullName;
+            FullName = fullName;
             UserName = userName;
             Mobile = mobile;
             TerminationDateContract = terminationDateContract;
         }
-
     }
 }

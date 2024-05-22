@@ -79,6 +79,7 @@ namespace HelpConfiguration
             services.AddScoped<ICustomerPictureRepository, CustomerPictureRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAssistantRepository, AssistantRepository>();
 
             #endregion
 
@@ -88,6 +89,7 @@ namespace HelpConfiguration
             services.AddScoped<ICustomerPictureService, CustomerPictureService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IAssistantService, AssistantService>();
 
             #endregion
 
@@ -97,6 +99,7 @@ namespace HelpConfiguration
             services.AddScoped<ICustomerPictureAppService, CustomerPictureAppService>();
             services.AddScoped<IRoleAppService, RoleAppService>();
             services.AddScoped<IAccountAppService, AccountAppService>();
+            services.AddScoped<IAssistantAppService, AssistantAppService>();
 
             #endregion
 

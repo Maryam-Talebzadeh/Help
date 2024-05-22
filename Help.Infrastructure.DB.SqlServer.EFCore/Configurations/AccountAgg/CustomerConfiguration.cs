@@ -40,8 +40,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
 
             #region Seed Data
 
-            var data = new Customer("MaryamTalebzadeh", "Mary", "1234", "marya.6t@gmail.com", "09380000000",1);
-            data.Id = 100;
+            var data = new Customer("firstUser", "user1", "1234", "marya.6t@gmail.com", "09380000000",2);
+            data.Id = 1;
             builder.HasData(data);
 
             #endregion

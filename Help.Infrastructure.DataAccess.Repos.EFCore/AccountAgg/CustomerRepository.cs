@@ -47,7 +47,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
         public async Task Edit(EditCustomerDTO command, CancellationToken cancellationToken)
         {
             var customer = Get(command.Id);
-            customer.Edit(command.FullName, command.UserName,command.Email, command.CardNumber, command.Bio, command.Birthday.ToGregorianDateTime(), command.Mobile, command.RoleId);
+            customer.Edit(command.FullName, command.UserName,command.Email, command.CardNumber, command.Bio, command.Birthday.ToGregorianDateTime(), command.Mobile);
         }
 
         public async Task<CustomerDetailDTO> GetDetails(int id, CancellationToken cancellationToken)

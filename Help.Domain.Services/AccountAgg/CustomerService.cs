@@ -42,7 +42,7 @@ namespace Help.Domain.Services.AccountAgg
                 return operation.Failed(ApplicationMessages.PasswordsNotMatch);
 
             changePasswordModel.Password = _passwordHasher.Hash(changePasswordModel.Password);
-            await _customerRepository.Active(changePasswordModel.Id, cancellationToken);
+            await _customerRepository.ChangePassword(changePasswordModel, cancellationToken);
             await _customerRepository.Save(cancellationToken);
 
             return operation.Succedded();

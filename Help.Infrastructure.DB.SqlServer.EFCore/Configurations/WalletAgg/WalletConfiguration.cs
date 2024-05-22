@@ -14,7 +14,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.WalletAgg
 
             #region Seed Data
 
-            var data = new Wallet(100);
+            var data = new Wallet(1);
             data.Id = 1;
             builder.HasData(data);
 

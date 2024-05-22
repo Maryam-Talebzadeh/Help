@@ -14,6 +14,8 @@ namespace Help.Domain.Core.AccountAgg.Entities
         #region Navigation Properties
 
         public List<Customer> Customers { get; private set; }
+        public List<Admin> Admins { get; private set; }
+        public List<Assistant> Assistants { get; private set; }
 
         #endregion
 

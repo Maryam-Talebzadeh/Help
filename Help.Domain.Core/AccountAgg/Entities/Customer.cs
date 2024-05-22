@@ -30,7 +30,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
 
         #endregion
 
-        public void Edit(string fullName, string userName, string email, Int64? cardNumber, string? bio, DateTime? birthday, string mobile, int roleId)
+        public void Edit(string fullName, string userName, string email, Int64? cardNumber, string? bio, DateTime? birthday, string mobile)
         {
             FullName = fullName;
             Email = email;
@@ -41,7 +41,6 @@ namespace Help.Domain.Core.AccountAgg.Entities
             FullName = fullName;
             UserName = userName;
             Mobile = mobile;
-            RoleId = roleId;
         }
 
         public void Activate()

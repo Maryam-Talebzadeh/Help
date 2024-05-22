@@ -19,8 +19,13 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
 
             Role role2 = new Role("کاربر عادی");
             role2.Id = 2;
-
             builder.HasData(role2);
+
+            Role role3 = new Role("دستیار ادمین");
+            role3.Id = 3;
+            builder.HasData(role3);
+
+         
 
             #endregion
         }
