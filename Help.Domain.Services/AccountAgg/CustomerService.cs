@@ -48,7 +48,7 @@ namespace Help.Domain.Services.AccountAgg
             return operation.Succedded();
         }
 
-        public async Task<OperationResult> Create(CreateCustomerDTO command, CancellationToken cancellationToken)
+        public async Task<OperationResult> Register(CreateCustomerDTO command, CancellationToken cancellationToken)
         {
             var operation = new OperationResult(_type, 0);
             command.RoleId = 2;

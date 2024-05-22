@@ -2,10 +2,8 @@ using Base_Framework.LogError;
 using Help.Domain.Core;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using HelpConfiguration;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -55,6 +53,24 @@ builder.Services.AddStackExchangeRedisCache(redisOptions =>
 
 #endregion
 
+#region Authentication
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+});
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+               .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
+               {
+                   o.LoginPath = new PathString("/Account");
+                   o.LogoutPath = new PathString("/Account");
+                   o.AccessDeniedPath = new PathString("/AccessDenied");
+               });
+
+#endregion
+
 #region Custom Services
 var host = new WebHostBuilder();
 var logger = builder.Services.BuildServiceProvider().GetRequiredService<ILogger<OperationResultLogging>>();
@@ -73,8 +89,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseAuthentication();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseCookiePolicy();
 
 app.UseRouting();
 

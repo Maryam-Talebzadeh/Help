@@ -7,6 +7,7 @@ namespace Help.Domain.Core.AccountAgg.AppServices
     {
         Task<AccountDTO> GetBy(string userName, CancellationToken cancellationToken);
         Task<OperationResult> Login(LoginDTO login, CancellationToken cancellationToken);
+        Task Logout(CancellationToken cancellationToken);
         Task<bool> IsExist(string userName, CancellationToken cancellationToken);
     }
 }

@@ -50,13 +50,13 @@ namespace Help.Domain.AppServices.AccountAgg
             }
         }
 
-        public async Task<OperationResult> Create(CreateCustomerDTO command, CancellationToken cancellationToken)
+        public async Task<OperationResult> Register(CreateCustomerDTO command, CancellationToken cancellationToken)
         {
-            var operation = await _customerService.Create(command, cancellationToken);
+            var operation = await _customerService.Register(command, cancellationToken);
 
             if (!operation.IsSuccedded)
             {
-                _operationResultLogging.LogOperationResult(operation, nameof(Create), _nameSpace, cancellationToken);
+                _operationResultLogging.LogOperationResult(operation, nameof(Register), _nameSpace, cancellationToken);
                 return operation;
             }
 

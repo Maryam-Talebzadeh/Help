@@ -5,7 +5,7 @@ namespace Help.Domain.Core.AccountAgg.AppServices
 {
     public interface ICustomerAppService
     {
-        Task<OperationResult> Create(CreateCustomerDTO command, CancellationToken cancellationToken);
+        Task<OperationResult> Register(CreateCustomerDTO command, CancellationToken cancellationToken);
         Task<OperationResult> Edit(EditCustomerDTO command, CancellationToken cancellationToken);
         Task<CustomerDetailDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<CustomerDTO>> Search(SearchCustomerDTO searchModel, CancellationToken cancellationToken);

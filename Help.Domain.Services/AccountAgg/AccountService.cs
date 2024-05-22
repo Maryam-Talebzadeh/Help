@@ -36,7 +36,7 @@ namespace Help.Domain.Services.AccountAgg
         {
             var operation = new OperationResult(_type,0);
 
-            if(await IsExist(login.UserName, cancellationToken))
+            if(!await IsExist(login.UserName, cancellationToken))
             {
                 return operation.Failed(ApplicationMessages.WrongUserName);
             }
@@ -54,6 +54,11 @@ namespace Help.Domain.Services.AccountAgg
             _authHelper.Signin(authViewModel);
 
             return operation.Succedded();
+        }
+
+        public async Task Logout(CancellationToken cancellationToken)
+        {
+            _authHelper.SignOut();
         }
     }
 }

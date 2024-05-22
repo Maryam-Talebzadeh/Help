@@ -5,7 +5,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
 {
     public class User : BaseEntity
     {
-        public User(string fullName, string userName, string password, string email, string mobile, int roleId)
+        public User(string fullName, string userName, string password, string? email, string mobile, int roleId)
         {
             FullName = fullName;
             UserName = userName;

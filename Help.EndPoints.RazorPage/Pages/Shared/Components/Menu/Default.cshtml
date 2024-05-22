@@ -1,4 +1,6 @@
-﻿<div class="header-area header-sticky">
+﻿@inject Base_Framework.Domain.Core.Contracts.IAuthHelper AuthHelper
+
+<div class="header-area header-sticky">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -29,7 +31,20 @@
                                 <li>
                                     <a href="contact.html">تماس با ما</a>
                                 </li>
-                              
+                                @if (AuthHelper.IsAuthenticated())
+                                {
+                                    <li>
+                                        <a asp-page="/Account" asp-page-handler="Logout">خروج</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-page="/Account">وورد / ثبت نام</a>
+                                    </li>
+                                }
+                            </ul>
+
                             </ul>
                         </nav>
                     </div>

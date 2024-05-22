@@ -32,7 +32,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 
         public async Task<int> Create(CreateCustomerDTO command, CancellationToken cancellationToken)
         {
-            var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.Mobile, command.RoleId, command.CardNumber,command.Bio, command.Birthday.ToGregorianDateTime(), command.AddressId);
+            var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.Mobile, command.RoleId);
             _context.Customers.Add(customer);
            await Save(cancellationToken);
             return customer.Id;

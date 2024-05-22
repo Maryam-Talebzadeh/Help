@@ -28,4 +28,10 @@ namespace Help.Domain.AppServices.AccountAgg
         {
             return await _accountService.Login(login, cancellationToken);
         }
+
+        public async Task Logout(CancellationToken cancellationToken)
+        {
+             await _accountService.Logout(cancellationToken);
+        }
+    }
 }
