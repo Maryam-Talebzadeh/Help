@@ -1,8 +1,8 @@
 ﻿
 
-namespace Help.Domain.Core.AccountAgg.DTOs.Assistant
+namespace Help.Domain.Core.AccountAgg.DTOs.Admin
 {
-    public class ChangeAssistantPasswordDTO
+    public class ChangeAdminPasswordDTO
     {
         public int Id { get; set; }
         public string Password { get; set; }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Help.Domain.Core.AccountAgg.DTOs.Assistant
+namespace Help.Domain.Core.AccountAgg.DTOs.Admin
 {
-    public class AssistantDTO : EditAssistantDTO
+    public class AdminDTO : EditAdminDTO
     {
     }
 }

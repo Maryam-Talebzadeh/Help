@@ -1,8 +1,8 @@
 ﻿
 
-namespace Help.Domain.Core.AccountAgg.DTOs.Assistant
+namespace Help.Domain.Core.AccountAgg.DTOs.Admin
 {
-    public class SearchAssistantDTO
+    public class SearchAdminDTO
     {
         public string FullName { get; set; }
         public string UserName { get; set; }

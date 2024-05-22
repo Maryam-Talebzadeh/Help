@@ -19,7 +19,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
         {
             var address = new Address(command.Description, command.CityId, command.StreetName, command.AlleyNumber);
             _context.Addresses.Add(address);
-            await Save(cancellationToken);
+            _context.SaveChanges();
             return address.Id;
         }
 

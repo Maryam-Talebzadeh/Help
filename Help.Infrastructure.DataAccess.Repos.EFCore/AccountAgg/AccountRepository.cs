@@ -29,17 +29,25 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                    Mobile = c.Mobile
                 }).FirstOrDefault(c => c.UserName == userName);
 
-            //admin check
-            return user;
+                return _context.Admins.Select(c =>
+                new AccountDTO()
+                {
+                    Id = c.Id,
+                    UserName = c.UserName,
+                    FullName = c.FullName,
+                    RoleId = c.RoleId,
+                    Password = c.Password,
+                    Mobile = c.Mobile
+                }).FirstOrDefault(c => c.UserName == userName);
         }
 
         public async Task<bool> IsExist(string userName, CancellationToken cancellationToken)
         {
             var res = _context.Customers.Any(c => c.UserName == userName);
 
-            if(res == null)
+            if(res == false)
             {
-                //admin check
+                 res = _context.Admins.Any(c => c.UserName == userName);
             }
 
             return res;
@@ -52,7 +60,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 
             if (res == null)
             {
-                //admin check
+                 res = _context.Admins.Any(c => c.UserName == login.UserName && c.Password == login.Password);
             }
 
             return res;

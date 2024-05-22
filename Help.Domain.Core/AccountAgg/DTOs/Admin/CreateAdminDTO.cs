@@ -1,9 +1,10 @@
 ﻿using Base_Framework.Domain.Services;
+using Help.Domain.Core.AccountAgg.DTOs.Role;
 using System.ComponentModel.DataAnnotations;
 
-namespace Help.Domain.Core.AccountAgg.DTOs.Assistant
+namespace Help.Domain.Core.AccountAgg.DTOs.Admin
 {
-    public class CreateAssistantDTO
+    public class CreateAdminDTO
     {
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
         public string FullName { get; set; }
@@ -18,5 +19,6 @@ namespace Help.Domain.Core.AccountAgg.DTOs.Assistant
         public int EmployeeID { get; set; }
         public string DateOfEmployeement { get;  set; }
         public string TerminationDateContract { get;  set; }
+        public List<RoleDTO> Roles { get; set; }
     }
 }
