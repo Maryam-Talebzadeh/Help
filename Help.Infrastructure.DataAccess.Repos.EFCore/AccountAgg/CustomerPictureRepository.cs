@@ -3,6 +3,7 @@ using Help.Domain.Core.AccountAgg.Data;
 using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
 using Help.Domain.Core.AccountAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 {
@@ -38,14 +39,14 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 
         public async Task<CustomerPictureDTO> GetByCustomerId(int customerId, CancellationToken cancellationToken)
         {
-            return _context.CustomerPictures.Select(p =>
+            return  _context.CustomerPictures.AsEnumerable().Where(p => p.CustomerId == customerId).Select(p =>
             new CustomerPictureDTO
             {
                 Id= p.Id,
                 Name = p.Name,
                 Alt = p.Alt,
                 Title = p.Title
-            }).FirstOrDefault(p => p.CustomerId == customerId);
+            }).FirstOrDefault();
         }
 
         public async Task<EditCustomerPictureDTO> GetDetails(int id, CancellationToken cancellationToken)

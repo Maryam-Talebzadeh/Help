@@ -6,6 +6,7 @@ using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Base_Framework.General;
 using Microsoft.IdentityModel.Tokens;
 using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
+using Help.Domain.Core.AccountAgg.DTOs.Address;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 {
@@ -32,7 +33,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
 
         public async Task<int> Create(CreateCustomerDTO command, CancellationToken cancellationToken)
         {
-            var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.Mobile, command.RoleId);
+            var customer = new Customer(command.FullName, command.UserName, command.Password, command.Email, command.Mobile, command.RoleId, command.AddressId);
             _context.Customers.Add(customer);
            await Save(cancellationToken);
             return customer.Id;
@@ -47,7 +48,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
         public async Task Edit(EditCustomerDTO command, CancellationToken cancellationToken)
         {
             var customer = Get(command.Id);
-            customer.Edit(command.FullName, command.UserName,command.Email, command.CardNumber, command.Bio, command.Birthday.ToGregorianDateTime(), command.Mobile);
+            customer.Edit(command.FullName,command.Email, command.CardNumber, command.Bio, command.Birthday?.ToGregorianDateTime(), command.Mobile);
         }
 
         public async Task<CustomerDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
@@ -71,6 +72,18 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
                     Name = c.Profile.Name,
                     Alt = c.Profile.Alt,
                     CustomerId = c.Id
+                }, 
+                Address = new AddressDTO
+                {
+                    Id = c.Address.Id,
+                    AlleyNumber = c.Address.AlleyNumber,
+                    Description = c.Address.Description,
+                    StreetName = c.Address.StreetName,
+                    City = new Domain.Core.AccountAgg.DTOs.City.CityDTO
+                    {
+                        Name = c.Address.City.Name,
+                        ProvinceName = c.Address.City.ProvinceName
+                    }
                 }
             }).FirstOrDefault(c => c.Id == id);
         }

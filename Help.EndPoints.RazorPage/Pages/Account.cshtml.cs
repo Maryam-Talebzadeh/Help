@@ -10,8 +10,10 @@ namespace Help.EndPoints.RazorPage.Pages
     {
 
         public string LoginMessage { get; set; }
-
         public string RegisterMessage { get; set; }
+
+        [BindProperty]
+       public CreateCustomerDTO RegisterModel { get; set; }
 
 
         private readonly IAccountAppService _accountAppService;
@@ -44,13 +46,16 @@ namespace Help.EndPoints.RazorPage.Pages
             return RedirectToPage("/Index");
         }
 
-        public async Task<IActionResult> OnPostRegister(CreateCustomerDTO command, CancellationToken cancellationToken)
+        public async Task<IActionResult> OnPostRegister( CancellationToken cancellationToken)
         {
-            var result = await _customerAppService.Register(command, cancellationToken);
+            if (!ModelState.IsValid)
+                return Page();
+
+            var result = await _customerAppService.Register(RegisterModel, cancellationToken);
             if (result.IsSuccedded)
-                return RedirectToPage("/Account");
+                return Page();
             RegisterMessage = result.Message;
-            return RedirectToPage("/Account");
+            return Page();
         }
     }
 }

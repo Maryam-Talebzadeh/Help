@@ -1,0 +1,88 @@
+﻿@page "{id}"
+@model Help.EndPoints.RazorPage.Areas.UserPanel.Pages.IndexModel
+@{
+}
+
+<link href="~/AdminTheme/assets/css/persian-datepicker.min.css" rel="stylesheet" />
+<script src="~/AdminTheme/assets/js/persian-date.min.js"></script>
+<script src="~/AdminTheme/assets/js/persian-datepicker.min.js"></script>
+
+<div class="container">
+    <div class="main-body">
+        <partial name="_Breadcrumb" />
+
+        <div class="row gutters-sm">
+
+
+            <div class="col-md-4 mb-3">
+                @await Component.InvokeAsync("SideMenu")
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <form method="post" asp-page-handler="Edit">
+                        <input type="hidden" asp-for="Customer.Id" />
+                        <div class="login-form">
+                            <h4 class="login-title">اطلاعات کاربر</h4>
+                            <div class="row">
+                                <div class="col-md-6 col-12 mb-20">
+                                    <label>نام کامل</label>
+                                    <input type="text" asp-for="Customer.FullName" placeholder="نام">
+                                    <span class="text-danger" asp-validation-for="Customer.FullName"></span>
+                                </div>
+
+                                <div class="col-md-6 col-12 mb-20">
+                                    <label>ایمیل</label>
+                                    <input type="Email" asp-for="Customer.Email" placeholder="ایمیل">
+                                    <span class="text-danger" asp-validation-for="Customer.Email"></span>
+                                </div>
+                                <div class="col-md-12 mb-20">
+                                    <label>موبایل</label>
+                                    <input type="text" asp-for="Customer.Mobile" placeholder="شماره موبایل">
+                                    <span class="text-danger" asp-validation-for="Customer.Password"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-20">
+                                    <label>شماره کارت</label>
+                                    <input type="number" asp-for="Customer.CardNumber" placeholder="شماره کارت">
+                                    <span class="text-danger" asp-validation-for="Customer.CardNumber"></span>
+                                </div>
+                                <div class="col-md-6 mb-20">
+                                    <label>تاریخ تولد</label>
+                                    <input class="persianDateInput" asp-for="Customer.Birthday" placeholder="تاریخ تولد">
+                                    <span class="text-danger" asp-validation-for="Customer.Birthday"></span>
+                                </div>
+                                <div class="col-md-12 mb-20 ">
+                                    <label>بایو</label>
+                                    <textarea class="form-control" asp-for="Customer.Bio" placeholder="بایوگرافی"></textarea>
+                                    <span class="text-danger" asp-validation-for="Customer.Bio"></span>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0 pt-2">آدرس</h6>
+                                    </div>
+                                    <hr />
+                                    <div>
+                                        <div class="col-sm-3 text-secondary">
+                                            @Model.Customer.Address.City.ProvinceName  @Model.Customer.Address.City.Name  @Model.Customer.Address.StreetName  @Model.Customer.Address.Description
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <a class="register-button mt-0 " target="__blank" asp-page="/Edit"> تغییر آدرس</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="col-12">
+                                    <button class="register-button mt-0">ویرایش</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

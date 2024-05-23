@@ -14,7 +14,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
 
             #region Seed Data
 
-            var data = new Address("فاز دو", 1, "سعدی", 2);
+            var data = new Address(" ", 1, " ", 1);
             data.Id = 1;
             builder.HasData(data);
 

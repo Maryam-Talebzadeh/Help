@@ -207,7 +207,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     Bio = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Score = table.Column<short>(type: "smallint", nullable: true),
-                    AddressId = table.Column<int>(type: "int", nullable: true),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsRemoved = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -225,7 +225,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         name: "FK_Customers_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Customers_Roles_RoleId",
                         column: x => x.RoleId,
@@ -483,22 +484,22 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreationDate", "Description", "IsRemoved", "ParentId", "Title" },
-                values: new object[] { 1, new DateTime(2024, 5, 22, 9, 33, 18, 213, DateTimeKind.Local).AddTicks(5301), "تعمیر انواع لوازم خانگی", false, null, "تعمیرات" });
+                values: new object[] { 1, new DateTime(2024, 5, 23, 0, 56, 27, 846, DateTimeKind.Local).AddTicks(457), "تعمیر انواع لوازم خانگی", false, null, "تعمیرات" });
 
             migrationBuilder.InsertData(
                 table: "Cities",
                 columns: new[] { "Id", "Code", "CreationDate", "IsRemoved", "Name", "ProvinceName" },
-                values: new object[] { 1, "731", new DateTime(2024, 5, 22, 9, 33, 18, 202, DateTimeKind.Local).AddTicks(6080), false, "شیراز", "فارس" });
+                values: new object[] { 1, " ", new DateTime(2024, 5, 23, 0, 56, 27, 843, DateTimeKind.Local).AddTicks(2496), false, " ", " " });
 
             migrationBuilder.InsertData(
                 table: "HelpRequestStatuses",
                 columns: new[] { "Id", "CreationDate", "Description", "IsRemoved", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 5, 22, 9, 33, 18, 229, DateTimeKind.Local).AddTicks(2016), "درخواست شما اول باید توسط ادمین تایید شود. از صبوری شما سپاس گذاریم.", false, "منتظر تایید ادمین" },
-                    { 2, new DateTime(2024, 5, 22, 9, 33, 18, 229, DateTimeKind.Local).AddTicks(2505), "منتظر پیشنهادات", false, "انجام نشده" },
-                    { 3, new DateTime(2024, 5, 22, 9, 33, 18, 229, DateTimeKind.Local).AddTicks(2541), "این درخواست در حال انجام می باشد.", false, "در حال انجام" },
-                    { 4, new DateTime(2024, 5, 22, 9, 33, 18, 229, DateTimeKind.Local).AddTicks(2563), "این درخواست منقضی شده.", false, "تمام شده" }
+                    { 1, new DateTime(2024, 5, 23, 0, 56, 27, 872, DateTimeKind.Local).AddTicks(7460), "درخواست شما اول باید توسط ادمین تایید شود. از صبوری شما سپاس گذاریم.", false, "منتظر تایید ادمین" },
+                    { 2, new DateTime(2024, 5, 23, 0, 56, 27, 872, DateTimeKind.Local).AddTicks(7592), "منتظر پیشنهادات", false, "انجام نشده" },
+                    { 3, new DateTime(2024, 5, 23, 0, 56, 27, 872, DateTimeKind.Local).AddTicks(7606), "این درخواست در حال انجام می باشد.", false, "در حال انجام" },
+                    { 4, new DateTime(2024, 5, 23, 0, 56, 27, 872, DateTimeKind.Local).AddTicks(7628), "این درخواست منقضی شده.", false, "تمام شده" }
                 });
 
             migrationBuilder.InsertData(
@@ -515,40 +516,40 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 columns: new[] { "Id", "CreationDate", "IsRemoved", "Title" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 5, 22, 9, 33, 18, 212, DateTimeKind.Local).AddTicks(648), false, "مدیر سیستم" },
-                    { 2, new DateTime(2024, 5, 22, 9, 33, 18, 212, DateTimeKind.Local).AddTicks(876), false, "کاربر عادی" },
-                    { 3, new DateTime(2024, 5, 22, 9, 33, 18, 212, DateTimeKind.Local).AddTicks(924), false, "دستیار ادمین" }
+                    { 1, new DateTime(2024, 5, 23, 0, 56, 27, 845, DateTimeKind.Local).AddTicks(7017), false, "مدیر سیستم" },
+                    { 2, new DateTime(2024, 5, 23, 0, 56, 27, 845, DateTimeKind.Local).AddTicks(7078), false, "کاربر عادی" },
+                    { 3, new DateTime(2024, 5, 23, 0, 56, 27, 845, DateTimeKind.Local).AddTicks(7089), false, "دستیار ادمین" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Addresses",
                 columns: new[] { "Id", "AlleyNumber", "CityId", "CreationDate", "Description", "IsRemoved", "StreetName" },
-                values: new object[] { 1, 2, 1, new DateTime(2024, 5, 22, 9, 33, 18, 196, DateTimeKind.Local).AddTicks(7354), "فاز دو", false, "سعدی" });
+                values: new object[] { 1, 0, 1, new DateTime(2024, 5, 23, 0, 56, 27, 841, DateTimeKind.Local).AddTicks(6654), " ", false, " " });
 
             migrationBuilder.InsertData(
                 table: "Admins",
                 columns: new[] { "Id", "CreationDate", "DateOfEmployeement", "Email", "EmployeeID", "FullName", "IsRemoved", "Mobile", "Password", "RoleId", "TerminationDateContract", "UserName" },
-                values: new object[] { 1, new DateTime(2024, 5, 22, 9, 33, 18, 201, DateTimeKind.Local).AddTicks(5009), new DateTime(2024, 5, 22, 9, 33, 18, 201, DateTimeKind.Local).AddTicks(5026), "marya.6t@gmail.com", 1, "MaryamTalebzadeh", false, "09380000000", "10000.lyz67IGPgBUonnD4LNGVTQ==.4tH6b2mcWg+vVPSEHhzaEX0aatIlFdqGDcI+NUA/VLA=", 1, new DateTime(2024, 9, 22, 9, 33, 18, 201, DateTimeKind.Local).AddTicks(4838), "Mary" });
-
-            migrationBuilder.InsertData(
-                table: "Customers",
-                columns: new[] { "Id", "AddressId", "Bio", "Birthday", "CardNumber", "CreationDate", "Email", "FullName", "IsActive", "IsRemoved", "Mobile", "Password", "RoleId", "Score", "UserName" },
-                values: new object[] { 1, null, null, null, null, new DateTime(2024, 5, 22, 9, 33, 18, 209, DateTimeKind.Local).AddTicks(4352), "marya.6t@gmail.com", "firstUser", false, false, "09380000000", "1234", 2, (short)0, "user1" });
+                values: new object[] { 1, new DateTime(2024, 5, 23, 0, 56, 27, 842, DateTimeKind.Local).AddTicks(8769), new DateTime(2024, 5, 23, 0, 56, 27, 842, DateTimeKind.Local).AddTicks(8776), "marya.6t@gmail.com", 1, "MaryamTalebzadeh", false, "09380000000", "10000.lyz67IGPgBUonnD4LNGVTQ==.4tH6b2mcWg+vVPSEHhzaEX0aatIlFdqGDcI+NUA/VLA=", 1, new DateTime(2024, 9, 23, 0, 56, 27, 842, DateTimeKind.Local).AddTicks(8728), "Mary" });
 
             migrationBuilder.InsertData(
                 table: "HelpServices",
                 columns: new[] { "Id", "CategoryId", "CreationDate", "Description", "IsRemoved", "PictureId", "Slug", "Tags", "Title" },
-                values: new object[] { 1, 1, new DateTime(2024, 5, 22, 9, 33, 18, 231, DateTimeKind.Local).AddTicks(7462), "شیرآلات برای یک دلیل آشکار قسمت مهمی از خانه شما هستند: آن‌ها آب را برای انجام کارهای گوناگون توزیع می‌کنند. بنابراین، سالم نگه داشتن شیرآلات آشپزخانه، دستشویی و حمامدر شرایط درست کارکردشان امری ضروری است. برخی از موارد ممکن است باعث شود نیاز به تعمیر شیرآلات برند خاص پیدا کنید، از نشت آب گرفته تا سر و صدای اضافی. گاهی اوقات این مشکلات ناشی از قدیمی بودن شیرآلات است.", false, 0, "تعمیرات شیرآلات", "تعمیرات-شیرآلات", "تعمیرات شیرآلات" });
+                values: new object[] { 1, 1, new DateTime(2024, 5, 23, 0, 56, 27, 873, DateTimeKind.Local).AddTicks(5398), "شیرآلات برای یک دلیل آشکار قسمت مهمی از خانه شما هستند: آن‌ها آب را برای انجام کارهای گوناگون توزیع می‌کنند. بنابراین، سالم نگه داشتن شیرآلات آشپزخانه، دستشویی و حمامدر شرایط درست کارکردشان امری ضروری است. برخی از موارد ممکن است باعث شود نیاز به تعمیر شیرآلات برند خاص پیدا کنید، از نشت آب گرفته تا سر و صدای اضافی. گاهی اوقات این مشکلات ناشی از قدیمی بودن شیرآلات است.", false, 0, "تعمیرات شیرآلات", "تعمیرات-شیرآلات", "تعمیرات شیرآلات" });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "AddressId", "Bio", "Birthday", "CardNumber", "CreationDate", "Email", "FullName", "IsActive", "IsRemoved", "Mobile", "Password", "RoleId", "Score", "UserName" },
+                values: new object[] { 1, 1, null, null, null, new DateTime(2024, 5, 23, 0, 56, 27, 845, DateTimeKind.Local).AddTicks(610), "marya.6t@gmail.com", "firstUser", false, false, "09380000000", "1234", 2, (short)0, "user1" });
 
             migrationBuilder.InsertData(
                 table: "CustomerPictures",
                 columns: new[] { "Id", "Alt", "CreationDate", "CustomerId", "IsConfirmed", "IsRejected", "IsRemoved", "Name", "Title" },
-                values: new object[] { 1, "Profile", new DateTime(2024, 5, 22, 9, 33, 18, 210, DateTimeKind.Local).AddTicks(9785), 1, false, false, false, "DefaultProfile.jpg", "Default Customer Profile" });
+                values: new object[] { 1, "Profile", new DateTime(2024, 5, 23, 0, 56, 27, 845, DateTimeKind.Local).AddTicks(4266), 1, false, false, false, "DefaultProfile.jpg", "Default Customer Profile" });
 
             migrationBuilder.InsertData(
                 table: "Wallets",
                 columns: new[] { "Id", "Balance", "CreationDate", "CustomerId", "IsRemoved" },
-                values: new object[] { 1, 0.0, new DateTime(2024, 5, 22, 9, 33, 18, 248, DateTimeKind.Local).AddTicks(5558), 1, false });
+                values: new object[] { 1, 0.0, new DateTime(2024, 5, 23, 0, 56, 27, 880, DateTimeKind.Local).AddTicks(4678), 1, false });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CityId",
@@ -590,8 +591,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 name: "IX_Customers_AddressId",
                 table: "Customers",
                 column: "AddressId",
-                unique: true,
-                filter: "[AddressId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_RoleId",

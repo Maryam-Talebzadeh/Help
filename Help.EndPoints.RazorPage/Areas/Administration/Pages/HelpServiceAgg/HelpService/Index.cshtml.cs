@@ -1,5 +1,6 @@
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
+using Help.Domain.Core.HelpServiceAgg.DTOs.HelpServicePicture;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ namespace Help.EndPoints.RazorPage.Areas.Administration.Pages.HelpServiceAgg.Hel
     {
         private readonly IHelpServiceAppService _helpServiceAppService;
         private readonly IHelpServiceCategoryAppService _helpServiceCategoryAppService;
+        private readonly IHelpServicePictureAppService _helpServicePictureAppService;
 
         public List<HelpServiceDTO> HelpServices;
         public SearchHelpServiceDTO SearchModel;
@@ -20,10 +22,12 @@ namespace Help.EndPoints.RazorPage.Areas.Administration.Pages.HelpServiceAgg.Hel
         [TempData]
         public string Message { get; set; }
 
-        public IndexModel(IHelpServiceAppService helpServiceAppService, IHelpServiceCategoryAppService helpServiceCategoryAppService)
+        public IndexModel(IHelpServiceAppService helpServiceAppService, IHelpServiceCategoryAppService helpServiceCategoryAppService, IHelpServicePictureAppService helpServicePictureAppService)
         {
             _helpServiceAppService = helpServiceAppService;
             _helpServiceCategoryAppService = helpServiceCategoryAppService;
+            _helpServicePictureAppService = helpServicePictureAppService;
+
         }
 
         public async Task OnGet(SearchHelpServiceDTO searchModel, CancellationToken cancellationToken)
@@ -64,6 +68,37 @@ namespace Help.EndPoints.RazorPage.Areas.Administration.Pages.HelpServiceAgg.Hel
         {
             var result = await _helpServiceAppService.Remove(id, cancellationToken);
             HelpServices = await _helpServiceAppService.Search(new SearchHelpServiceDTO(), cancellationToken);
+        }
+
+        public async Task<ActionResult> OnGetCreatePicture(int id, CancellationToken cancellationToken)
+        {
+            var command = new CreateHelpServicePictureDTO()
+            {
+                HelpServiceId = id
+            };
+           
+
+            return Partial("./Create", command);
+        }
+
+        public async Task<JsonResult> OnPostPicture(CreateHelpServicePictureDTO command, CancellationToken cancellationToken)
+        {
+            var result = await _helpServicePictureAppService.Create(command, cancellationToken);
+
+            return new JsonResult(result);
+        }
+
+        public async Task<IActionResult> OnGetEditPicture(int id, CancellationToken cancellationToken)
+        {
+            var picture = await _helpServicePictureAppService.GetDetails(id, cancellationToken);
+
+            return Partial("Edit", picture);
+        }
+
+        public async Task<JsonResult> OnPostEditPicture(EditHelpServiceDTO command, CancellationToken cancellationToken)
+        {
+            var result = await _helpServicePictureAppService.Edit(command, cancellationToken);
+            return new JsonResult(result);
         }
     }
 }

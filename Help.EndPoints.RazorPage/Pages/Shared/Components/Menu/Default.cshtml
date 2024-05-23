@@ -1,5 +1,8 @@
 ﻿@inject Base_Framework.Domain.Core.Contracts.IAuthHelper AuthHelper
 
+@{
+    string RoleId = AuthHelper.CurrentAccountRole();
+}
 <div class="header-area header-sticky">
     <div class="container">
         <div class="row">
@@ -44,10 +47,16 @@
                                     </li>
                                 }
 
-                                @if (AuthHelper.CurrentAccountId() == 1 || AuthHelper.CurrentAccountId() == 3)
+                                @if (AuthHelper.IsAuthenticated() && (RoleId == "1" || RoleId == "3"))
                                 {
                                     <li>
-                                        <a asp-page="/Administration/AccountAgg/Admin">پنل ادمین</a>
+                                        <a href="/Administration/AccountAgg/Admin/Index">پنل ادمین</a>
+                                    </li>
+                                }
+                                @if (AuthHelper.IsAuthenticated() && RoleId == "2")
+                                {
+                                    <li>
+                                        <a href="/UserPanel/Index/@AuthHelper.CurrentAccountId()">پنل کاربری</a>
                                     </li>
                                 }
                             </ul>
