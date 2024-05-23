@@ -40,16 +40,13 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="hero-slider-content hero-slider-content--left-space">
-                                                <p class="slider-title slider-title--big-light">AMAZING PRODUCT!</p>
-                                                <p class="slider-title slider-title--big-bold">WALL CLOCK</p>
+                                                <p class="slider-title slider-title--big-light">به کمک نیاز داری؟</p>
+                                                <p class="slider-title slider-title--big-bold">ما کمکت می کنیم</p>
                                                 <p class="slider-title slider-title--small">
-                                                    Let your Wall reflect
-                                                    the luxurious side of you with our Unique Design 24ct.gold
-                                                    plated Wall Clock.
+                                                    این جا میتونی  برای خدمات مختلف درخواست بدی <br />و از بقیه کمک بگیری
                                                 </p>
                                                 <a class="hero-slider-button" href="shop-left-sidebar.html">
-                                                    SHOP
-                                                    NOW <i class="ion-ios-plus-empty"></i>
+                                                   همین الان درخواست بده <i class="ion-ios-plus-empty"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -95,9 +92,9 @@
                                         <div class="col-lg-12">
                                             <div class="hero-slider-content hero-slider-content--left-space">
                                                 <p class="slider-title slider-title--big-light">
-                                                    WALNUT TIME SIGNAL
+                                                    به کمک نیاز داری؟
                                                 </p>
-                                                <p class="slider-title slider-title--big-bold">WALL CLOCK</p>
+                                                <p class="slider-title slider-title--big-bold">ما کمکت می کنیم</p>
                                                 <p class="slider-title slider-title--small">
                                                     A striking centrepiece
                                                     is conveyed through this Clock's graphically styled integration
@@ -105,7 +102,7 @@
                                                 </p>
                                                 <a class="theme-button hero-slider-button"
                                                    href="shop-left-sidebar.html">
-                                                    SHOP NOW <i class="ion-ios-plus-empty"></i>
+                                                    همین الان درخواست بده <i class="ion-ios-plus-empty"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -127,88 +124,7 @@
 
 <!--====================  End of hero slider area  ====================-->
 <!--====================  category area ====================-->
-<div class="category-area section-space">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <!--=======  category wrapper  =======-->
-                <div class="category-wrapper">
-                    <div class="row row-10 masonry-category-layout">
-                        <div class="col-lg-4 col-sm-6 grid-item">
-                            <!--=======  single category item  =======-->
-                            <div class="single-category-item">
-                                <div class="single-category-item__image">
-                                    <a asp-page="/ProductCategory">
-                                        <img src="Theme/assets/img/category/img1-top-eposi1.jpg" class="img-fluid" alt="">
-                                    </a>
-                                </div>
-                                <div class="single-category-item__content">
-                                    <h3 class="title">Storage</h3>
-                                    <a href="shop-left-sidebar.html">
-                                        <i class="ion-android-arrow-dropleft-circle"></i> Shop Now
-                                    </a>
-                                </div>
-                            </div>
-                            <!--=======  End of single category item  =======-->
-                        </div>
-                        <div class="col-lg-4 col-sm-6 grid-item">
-                            <!--=======  single category item  =======-->
-                            <div class="single-category-item">
-                                <div class="single-category-item__image">
-                                    <a href="shop-left-sidebar.html">
-                                        <img src="Theme/assets/img/category/img2-top-eposi1.jpg" class="img-fluid" alt="">
-                                    </a>
-                                </div>
-                                <div class="single-category-item__content">
-                                    <h3 class="title">Lighting</h3>
-                                    <a href="shop-left-sidebar.html">
-                                        <i class="ion-android-arrow-dropleft-circle"></i> Shop Now
-                                    </a>
-                                </div>
-                            </div>
-                            <!--=======  End of single category item  =======-->
-                        </div>
-                        <div class="col-lg-4 col-sm-6 grid-item">
-                            <!--=======  single category item  =======-->
-                            <div class="single-category-item">
-                                <div class="single-category-item__image">
-                                    <a href="shop-left-sidebar.html">
-                                        <img src="Theme/assets/img/category/img3-top-eposi1.jpg" class="img-fluid" alt="">
-                                    </a>
-                                </div>
-                                <div class="single-category-item__content">
-                                    <h3 class="title">Decoration</h3>
-                                    <a href="shop-left-sidebar.html">
-                                        <i class="ion-android-arrow-dropleft-circle"></i> Shop Now
-                                    </a>
-                                </div>
-                            </div>
-                            <!--=======  End of single category item  =======-->
-                        </div>
-                        <div class="col-lg-4 col-sm-6 grid-item">
-                            <!--=======  single category item  =======-->
-                            <div class="single-category-item">
-                                <div class="single-category-item__image">
-                                    <a href="shop-left-sidebar.html">
-                                        <img src="Theme/assets/img/category/img4-top-eposi1.jpg" class="img-fluid" alt="">
-                                    </a>
-                                </div>
-                                <div class="single-category-item__content">
-                                    <h3 class="title">Living Room</h3>
-                                    <a href="shop-left-sidebar.html">
-                                        <i class="ion-android-arrow-dropleft-circle"></i> Shop Now
-                                    </a>
-                                </div>
-                            </div>
-                            <!--=======  End of single category item  =======-->
-                        </div>
-                    </div>
-                </div>
-                <!--=======  End of category wrapper  =======-->
-            </div>
-        </div>
-    </div>
-</div>
+@await Component.InvokeAsync("HelpServices")
 <!--====================  End of category area  ====================-->
 <!--====================  single row slider tab ====================-->
 <div class="single-row-slider-tab-area section-space">

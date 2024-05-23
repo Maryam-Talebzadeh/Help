@@ -53,7 +53,7 @@ namespace Help.Domain.Services.HelpServiceAgg
             return await _helpServiceRepository.GetAllRemoved(cancellationToken);
         }
 
-        public async Task<EditHelpServiceDTO> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<HelpServiceDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return await _helpServiceRepository.GetDetails(id, cancellationToken);
         }

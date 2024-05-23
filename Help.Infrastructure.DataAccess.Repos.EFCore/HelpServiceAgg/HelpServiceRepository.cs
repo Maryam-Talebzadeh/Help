@@ -67,17 +67,18 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             }).IgnoreQueryFilters().ToList();
         }
 
-        public async Task<EditHelpServiceDTO> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<HelpServiceDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.HelpServices.Select(s =>
-            new EditHelpServiceDTO()
+            new HelpServiceDetailDTO()
             {
                 Id = s.Id,
                 Description = s.Description,
                 Slug = s.Slug,
                 Tags = s.Tags,
                 Title = s.Title,
-                CategoryId = s.CategoryId
+                CategoryId = s.CategoryId,
+                CategoryName = s.Category.Title
 
             }).FirstOrDefault(s => s.Id == id);
         }

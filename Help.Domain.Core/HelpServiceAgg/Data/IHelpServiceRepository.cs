@@ -8,7 +8,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
     {
         Task<int> Create(CreateHelpServiceDTO command, CancellationToken cancellationToken);
         Task Edit(EditHelpServiceDTO command, CancellationToken cancellationToken);
-        Task<EditHelpServiceDTO> GetDetails(int id, CancellationToken cancellationToken);
+        Task<HelpServiceDetailDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<HelpServiceDTO>> GetAllRemoved(CancellationToken cancellationToken);
         Task<List<HelpServiceDTO>> GetAll(CancellationToken cancellationToken);
     }

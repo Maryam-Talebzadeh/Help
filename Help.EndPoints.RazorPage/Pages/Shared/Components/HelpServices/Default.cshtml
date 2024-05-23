@@ -1,0 +1,35 @@
+﻿@using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService
+@model List<HelpServiceDTO>
+
+<div class="category-area section-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="category-wrapper">
+                    <div class="row row-10">
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-4 col-sm-6 grid-item">
+                                <div class="single-category-item">
+                                    <div class="single-category-item__image">
+                                        <a asp-page="/HelpService" asp-route-id="@item.Id">
+                                            <img src="~/Images//HelpServicePictures/@item.Picture" class="img-fluid"  />
+                                        </a>
+                                    </div>
+                                    <div class="single-category-item__content">
+                                        <h3 class="title">@item.Title</h3>
+                                        <a asp-page="/ProductCategory" asp-route-id="@item.Category.Title ">
+                                            <i class="ion-android-arrow-dropleft-circle"></i> جزییات
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

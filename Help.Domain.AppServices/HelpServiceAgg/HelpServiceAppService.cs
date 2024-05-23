@@ -68,9 +68,9 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             return await _helpServiceService.GetAllRemoved(cancellationToken);
         }
 
-        public async Task<EditHelpServiceDTO> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<HelpServiceDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
-            var res = await _distributedCache.GetAsync<EditHelpServiceDTO>(_appSetting.HelpServicesCacheKey+"_"+id);
+            var res = await _distributedCache.GetAsync<HelpServiceDetailDTO>(_appSetting.HelpServicesCacheKey+"_"+id);
 
             if(res == null)
             {
