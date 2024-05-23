@@ -22,7 +22,7 @@ namespace Help.EndPoints.RazorPage.Areas.Administration.Pages.HelpServiceAgg.Hel
 
         public async Task OnGet(SearchHelpServiceCategoryDTO searchModel, CancellationToken cancellationToken)
         {
-            HelpServiceCategories = await _helpServiceCategoryAppService.Search(searchModel, cancellationToken);
+            HelpServiceCategories = await _helpServiceCategoryAppService.GetAllParents(cancellationToken);
         }
 
         public async Task<ActionResult> OnGetCreateChild(int parentId, CancellationToken cancellationToken)
@@ -80,7 +80,7 @@ namespace Help.EndPoints.RazorPage.Areas.Administration.Pages.HelpServiceAgg.Hel
         public async Task OnGetRemove(int id, CancellationToken cancellationToken)
         {
             var result = await _helpServiceCategoryAppService.Remove(id, cancellationToken);
-            HelpServiceCategories = await _helpServiceCategoryAppService.Search(new SearchHelpServiceCategoryDTO(), cancellationToken);
+            HelpServiceCategories =  await _helpServiceCategoryAppService.GetAllParents(cancellationToken);
             Message = result.Message;
         }
 

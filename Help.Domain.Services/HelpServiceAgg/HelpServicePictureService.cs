@@ -8,42 +8,57 @@ namespace Help.Domain.Services.HelpServiceAgg
 {
     public class HelpServicePictureService : IHelpServicePictureService
     {
-        private readonly IHelpServicePictureRepository _helpServicePictureRepository;
+        private readonly IHelpServicePictureRepository _HelpServicePictureRepository;
         private readonly Type _type = new HelpServicePictureDTO().GetType();
 
-        public HelpServicePictureService(IHelpServicePictureRepository helpServicePictureRepository)
+        public HelpServicePictureService(IHelpServicePictureRepository HelpServicePictureRepository)
         {
-            _helpServicePictureRepository = helpServicePictureRepository;
+            _HelpServicePictureRepository = HelpServicePictureRepository;
         }
 
-        public async Task<OperationResult> Create(CreateHelpServicePictureDTO command, CancellationToken cancellationToken)
+
+
+        public async Task<OperationResult> CreateDefault(CreateHelpServicePictureDTO command, CancellationToken cancellationToken)
         {
             var operation = new OperationResult(_type, 0);
+            command.Alt = "دیفالت ";
+            command.Title = "دیفالت ";
+            command.Name = "DefaultHelpServicePicture.jpg";
 
-            #region Save picture
-
-            command.Name = NameGenarator.GenerateUniqeCode() + Path.GetExtension(command.Picture.FileName);
-            string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "HelpServicePictures", command.Name);
-            FileHandler.SaveImage(path, command.Picture);
-
-            #endregion
-
-            await _helpServicePictureRepository.Create(command, cancellationToken);
-
-            return operation.Succedded();
+            try
+            {
+               int id = await _HelpServicePictureRepository.Create(command, cancellationToken);
+                await _HelpServicePictureRepository.Save(cancellationToken);
+                operation.RecordReferenceId = id;
+                return operation.Succedded();
+            }
+            catch
+            {
+                return operation.Failed(ApplicationMessages.CreationFailed);
+            }
         }
 
         public async Task<OperationResult> Edit(EditHelpServicePictureDTO command, CancellationToken cancellationToken)
         {
+           
+            command.Alt = "عکس دیفالت سرویس" ;
+            command.Title = "عکس دیفالت سرویس";
+
             if (command.Picture != null)
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "HelpRequestPictures");
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "HelpServicePictures", "DefaultHelpServicePicture.jpg");
 
-                #region Delete Old Image
+                if (command.Name != "DefaultHelpServicePicture.jpg")
+                {
 
-                FileHandler.DeleteFile(Path.Combine(path, command.Name));
+                    #region Delete Old Image
 
-                #endregion
+
+                    FileHandler.DeleteFile(Path.Combine(path, command.Name));
+
+                    #endregion
+
+                }
 
                 #region Save picture
 
@@ -57,31 +72,68 @@ namespace Help.Domain.Services.HelpServiceAgg
 
             var operation = new OperationResult(_type, command.Id);
 
-            if (!await _helpServicePictureRepository.IsExist(x => x.Id == command.Id, cancellationToken))
+            if (!await _HelpServicePictureRepository.IsExist(x => x.Id == command.Id, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
 
-            await _helpServicePictureRepository.Edit(command, cancellationToken);
-            await _helpServicePictureRepository.Save(cancellationToken);
+            await _HelpServicePictureRepository.Edit(command, cancellationToken);
+            await _HelpServicePictureRepository.Save(cancellationToken);
 
             return operation.Succedded();
         }
 
         public async Task<EditHelpServicePictureDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
-            return await _helpServicePictureRepository.GetDetails(id, cancellationToken);
+            return await _HelpServicePictureRepository.GetDetails(id, cancellationToken);
         }
 
-        public async Task<OperationResult> Remove(int id, CancellationToken cancellationToken)
+
+        public async Task<OperationResult> EditDefaultPicture(EditHelpServicePictureDTO command, CancellationToken cancellationToken)
         {
-            var operation = new OperationResult(_type, id);
+            var operation = new OperationResult(_type, 0);
 
-            if (!await _helpServicePictureRepository.IsExist(x => x.Id == id, cancellationToken))
-                return operation.Failed(ApplicationMessages.RecordNotFound);
+            try
+            {
+                if (command.Picture != null)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "HelpServicePictures");
 
-            await _helpServicePictureRepository.Remove(id, cancellationToken);
-            await _helpServicePictureRepository.Save(cancellationToken);
+                    if(command.Name != "DefaultHelpServicePicture.jpg")
+                    {
+                        #region Delete Old Image
 
-            return operation.Succedded();
+                        FileHandler.DeleteFile(Path.Combine(path, command.Name));
+
+                        #endregion
+                    }
+
+
+
+                    #region Save picture
+
+                    command.Name = NameGenarator.GenerateUniqeCode() + Path.GetExtension(command.Picture.FileName);
+                    path = Path.Combine(path, command.Name);
+                    FileHandler.SaveImage(path, command.Picture);
+
+                    #endregion
+
+                }
+
+               await _HelpServicePictureRepository.Edit(command, cancellationToken);
+                await _HelpServicePictureRepository.Save(cancellationToken);
+                return operation.Succedded();
+            }
+            catch
+            {
+                return operation.Failed(ApplicationMessages.CreationFailed);
+            }
+
+
         }
+
+        public async Task<HelpServicePictureDTO> GetByHelpServiceId(int HelpServiceId, CancellationToken cancellationToken)
+        {
+            return await _HelpServicePictureRepository.GetByHelpServiceId(HelpServiceId, cancellationToken);
+        }
+
     }
 }

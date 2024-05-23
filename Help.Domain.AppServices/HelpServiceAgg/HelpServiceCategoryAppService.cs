@@ -141,7 +141,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             if (res == null)
             {
                 var categories = await  _helpServiceCategoryService.GetAll(cancellationToken);
-                await _distributedCache.SetAsync(_appSetting.HelpServiceCategoriesCacheKey, categories, 7, TimeSpan.FromMinutes(2));
+                await _distributedCache.SetAsync(_appSetting.HelpServiceCategoriesCacheKey, categories, 1, TimeSpan.FromMicroseconds(2));
                 res = categories;
             }
             return await  _helpServiceCategoryService.Search(res, searchModel, cancellationToken);

@@ -1,0 +1,49 @@
+﻿@model Help.Domain.Core.HelpServiceAgg.DTOs.HelpServicePicture.EditHelpServicePictureDTO
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">ویرایش عکس سرویس: @Model.Alt</h4>
+</div>
+
+<form asp-page="./Index" asp-page-handler="EditPicture"
+      method="post"
+      data-ajax="true"
+      data-callback=""
+      data-action="Refresh"
+      enctype="multipart/form-data">
+    <div class="modal-body">
+        <input type="hidden" asp-for="HelpServiceId" />
+        <input type="hidden" asp-for="Name" />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Picture" class="control-label">عکس</label>
+                    <input type="file" class="form-control" asp-for="Picture" accept="image/*">
+                    <span asp-validation-for="Picture" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Alt" class="control-label">Alt</label>
+                    <input type="text" class="form-control" asp-for="Alt">
+                    <span asp-validation-for="Alt" class="error"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label">عنوان</label>
+                    <input type="text" class="form-control" asp-for="Title">
+                    <span asp-validation-for="Title" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
+        <button type="submit" class="btn btn-info waves-effect waves-light">ویرایش</button>
+    </div>
+</form>

@@ -21,8 +21,7 @@ namespace Help.Domain.Services.HelpServiceAgg
 
             try
             {
-                await _helpServiceRepository.Create(command, cancellationToken);
-                await _helpServiceRepository.Save(cancellationToken);
+               operation.RecordReferenceId= await _helpServiceRepository.Create(command, cancellationToken);               
                 return operation.Succedded();
             }
             catch

@@ -11,6 +11,7 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpService
         public string Slug { get;  set; }
         public string Tags { get;  set; }
         public int CategoryId { get; set; }
+        public int PictureId { get; set; }
         public List<IdTitleCategoryDTO> Categories { get; set; }
     }
 }

@@ -4,13 +4,14 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class HelpService : BaseEntity
     {
-        public HelpService(string title, string description, string slug, string tags, int categoryId)
+        public HelpService(string title, string description, string slug, string tags, int categoryId, int pictureId)
         {
             Title = title;
             Description = description;
             Slug = slug;
             Tags = tags;
             CategoryId = categoryId;
+            PictureId = pictureId;
         }
 
         public string Title { get; private set; }

@@ -5,9 +5,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Services
 {
    public interface IHelpServicePictureService
     {
-        Task<OperationResult> Create(CreateHelpServicePictureDTO command, CancellationToken cancellationToken);
-        Task<OperationResult> Edit(EditHelpServicePictureDTO command, CancellationToken cancellationToken);
-        Task<OperationResult> Remove(int id, CancellationToken cancellationToken);
+        Task<OperationResult> CreateDefault(CreateHelpServicePictureDTO command, CancellationToken cancellationToken);
+         Task<OperationResult> EditDefaultPicture(EditHelpServicePictureDTO command, CancellationToken cancellationToken);
         Task<EditHelpServicePictureDTO> GetDetails(int id, CancellationToken cancellationToken);
+        Task<HelpServicePictureDTO> GetByHelpServiceId(int HelpServiceId, CancellationToken cancellationToken);     
     }
 }

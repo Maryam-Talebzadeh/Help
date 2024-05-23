@@ -40,7 +40,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
         public async Task<List<HelpServiceCategoryDTO>> GetAllParents(CancellationToken cancellationToken)
         {
             return _context.Categories
-                .Where(c=> c.ParentId == null)
+                .Where(c=> c.ParentId == null && !c.IsRemoved)
                 .Select(c =>
           new HelpServiceCategoryDTO()
           {

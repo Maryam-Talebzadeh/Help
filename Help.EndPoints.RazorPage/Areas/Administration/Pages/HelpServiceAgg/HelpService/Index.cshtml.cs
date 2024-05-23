@@ -70,34 +70,17 @@ namespace Help.EndPoints.RazorPage.Areas.Administration.Pages.HelpServiceAgg.Hel
             HelpServices = await _helpServiceAppService.Search(new SearchHelpServiceDTO(), cancellationToken);
         }
 
-        public async Task<ActionResult> OnGetCreatePicture(int id, CancellationToken cancellationToken)
-        {
-            var command = new CreateHelpServicePictureDTO()
-            {
-                HelpServiceId = id
-            };
-           
-
-            return Partial("./Create", command);
-        }
-
-        public async Task<JsonResult> OnPostPicture(CreateHelpServicePictureDTO command, CancellationToken cancellationToken)
-        {
-            var result = await _helpServicePictureAppService.Create(command, cancellationToken);
-
-            return new JsonResult(result);
-        }
 
         public async Task<IActionResult> OnGetEditPicture(int id, CancellationToken cancellationToken)
         {
             var picture = await _helpServicePictureAppService.GetDetails(id, cancellationToken);
 
-            return Partial("Edit", picture);
+            return Partial("EditPicture", picture);
         }
 
-        public async Task<JsonResult> OnPostEditPicture(EditHelpServiceDTO command, CancellationToken cancellationToken)
+        public async Task<JsonResult> OnPostEditPicture(EditHelpServicePictureDTO command, CancellationToken cancellationToken)
         {
-            var result = await _helpServicePictureAppService.Edit(command, cancellationToken);
+            var result = await _helpServicePictureAppService.EditDefaultPicture(command, cancellationToken);
             return new JsonResult(result);
         }
     }

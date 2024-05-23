@@ -18,7 +18,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
         public async Task<int> Create(CreateHelpServicePictureDTO command, CancellationToken cancellationToken)
         {
-            var picture = new HelpServicePicture(command.Name, command.Title, command.Alt, command.HelpServiceId);
+            var picture = new HelpServicePicture(command.Name, command.Title, command.Alt);
             _context.HelpServicePictures.Add(picture);
             await Save(cancellationToken);
             return picture.Id;
@@ -30,13 +30,24 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             picture.Edit(command.Name, command.Title, command.Alt);
         }
 
+        public async Task<HelpServicePictureDTO> GetByHelpServiceId(int HelpServiceId, CancellationToken cancellationToken)
+        {
+            return await _context.HelpServicePictures.Select(p =>
+            new HelpServicePictureDTO
+            {
+                Id = p.Id,
+                Alt = p.Alt,
+                Name = p.Name,
+                Title = p.Title
+            }).FirstOrDefaultAsync(p => p.HelpServiceId == HelpServiceId);
+        }
+
         public async Task<EditHelpServicePictureDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return await _context.HelpServicePictures.Select(p =>
             new EditHelpServicePictureDTO
             {
                 Id = p.Id,
-                HelpServiceId = p.ServiceId,
                 Alt = p.Alt,
                 Name = p.Name,
                 Title = p.Title

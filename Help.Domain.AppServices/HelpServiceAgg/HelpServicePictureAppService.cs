@@ -1,7 +1,6 @@
 ﻿using Base_Framework.Domain.Core.Contracts;
 using Base_Framework.Domain.Services;
 using Base_Framework.LogError;
-using Help.Domain.Core;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpServicePicture;
 using Help.Domain.Core.HelpServiceAgg.Services;
@@ -10,81 +9,59 @@ namespace Help.Domain.AppServices.HelpServiceAgg
 {
     public class HelpServicePictureAppService : IHelpServicePictureAppService
     {
-        private readonly IHelpServicePictureService _helpServicePictureService;
+        private readonly IHelpServicePictureService _HelpServicePictureService;
         private readonly IOperationResultLogging _operationResultLogging;
         private readonly string _nameSpace = typeof(HelpServicePictureAppService).Namespace;
         private readonly Type _type = new HelpServicePictureDTO().GetType();
-        private readonly IDistributedCacheService _distributedCache;
-        private readonly SiteSetting _appSetting;
 
-        public HelpServicePictureAppService(IHelpServicePictureService helpServicePictureService, IOperationResultLogging operationResultLogging, IDistributedCacheService distributedCache, SiteSetting appSetting)
+        public HelpServicePictureAppService(IHelpServicePictureService HelpServicePictureService, IOperationResultLogging operationResultLogging)
         {
-            _helpServicePictureService = helpServicePictureService;
+            _HelpServicePictureService = HelpServicePictureService;
             _operationResultLogging = operationResultLogging;
-            _distributedCache = distributedCache;
-            _appSetting = appSetting;
         }
 
-        public async Task<OperationResult> Create(CreateHelpServicePictureDTO command, CancellationToken cancellationToken)
+        public async Task<OperationResult> EditDefaultPicture(EditHelpServicePictureDTO command, CancellationToken cancellationToken)
         {
-            try
+            var operation = await _HelpServicePictureService.EditDefaultPicture(command, cancellationToken);
+
+            if (!operation.IsSuccedded)
             {
-                return await _helpServicePictureService.Create(command, cancellationToken);
-            }
-            catch
-            {
-                var operation = await _helpServicePictureService.Create(command, cancellationToken);
-                _operationResultLogging.LogOperationResult(operation, nameof(Create), _nameSpace, cancellationToken);
+                _operationResultLogging.LogOperationResult(operation, nameof(EditDefaultPicture), _nameSpace, cancellationToken);
                 return operation;
             }
+
+            return operation;
         }
 
-        public async Task<OperationResult> Edit(EditHelpServicePictureDTO command, CancellationToken cancellationToken)
+        public Task<OperationResult> EditDefaultProfile(EditHelpServicePictureDTO command, CancellationToken cancellationToken)
         {
-            try
+            throw new NotImplementedException();
+        }
+
+        public async Task<HelpServicePictureDTO> GetByHelpServiceId(int HelpServiceId, CancellationToken cancellationToken)
+        {
+            var picture = await _HelpServicePictureService.GetByHelpServiceId(HelpServiceId, cancellationToken);
+
+            if (picture == null)
             {
-                return await _helpServicePictureService.Edit(command, cancellationToken);
+                var operation = new OperationResult(_type, HelpServiceId);
+                _operationResultLogging.LogOperationResult(operation.Failed(ApplicationMessages.RecordNotFound), nameof(GetByHelpServiceId), _nameSpace, cancellationToken);
             }
-            catch
-            {
-                var operation = await _helpServicePictureService.Edit(command, cancellationToken);
-                _operationResultLogging.LogOperationResult(operation, nameof(Edit), _nameSpace, cancellationToken);
-                return operation;
-            }
+
+            return picture;
         }
 
         public async Task<EditHelpServicePictureDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
-            var res = await _distributedCache.GetAsync<EditHelpServicePictureDTO>(_appSetting.HelpServicesCacheKey + "_" + id);
+            var picture = await _HelpServicePictureService.GetDetails(id, cancellationToken);
 
-            if (res == null)
-            {
-                var detail = await _helpServicePictureService.GetDetails(id, cancellationToken);
-                await _distributedCache.SetAsync((_appSetting.HelpServicePicturessCacheKey + "_" + id), detail, 7, TimeSpan.FromHours(2));
-                res = detail;
-            }
-
-            if (res == null)
+            if (picture == null)
             {
                 var operation = new OperationResult(_type, id);
-                _operationResultLogging.LogOperationResult(operation, nameof(GetDetails), _nameSpace, cancellationToken);
+                _operationResultLogging.LogOperationResult(operation.Failed(ApplicationMessages.RecordNotFound), nameof(GetDetails), _nameSpace, cancellationToken);
             }
 
-            return res;
-        }
-
-        public async Task<OperationResult> Remove(int id, CancellationToken cancellationToken)
-        {
-            try
-            {
-                return await _helpServicePictureService.Remove(id, cancellationToken);
-            }
-            catch
-            {
-                var operation = await _helpServicePictureService.Remove(id, cancellationToken);
-                _operationResultLogging.LogOperationResult(operation, nameof(Remove), _nameSpace, cancellationToken);
-                return operation;
-            }
+            return picture;
         }
     }
 }

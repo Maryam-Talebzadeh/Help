@@ -18,10 +18,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             _context = context;
         }
 
-        public async Task Create(CreateHelpServiceDTO command, CancellationToken cancellationToken)
+        public async Task<int> Create(CreateHelpServiceDTO command, CancellationToken cancellationToken)
         {
-            var helpService = new HelpService(command.Title, command.Description, command.Slug, command.Tags, command.CategoryId);
+            var helpService = new HelpService(command.Title, command.Description, command.Slug, command.Tags, command.CategoryId, command.PictureId);
             _context.HelpServices.Add(helpService);
+           await Save(cancellationToken);
+            return helpService.Id;
         }
 
         public async Task Edit(EditHelpServiceDTO command, CancellationToken cancellationToken)
@@ -38,6 +40,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                  Id = s.Id,
                  Title = s.Title,
                  Picture = s.Picture.Name,
+                 PictureId = s.Picture.Id,
                  CreationDate = s.CreationDate.ToFarsi(),
                 Category = new IdTitleCategoryDTO()
                 {
