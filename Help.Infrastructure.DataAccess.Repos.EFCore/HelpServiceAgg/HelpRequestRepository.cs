@@ -60,10 +60,11 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                Title = hr.Title,
                IsDone = hr.IsDone,
                Status = hr.Status.Title,
+               StatusId = hr.StatusId,
                IsConfirmed = hr.IsConfirmed,
                IsRejected = hr.IsRejected,
                CustomerId = hr.CustomerId,
-               ExpirationDate = hr.ExpirationDate.ToFarsi(),
+               ExpirationDate = hr.ExpirationDate.ToDiscountFormat(),
                HelpService = new IdTitleHelpServiceDTO()
                {
                    Id = hr.HelpService.Id,
@@ -88,6 +89,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             if (!searchModel.ServiceName.IsNullOrEmpty())
                 query = query.Where(hr => hr.HelpService.Title.Contains(searchModel.Title));
 
+            if (searchModel.ServiceId > 0)
+                query = query.Where(hr => hr.HelpService.Id == searchModel.ServiceId);
+
+            if (searchModel.CustomerId > 0)
+                query = query.Where(hr => hr.CustomerId == searchModel.CustomerId);
+
             return query.ToList();
         }
 
@@ -102,7 +109,9 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Id = hr.Id,
                 Title = hr.Title,
                 ProposedPrice = hr.ProposedPrice,
-                ServiceId = hr.ServiceId
+                ServiceId = hr.ServiceId,
+                StatusId = hr.StatusId,
+                IsDone = hr.IsDone
             }).FirstOrDefault(hr => hr.Id == id);
         }
 
@@ -122,6 +131,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Title = hr.Title,
                 IsDone = hr.IsDone,
                 Status = hr.Status.Title,
+                StatusId = hr.StatusId,
                 IsConfirmed = hr.IsConfirmed,
                 CustomerId = hr.CustomerId,
                 IsRejected = hr.IsRejected,
@@ -150,6 +160,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             if (!searchModel.ServiceName.IsNullOrEmpty())
                 query = query.Where(hr => hr.HelpService.Title.Contains(searchModel.Title));
 
+            if (searchModel.ServiceId > 0)
+                query = query.Where(hr => hr.HelpService.Id == searchModel.ServiceId);
+
+            if (searchModel.CustomerId > 0)
+                query = query.Where(hr => hr.CustomerId == searchModel.CustomerId);
+
             return query.ToList();
         }
 
@@ -163,6 +179,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
               Title = hr.Title,
               IsDone = hr.IsDone,
               Status = hr.Status.Title,
+              StatusId = hr.StatusId,
               IsConfirmed = hr.IsConfirmed,
               CustomerId = hr.CustomerId,
               IsRejected = hr.IsRejected,
@@ -185,11 +202,65 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
               }
           });
 
-            if (searchModel.Title.IsNullOrEmpty())
+            if (!searchModel.Title.IsNullOrEmpty())
                 query = query.Where(hr => hr.Title == searchModel.Title);
 
             if (!searchModel.ServiceName.IsNullOrEmpty())
                 query = query.Where(hr => hr.HelpService.Title.Contains(searchModel.Title));
+
+            if (searchModel.ServiceId > 0)
+                query = query.Where(hr => hr.HelpService.Id == searchModel.ServiceId);
+
+            if (searchModel.CustomerId > 0)
+                query = query.Where(hr => hr.CustomerId == searchModel.CustomerId);
+
+            return query.ToList();
+        }
+
+        public async Task<List<HelpRequestDTO>> GetAllConfirmed(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
+        {
+            var query = _context.HelpRequests.Where(hr => hr.IsConfirmed).Select(hr =>
+         new HelpRequestDTO()
+         {
+             Id = hr.Id,
+             Description = hr.Description,
+             Title = hr.Title,
+             IsDone = hr.IsDone,
+             Status = hr.Status.Title,
+             StatusId = hr.StatusId,
+             IsConfirmed = hr.IsConfirmed,
+             CustomerId = hr.CustomerId,
+             IsRejected = hr.IsRejected,
+             ExpirationDate = hr.ExpirationDate.ToFarsi(),
+             HelpService = new IdTitleHelpServiceDTO()
+             {
+                 Id = hr.HelpService.Id,
+                 Title = hr.HelpService.Title
+             },
+             Customer = new CustomerDTO()
+             {
+                 Id = hr.Customer.Id,
+                 Picture = new CustomerPictureDTO()
+                 {
+                     Title = hr.Customer.Profile.Title,
+                     Name = hr.Customer.Profile.Name,
+                     Alt = hr.Customer.Profile.Alt,
+                     CustomerId = hr.Customer.Id
+                 }
+             }
+         });
+
+            if (!searchModel.Title.IsNullOrEmpty())
+                query = query.Where(hr => hr.Title == searchModel.Title);
+
+            if (!searchModel.ServiceName.IsNullOrEmpty())
+                query = query.Where(hr => hr.HelpService.Title.Contains(searchModel.Title));
+
+            if (searchModel.ServiceId > 0)
+                query = query.Where(hr => hr.HelpService.Id == searchModel.ServiceId);
+
+            if (searchModel.CustomerId > 0)
+                query = query.Where(hr => hr.CustomerId == searchModel.CustomerId);
 
             return query.ToList();
         }

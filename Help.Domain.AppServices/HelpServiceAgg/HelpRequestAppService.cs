@@ -158,5 +158,10 @@ namespace Help.Domain.AppServices.HelpServiceAgg
         {
             return await _helpRequestService.SearchInRejected(searchModel, cancellation);
         }
+
+        public async Task<List<HelpRequestDTO>> GetAllConfirmed(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
+        {
+            return await _helpRequestService.GetAllConfirmed(searchModel, cancellation);
+        }
     }
 }

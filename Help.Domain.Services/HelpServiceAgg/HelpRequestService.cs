@@ -54,6 +54,7 @@ namespace Help.Domain.Services.HelpServiceAgg
         {
             var operation = new OperationResult(_type, 0);
             await _helpRequestRepository.Create(command, cancellationToken);
+            await _helpRequestRepository.Save(cancellationToken);
 
             return operation.Succedded();         
         }
@@ -89,9 +90,9 @@ namespace Help.Domain.Services.HelpServiceAgg
             return await _helpRequestRepository.SearchInUnChecked(searchModel, cancellation);
         }
 
-        public Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
-            return _helpRequestRepository.GetDetails(id, cancellationToken);
+            return await _helpRequestRepository.GetDetails(id, cancellationToken);
         }
 
         public async Task<global::Base_Framework.Domain.Services.OperationResult> Reject(int id, CancellationToken cancellationToken)
@@ -128,6 +129,11 @@ namespace Help.Domain.Services.HelpServiceAgg
         public async Task<List<HelpRequestDTO>> SearchInRejected(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
         {
             return await _helpRequestRepository.SearchInRejected(searchModel, cancellation);
+        }
+
+        public async Task<List<HelpRequestDTO>> GetAllConfirmed(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
+        {
+            return await _helpRequestRepository.GetAllConfirmed(searchModel, cancellation);
         }
     }
 }

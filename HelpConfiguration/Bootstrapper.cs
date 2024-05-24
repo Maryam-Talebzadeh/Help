@@ -52,6 +52,7 @@ namespace HelpConfiguration
             services.AddScoped<IHelpRequestService, HelpRequestService>();
             services.AddScoped<IHelpRequestPictureService, HelpRequestPictureService>();
             services.AddScoped<IHelpRequestStatusService, HelpRequestStatusService>();
+            services.AddScoped<IProposalService, ProposalService>();
 
             #endregion
 
@@ -64,6 +65,7 @@ namespace HelpConfiguration
             services.AddScoped<IHelpRequestAppService, HelpRequestAppService>();
             services.AddScoped<IHelpRequestPictureAppService, HelpRequestPictureAppService>();
             services.AddScoped<IHelpRequestStatusAppService, HelpRequestStatusAppService>();
+            services.AddScoped<IProposalAppService, ProposalAppService>();
 
             #endregion
 

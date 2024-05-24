@@ -106,48 +106,17 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
         public async Task<List<ProposalDTO>> Search(SearchProposaltDTO searchModel, CancellationToken cancellationToken)
         {
-            var query = _context.Proposals.Where(p => p.IsConfirmed).Select(p =>
+            var query = _context.Proposals.AsEnumerable().Select(p =>
             new ProposalDTO()
             {
                 Id = p.Id,
                 Description = p.Description,
                 CreationDate = p.CreationDate.ToFarsi(),
                 SuggestedPrice = p.SuggestedPrice,
-                Customer = new CustomerDTO()
-                {
-                    Id = p.Customer.Id,
-                    Picture = new CustomerPictureDTO()
-                    {
-                        Title = p.Customer.Profile.Title,
-                        Name = p.Customer.Profile.Name,
-                        Alt = p.Customer.Profile.Alt,
-                        CustomerId = p.Customer.Id
-                    }
-                },
-                HelpRequest = new HelpRequestDTO()
-                {
-                    Id = p.HelpRequest.Id,
-                    Customer = new CustomerDTO()
-                    {
-                        Id = p.Customer.Id,
-                        Picture = new CustomerPictureDTO()
-                        {
-                            Title = p.Customer.Profile.Title,
-                            Name = p.Customer.Profile.Name,
-                            Alt = p.Customer.Profile.Alt,
-                            CustomerId = p.Customer.Id
-                        }
-                    },
-                    Description = p.HelpRequest.Description,
-                    Title = p.HelpRequest.Title,
-                    ExpirationDate = p.HelpRequest.ExpirationDate.ToFarsi(),
-                    HelpService = new IdTitleHelpServiceDTO()
-                    {
-                        Id = p.HelpRequest.HelpService.Id,
-                        Title = p.HelpRequest.HelpService.Title
-                    },
-                    IsDone = p.HelpRequest.IsDone
-                }
+                SuggestedTime = p.SuggestedTime.ToFarsi(),
+               
+             
+                 IsConfirmed = p.IsConfirmed
             });
 
             if (searchModel.HelpRequestId > 0)

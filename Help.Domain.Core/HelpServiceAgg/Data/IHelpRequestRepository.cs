@@ -16,5 +16,6 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
         Task Done(int id, CancellationToken cancellation);
         Task<List<HelpRequestDTO>> SearchInUnChecked(SearchHelpRequestDTO searchModel, CancellationToken cancellation);
         Task<List<HelpRequestDTO>> SearchInRejected(SearchHelpRequestDTO searchModel, CancellationToken cancellation);
+        Task<List<HelpRequestDTO>> GetAllConfirmed(SearchHelpRequestDTO searchModel, CancellationToken cancellation);
     }
 }

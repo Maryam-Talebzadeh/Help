@@ -16,12 +16,13 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
             ProposedPrice = proposedPrice;
             IsDone = false;
             StatusId = 1;
+            IsConfirmed = false;
+            IsRejected = false;
         }
 
         public string Title { get; private set; }
         public string Description { get; private set; }
         public DateTime ExpirationDate { get; private set; }
-        public string Slug { get; private set; }
         public bool IsDone { get; private set; }
         public int StatusId { get; private set; }
         public bool IsConfirmed { get; private set; }

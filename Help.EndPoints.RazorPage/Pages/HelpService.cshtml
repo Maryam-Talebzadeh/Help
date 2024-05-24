@@ -10,7 +10,7 @@
                 <div class="breadcrumb-wrapper breadcrumb-bg">
                     <div class="breadcrumb-content">
                         <h1 class="breadcrumb-content__title">@Model.HelpService.Title</h1>
-                        <h2>@Model.HelpService.Description</h2>
+                        <p>@Model.HelpService.Description</p>
                         <ul class="breadcrumb-content__page-map">
                             <li><a asp-page="./Index">صفحه اصلی</a></li>
                             <li class="active">@Model.HelpService.Title</li>
@@ -61,45 +61,48 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr />
+                            درخواست ها :
 
                             <div class="col-lg-12">
                                 <div class="shop-page-content">
                                     <div class="row shop-product-wrap grid three-column">
-                                       @*  @foreach (var request in Model.HelpService.HelpRequests)
-                                        {
+                                        @foreach (var request in Model.HelpService.HelpRequests)
+                                       {
                                             <div class="col-12 col-lg-4 col-md-4 col-sm-6">
                                                 <div class="single-grid-product grid-view-product">
                                                     <div class="single-grid-product__image">
-                                                        
+
                                                         <a asp-page="/HelpRequest" asp-route-id="@request.Id">
-                                                            <img src="~/Images/HelpRequestPictures/Pictures/@request.Picture" class="img-fluid"
-                                                                 alt="@@request.Picture.Alt" title="@@request.Picture.Title">
+                                                            <img src="~/Images/HelpRequestPictures/DefaultHelpServicePicture.jpg" class="img-fluid"
+                                                                />
                                                         </a>
+                                                        
                                                     </div>
                                                     <div class="single-grid-product__content">
                                                         <div class="single-grid-product__category-rating">
                                                             <span class="category">
-                                                                <a asp-page="/HelpService" asp-route-id="@Model.HelpService.Slug">@Model.HelpService.Title</a>
+                                                                <a asp-page="/HelpService" asp-route-id="@Model.HelpService.Id">@Model.HelpService.Title</a>
                                                             </span>
-                                                            <span class="rating">
-                                                                <i class="ion-android-star active"></i>
-                                                                <i class="ion-android-star active"></i>
-                                                                <i class="ion-android-star active"></i>
-                                                                <i class="ion-android-star active"></i>
-                                                                <i class="ion-android-star-outline"></i>
-                                                            </span>
+                                                          
                                                         </div>
 
                                                         <h2 class="single-grid-product__title">
-                                                            <a asp-page="/HelpRequest" asp-route-id="@product.Slug">@request.Title</a>
+                                                            <a asp-page="/HelpRequest" asp-route-id="@request.Title">@request.Title</a>
                                                         </h2>
-                                                     
-                                                            <div class="product-countdown" data-countdown="@request.ExpireDate"></div>
-                                                        
+
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <a href="/HelpRequest/@request.Id" class="register-button mt-0">جزییات</a>
+                                                            </div>
+                                                            <hr />
+                                                          
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
-                                        } *@
+                                       }
                                     </div>
                                 </div>
 
@@ -126,3 +129,4 @@
         </div>
     </div>
 </div>
+
