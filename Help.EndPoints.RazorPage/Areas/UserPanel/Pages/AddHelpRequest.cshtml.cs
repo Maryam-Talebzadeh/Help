@@ -12,7 +12,7 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
     {
         public string Message { get; set; }
         [BindProperty]
-        public CreateHelpRequestDTO CreateHelpRequest { get; set; }
+        public CreateHelpRequestDTO CreateHelpRequest { get; set; } = new CreateHelpRequestDTO();
         public List<HelpServiceDTO> Services { get; set; }
 
         private readonly IHelpRequestAppService _helpRequestAppService;
@@ -27,7 +27,8 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
         }
 
         public async Task<IActionResult> OnGet(CancellationToken cancellationToken)
-        {           
+        {
+            CreateHelpRequest.CustomerId = _authHelper.CurrentAccountId();
             Services = await _helpServiceAppService.Search(new Domain.Core.HelpServiceAgg.DTOs.HelpService.SearchHelpServiceDTO(), cancellationToken);
             return Page();
         }
@@ -38,7 +39,7 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
             {
                 return Page();
             }
-            CreateHelpRequest.CustomerId = _authHelper.CurrentAccountId();
+           
 
             var result = await _helpRequestAppService.Create(CreateHelpRequest, cancellationToken);
             Message = result.Message;

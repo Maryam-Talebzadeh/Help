@@ -4,5 +4,6 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
 {
     public class IdTitleCategoryDTO : IdTitleDTO
     {
+        public int? ParentId { get; set; }
     }
 }

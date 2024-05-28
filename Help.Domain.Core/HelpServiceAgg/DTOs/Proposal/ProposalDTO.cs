@@ -12,6 +12,7 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.Proposal
         public string Description { get; set; }
         public double SuggestedPrice { get; set; }
         public string SuggestedTime { get; set; }
+        public int HelpRequestId { get; set; }
         public bool IsConfirmed { get; set; }
         public HelpRequestDTO HelpRequest { get; set; }
         public CustomerDTO Customer { get; set; } 

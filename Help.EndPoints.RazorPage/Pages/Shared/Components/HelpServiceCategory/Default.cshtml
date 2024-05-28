@@ -1,0 +1,72 @@
+﻿@using Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
+@model List<HelpServiceCategoryDTO>
+
+<div class="single-row-slider-tab-area section-space" id="categories">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title-wrapper text-center section-space--half">
+                    <h2 class="section-title">دسته بندی ها</h2>
+                    <p class="section-subtitle">
+                   از دسته بندی ها می توانید خدمات مورد نظر خود را بیابید.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tab-slider-wrapper">
+                    <div class="tab-product-navigation">
+                        <div class="nav nav-tabs justify-content-center" id="nav-tab2" role="tablist">
+                            @foreach (var category in Model)
+                            {
+                                <a class="nav-service nav-link @(Model.First() == category ? "active" : "")" id="product-tab-@category.Id" data-toggle="tab"
+                                   href="#product-series-@category.Id" role="tab" aria-selected="true">@category.Title</a>
+                            }
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        @foreach (var category in Model)
+                        {
+                            <div class="tab-pane fade show @(Model.First() == category ? "active" : "")" id="product-series-@category.Id" role="tabpanel"
+                                 aria-labelledby="product-tab-1">
+                                <div class="single-row-slider-wrapper">
+                                    <div class="ht-slick-slider" data-slick-setting='{
+                                    "slidesToShow": 4,
+                                    "slidesToScroll": 1,
+                                    "arrows": true,
+                                    "autoplay": false,
+                                    "autoplaySpeed": 5000,
+                                    "speed": 1000,
+                                    "infinite": true,
+                                    "rtl": true,
+                                    "prevArrow": {"buttonClass": "slick-prev", "iconClass": "ion-chevron-left" },
+                                    "nextArrow": {"buttonClass": "slick-next", "iconClass": "ion-chevron-right" }
+                                }' data-slick-responsive='[
+                                    {"breakpoint":1501, "settings": {"slidesToShow": 4} },
+                                    {"breakpoint":1199, "settings": {"slidesToShow": 4, "arrows": false} },
+                                    {"breakpoint":991, "settings": {"slidesToShow": 3, "arrows": false} },
+                                    {"breakpoint":767, "settings": {"slidesToShow": 2, "arrows": false} },
+                                    {"breakpoint":575, "settings": {"slidesToShow": 2, "arrows": false} },
+                                    {"breakpoint":479, "settings": {"slidesToShow": 1, "arrows": false} }
+                                ]'>
+                                        @foreach (var child in category.Children)
+                                        {
+                                            <a asp-page="./HelpServiceCategory" asp-route-id="@child.Id" class="button type--C">
+                                                <div class="button__line"></div>
+                                                <div class="button__line"></div>
+                                                <span class="button__text">@child.Title</span>
+                                                <div class="button__drow1"></div>
+                                                <div class="button__drow2"></div>
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

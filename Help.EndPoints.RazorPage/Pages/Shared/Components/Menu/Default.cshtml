@@ -1,4 +1,6 @@
-﻿@inject Base_Framework.Domain.Core.Contracts.IAuthHelper AuthHelper
+﻿@using Help.Domain.Core.HelpServiceAgg.DTOs.HelpServiceCategory
+@model List<HelpServiceCategoryDTO>
+@inject Base_Framework.Domain.Core.Contracts.IAuthHelper AuthHelper
 
 @{
     string RoleId = AuthHelper.CurrentAccountRole();
@@ -28,7 +30,12 @@
                                 <li class="menu-item-has-children">
                                     <a>دسته بندی ها</a>
                                     <ul class="sub-menu">
-                                      
+                                        @foreach (var category in Model)
+                                        {
+                                            <li>
+                                                <a asp-page="./HelpServiceCategory" asp-route-id="@category.Id">@category.Title</a>
+                                            </li>
+                                        }
                                     </ul>
                                 </li>
                                 <li>

@@ -45,7 +45,8 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Category = new IdTitleCategoryDTO()
                 {
                     Id = s.CategoryId,
-                    Title = s.Category.Title
+                    Title = s.Category.Title,
+                    ParentId = s.Category.ParentId != null  ? s.Category.ParentId  : 0
                 }
              }).ToList();
         }

@@ -97,6 +97,11 @@ namespace Help.Domain.Services.HelpServiceAgg
                 searchList = searchList.Where(service => service.Category.Title.Contains(searchModel.Category)).ToList();
             }
 
+            if (searchModel.CategoryId > 0)
+            {
+                searchList = searchList.Where(service => service.Category.Id == searchModel.CategoryId  || service.Category.ParentId == searchModel.CategoryId).ToList();
+            }
+
             return searchList;
         }
     }

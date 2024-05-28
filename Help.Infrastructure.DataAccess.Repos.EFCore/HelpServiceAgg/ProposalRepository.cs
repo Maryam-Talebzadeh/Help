@@ -114,8 +114,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 CreationDate = p.CreationDate.ToFarsi(),
                 SuggestedPrice = p.SuggestedPrice,
                 SuggestedTime = p.SuggestedTime.ToFarsi(),
-               
-             
+                HelpRequestId = p.HelpRequestId,
                  IsConfirmed = p.IsConfirmed
             });
 
