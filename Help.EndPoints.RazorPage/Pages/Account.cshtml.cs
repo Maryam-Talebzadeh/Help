@@ -3,14 +3,14 @@ using Help.Domain.Core.AccountAgg.DTOs.Account;
 using Help.Domain.Core.AccountAgg.DTOs.Customer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 
 namespace Help.EndPoints.RazorPage.Pages
 {
     public class AccountModel : PageModel
     {
-
-        public string LoginMessage { get; set; }
-        public string RegisterMessage { get; set; }
+        public string Message { get; set; }
+        public string SuccessRegisterMessage { get; set; }
 
         [BindProperty]
        public CreateCustomerDTO RegisterModel { get; set; }
@@ -32,11 +32,11 @@ namespace Help.EndPoints.RazorPage.Pages
         public async Task<IActionResult> OnPostLogin(LoginDTO command, CancellationToken cancellationToken)
         {
             var result = await _accountAppService.Login(command, cancellationToken);
+            Message = result.Message;
 
             if (result.IsSuccedded)
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Index",new {message = Message });
 
-            LoginMessage = result.Message;
             return Page();
         }
 
@@ -53,8 +53,11 @@ namespace Help.EndPoints.RazorPage.Pages
 
             var result = await _customerAppService.Register(RegisterModel, cancellationToken);
             if (result.IsSuccedded)
+            {
+                SuccessRegisterMessage = result.Message;
                 return Page();
-            RegisterMessage = result.Message;
+            }
+            Message = result.Message;
             return Page();
         }
     }

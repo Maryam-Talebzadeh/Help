@@ -5,20 +5,47 @@
     ViewData["Title"] = "ورود و ثبت نام";
 }
 
-
-@if(Model.LoginMessage != null)
+@if(Model.Message != null)
 {
-    <div class="alert alert-danger" role="alert">
-       @Model.LoginMessage
-</div>    
+    @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(function () {
+            
+            Swal.fire({
+                title: "لطفا دوباره امتحان کنید.",
+                showConfirmButton: false,
+                timer: 2500,
+                text: "@Html.Raw(Model.Message)",
+                    icon: "error"
+            });
+        });
+    </script>
+
+      
+}
+   
 }
 
-
-@if (Model.RegisterMessage != null)
+@if (Model.SuccessRegisterMessage != null)
 {
-    <div class="alert alert-danger" role="alert">
-        @Model.RegisterMessage
-    </div>
+
+    @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(function () {
+
+                Swal.fire({
+                    title: "لطفا وارد شوید.",
+                    showConfirmButton: false,
+                    timer: 2500,
+                text:"ثبت نام با موفقیت انجام شد. لطفا وارد شوید.",
+                icon: "success"
+                    });
+                });
+        </script>
+    }
 }
 
 <div class="breadcrumb-area section-space--half">
@@ -47,10 +74,7 @@
                     <div class="page-content-wrapper">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-xs-12 col-lg-6">
-                                @if (Model.LoginMessage != null)
-                                {
-                                    <div class="alert alert-danger">@Model.LoginMessage</div>
-                                }
+                            
                                 <form method="post" asp-page-handler="Login" asp-route-id="@_authHelper.CurrentAccountId()">
                                     <div class="login-form">
                                         <h4 class="login-title">ورود</h4>
@@ -85,10 +109,7 @@
                                 </form>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
-                                @if (Model.RegisterMessage != null)
-                                {
-                                    <div class="alert alert-danger">@Model.RegisterMessage</div>
-                                }
+                                
                                 <form method="post" asp-page-handler="Register">
                                     <div class="login-form">
                                         <h4 class="login-title">ثبت نام</h4>
@@ -132,3 +153,4 @@
         </div>
     </div>
 </div>
+

@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Theme\assets\js\persian-date.min.js" />
+    <Content Remove="wwwroot\Theme\assets\js\persian-datepicker.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.RazorPages" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -193,6 +199,8 @@
     <None Include="wwwroot\AdminTheme\images\big\Thumbs.db" />
     <None Include="wwwroot\AdminTheme\images\small\Thumbs.db" />
     <None Include="wwwroot\AdminTheme\images\users\Thumbs.db" />
+    <None Include="wwwroot\Theme\assets\js\persian-date.min.js" />
+    <None Include="wwwroot\Theme\assets\js\persian-datepicker.min.js" />
   </ItemGroup>
 
 </Project>

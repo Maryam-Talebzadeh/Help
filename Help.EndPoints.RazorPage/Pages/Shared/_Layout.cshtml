@@ -32,32 +32,23 @@
         </div>
     </div>
 
-
     <div id="scroll-top">
         <span>برو بالا</span><i class="ion-chevron-right"></i><i class="ion-chevron-right"></i>
     </div>
 
-    <script src="~/Theme/assets/js/vendors.js"></script>
-
-    <!-- Active JS -->
-    <script src="~/Theme/assets/js/active.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
-    <script src="~/AdminTheme/assets/js/site.js"></script>
-
-    <script src="~/AdminTheme/assets/js/persian-date.min.js"></script>
-    <script src="~/AdminTheme/assets/js/persian-datepicker.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/AdminTheme/assets/js/bootstrap.min.js"></script>
+    <script src="~/Theme/assets/js/vendors.js"></script>
+    <script src="~/Theme/assets/js/active.js"></script>
+    <script src="~/Theme/assets/js/plugins.js"></script>
+    <script src="~/Theme/assets/js/custom.js"></script>
 
-    <script>
-        $('.persianDateInput').persianDatepicker({
-            format: 'YYYY/MM/DD',
-            autoClose: true,
-            initialValueType: "persian"
-        });
-    </script>
+
+
+    @RenderSection("Scripts", false)
+
+  
+
+   
 
 </body>
 

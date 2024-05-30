@@ -10,10 +10,6 @@
     </div>
 }
 
-<link href="~/AdminTheme/assets/css/persian-datepicker.min.css" rel="stylesheet" />
-<script src="~/AdminTheme/assets/js/persian-date.min.js"></script>
-<script src="~/AdminTheme/assets/js/persian-datepicker.min.js"></script>
-
 <div class="container">
     <div class="main-body">
         <partial name="_Breadcrumb" />
@@ -28,38 +24,39 @@
                 <div class="card-body">
                     <form method="post">
                         <div class="login-form">
+                            <div class="row">
                             <h4 class="login-title">ایجاد درخواست جدید</h4>
-                            <div class="col-md-6 col-12 mb-20">
+                            <div class="col-md-12 col-12 mb-20">
                                 <label>عنوان</label>
                                 <input type="text" asp-for="CreateHelpRequest.Title" placeholder="عنوان">
                                 <span class="text-danger" asp-validation-for="CreateHelpRequest.Title"></span>
                             </div>
-                            <div class="col-md-6 col-12 mb-20">
+                            <div class="col-md-12 col-12 mb-20">
                                 <label>توضیحات</label>
                                 <input type="text" asp-for="CreateHelpRequest.Description" placeholder="توضیحات">
                                 <span class="text-danger" asp-validation-for="CreateHelpRequest.Description"></span>
                             </div>
-                            <div class="col-md-6 col-12 mb-20">
+                            <div class="col-md-12 col-12 mb-20">
                                 <label>تاریخ انقضای درخواست</label>
-                                <input class="persianDateInput" asp-for="CreateHelpRequest.ExpirationDate">
+                                    <input class="form-control persianDateInput" asp-for="CreateHelpRequest.ExpirationDate">
                                 <span class="text-danger" asp-validation-for="CreateHelpRequest.ExpirationDate"></span>
                             </div>
-                            <div class="col-md-6 col-12 mb-20">
+                            <div class="col-md-12 col-12 mb-20">
                                 <label>قیمت پیشنهادی به تومان</label>
                                 <input type="number" asp-for="CreateHelpRequest.ProposedPrice" placeholder="قیمت پیشنهادی به تومان  ">
                                 <span class="text-danger" asp-validation-for="CreateHelpRequest.ProposedPrice"></span>
                             </div>
-                            <div class="col-md-6 col-12 mb-20">
+                            <div class="col-md-12 col-12 mb-20">
                                 <select class="form-control" asp-for="CreateHelpRequest.ServiceId"
                                         asp-items='new SelectList(@Model.Services, "Id", "Title")'>
                                     <option value="0">گروه </option>
                                 </select>
                                 <span class="text-danger" asp-validation-for="CreateHelpRequest.ServiceId"></span>
                             </div>
-                            <hr />
+                            <div class="col-md-12 col-12 mb-20">
+                                <button class="register-button m-2">ثبت</button>
+                            </div>
                             <input type="hidden" asp-for="CreateHelpRequest.CustomerId" value="@Model.CreateHelpRequest.CustomerId" />
-                            <div class="col-12">
-                                <button class="register-button mt-0">ثبت</button>
                             </div>
                         </div>
                     </form>

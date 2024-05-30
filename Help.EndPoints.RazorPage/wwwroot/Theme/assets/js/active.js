@@ -1,3 +1,7 @@
+
+
+
+
 (function ($) {
     "use strict";
 
@@ -8,7 +12,9 @@
     	
 
 	/*----------  Menu sticky ----------*/
-
+    var MessageModal = new abp.ModalManager({
+        viewUrl: '/MessageModal'
+    });
 	var windows = $(window);
 	var screenSize = windows.width();
 	var sticky = $('.header-sticky');
@@ -72,6 +78,11 @@
         $(this).siblings('.mini-cart').toggleClass('active');
         $('#settings-menu-wrapper').removeClass('active');
         $('body').addClass('active-overlay');
+    });
+
+    $('.persianDateInput').persianDatepicker({
+        format: 'YYYY/MM/DD',
+        autoClose: true
     });
 
     $('#header-settings-trigger').on('click', function(e){

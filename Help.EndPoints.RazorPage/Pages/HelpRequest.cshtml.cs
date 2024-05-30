@@ -47,7 +47,7 @@ namespace Help.EndPoints.RazorPage.Pages
                 return Page();
             }
 
-            return RedirectToPage("Index", new { area ="UserPanel" ,id = _authHelper.CurrentAccountId() });
+            return RedirectToPage("Index", new { area ="UserPanel" ,id = _authHelper.CurrentAccountId()});
         }
     }
 }

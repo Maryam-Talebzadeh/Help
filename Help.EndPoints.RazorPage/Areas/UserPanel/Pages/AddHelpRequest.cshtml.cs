@@ -3,11 +3,13 @@ using Help.Domain.AppServices.HelpServiceAgg;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
 {
+    [Authorize]
     public class AddHelpRequestModel : PageModel
     {
         public string Message { get; set; }
