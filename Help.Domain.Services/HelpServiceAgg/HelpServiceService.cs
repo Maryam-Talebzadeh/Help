@@ -89,7 +89,7 @@ namespace Help.Domain.Services.HelpServiceAgg
            if(searchModel.Title != null)
             {
                 searchList = searchList.Where(s =>
-                s.Title == searchModel.Title).ToList();
+                s.Title.Contains(searchModel.Title)).ToList();
             }
 
             if (searchModel.Category != null)

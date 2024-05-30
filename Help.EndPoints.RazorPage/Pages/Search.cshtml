@@ -1,0 +1,107 @@
+﻿@page
+@model Help.EndPoints.RazorPage.Pages.SearchModel
+@{
+    ViewData["Title"] = "نتیجه جستجو";
+}
+
+<div class="breadcrumb-area section-space--half">
+    <div class="container wide">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-wrapper breadcrumb-bg">
+                    <div class="breadcrumb-content">
+                        <h2 class="breadcrumb-content__title">نتیجه جستجو برای: @Model.Value</h2>
+                        @*<ul class="breadcrumb-content__page-map">
+                        <li><a asp-page="./Index">صفحه اصلی</a></li>
+                        </ul>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-wrapper">
+                    <div class="page-content-wrapper">
+                        <div class="row">
+                            @*<div class="col-lg-12">
+                            <div class="shop-header">
+                            <div class="shop-header__left">
+                            <div class="shop-header__left__message">
+                            Showing 1 to 9 of 15 (2 Pages)
+                            </div>
+                            </div>
+
+                            <div class="shop-header__right">
+
+                            <div class="single-select-block d-inline-block">
+                            <span class="select-title">Show:</span>
+                            <select>
+                            <option value="1">10</option>
+                            <option value="2">20</option>
+                            <option value="3">30</option>
+                            <option value="4">40</option>
+                            </select>
+                            </div>
+
+                            <div class="single-select-block d-inline-block">
+                            <span class="select-title">Sort By:</span>
+                            <select class="pr-0">
+                            <option value="1">Default</option>
+                            <option value="2">Name (A-Z)</option>
+                            <option value="3">Price (min - max)</option>
+                            <option value="4">Color</option>
+                            </select>
+                            </div>
+                            </div>
+                            </div>
+                            </div>*@
+
+                            <div class="col-lg-12">
+                                <div class="shop-page-content">
+                                    <div class="row shop-product-wrap grid three-column">
+                                        @foreach (var item in Model.Services)
+                                        {
+                                            <div class="col-lg-4 col-sm-6 grid-item">
+                                                <div class="single-category-item">
+                                                    <div class="single-category-item__image">
+                                                        <a asp-page="/HelpService" asp-route-id="@item.Id">
+                                                            <img src="~/Images/HelpServicePictures/@item.Picture" class="img-fluid" />
+                                                        </a>
+                                                    </div>
+                                                    <div class="single-category-item__content">
+                                                        <h3 class="title">@item.Title</h3>
+                                                        <a href="/HelpService/@item.Id">
+                                                            <i class="ion-android-arrow-dropleft-circle"></i> جزییات
+                                                        </a>
+                                                    </div>
+                                                    <a asp-page="AddHelpRequest" asp-area="UserPanel" class="button small type--B">
+                                                        <div class="button__line"></div>
+                                                        <div class="button__line"></div>
+                                                        <span class="button__text">ثبت درخواست</span>
+                                                        <div class="button__drow1"></div>
+                                                        <div class="button__drow2"></div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="pagination-area">
+                                    <div class="pagination-area__left">
+                                        Showing 1 to 9 of 11 (2 Pages)
+                                    </div>
+                                   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
