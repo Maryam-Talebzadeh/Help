@@ -1,0 +1,71 @@
+﻿@page "{id}"
+@model Help.EndPoints.RazorPage.Areas.UserPanel.Pages.ChangeProfilePhotoModel
+@{
+}
+
+@if (Model.Message != null)
+{
+    @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(function () {
+
+            Swal.fire({
+                showConfirmButton: false,
+                timer: 2500,
+                text: "@Html.Raw(Model.Message)",
+                    icon: "@Html.Raw(Model.Icon)"
+                });
+            });
+        </script>
+
+
+    }
+
+}
+
+<div class="container">
+    <div class="main-body">
+        <partial name="_Breadcrumb" />
+
+        <div class="row gutters-sm">
+
+
+            <div class="col-md-4 mb-3">
+                @await Component.InvokeAsync("SideMenu")
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="login-form">
+                            <div class="row">
+                                <h4 class="login-title">تغییر پروفایل</h4>
+                                
+                                <div class="col-md-12 col-12 mb-20">
+                                    <p class="help-block">
+                                        پروفایل
+                                    </p>
+                                    <input type="file" asp-for="Profile.Picture" />
+                                    <p>لطفا فقط تصویر انتخاب کنید</p>
+                                    <span asp-validation-for="Profile.Picture" class="text-danger"></span>
+                                </div>
+                              
+
+                                <div class="col-md-12 col-12 mb-20">
+                                    <button class="register-button m-2">ثبت</button>
+                                </div>
+                                <input type="hidden" asp-for="Profile.CustomerID" value="@Model.Profile.CustomerID" />
+                                <input type="hidden" asp-for="Profile.Id" value="@Model.Profile.Id" />
+                                <input type="hidden" asp-for="Profile.Name" value="@Model.Profile.Name" />
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

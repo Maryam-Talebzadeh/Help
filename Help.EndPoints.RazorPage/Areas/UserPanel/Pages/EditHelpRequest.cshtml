@@ -151,7 +151,7 @@ else
                                 </div>
                                 <div class="col-md-6 col-6 mb-20">
                                     <p class="help-block">
-                                        عکس دوم
+                                        عکس اول
                                     </p>
                                     <input type="file" asp-for="EditHelpRequest.Picture1" />
                                     <p>لطفا فقط تصویر انتخاب کنید</p>
@@ -176,18 +176,19 @@ else
                                     </select>
                            
                                 </div>
-                                <div class="col-md-12 col-12 mb-20">
-                                    <button class="register-button m-2">ثبت</button>
-                                </div>
-                                <input type="hidden" asp-for="EditHelpRequest.CustomerId" value="@Model.EditHelpRequest.CustomerId" />
-                                <input type="hidden" asp-for="EditHelpRequest.Id" value="@Model.EditHelpRequest.Id" />
-                                <input type="hidden" asp-for="EditHelpRequest.Picture1Detail.Id" value="@Model.EditHelpRequest.Picture1Detail.Id" />
-                                <input type="hidden" asp-for="EditHelpRequest.Picture2Detail.Id" value="@Model.EditHelpRequest.Picture2Detail.Id" />
-                                <input type="hidden" asp-for="EditHelpRequest.Picture2Detail.HelpRequestId" value="@Model.EditHelpRequest.Picture2Detail.Id" />
-                                <input type="hidden" asp-for="EditHelpRequest.Picture1Detail.HelpRequestId" value="@Model.EditHelpRequest.Picture2Detail.Id" />
-                                <input type="hidden" asp-for="EditHelpRequest.Picture1Detail.Name" value="@Model.EditHelpRequest.Picture2Detail.Id" />
-                                <input type="hidden" asp-for="EditHelpRequest.Picture2Detail.Name" value="@Model.EditHelpRequest.Picture2Detail.Id" />
                             </div>
+                            <input type="hidden" asp-for="EditHelpRequest.CustomerId" value="@Model.EditHelpRequest.CustomerId" />
+                            <input type="hidden" asp-for="EditHelpRequest.Id" value="@Model.EditHelpRequest.Id" />
+                            <input type="hidden" asp-for="EditHelpRequest.Picture1Detail.Id" value="@Model.EditHelpRequest.Picture1Detail.Id" />
+                            <input type="hidden" asp-for="EditHelpRequest.Picture2Detail.Id" value="@Model.EditHelpRequest.Picture2Detail.Id" />
+                            <input type="hidden" asp-for="EditHelpRequest.Picture2Detail.HelpRequestId" value="@Model.EditHelpRequest.Picture2Detail.Id" />
+                            <input type="hidden" asp-for="EditHelpRequest.Picture1Detail.HelpRequestId" value="@Model.EditHelpRequest.Picture2Detail.Id" />
+                            <input type="hidden" asp-for="EditHelpRequest.Picture1Detail.Name" value="@Model.EditHelpRequest.Picture2Detail.Id" />
+                            <input type="hidden" asp-for="EditHelpRequest.Picture2Detail.Name" value="@Model.EditHelpRequest.Picture2Detail.Id" />
+
+                            <div class="col-md-12 col-12 mb-20">
+                                    <button class="register-button m-2">ثبت</button>
+                                    </div>
                         </div>
                     </form>
 

@@ -57,9 +57,16 @@ namespace Help.Domain.Services.AccountAgg
             command.Alt = "پروفایل" + customerUserName;
             command.Title = "پروفایل" + customerUserName;
 
+            var operation = new OperationResult(_type, command.Id);
+
+            if (!await _customerPictureRepository.IsExist(x => x.Id == command.Id, cancellationToken))
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+
+
             if (command.Picture != null)
             {
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "ProfilePictures");
+
 
                 if (command.Name != "DefaultProfile.jpg")
                 {
@@ -73,7 +80,7 @@ namespace Help.Domain.Services.AccountAgg
 
                 }
 
-                #region Save picture
+                #region Save
 
                 command.Name = NameGenarator.GenerateUniqeCode() + Path.GetExtension(command.Picture.FileName);
                 path = Path.Combine(path, command.Name);
@@ -82,11 +89,6 @@ namespace Help.Domain.Services.AccountAgg
                 #endregion
 
             }
-
-            var operation = new OperationResult(_type, command.Id);
-
-            if (!await _customerPictureRepository.IsExist(x => x.Id == command.Id, cancellationToken))
-                return operation.Failed(ApplicationMessages.RecordNotFound);
 
             await _customerPictureRepository.Edit(command, cancellationToken);
             await _customerPictureRepository.Save(cancellationToken);

@@ -9,7 +9,6 @@ namespace Help.Domain.Core.AccountAgg.DTOs.CustomerPicture
     public class CreateCustomerPictureDTO : PictureDTO
     {
         [Required(ErrorMessage = ValidationMessages.IsRequired)]
-        [MaxFileSize(3 * 24, ErrorMessage = ValidationMessages.MaxFileSize)]
         [FileExtentionLimitation(new string[] { ".jpeg", ".jpg", ".png" }, ErrorMessage = ValidationMessages.InvalidFileFormat)]
         public IFormFile Picture { get; set; }
         public int CustomerID { get; set; }
