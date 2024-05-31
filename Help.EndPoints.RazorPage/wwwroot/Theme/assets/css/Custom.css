@@ -304,6 +304,21 @@ body {
     bottom: 25px !important;
 }
 
+.not-float-small {
+    position: relative !important;
+    z-index: 0;
+    width: 160px !important;
+    height: 40px !important;
+    text-decoration: none;
+    font-size: 11px !important;
+    font-weight: bold;
+    color: var(--line_color);
+    letter-spacing: 1px !important;
+    transition: all .3s ease;
+    margin-left: 5px !important ;
+    margin-right: 5px !important;
+}
+
 .button__text {
     display: flex;
     justify-content: center;

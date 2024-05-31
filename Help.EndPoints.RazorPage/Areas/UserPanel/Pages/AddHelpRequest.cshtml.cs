@@ -1,4 +1,5 @@
 using Base_Framework.Domain.Core.Contracts;
+using Base_Framework.General;
 using Help.Domain.AppServices.HelpServiceAgg;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
@@ -13,8 +14,9 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
     public class AddHelpRequestModel : PageModel
     {
         public string Message { get; set; }
+        public string Icon { get; set; }
         [BindProperty]
-        public CreateHelpRequestDTO CreateHelpRequest { get; set; } = new CreateHelpRequestDTO();
+        public CreateHelpRequestDTO CreateHelpRequest { get; set; } 
         public List<HelpServiceDTO> Services { get; set; }
 
         private readonly IHelpRequestAppService _helpRequestAppService;
@@ -28,30 +30,37 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
            _authHelper = authHelper;
         }
 
-        public async Task<IActionResult> OnGet(CancellationToken cancellationToken)
+        public async Task<IActionResult> OnGet(CancellationToken cancellationToken, int serviceId = 0)
         {
+                CreateHelpRequest = new CreateHelpRequestDTO();
+
             CreateHelpRequest.CustomerId = _authHelper.CurrentAccountId();
             Services = await _helpServiceAppService.Search(new Domain.Core.HelpServiceAgg.DTOs.HelpService.SearchHelpServiceDTO(), cancellationToken);
+            CreateHelpRequest.ServiceId = serviceId;
             return Page();
         }
 
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {
-            if(!ModelState.IsValid)
+
+            if (!ModelState.IsValid)
             {
+                Services = await _helpServiceAppService.Search(new Domain.Core.HelpServiceAgg.DTOs.HelpService.SearchHelpServiceDTO(), cancellationToken);
                 return Page();
-            }
-           
+            }               
 
             var result = await _helpRequestAppService.Create(CreateHelpRequest, cancellationToken);
             Message = result.Message;
 
             if (!result.IsSuccedded)
             {
+               Icon = "error";
                 return Page();
+                
             }
-            
-            return RedirectToPage("/Index");
+
+            Icon= "success";
+            return RedirectToPage("HelpRequestList", new {area = "userPanel",id= CreateHelpRequest.CustomerId, message = Message, icon = Icon });
         }
     }
 }

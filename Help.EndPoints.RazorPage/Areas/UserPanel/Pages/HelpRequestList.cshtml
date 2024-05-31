@@ -3,6 +3,24 @@
 @{
 }
 
+@if (Model.Message != null)
+{
+
+    @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(function () {
+
+            Swal.fire({
+                showConfirmButton: false,
+                timer: 3500,
+                text: "@Html.Raw(Model.Message)",
+                    icon: "@Html.Raw(Model.Icon)"
+                });
+            });
+        </script>
+    }
+}
 
 <div class="container">
     <div class="main-body">
@@ -15,74 +33,92 @@
                 @await Component.InvokeAsync("SideMenu")
             </div>
             <div class="col-md-8">
-                <div class="card-body">
+                <div class=" card-body mx-3">
 
-                    @foreach (var request in Model.RequestList)
-                    {
-                        <div class="col-12 col-lg-4 col-md-4 col-sm-6">
-                            <div class="single-grid-product grid-view-product">
-                                <div class="single-grid-product__image">
 
-                                    <a asp-page="/HelpRequest" asp-route-id="@request.Id">
-                                        <img src="~/Images/HelpRequestPictures/DefaultHelpServicePicture.jpg" class="img-fluid" />
-                                    </a>
+                    <div class="category-area section-space">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="category-wrapper">
+                                        <div class="row row-10">
 
-                                </div>
-                                <div class="single-grid-product__content">
-                                    <div class="single-grid-product__category-rating">
-                                        <span class="category">
-                                            <a asp-page="/HelpService" asp-route-id="@request.HelpService.Id">@request.HelpService.Title</a>
-                                        </span>
+                                            @foreach (var request in Model.RequestList)
+                                            {
+                                                <div class="col-lg-4 col-sm-6 grid-item">
+                                                    <div class="single-category-item">
+                                                        <div class="single-grid-product__image">
 
-                                    </div>
+                                                            <a asp-page="/HelpRequest" asp-route-id="@request.Id">
+                                                                <img src="~/Images/HelpRequestPictures/DefaultHelpServicePicture.jpg" class="img-fluid" />
+                                                            </a>
 
-                                    <h2 class="single-grid-product__title">
-                                        <a asp-page="/HelpRequest" asp-route-id="@request.Title">@request.Title</a>
-                                    </h2>
-                                  @if(!request.IsConfirmed)
-                                  {
-                                        <h2 class="text-danger single-grid-product__title">
-                                            منتظر تایید ادمین
-                                        </h2>
-                                  }
-                                 
-
-                                   <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="shop-page-content">
-                                            <div class="row shop-product-wrap grid three-column">
-
-                                                @if (request.StatusId == 1)
-                                                {
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <a href="../EditHelpRequest/@request.Id" class="register-button mt-0">ویرایش</a>
                                                         </div>
-                                                        <hr />
-                                                        <div class="col-6">
-                                                            <a asp-page-handler="Remove" class="register-button mt-0">حذف</a>
-                                                        </div>
-                                                    </div>
-                                                }
+                                                        <div class="single-grid-product__content">
 
-                                            </div>
+                                                            <div class="single-grid-product__category-rating">
+                                                                <span class="category">
+                                                                    <a asp-page="/HelpService" asp-route-id="@request.HelpService.Id">@request.HelpService.Title</a>
+                                                                </span>
+
+                                                            </div>
+
+                                                            <h2 class="single-grid-product__title">
+                                                                <a asp-page="/HelpRequest" asp-route-id="@request.Title">@request.Title</a>
+                                                                <br />
+                                                                <a href="../RequestDetail/@request.Id">
+                                                                    <i class="ion-android-arrow-dropleft-circle"></i> جزییات
+                                                                </a>
+                                                            </h2>
+                                                            @if (!request.IsConfirmed)
+                                                            {
+                                                                <h2 class="text-danger single-grid-product__title">
+                                                                    منتظر تایید ادمین
+                                                                </h2>
+                                                            }
+                                                            else
+                                                            {
+                                                                <h2 class="text-success single-grid-product__title">
+                                                                    تایید شده توسط ادمین
+                                                                </h2>
+                                                            }
+                                                            <div class="row text-center">
+                                                              
+
+                                                                            @if (request.StatusId == 1)
+                                                                            {
+                                                                                <div class="row">
+
+
+                                                                        <a asp-page="EditHelpRequest" asp-area="UserPanel" asp-route-id ="@request.Id" class="btn btn-secondary">ویرایش</a>
+                                                                        <a asp-page-handler="Remove" asp-route-id="@request.Id" class="btn btn-outline-danger">حذف</a>
+                                                                                </div>
+                                                                            }
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                     
+                                            }
+
+
 
                                         </div>
-                                    </div>
-                                        <div class="col-6">
-                                            <a href="../RequestDetail/@request.Id" class="register-button mt-0">جزییات</a>
-                                        </div>
-                                    </div>
                                     </div>
                                 </div>
                             </div>
-                 
-                    }
 
-
+                    
                 </div>
             </div>
         </div>
-    </div>
 
+
+
+    </div>
+</div>
+    </div>
 </div>

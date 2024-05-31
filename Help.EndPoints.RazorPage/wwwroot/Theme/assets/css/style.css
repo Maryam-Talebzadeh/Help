@@ -3656,7 +3656,7 @@ select {
 }
 
 .shop-product-wrap .single-grid-product {
-	margin-bottom: 50px;
+	margin: 50px;
 }
 
 /*=====  End of shop  ======*/
@@ -5487,6 +5487,20 @@ select {
 	margin-top: 20px;
 	padding: 6px 20px;
 	text-transform: uppercase;
+	color: #fff;
+	border: none;
+	background-color: #292929;
+}
+
+.edit-button {
+	font-weight: 400 !important;
+	line-height: 15px !important;
+	display: block !important;
+	width: 90px !important;
+	height: 36px !important;
+	margin-top: 20px !important;
+	padding: 6px 20px !important;
+	text-transform: uppercase !important;
 	color: #fff;
 	border: none;
 	background-color: #292929;

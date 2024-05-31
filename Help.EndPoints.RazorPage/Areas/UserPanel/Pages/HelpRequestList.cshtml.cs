@@ -1,4 +1,5 @@
 using Base_Framework.Domain.Core.Contracts;
+using Base_Framework.General;
 using Help.Domain.AppServices.HelpServiceAgg;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
@@ -10,6 +11,8 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
 {
     public class HelpRequestListModel : PageModel
     {
+        public string Message { get; set; }
+        public string Icon { get; set; }
         public List<HelpRequestDTO> RequestList { get; set; }
         private readonly IHelpRequestAppService _helpRequestAppService;
         private readonly IAuthHelper _authHelper;
@@ -20,9 +23,12 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
             _authHelper = authHelper;
         }
 
-        public async Task<IActionResult> OnGet(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> OnGet(int id, CancellationToken cancellationToken, string? message, string? icon)
         {
-            if(_authHelper.CurrentAccountId() != id)
+            Message = message;
+            Icon = icon;
+
+            if (_authHelper.CurrentAccountId() != id)
             {
                 return RedirectToPage("/AccessDenied");
             }
@@ -41,9 +47,18 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
         {
             var result = await _helpRequestAppService.Remove(id, cancellationToken);
 
+            if(!result.IsSuccedded)
+            {
+                Message= result.Message;
+                Icon = "error";
+            }
+
+            Message = result.Message;
+            Icon = "success";
+
             var searchModel = new SearchHelpRequestDTO
             {
-                CustomerId = id
+                CustomerId = _authHelper.CurrentAccountId()
             };
 
             RequestList = await _helpRequestAppService.Search(searchModel, cancellationToken);

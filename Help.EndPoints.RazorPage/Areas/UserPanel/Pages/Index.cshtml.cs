@@ -17,6 +17,7 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
     {
         [BindProperty]
         public CustomerDetailDTO Customer { get; set; }
+        public string Message { get; set; }
 
         private readonly IAuthHelper _authHelper;
         private readonly ICustomerAppService _customerAppService;
@@ -29,8 +30,10 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
             _helpRequestAppService = helpRequestAppService;
         }
 
-        public async Task<IActionResult> OnGet(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> OnGet(int id, CancellationToken cancellationToken, string? message)
         {
+            Message = message;
+
             if (_authHelper.CurrentAccountId() != id)
                 return RedirectToPage("../../../AccessDenied");
 
