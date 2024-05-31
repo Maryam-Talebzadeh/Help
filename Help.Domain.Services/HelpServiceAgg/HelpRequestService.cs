@@ -53,9 +53,9 @@ namespace Help.Domain.Services.HelpServiceAgg
         public async Task<global::Base_Framework.Domain.Services.OperationResult> Create(CreateHelpRequestDTO command, CancellationToken cancellationToken)
         {
             var operation = new OperationResult(_type, 0);
-            await _helpRequestRepository.Create(command, cancellationToken);
-            await _helpRequestRepository.Save(cancellationToken);
-
+           int id = await _helpRequestRepository.Create(command, cancellationToken);
+            operation.RecordReferenceId = id
+    ;
             return operation.Succedded();         
         }
 

@@ -11,5 +11,6 @@ namespace Help.Domain.Core.HelpServiceAgg.Services
         Task<EditHelpRequestPictureDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<HelpRequestPictureDTO>> GetAll(int helpRequestId, CancellationToken cancellationToken);
         Task<List<HelpRequestPictureDTO>> SearchUnConfirmed(int helpRequestId, CancellationToken cancellationToken);
+        Task<OperationResult> CreateDefault(CreateHelpRequestPictureDTO command, CancellationToken cancellationToken);
     }
 }

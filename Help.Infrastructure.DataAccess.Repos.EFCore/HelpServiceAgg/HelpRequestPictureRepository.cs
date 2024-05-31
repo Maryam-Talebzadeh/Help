@@ -33,7 +33,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
         public async Task<List<HelpRequestPictureDTO>> GetAll(int helpRequestId, CancellationToken cancellationToken)
         {
             return _context.HelpRequestPictures
-                .Where(p => p.HelpRequestId == helpRequestId && p.IsConfirmed)
+                .Where(p => p.HelpRequestId == helpRequestId )
                 .Select(p =>
                 new HelpRequestPictureDTO
                 {

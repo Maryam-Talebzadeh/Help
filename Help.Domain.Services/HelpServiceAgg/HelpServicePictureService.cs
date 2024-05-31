@@ -40,13 +40,19 @@ namespace Help.Domain.Services.HelpServiceAgg
 
         public async Task<OperationResult> Edit(EditHelpServicePictureDTO command, CancellationToken cancellationToken)
         {
-           
+            var operation = new OperationResult(_type, command.Id);
+
+
+            if (!await _HelpServicePictureRepository.IsExist(x => x.Id == command.Id, cancellationToken))
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+
+
             command.Alt = "عکس دیفالت سرویس" ;
             command.Title = "عکس دیفالت سرویس";
 
             if (command.Picture != null)
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "HelpServicePictures", "DefaultHelpServicePicture.jpg");
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "HelpServicePictures");
 
                 if (command.Name != "DefaultHelpServicePicture.jpg")
                 {
@@ -69,11 +75,6 @@ namespace Help.Domain.Services.HelpServiceAgg
                 #endregion
 
             }
-
-            var operation = new OperationResult(_type, command.Id);
-
-            if (!await _HelpServicePictureRepository.IsExist(x => x.Id == command.Id, cancellationToken))
-                return operation.Failed(ApplicationMessages.RecordNotFound);
 
             await _HelpServicePictureRepository.Edit(command, cancellationToken);
             await _HelpServicePictureRepository.Save(cancellationToken);

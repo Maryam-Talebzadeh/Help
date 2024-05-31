@@ -1,7 +1,9 @@
-﻿using Base_Framework.Domain.Services;
+﻿using Base_Framework.Domain.Core.Entities;
+using Base_Framework.Domain.Services;
 using Base_Framework.LogError;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
+using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
 using Help.Domain.Core.HelpServiceAgg.Services;
 
 namespace Help.Domain.AppServices.HelpServiceAgg
@@ -56,16 +58,44 @@ namespace Help.Domain.AppServices.HelpServiceAgg
 
         public async Task<OperationResult> Create(CreateHelpRequestDTO command, CancellationToken cancellationToken)
         {
-            try
+            var operation = await _helpRequestService.Create(command, cancellationToken);
+
+            if(!operation.IsSuccedded)
             {
-                return await _helpRequestService.Create(command, cancellationToken);
-            }
-            catch
-            {
-                var operation = await _helpRequestService.Create(command, cancellationToken);
                 _operationResultLogging.LogOperationResult(operation, nameof(Create), _nameSpace, cancellationToken);
-                return operation;
+                return operation.Failed(ApplicationMessages.CreationFailed);
             }
+
+            var picture = new CreateHelpRequestPictureDTO
+            {              
+                HelpRequestId = operation.RecordReferenceId,
+                Alt = "عکس درخواست" + command.Title,
+                Title = "عکس درخواست" + command.Title
+            };
+
+            if (command.Picture1 != null)
+            {
+                picture.Picture = command.Picture1;
+                operation = await _helpRequestPictureService.Create(picture, cancellationToken);
+            }
+            if(command.Picture2 != null)
+            {
+                picture.Picture = command.Picture2;
+                operation = await _helpRequestPictureService.Create(picture, cancellationToken);
+
+            }
+           if(command.Picture2 == null && command.Picture1 == null)
+            {
+                operation = await _helpRequestPictureService.CreateDefault(picture, cancellationToken);
+            }
+
+            if (!operation.IsSuccedded)
+            {
+                _operationResultLogging.LogOperationResult(operation, nameof(Create), _nameSpace, cancellationToken);
+                return operation.Failed(ApplicationMessages.CreationFailed);
+            }
+
+            return operation;
         }
 
         public async Task<OperationResult> Done(int helpRequestId, int customerId, CancellationToken cancellationToken)
@@ -84,16 +114,45 @@ namespace Help.Domain.AppServices.HelpServiceAgg
 
         public async Task<OperationResult> Edit(EditHelpRequestDTO command, CancellationToken cancellationToken)
         {
-            try
+            var operation = await _helpRequestService.Edit(command, cancellationToken);
+
+            if (!operation.IsSuccedded)
             {
-                return await _helpRequestService.Edit(command, cancellationToken);
-            }
-            catch
-            {
-                var operation = await _helpRequestService.Edit(command, cancellationToken);
                 _operationResultLogging.LogOperationResult(operation, nameof(Edit), _nameSpace, cancellationToken);
-                return operation;
+                return operation.Failed(ApplicationMessages.CreationFailed);
             }
+
+            var picture = new EditHelpRequestPictureDTO
+            {
+                HelpRequestId = operation.RecordReferenceId,
+                Alt = "عکس درخواست" + command.Title,
+                Title = "عکس درخواست" + command.Title
+            };
+
+            if (command.Picture1 != null)
+            {
+                picture.Picture = command.Picture1;
+                picture.Id = command.Picture1Detail.Id;
+                picture.Name = command.Picture1Detail.Name;
+                operation = await _helpRequestPictureService.Edit(picture, cancellationToken);
+            }
+           if (command.Picture2 != null)
+            {
+                picture.Picture = command.Picture2;
+                picture.Id = command.Picture2Detail.Id;
+                picture.Name = command.Picture1Detail.Name;
+                operation = await _helpRequestPictureService.Edit(picture, cancellationToken);
+
+            }
+
+
+            if (!operation.IsSuccedded)
+            {
+                _operationResultLogging.LogOperationResult(operation, nameof(Edit), _nameSpace, cancellationToken);
+                return operation.Failed(ApplicationMessages.CreationFailed);
+            }
+
+            return operation;
         }
 
         public async Task<List<HelpRequestDTO>> SearchInUnChecked(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
@@ -110,6 +169,11 @@ namespace Help.Domain.AppServices.HelpServiceAgg
                 var operation = new OperationResult(_type, id);
                 _operationResultLogging.LogOperationResult(operation, nameof(GetDetails), _nameSpace, cancellationToken);
             }
+
+            var pictures = await _helpRequestPictureService.GetAll(id, cancellationToken);
+
+            detail.Picture1Detail = pictures.First();
+            detail.Picture2Detail = pictures.Last();
 
             return detail;
         }

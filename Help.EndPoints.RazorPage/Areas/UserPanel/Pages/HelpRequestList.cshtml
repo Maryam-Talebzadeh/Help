@@ -50,7 +50,7 @@
                                                         <div class="single-grid-product__image">
 
                                                             <a asp-page="/HelpRequest" asp-route-id="@request.Id">
-                                                                <img src="~/Images/HelpRequestPictures/DefaultHelpServicePicture.jpg" class="img-fluid" />
+                                                                <img src="~/Images/HelpRequestPictures/@request.Pictures.First().Name" class="img-fluid" />
                                                             </a>
 
                                                         </div>
@@ -70,16 +70,24 @@
                                                                     <i class="ion-android-arrow-dropleft-circle"></i> جزییات
                                                                 </a>
                                                             </h2>
-                                                            @if (!request.IsConfirmed)
+                                                            @if (!request.IsConfirmed && !request.IsRejected)
                                                             {
-                                                                <h2 class="text-danger single-grid-product__title">
+                                                                <h2 class="text-warning single-grid-product__title">
                                                                     منتظر تایید ادمین
+                                                                </h2>
+                                                            }
+                                                            else if (request.IsConfirmed)
+                                                            {
+                                                                <h2 class="text-success single-grid-product__title">
+                                                                    تایید شده توسط ادمین
                                                                 </h2>
                                                             }
                                                             else
                                                             {
-                                                                <h2 class="text-success single-grid-product__title">
-                                                                    تایید شده توسط ادمین
+
+                                                                <h2 class="text-danger single-grid-product__title">
+                                                                    رد شده توسط ادمین
+                                                                    <a class="mx-1">پیام ادمین</a>
                                                                 </h2>
                                                             }
                                                             <div class="row text-center">

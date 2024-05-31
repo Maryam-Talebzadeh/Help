@@ -2,6 +2,7 @@
 
 using Base_Framework.Domain.Services;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest
@@ -22,5 +23,7 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest
         public double ProposedPrice { get; set; }
         public List<HelpServiceDTO>? Services { get; set; }
         public bool IsDone { get; set; }
+        public IFormFile? Picture1 { get; set; }
+        public IFormFile? Picture2 { get; set; }
     }
 }

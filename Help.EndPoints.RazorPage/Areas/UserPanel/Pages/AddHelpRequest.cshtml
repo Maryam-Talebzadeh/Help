@@ -13,7 +13,6 @@
         $(function () {
 
             Swal.fire({
-                title: "لطفا دوباره امتحان کنید.",
                 showConfirmButton: false,
                 timer: 2500,
                 text: "@Html.Raw(Model.Message)",
@@ -39,44 +38,70 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <div class="login-form">
                             <div class="row">
                                 <h4 class="login-title">ایجاد درخواست جدید</h4>
                                 <div class="col-md-12 col-12 mb-20">
-                                        <span class="text-danger" asp-validation-for="CreateHelpRequest.Title"></span>
+                                    <span class="text-danger" asp-validation-for="CreateHelpRequest.Title"></span>
                                     <label>عنوان</label>
                                     <input type="text" asp-for="CreateHelpRequest.Title" placeholder="عنوان">
-                                
+
                                 </div>
                                 <div class="col-md-12 col-12 mb-20">
-                                        <span class="text-danger" asp-validation-for="CreateHelpRequest.Description"></span>
+                                    <span class="text-danger" asp-validation-for="CreateHelpRequest.Description"></span>
                                     <label>توضیحات</label>
                                     <input type="text" asp-for="CreateHelpRequest.Description" placeholder="توضیحات">
-                                
+
                                 </div>
                                 <div class="col-md-12 col-12 mb-20">
-                                      <span class="text-danger" asp-validation-for="CreateHelpRequest.ExpirationDate"></span>
+                                    <span class="text-danger" asp-validation-for="CreateHelpRequest.ExpirationDate"></span>
                                     <label>تاریخ انقضای درخواست</label>
-                                        
-                          
-                            <input asp-for="CreateHelpRequest.ExpirationDate" type="text" class="form-control round" id="kama-datepicker-empty" placeholder="تاریخ تحویل" value="@DateTime.Now.ToFarsi()">
-                                   
-                                  
+
+
+                                    <input asp-for="CreateHelpRequest.ExpirationDate" type="text" class="form-control round" id="kama-datepicker-empty" placeholder="تاریخ تحویل" value="@DateTime.Now.ToFarsi()">
                                 </div>
+
                                 <div class="col-md-12 col-12 mb-20">
-                                    <span class="text-danger" asp-validation-for="CreateHelpRequest.ProposedPrice"></span>
                                     <label>قیمت پیشنهادی به تومان</label>
                                     <input type="number" asp-for="CreateHelpRequest.ProposedPrice" placeholder="قیمت پیشنهادی به تومان  ">
-                                   
+                                    <span class="text-danger" asp-validation-for="CreateHelpRequest.ProposedPrice"></span>
                                 </div>
+
+                          
+                                @* <div class=" file-upload file-upload1">
+                                    <div class="file-select">
+                                        <div class="file-select-button" id="fileName">انتخاب کنید</div>
+                                        <div class="file-select-name" id="noFile1">عکس اول</div>
+                                        <input asp-for="CreateHelpRequest.Picture1" type="file" name="chooseFile1" id="chooseFile1">
+                                    </div>
+                                </div>
+
+                                <div class="  file-upload file-upload2">
+                                    <div class="file-select">
+                                        <div class="file-select-button" id="fileName">انتخاب کنید</div>
+                                        <div class="file-select-name" id="noFile2">عکس دوم</div>
+                                        <input asp-for="CreateHelpRequest.Picture2" type="file" name="chooseFile2" id="chooseFile2">
+                                    </div>
+                                </div> *@
+                                <div class="mb-3">
+
+                                    <input asp-for="CreateHelpRequest.Picture1" class="form-control" type="file" id="formFile">
+                                </div>
+                             
+                                <div class="mb-3">
+                                  
+                                    <input asp-for="CreateHelpRequest.Picture2" class="form-control" type="file" id="formFile">
+                                </div>
+                                
+
                                 <div class="col-md-12 col-12 mb-20">
                                     <span class="text-danger" asp-validation-for="CreateHelpRequest.ServiceId"></span>
-                                    <select  class="form-control text-center" asp-for="CreateHelpRequest.ServiceId"
+                                    <select class="form-control text-center" asp-for="CreateHelpRequest.ServiceId"
                                             asp-items='new SelectList(@Model.Services, "Id", "Title")'>
                                         <option value="0">گروه </option>
                                     </select>
-                           
+
                                 </div>
                                 <div class="col-md-12 col-12 mb-20">
                                     <button class="register-button m-2">ثبت</button>

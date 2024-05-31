@@ -6,7 +6,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
 {
     public interface IHelpRequestRepository : IRepository<HelpRequest>
     {
-        Task Create(CreateHelpRequestDTO command, CancellationToken cancellationToken);
+        Task<int> Create(CreateHelpRequestDTO command, CancellationToken cancellationToken);
         Task Edit(EditHelpRequestDTO command, CancellationToken cancellationToken);
         Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<HelpRequestDTO>> Search(SearchHelpRequestDTO searchModel, CancellationToken cancellationToken);

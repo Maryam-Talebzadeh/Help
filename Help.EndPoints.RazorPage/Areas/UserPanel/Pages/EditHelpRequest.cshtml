@@ -9,6 +9,42 @@
 {
     @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function readURL1(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('img1').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        function readURL2(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('img2').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#EditHelpRequest_Picture1").change(function () {
+            readURL1(this);
+        });
+
+        $("#EditHelpRequest_Picture2").change(function () {
+            readURL2(this);
+        });
+    </script>
 
     <script>
         $(function () {
@@ -27,6 +63,48 @@
     }
 
 }
+else
+{
+    @section Scripts
+    {
+    <script>
+        function readURL1(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('img1').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        function readURL2(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('img2').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#EditHelpRequest_Picture1").change(function () {
+            readURL1(this);
+        });
+
+        $("#EditHelpRequest_Picture2").change(function () {
+            readURL2(this);
+        });
+    </script>
+    }
+}
 
 <div class="container">
     <div class="main-body">
@@ -40,7 +118,7 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <div class="login-form">
                             <div class="row">
                                 <h4 class="login-title">ایجاد درخواست جدید</h4>
@@ -71,6 +149,25 @@
                                     <input type="number" asp-for="EditHelpRequest.ProposedPrice" placeholder="قیمت پیشنهادی به تومان  ">
                                    
                                 </div>
+                                <div class="col-md-6 col-6 mb-20">
+                                    <p class="help-block">
+                                        عکس دوم
+                                    </p>
+                                    <input type="file" asp-for="EditHelpRequest.Picture1" />
+                                    <p>لطفا فقط تصویر انتخاب کنید</p>
+                                    <img id="img1" class="thumbnail" src="~/Images/HelpRequestPictures/@Model.EditHelpRequest.Picture1Detail.Name" style="max-width: 150px" />
+
+                                </div>
+                                <div class="col-md-6 col-6 mb-20">
+                                    <p class="help-block">
+                                        عکس دوم
+                                    </p>
+                                    <input type="file" asp-for="EditHelpRequest.Picture2" />
+                                    <p>لطفا فقط تصویر انتخاب کنید</p>
+                                    <img id="img2" class="thumbnail" src="~/Images/HelpRequestPictures/@Model.EditHelpRequest.Picture2Detail.Name" style="max-width: 150px" />
+
+                                </div>
+
                                 <div class="col-md-12 col-12 mb-20">
                                     <span class="text-danger" asp-validation-for="EditHelpRequest.ServiceId"></span>
                                     <select  class="form-control text-center" asp-for="EditHelpRequest.ServiceId"
@@ -84,6 +181,12 @@
                                 </div>
                                 <input type="hidden" asp-for="EditHelpRequest.CustomerId" value="@Model.EditHelpRequest.CustomerId" />
                                 <input type="hidden" asp-for="EditHelpRequest.Id" value="@Model.EditHelpRequest.Id" />
+                                <input type="hidden" asp-for="EditHelpRequest.Picture1Detail.Id" value="@Model.EditHelpRequest.Picture1Detail.Id" />
+                                <input type="hidden" asp-for="EditHelpRequest.Picture2Detail.Id" value="@Model.EditHelpRequest.Picture2Detail.Id" />
+                                <input type="hidden" asp-for="EditHelpRequest.Picture2Detail.HelpRequestId" value="@Model.EditHelpRequest.Picture2Detail.Id" />
+                                <input type="hidden" asp-for="EditHelpRequest.Picture1Detail.HelpRequestId" value="@Model.EditHelpRequest.Picture2Detail.Id" />
+                                <input type="hidden" asp-for="EditHelpRequest.Picture1Detail.Name" value="@Model.EditHelpRequest.Picture2Detail.Id" />
+                                <input type="hidden" asp-for="EditHelpRequest.Picture2Detail.Name" value="@Model.EditHelpRequest.Picture2Detail.Id" />
                             </div>
                         </div>
                     </form>

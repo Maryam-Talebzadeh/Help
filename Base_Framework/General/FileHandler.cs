@@ -6,6 +6,8 @@ namespace Base_Framework.General
     {
         public static void SaveImage(string filePath, IFormFile picture)
         {
+           
+
             using (FileStream stream = new FileStream(filePath, FileMode.Create))
             {
                 picture.CopyTo(stream);

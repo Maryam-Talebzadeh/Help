@@ -1,7 +1,6 @@
 
 
 
-
 (function ($) {
     "use strict";
 
@@ -12,9 +11,7 @@
     	
 
 	/*----------  Menu sticky ----------*/
-    var MessageModal = new abp.ModalManager({
-        viewUrl: '/MessageModal'
-    });
+
 	var windows = $(window);
 	var screenSize = windows.width();
 	var sticky = $('.header-sticky');

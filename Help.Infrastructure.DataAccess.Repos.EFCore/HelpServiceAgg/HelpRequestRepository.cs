@@ -4,6 +4,7 @@ using Help.Domain.Core.AccountAgg.DTOs.Customer;
 using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
 using Help.Domain.Core.HelpServiceAgg.Data;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
+using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequestPicture;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 using Help.Domain.Core.HelpServiceAgg.Entities;
 using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
@@ -32,11 +33,13 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             helpRequest.Confirm();
         }
 
-        public async Task Create(CreateHelpRequestDTO command, CancellationToken cancellationToken)
+        public async Task<int> Create(CreateHelpRequestDTO command, CancellationToken cancellationToken)
         {
             var helpRequest = new HelpRequest(command.Title, command.Description, command.ExpirationDate.ToGregorianDateTime(), command.CustomerId, command.ServiceId, command.ProposedPrice);
             _context.HelpRequests.Add(helpRequest);
-        }
+           await Save(cancellationToken);
+            return helpRequest.Id
+;        }
 
         public async Task Done(int id, CancellationToken cancellation)
         {
@@ -151,8 +154,8 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                         Alt = hr.Customer.Profile.Alt,
                         CustomerId = hr.Customer.Id
                     }
-                }
-            });
+                },
+            }) ;
 
             if (!searchModel.Title.IsNullOrEmpty())
                 query = query.Where(hr => hr.Title == searchModel.Title);
