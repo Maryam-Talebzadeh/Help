@@ -35,6 +35,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             var query = _context.Cities.Select(c =>
             new CityDTO()
             {
+                Id = c.Id,
                 Code = c.Code,
                 Name = c.Name,
                 ProvinceName = c.ProvinceName

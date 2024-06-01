@@ -12,11 +12,10 @@
         $(function () {
 
             Swal.fire({
-                title: "لطفا وارد شوید.",
                 showConfirmButton: false,
                 timer: 3500,
                 text: "@Html.Raw(Model.Message)",
-                icon: "success"
+                    icon: "@Html.Raw(Model.Icon)"
             });
         });
     </script>
@@ -85,15 +84,40 @@
                                 <hr />
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <h6 class="mb-0 pt-2">آدرس</h6>
+                                        <h5 class="mb-0 pt-2">آدرس :</h5>
                                     </div>
                                     <hr />
                                     <div>
-                                        <div class="col-sm-3 text-secondary">
+                                        <div class="col-sm-12 text-secondary">
+                                          <div class="col-sm-3">
+                                              <h6>
+                                                  استان :
+                                                    <p>  @Model.Customer.Address.City.ProvinceName</p>
+                                              </h6>
+                                          </div>
+                                            <div class="col-sm-3">
+                                                <h6>
+                                                    شهر :
+                                                    <p>  @Model.Customer.Address.City.Name</p>
+                                                </h6>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <h6>
+                                                    خیابان :
+                                                    <p>  @Model.Customer.Address.StreetName</p>
+                                                </h6>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <h6>
+                                                   توضیحات :
+                                                    <p> @Model.Customer.Address.Description</p>
+                                                </h6>
+                                            </div>
+
                                             @Model.Customer.Address.City.ProvinceName  @Model.Customer.Address.City.Name  @Model.Customer.Address.StreetName  @Model.Customer.Address.Description
                                         </div>
                                         <div class="col-sm-12">
-                                            <a class="register-button mt-0 " target="__blank" asp-page="/Edit"> تغییر آدرس</a>
+                                            <a asp-page ="EditAddress" asp-area="UserPanel" asp-route-id="@Model.Customer.Address.Id" class="register-button mt-0 " target="__blank" asp-page="/Edit"> تغییر آدرس</a>
                                         </div>
                                     </div>
                                 </div>

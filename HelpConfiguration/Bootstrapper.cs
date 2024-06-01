@@ -92,6 +92,8 @@ namespace HelpConfiguration
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<ICityService, CityService>();
 
             #endregion
 
@@ -102,6 +104,9 @@ namespace HelpConfiguration
             services.AddScoped<IRoleAppService, RoleAppService>();
             services.AddScoped<IAccountAppService, AccountAppService>();
             services.AddScoped<IAdminAppService, AdminAppService>();
+            services.AddScoped<IAddressAppService, AddressAppService>();
+            services.AddScoped<ICityAppService, CityAppService>();
+
 
             #endregion
 

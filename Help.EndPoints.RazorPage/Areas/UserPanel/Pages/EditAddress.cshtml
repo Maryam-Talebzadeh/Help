@@ -1,0 +1,95 @@
+﻿@page "{id}"
+@model Help.EndPoints.RazorPage.Areas.UserPanel.Pages.EditAddressModel
+@{
+}
+
+
+@if (Model.Message != null)
+{
+    @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(function () {
+
+            Swal.fire({
+                title: "لطفا دوباره امتحان کنید.",
+                showConfirmButton: false,
+                timer: 2500,
+                text: "@Html.Raw(Model.Message)",
+                    icon: "@Html.Raw(Model.Icon)"
+                });
+            });
+        </script>
+
+
+    }
+
+}
+
+
+<div class="container">
+    <div class="main-body">
+        <partial name="_Breadcrumb" />
+
+        <div class="row gutters-sm">
+
+
+            <div class="col-md-4 mb-3">
+                @await Component.InvokeAsync("SideMenu")
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="login-form">
+                            <div class="row">
+                                <h4 class="login-title">ویرایش آدرس</h4>
+
+                                <div class="col-md-12 col-12 mb-20">
+                                    <span class="text-danger" asp-validation-for="EditAddress.CityId"></span>
+                                    <select class="form-control text-center" asp-for="EditAddress.CityId"
+                                            asp-items='new SelectList(@Model.Cities, "Id", "Name")'>
+                                        <option value="0">شهر </option>
+                                    </select>
+
+                                </div>
+
+                                <div class="col-md-12 col-12 mb-20">
+                                    <span class="text-danger" asp-validation-for="EditAddress.StreetName"></span>
+                                    <label>نام خیابان</label>
+                                    <input type="text" asp-for="EditAddress.StreetName" placeholder="نام خیابان">
+
+                                </div>
+
+                                <div class="col-md-12 col-12 mb-20">
+                                    <span class="text-danger" asp-validation-for="EditAddress.AlleyNumber"></span>
+                                    <label>کد پستی</label>
+                                    <input type="number" asp-for="EditAddress.AlleyNumber" placeholder="کد پستی ">
+
+                                </div>
+
+                                <div class="col-md-12 col-12 mb-20">
+                                        <span class="text-danger" asp-validation-for="EditAddress.Description"></span>
+                                    <label>توضیحات</label>
+                                    <input type="text" asp-for="EditAddress.Description" placeholder="توضیحات">
+                                
+                                </div>
+                         
+                            </div>
+                            <input type="hidden" asp-for="EditAddress.Id" value="@Model.EditAddress.Id" />
+                            <input type="hidden" asp-for="EditAddress.CustomerId" value="@Model.EditAddress.CustomerId" />
+
+                            <div class="col-md-12 col-12 mb-20">
+                                    <button class="register-button m-2">ثبت</button>
+                                    </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

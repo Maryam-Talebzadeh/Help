@@ -8,5 +8,6 @@ namespace Help.Domain.Core.AccountAgg.Data
     {
         Task<int> Create(CreateAddressDTO command, CancellationToken cancellationToken);
         Task Edit(EditAddressDTO command, CancellationToken cancellationToken);
+        Task<EditAddressDTO> GetDetails(int id, CancellationToken cancellationToken);
     }
 }

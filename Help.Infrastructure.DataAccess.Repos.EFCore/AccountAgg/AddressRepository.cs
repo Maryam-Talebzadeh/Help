@@ -28,5 +28,19 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.AccountAgg
             var address = Get(command.Id);
             address.Edit(command.Description, command.CityId, command.StreetName, command.AlleyNumber);
         }
+
+        public async Task<EditAddressDTO> GetDetails(int id, CancellationToken cancellationToken)
+        {
+            return _context.Addresses.Select(a =>
+            new EditAddressDTO
+            {
+                Id = a.Id,
+                AlleyNumber = a.AlleyNumber,
+                StreetName = a.StreetName,
+                CityId = a.CityId,
+                Description = a.Description,
+                CustomerId = a.Customer.Id
+            }).FirstOrDefault(s => s.Id == id);
+        }
     }
 }
