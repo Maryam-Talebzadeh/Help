@@ -17,34 +17,42 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
     {
         [BindProperty]
         public CustomerDetailDTO Customer { get; set; }
+        public List<HelpServiceDTO> HelpServices { get; set; }
         public string Message { get; set; }
 
         private readonly IAuthHelper _authHelper;
         private readonly ICustomerAppService _customerAppService;
         private readonly IHelpRequestAppService _helpRequestAppService;
+        private readonly IHelpServiceAppService _helpServiceAppService;
 
-        public IndexModel(IAuthHelper authHelper, ICustomerAppService customerAppService, IHelpRequestAppService helpRequestAppService)
+        public IndexModel(IAuthHelper authHelper, ICustomerAppService customerAppService, IHelpRequestAppService helpRequestAppService, IHelpServiceAppService helpServiceAppService)
         {
             _authHelper = authHelper;
             _customerAppService = customerAppService;
             _helpRequestAppService = helpRequestAppService;
+            _helpServiceAppService = helpServiceAppService;
         }
 
         public async Task<IActionResult> OnGet(int id, CancellationToken cancellationToken, string? message)
         {
             Message = message;
+            HelpServices = await _helpServiceAppService.Search(new SearchHelpServiceDTO(), cancellationToken);
 
             if (_authHelper.CurrentAccountId() != id)
-                return RedirectToPage("../../../AccessDenied");
+                return RedirectToPage("./AccessDenied");
 
             Customer = await _customerAppService.GetDetails(id, cancellationToken);
             return Page();
         }
 
-        public async Task<IActionResult> OnPostEdit( CancellationToken cancellationToken)
+        public async Task<IActionResult> OnPostEdit(List<int> HelpServicesIds, CancellationToken cancellationToken)
         {
+            Customer.SkillIds = HelpServicesIds;
             var result = await _customerAppService.Edit(Customer, cancellationToken);
-            return RedirectToPage("/Index");
+            
+            HelpServices = await _helpServiceAppService.Search(new SearchHelpServiceDTO(), cancellationToken);
+            Customer = await _customerAppService.GetDetails(Customer.Id, cancellationToken);
+            return Page();
         }
 
 

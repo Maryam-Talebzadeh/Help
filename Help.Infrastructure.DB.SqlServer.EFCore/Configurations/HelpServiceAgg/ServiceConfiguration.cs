@@ -27,13 +27,13 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
             builder.HasOne(s => s.Category)
               .WithMany(c => c.Services);
 
-            builder.HasMany(s => s.Skills)
-                .WithOne(s => s.HelpService)
-                .HasForeignKey(s => s.ServiceId);
-
             builder.HasOne(s => s.Picture)
                 .WithOne(p => p.HelpService)
                 .HasForeignKey<HelpService>(p => p.PictureId);
+
+            builder.HasMany(s => s.Skills)
+             .WithOne(s => s.HelpService)
+             .HasForeignKey(s => s.HelpServiceId);
 
             builder.HasMany(s => s.HelpRequests)
                .WithOne(s => s.HelpService)

@@ -30,7 +30,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
 
             builder.HasMany(c => c.Skills)
            .WithOne(s => s.Customer)
-           .HasForeignKey(s => s.CustomerId);
+             .HasForeignKey(p => p.CustomerId).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(c => c.Proposals)
            .WithOne(p => p.Customer)

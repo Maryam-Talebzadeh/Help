@@ -1,4 +1,5 @@
 ﻿using Base_Framework.Domain.Core.Entities;
+using Help.Domain.Core.AccountAgg.Entities;
 
 namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
@@ -25,7 +26,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         #region Navigation Properties
 
         public Category Category { get; private set; }
-        public List<Skill> Skills { get; private set; }
+        public List<Skill>? Skills { get; private set; }
         public List<HelpRequest> HelpRequests { get; private set; }
         public HelpServicePicture Picture { get; private set; }
 

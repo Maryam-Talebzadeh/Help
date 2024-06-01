@@ -3,6 +3,7 @@ using Base_Framework.General.Hashing;
 using Help.Domain.Core.AccountAgg.Data;
 using Help.Domain.Core.AccountAgg.DTOs.Address;
 using Help.Domain.Core.AccountAgg.DTOs.Customer;
+using Help.Domain.Core.AccountAgg.DTOs.Skill;
 using Help.Domain.Core.AccountAgg.Services;
 
 namespace Help.Domain.Services.AccountAgg
@@ -10,15 +11,17 @@ namespace Help.Domain.Services.AccountAgg
     public class CustomerService : ICustomerService
     {
         private readonly ICustomerRepository _customerRepository;
+        private readonly ISkillRepository _skillRepository;
         private readonly IAddressRepository _addressRepository;
         private readonly IPasswordHasher _passwordHasher;
         private readonly Type _type = new CustomerDTO().GetType();
 
-        public CustomerService(ICustomerRepository customerRepository, IPasswordHasher passwordHasher, IAddressRepository addressRepository)
+        public CustomerService(ICustomerRepository customerRepository, IPasswordHasher passwordHasher, IAddressRepository addressRepository, ISkillRepository skillRepository)
         {
             _customerRepository = customerRepository;
             _passwordHasher = passwordHasher;
             _addressRepository = addressRepository;
+            _skillRepository = skillRepository;
         }
 
         public async Task<OperationResult> Active(int id, CancellationToken cancellationToken)
@@ -107,6 +110,29 @@ namespace Help.Domain.Services.AccountAgg
             if (await _customerRepository.IsExist(c => c.Mobile == command.Mobile && c.Id != command.Id, cancellationToken))
                 operation.Failed("شماره موبایل تکراری می باشد. لطفا شماره موبایل دیگری وارد کنید.");
 
+            var skills = await _skillRepository.GetAllByCustomerId(command.Id, cancellationToken);
+           
+
+            foreach(var skill in skills)
+            {
+                await _skillRepository.Remove(skill.Id, cancellationToken);
+               await _skillRepository.Save(cancellationToken) ;
+            }
+
+            if(command.SkillIds.Count() > 0)
+            {
+                foreach(var skillId in command.SkillIds)
+                {
+                    var skill = new CreateSkillDTO
+                    {
+                        CustomerId = command.Id,
+                        HelpServiceId = skillId
+                    };
+                   await _skillRepository.Create(skill, cancellationToken);
+                 await   _skillRepository.Save(cancellationToken);
+                }
+            }
+
             await _customerRepository.Edit(command, cancellationToken);
             await _customerRepository.Save(cancellationToken);
 
@@ -115,7 +141,9 @@ namespace Help.Domain.Services.AccountAgg
 
         public async Task<CustomerDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
-            return await _customerRepository.GetDetails(id, cancellationToken);
+            var customer = await _customerRepository.GetDetails(id, cancellationToken);
+            customer.Skills = await _skillRepository.GetAllByCustomerId(id, cancellationToken);
+            return customer;
         }
 
         public async Task<OperationResult> Remove(int id, CancellationToken cancellationToken)

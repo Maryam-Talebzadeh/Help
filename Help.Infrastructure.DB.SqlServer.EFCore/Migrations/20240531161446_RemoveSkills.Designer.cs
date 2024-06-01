@@ -4,6 +4,7 @@ using Help.Infrastructure.DB.SqlServer.EFCore.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 {
     [DbContext(typeof(HelpContext))]
-    partial class HelpContextModelSnapshot : ModelSnapshot
+    [Migration("20240531161446_RemoveSkills")]
+    partial class RemoveSkills
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,21 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CustomerHelpService", b =>
+                {
+                    b.Property<int>("CustomersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustomersId", "SkillsId");
+
+                    b.HasIndex("SkillsId");
+
+                    b.ToTable("CustomerHelpService");
+                });
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Address", b =>
                 {
@@ -64,7 +82,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                             Id = 1,
                             AlleyNumber = 1,
                             CityId = 1,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 860, DateTimeKind.Local).AddTicks(2218),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 594, DateTimeKind.Local).AddTicks(5179),
                             Description = " ",
                             IsRemoved = false,
                             StreetName = " "
@@ -127,8 +145,8 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 862, DateTimeKind.Local).AddTicks(9224),
-                            DateOfEmployeement = new DateTime(2024, 5, 31, 9, 40, 59, 862, DateTimeKind.Local).AddTicks(9240),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 595, DateTimeKind.Local).AddTicks(9217),
+                            DateOfEmployeement = new DateTime(2024, 5, 31, 9, 14, 43, 595, DateTimeKind.Local).AddTicks(9225),
                             Email = "marya.6t@gmail.com",
                             EmployeeID = 1,
                             FullName = "MaryamTalebzadeh",
@@ -136,7 +154,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                             Mobile = "09380000000",
                             Password = "10000.lyz67IGPgBUonnD4LNGVTQ==.4tH6b2mcWg+vVPSEHhzaEX0aatIlFdqGDcI+NUA/VLA=",
                             RoleId = 1,
-                            TerminationDateContract = new DateTime(2024, 9, 30, 9, 40, 59, 862, DateTimeKind.Local).AddTicks(9107),
+                            TerminationDateContract = new DateTime(2024, 9, 30, 9, 14, 43, 595, DateTimeKind.Local).AddTicks(9169),
                             UserName = "Mary"
                         });
                 });
@@ -177,7 +195,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         {
                             Id = 1,
                             Code = " ",
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 863, DateTimeKind.Local).AddTicks(7401),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 596, DateTimeKind.Local).AddTicks(3478),
                             IsRemoved = false,
                             Name = " ",
                             ProvinceName = " "
@@ -257,7 +275,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         {
                             Id = 1,
                             AddressId = 1,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 868, DateTimeKind.Local).AddTicks(9980),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 598, DateTimeKind.Local).AddTicks(1296),
                             Email = "marya.6t@gmail.com",
                             FullName = "firstUser",
                             IsActive = false,
@@ -320,7 +338,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         {
                             Id = 1,
                             Alt = "Profile",
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 869, DateTimeKind.Local).AddTicks(9671),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 598, DateTimeKind.Local).AddTicks(5333),
                             CustomerId = 1,
                             IsConfirmed = false,
                             IsRejected = false,
@@ -357,53 +375,24 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 870, DateTimeKind.Local).AddTicks(6376),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 598, DateTimeKind.Local).AddTicks(8542),
                             IsRemoved = false,
                             Title = "مدیر سیستم"
                         },
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 870, DateTimeKind.Local).AddTicks(6641),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 598, DateTimeKind.Local).AddTicks(8613),
                             IsRemoved = false,
                             Title = "کاربر عادی"
                         },
                         new
                         {
                             Id = 3,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 870, DateTimeKind.Local).AddTicks(6670),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 598, DateTimeKind.Local).AddTicks(8625),
                             IsRemoved = false,
                             Title = "دستیار ادمین"
                         });
-                });
-
-            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Skill", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HelpServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("HelpServiceId");
-
-                    b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
@@ -443,7 +432,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 872, DateTimeKind.Local).AddTicks(1441),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 599, DateTimeKind.Local).AddTicks(2325),
                             Description = "تعمیر انواع لوازم خانگی",
                             IsRemoved = false,
                             Title = "تعمیرات"
@@ -631,7 +620,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 885, DateTimeKind.Local).AddTicks(992),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 603, DateTimeKind.Local).AddTicks(5758),
                             Description = "درخواست شما اول باید توسط ادمین تایید شود. از صبوری شما سپاس گذاریم.",
                             IsRemoved = false,
                             Title = "منتظر تایید ادمین"
@@ -639,7 +628,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 885, DateTimeKind.Local).AddTicks(1259),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 603, DateTimeKind.Local).AddTicks(5833),
                             Description = "منتظر پیشنهادات",
                             IsRemoved = false,
                             Title = "انجام نشده"
@@ -647,7 +636,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         new
                         {
                             Id = 3,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 885, DateTimeKind.Local).AddTicks(1498),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 603, DateTimeKind.Local).AddTicks(5845),
                             Description = "این درخواست در حال انجام می باشد.",
                             IsRemoved = false,
                             Title = "در حال انجام"
@@ -655,7 +644,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         new
                         {
                             Id = 4,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 885, DateTimeKind.Local).AddTicks(1531),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 603, DateTimeKind.Local).AddTicks(5854),
                             Description = "این درخواست منقضی شده.",
                             IsRemoved = false,
                             Title = "تمام شده"
@@ -716,7 +705,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 887, DateTimeKind.Local).AddTicks(23),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 604, DateTimeKind.Local).AddTicks(2332),
                             Description = "شیرآلات برای یک دلیل آشکار قسمت مهمی از خانه شما هستند: آن‌ها آب را برای انجام کارهای گوناگون توزیع می‌کنند. بنابراین، سالم نگه داشتن شیرآلات آشپزخانه، دستشویی و حمامدر شرایط درست کارکردشان امری ضروری است. برخی از موارد ممکن است باعث شود نیاز به تعمیر شیرآلات برند خاص پیدا کنید، از نشت آب گرفته تا سر و صدای اضافی. گاهی اوقات این مشکلات ناشی از قدیمی بودن شیرآلات است.",
                             IsRemoved = false,
                             PictureId = 1,
@@ -861,7 +850,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         {
                             Id = 1,
                             Balance = 0.0,
-                            CreationDate = new DateTime(2024, 5, 31, 9, 40, 59, 892, DateTimeKind.Local).AddTicks(521),
+                            CreationDate = new DateTime(2024, 5, 31, 9, 14, 43, 605, DateTimeKind.Local).AddTicks(5740),
                             CustomerId = 1,
                             IsRemoved = false
                         });
@@ -903,6 +892,21 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                     b.HasIndex("WalletId");
 
                     b.ToTable("WalletOperations");
+                });
+
+            modelBuilder.Entity("CustomerHelpService", b =>
+                {
+                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", null)
+                        .WithMany()
+                        .HasForeignKey("CustomersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", null)
+                        .WithMany()
+                        .HasForeignKey("SkillsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Address", b =>
@@ -955,25 +959,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("Help.Domain.Core.AccountAgg.Entities.Skill", b =>
-                {
-                    b.HasOne("Help.Domain.Core.AccountAgg.Entities.Customer", "Customer")
-                        .WithMany("Skills")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", "HelpService")
-                        .WithMany("Skills")
-                        .HasForeignKey("HelpServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("HelpService");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.Category", b =>
@@ -1138,8 +1123,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
 
                     b.Navigation("Proposals");
 
-                    b.Navigation("Skills");
-
                     b.Navigation("Wallet")
                         .IsRequired();
                 });
@@ -1180,8 +1163,6 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Migrations
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpService", b =>
                 {
                     b.Navigation("HelpRequests");
-
-                    b.Navigation("Skills");
                 });
 
             modelBuilder.Entity("Help.Domain.Core.HelpServiceAgg.Entities.HelpServicePicture", b =>

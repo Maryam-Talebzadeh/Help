@@ -54,7 +54,7 @@
                                 <div class="col-md-12 mb-20">
                                     <label>موبایل</label>
                                     <input type="text" asp-for="Customer.Mobile" placeholder="شماره موبایل">
-                                    <span class="text-danger" asp-validation-for="Customer.Password"></span>
+                                    <span class="text-danger" asp-validation-for="Customer.Mobile"></span>
                                 </div>
 
                                 <div class="col-md-6 mb-20">
@@ -71,6 +71,16 @@
                                     <label>بایو</label>
                                     <textarea class="form-control" asp-for="Customer.Bio" placeholder="بایوگرافی"></textarea>
                                     <span class="text-danger" asp-validation-for="Customer.Bio"></span>
+                                </div>
+                                <div class="col-md-12 mb-20 ">
+                                    <label>مهارت ها</label>
+                                    <select name="HelpServicesIds" multiple class="chosen-select form-control round" style="border: 0.5px solid;border-color:blue;width:575px;height:100px" data-line-search="true" asp-items="@(new SelectList(Model.HelpServices, "Id", "Title"))">
+                                        @foreach (var skill in @Model.Customer.Skills)
+                                        {
+                                            <option value="@skill.HelpServiceId" selected="selected">@skill.HelpServiceName</option>
+                                        }
+
+                                    </select>
                                 </div>
                                 <hr />
                                 <div class="row">

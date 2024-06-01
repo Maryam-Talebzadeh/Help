@@ -24,7 +24,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
 
         public CustomerPicture Profile { get; private set; }
         public List<HelpRequest> HelpRequests { get; private set; }
-        public List<Skill> Skills { get; private set; }
+        public List<Skill>? Skills { get; private set; }
         public List<Proposal> Proposals { get; private set; }
         public Wallet Wallet { get; private set; }
         public Address Address { get; set; }
