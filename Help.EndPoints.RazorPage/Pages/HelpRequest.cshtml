@@ -1,4 +1,5 @@
 ﻿@page "{id}"
+@using Base_Framework.General
 @model Help.EndPoints.RazorPage.Pages.HelpRequestModel
 
 
@@ -16,7 +17,7 @@
                             <li>
                                 <a asp-page="/HelpRequest" asp-route-id="@Model.HelpRequest.Title">@Model.HelpRequest.Title</a>
                             </li>
-                         
+
                         </ul>
                     </div>
                 </div>
@@ -24,16 +25,17 @@
         </div>
     </div>
 </div>
-
 <div class="page-content-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+
+
+            <div class="col-md-7 mb-3">
                 <div class="page-wrapper">
                     <div class="page-content-wrapper">
                         <div class="single-product-main-content-area section-space" style="direction: ltr;">
-                            <div class="row" style="display: flex; flex-direction: row-reverse">
-                                <div class="col-lg-6">
+                            <div class="row">
+                                <div class="col-lg-12">
                                     <div class="product-details-slider-area">
                                         <div class="big-image-wrapper">
                                             <div class="product-details-big-image-slider-wrapper product-details-big-image-slider-wrapper--bottom-space ht-slick-slider"
@@ -57,10 +59,16 @@
                                                 ]'>
 
                                                 <div class="single-image">
-                                                    <img src="~/Images/HelpRequestPictures/DefaultHelpServicePicture.jpg" class="img-fluid"
-                                                        >
+                                                    <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture1Detail" class="img-fluid">
                                                 </div>
-                                                
+
+                                                @if (@Model.HelpRequest.Picture2Detail != null)
+                                                {
+                                                    <div class="single-image">
+                                                        <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture2Detail.Name" class="img-fluid">
+                                                    </div>
+                                                }
+
                                             </div>
                                         </div>
 
@@ -73,7 +81,7 @@
                                                     "autoplay": false,
                                                     "autoplaySpeed": 5000,
                                                     "speed": 500,
-                                                    "asNavFor": ".HelpRequest-details-big-image-slider-wrapper",
+                                                    "asNavFor": ".product-details-big-image-slider-wrapper",
                                                     "focusOnSelect": true,
                                                     "centerMode": false,
                                                     "prevArrow": {"buttonClass": "slick-prev", "iconClass": "fa fa-angle-left" },
@@ -87,217 +95,201 @@
                                                     {"breakpoint":479, "settings": {"slidesToShow": 2, "arrows": false, "slidesToScroll": 1} }
                                                 ]'>
                                             <div class="single-image">
-                                                <img src="~/Images/HelpRequestPictures/DefaultHelpServicePicture.jpg" class="img-fluid">
+                                                <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture1Detail.Name" class="img-fluid">
                                             </div>
-                                          
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="single-product-content-description">
-                                       
-                                        <h2 class="product-title">@Model.HelpRequest.Title</h2>
-                                        <div class="product-rating">
-                                            <span class="rating">
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star active"></i>
-                                                <i class="ion-android-star-outline"></i>
-                                            </span>
-
-                                            <span class="review-count">
-                                                <a href="#">(2 reviews)</a> | <a href="#">پیشنهاد دهید</a>
-                                            </span>
-                                        </div>
-
-                                        <p class="single-grid-product__price" style="direction: rtl">
-
-                                                <span class="main-price">@Model.HelpRequest.ProposedPrice تومان</span>
-                                                <span class="date">@Model.HelpRequest.ExpirationDate تاریخ انقضا</span>
-
-
-                                            <p>@Model.HelpRequest.Description </p>
-                                            
-
-                                        </p>
-
-                                            <p class="single-info">توضیحات: @Model.HelpRequest.Description </p>
-                                        <p class="single-info">
-                                            @if (Model.HelpRequest.StatusId == 1)
+                                            @if (@Model.HelpRequest.Picture2Detail != null)
                                             {
-                                                <span class="text-success">منتظر پیشنهاد افراد</span>
+                                                <div class="single-image">
+                                                    <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture2Detail.Name" class="img-fluid">
+                                                </div>
                                             }
-                                            else
-                                            {
-                                                <span class="text-danger">گرفته شده</span>
-                                            }
-                                        </p>
-
-                                        <p class="product-description">
-                                            @Model.HelpRequest.Description
-                                        </p>
-                                       
-
-                                        
-
-                                        <div class="social-share-buttons mt-20">
-                                            <h5>این درخواست را به اشتراک بگذارید</h5>
-                                            <ul>
-                                                <li>
-                                                    <a class="twitter" href="#">
-                                                        <i class="fa fa-twitter"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="facebook" href="#">
-                                                        <i class="fa fa-facebook"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="google-plus" href="#">
-                                                        <i class="fa fa-google-plus"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="pinterest" href="#">
-                                                        <i class="fa fa-pinterest"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
                                         </div>
-                                      
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="product-description-review-area">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="tab-slider-wrapper product-description-review-container  section-space--inner">
-                                        @if(Model.HelpRequest.IsDone)
-                                        {
-                                            @* <nav>
-                                                <div class="nav nav-tabs justify-content-center" id="nav-tab"
-                                                     role="tablist">
-                                                    <a class="nav-item nav-link active" id="description-tab"
-                                                       data-toggle="tab" href="#product-description" role="tab"
-                                                       aria-selected="true">توضیحات</a>
-                                                    <a class="nav-item nav-link" id="review-tab" data-toggle="tab"
-                                                       href="#review" role="tab" aria-selected="false">نظرات (@Model.HelpRequest.Comments.Count)</a>
-                                                </div>
-                                            </nav>
-                                            <div class="tab-content" id="nav-tabContent">
-                                                <div class="tab-pane fade show active" id="product-description"
-                                                     role="tabpanel" aria-labelledby="description-tab">
-                                                    <div class="product-description">
-                                                        @Model.HelpRequest.Description
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="review" role="tabpanel"
-                                                     aria-labelledby="review-tab">
-                                                    <div class="product-rating-wrap"> *@
-                                                        @*<div class="rating-list">
-                                                        <div class="sin-list float-right">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <span>(5)</span>
-                                                        </div>
-                                                        <div class="sin-list float-right">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <span>(3)</span>
-                                                        </div>
-                                                        <div class="sin-list float-right">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <span>(1)</span>
-                                                        </div>
-                                                        <div class="sin-list float-right">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <span>(0)</span>
-                                                        </div>
-                                                        <div class="sin-list float-right">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <span>(0)</span>
-                                                        </div>
-                                                        </div>*@
-                                                      @*   @foreach (var comment in Model.HelpRequest.Comments)
-                                                        {
-                                                            <div class="ratings-wrapper">
-                                                                <div class="sin-ratings">
-                                                                    <div class="rating-author">
-                                                                        <h3>@comment.Title</h3>
-                                                                        @*<div class="rating-star">
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <i class="fa fa-star"></i>
-                                                                    <span>(5)</span>
-                                                                    </div>
-                                                                    </div>
-                                                                    <p>@comment.Message</p>
-                                                                </div>
-                                                            </div>
-                                                        } *@
-                                        }
-                                        else
-                                        {
-                                            <div class="rating-form-wrapper fix">
-                                                <h3>پیشنهاد بدهید</h3>
-                                                <form method="post">
-                                                    <div class="rating-form row">
-                                                        <div class="col-md-6 col-12 form-group">
-                                                            <label asp-for="CreateProposal.SuggestedTime">زمان پیشنهادی:</label>
-                                                            <input class="persianDateInput" asp-for="CreateProposal.SuggestedTime">
-                                                        </div>
-                                                        <div class="col-md-6 col-12 form-group">
-                                                            <label asp-for="CreateProposal.SuggestedPrice">قیمت پیشنهادی</label>
-                                                            <input type="number" asp-for="CreateProposal.SuggestedPrice" placeholder="قیمت پیشنهادی به تومان  ">
-                                                        </div>
-                                                        <div class="col-12 form-group">
-                                                            <label for="your-review">توضیحات:</label>
-                                                            <textarea asp-for="CreateProposal.Description" placeholder="توضیحات خود را بنویسید ..."></textarea>
-                                                        </div>
-                                                        <input type="hidden" asp-for="CreateProposal.HelpRequestId" value="@Model.HelpRequest.Id" />
-                                                      
-                                                        <div class="col-12">
-                                                            <input value="ثبت پیشنهاد" type="submit">
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        }
-
-                                                   
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-lg-12">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            <div class="col-md-5 mb-3 ">
+
+
+
+                <div class="product-description-review-area">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="tab-slider-wrapper product-description-review-container  ">
+
+                                <div class="row">
+                                   
+
+                                    <div class="col-6">
+                                        <div class="single-product-content-description">
+
+
+
+
+                                            <p class="single-grid-product__price" style="direction: rtl">
+
+                                                قیمت پیشنهادی : <span class="main-price">@Model.HelpRequest.ProposedPrice تومان</span>
+
+                                            </p>
+
+                                            <p class="single-grid-product__price" style="direction: rtl">
+                                                تاریخ انقضا : <span class="date"> @Model.HelpRequest.ExpirationDate </span>
+
+
+                                            </p>
+
+
+
+                                            <p class="single-info">
+                                                @if (Model.HelpRequest.StatusId == 2)
+                                                {
+                                                    <span class="text-success">منتظر پیشنهاد افراد</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-danger">گرفته شده</span>
+                                                }
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <h5 class="single-info">توضیحات: @Model.HelpRequest.Description </h5>
+
+                              <br />
+                                <br />
+                                @if (Model.HelpRequest.StatusId == 4)
+                                {
+                //customer Id check
+                                    @* <nav>
+                                <div class="nav nav-tabs justify-content-center" id="nav-tab"
+                                role="tablist">
+                                <a class="nav-item nav-link active" id="description-tab"
+                                data-toggle="tab" href="#product-description" role="tab"
+                                aria-selected="true">توضیحات</a>
+                                <a class="nav-item nav-link" id="review-tab" data-toggle="tab"
+                                href="#review" role="tab" aria-selected="false">نظرات (@Model.HelpRequest.Comments.Count)</a>
+                                </div>
+                                </nav>
+                                <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="product-description"
+                                role="tabpanel" aria-labelledby="description-tab">
+                                <div class="product-description">
+                                @Model.HelpRequest.Description
+                                </div>
+                                </div>
+                                <div class="tab-pane fade" id="review" role="tabpanel"
+                                aria-labelledby="review-tab">
+                                <div class="product-rating-wrap"> *@
+                                    @*<div class="rating-list">
+                                <div class="sin-list float-right">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <span>(5)</span>
+                                </div>
+                                <div class="sin-list float-right">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                                <span>(3)</span>
+                                </div>
+                                <div class="sin-list float-right">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <span>(1)</span>
+                                </div>
+                                <div class="sin-list float-right">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <span>(0)</span>
+                                </div>
+                                <div class="sin-list float-right">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <span>(0)</span>
+                                </div>
+                                </div>*@
+                                    @*   @foreach (var comment in Model.HelpRequest.Comments)
+                                {
+                                <div class="ratings-wrapper">
+                                <div class="sin-ratings">
+                                <div class="rating-author">
+                                <h3>@comment.Title</h3>
+                                @*<div class="rating-star">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <span>(5)</span>
+                                </div>
+                                </div>
+                                <p>@comment.Message</p>
+                                </div>
+                                </div>
+                                } *@
+                                }
+                                else if (Model.HelpRequest.StatusId == 2)
+                                {
+
+                                    <div class="rating-form-wrapper mt-1 fix" id="proposal">
+                                        <br />
+                                        <h2>پیشنهاد دهید</h2>
+                                        <form method="post">
+                                            <div class="rating-form row">
+                                                <div class="col-md-12 col-12 form-group">
+                                                    <label asp-for="CreateProposal.SuggestedTime">زمان پیشنهادی:</label>
+                                                    <input asp-for="CreateProposal.SuggestedTime" type="text" class="form-control round" id="kama-datepicker-empty" placeholder="تاریخ تحویل" value="@DateTime.Now.ToFarsi()">
+                                                </div>
+                                                <div class="col-md-12 col-12 form-group">
+                                                    <label asp-for="CreateProposal.SuggestedPrice">قیمت پیشنهادی</label>
+                                                    <input type="number" asp-for="CreateProposal.SuggestedPrice" placeholder="قیمت پیشنهادی به تومان  ">
+                                                </div>
+                                                <div class="col-12 form-group">
+                                                    <label for="your-review">توضیحات:</label>
+                                                    <textarea asp-for="CreateProposal.Description" placeholder="توضیحات خود را بنویسید ..."></textarea>
+                                                </div>
+                                                <input type="hidden" asp-for="CreateProposal.HelpRequestId" value="@Model.HelpRequest.Id" />
+
+                                                <div class="col-12">
+                                                    <input value="ثبت پیشنهاد" type="submit">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
+
 

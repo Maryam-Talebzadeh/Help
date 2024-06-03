@@ -56,8 +56,6 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
             Customer = await _customerAppService.GetDetails(Customer.Id, cancellationToken);
             return Page();
         }
-
-
         
     }
 }

@@ -57,6 +57,19 @@ namespace Help.Domain.Services.HelpServiceAgg
             return await _proposalRepository.GetDetails(id, cancellationToken);
         }
 
+        public async Task<OperationResult> Reject(int id, CancellationToken cancellationToken)
+        {
+            var operation = new OperationResult(_type, id);
+
+            if (!await _proposalRepository.IsExist(x => x.Id == id, cancellationToken))
+                return operation.Failed(ApplicationMessages.RecordNotFound);
+
+            await _proposalRepository.Reject(id, cancellationToken);
+            await _proposalRepository.Save(cancellationToken);
+
+            return operation.Succedded();
+        }
+
         public async Task<List<ProposalDTO>> Search(SearchProposaltDTO searchModel, CancellationToken cancellationToken)
         {
             return await _proposalRepository.Search(searchModel, cancellationToken);

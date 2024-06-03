@@ -101,10 +101,10 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             return query.ToList();
         }
 
-        public async Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<HelpRequestDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return _context.HelpRequests.Select(hr =>
-            new EditHelpRequestDTO()
+            new HelpRequestDetailDTO()
             {
                 CustomerId = hr.Id,
                 Description = hr.Description,
@@ -114,7 +114,18 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 ProposedPrice = hr.ProposedPrice,
                 ServiceId = hr.ServiceId,
                 StatusId = hr.StatusId,
-                IsDone = hr.IsDone
+                IsDone = hr.IsDone,
+                Customer = new CustomerDTO()
+                {
+                    Id = hr.Customer.Id,
+                    FullName = hr.Customer.FullName,
+                    Picture = new CustomerPictureDTO()
+                    {
+                        Name = hr.Customer.Profile.Name,
+                        Alt = hr.Customer.Profile.Alt
+                    }
+                }
+
             }).FirstOrDefault(hr => hr.Id == id);
         }
 
@@ -147,6 +158,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 Customer = new CustomerDTO()
                 {
                     Id = hr.Customer.Id,
+                    FullName = hr.Customer.FullName,
                     Picture = new CustomerPictureDTO()
                     {
                         Title = hr.Customer.Profile.Title,
@@ -222,36 +234,37 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
         public async Task<List<HelpRequestDTO>> GetAllConfirmed(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
         {
-            var query = _context.HelpRequests.Where(hr => hr.IsConfirmed).Select(hr =>
-         new HelpRequestDTO()
-         {
-             Id = hr.Id,
-             Description = hr.Description,
-             Title = hr.Title,
-             IsDone = hr.IsDone,
-             Status = hr.Status.Title,
-             StatusId = hr.StatusId,
-             IsConfirmed = hr.IsConfirmed,
-             CustomerId = hr.CustomerId,
-             IsRejected = hr.IsRejected,
-             ExpirationDate = hr.ExpirationDate.ToFarsi(),
-             HelpService = new IdTitleHelpServiceDTO()
-             {
-                 Id = hr.HelpService.Id,
-                 Title = hr.HelpService.Title
-             },
-             Customer = new CustomerDTO()
-             {
-                 Id = hr.Customer.Id,
-                 Picture = new CustomerPictureDTO()
-                 {
-                     Title = hr.Customer.Profile.Title,
-                     Name = hr.Customer.Profile.Name,
-                     Alt = hr.Customer.Profile.Alt,
-                     CustomerId = hr.Customer.Id
-                 }
-             }
-         });
+            var query = _context.HelpRequests.Where(hr => hr.IsConfirmed == true)
+          .Select(hr =>
+      new HelpRequestDTO()
+      {
+          Id = hr.Id,
+          Description = hr.Description,
+          Title = hr.Title,
+          IsDone = hr.IsDone,
+          Status = hr.Status.Title,
+          StatusId = hr.StatusId,
+          IsConfirmed = hr.IsConfirmed,
+          CustomerId = hr.CustomerId,
+          IsRejected = hr.IsRejected,
+          ExpirationDate = hr.ExpirationDate.ToFarsi(),
+          HelpService = new IdTitleHelpServiceDTO()
+          {
+              Id = hr.HelpService.Id,
+              Title = hr.HelpService.Title
+          },
+          Customer = new CustomerDTO()
+          {
+              Id = hr.Customer.Id,
+              Picture = new CustomerPictureDTO()
+              {
+                  Title = hr.Customer.Profile.Title,
+                  Name = hr.Customer.Profile.Name,
+                  Alt = hr.Customer.Profile.Alt,
+                  CustomerId = hr.Customer.Id
+              }
+          },
+      });
 
             if (!searchModel.Title.IsNullOrEmpty())
                 query = query.Where(hr => hr.Title == searchModel.Title);

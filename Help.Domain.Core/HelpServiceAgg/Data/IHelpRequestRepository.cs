@@ -8,7 +8,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
     {
         Task<int> Create(CreateHelpRequestDTO command, CancellationToken cancellationToken);
         Task Edit(EditHelpRequestDTO command, CancellationToken cancellationToken);
-        Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken);
+        Task<HelpRequestDetailDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<HelpRequestDTO>> Search(SearchHelpRequestDTO searchModel, CancellationToken cancellationToken);
         Task Confirm(int id, CancellationToken cancellation);
         Task Reject(int id, CancellationToken cancellation);

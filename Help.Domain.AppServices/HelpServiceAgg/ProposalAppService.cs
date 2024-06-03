@@ -2,7 +2,6 @@
 using Base_Framework.LogError;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.Proposal;
-using Help.Domain.Core.HelpServiceAgg.DTOs.Proposal;
 using Help.Domain.Core.HelpServiceAgg.Services;
 
 namespace Help.Domain.AppServices.HelpServiceAgg
@@ -10,29 +9,36 @@ namespace Help.Domain.AppServices.HelpServiceAgg
     public class ProposalAppService : IProposalAppService
     {
         private readonly IProposalService _proposalService;
+        private readonly IHelpRequestService _helpRequestService;
         private readonly IOperationResultLogging _operationResultLogging;
         private readonly string _nameSpace = typeof(ProposalAppService).Namespace;
         private readonly Type _type = new ProposalDTO().GetType();
 
-        public ProposalAppService(IProposalService proposalService, IOperationResultLogging operationResultLogging)
+        public ProposalAppService(IProposalService proposalService, IOperationResultLogging operationResultLogging, IHelpRequestService helpRequestService)
         {
             _proposalService = proposalService;
             _operationResultLogging = operationResultLogging;
+            _helpRequestService = helpRequestService;
         }
 
-        public async Task<OperationResult> Confirm(int id, CancellationToken cancellationToken)
+        public async Task<OperationResult> Confirm(int id, int helpRequestId,  CancellationToken cancellationToken)
         {
+            OperationResult operation;
             try
             {
-                return await _proposalService.Confirm(id, cancellationToken);
+                operation =  await _proposalService.Confirm(id, cancellationToken);
+                operation = await _helpRequestService.ChangeStatus(helpRequestId,3, cancellationToken);
+                return operation;
             }
             catch
             {
-                var operation = await _proposalService.Confirm(id, cancellationToken);
+                operation = await _proposalService.Confirm(id, cancellationToken);
+                operation = await _helpRequestService.ChangeStatus(helpRequestId, 3, cancellationToken);
                 _operationResultLogging.LogOperationResult(operation, nameof(Confirm), _nameSpace, cancellationToken);
                 return operation;
             }
         }
+
 
         public async Task<OperationResult> Create(CreateProposalDTO command, CancellationToken cancellationToken)
         {
@@ -73,6 +79,20 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             }
 
             return detail;
+        }
+
+        public async Task<OperationResult> Reject(int id, CancellationToken cancellationToken)
+        {
+            try
+            {
+                return await _proposalService.Reject(id, cancellationToken);
+            }
+            catch
+            {
+                var operation = await _proposalService.Reject(id, cancellationToken);
+                _operationResultLogging.LogOperationResult(operation, nameof(Reject), _nameSpace, cancellationToken);
+                return operation;
+            }
         }
 
         public async Task<List<ProposalDTO>> Search(SearchProposaltDTO searchModel, CancellationToken cancellationToken)

@@ -8,6 +8,7 @@ using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpService;
 using Help.Domain.Core.AccountAgg.DTOs.CustomerPicture;
 using Help.Domain.Core.AccountAgg.DTOs.Customer;
+using Microsoft.EntityFrameworkCore;
 
 namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 {
@@ -24,6 +25,11 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
         {
             var proposal = Get(id);
             proposal.Confirm();
+        }
+        public async Task Reject(int id, CancellationToken cancellationToken)
+        {
+            var proposal = Get(id);
+            proposal.Reject();
         }
 
         public async Task Create(CreateProposalDTO command, CancellationToken cancellationToken)
@@ -106,7 +112,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
         public async Task<List<ProposalDTO>> Search(SearchProposaltDTO searchModel, CancellationToken cancellationToken)
         {
-            var query = _context.Proposals.AsEnumerable().Select(p =>
+            var query = _context.Proposals.Include(p => p.Customer).ThenInclude(c => c.Profile).AsEnumerable().Select(p =>
             new ProposalDTO()
             {
                 Id = p.Id,
@@ -115,11 +121,22 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 SuggestedPrice = p.SuggestedPrice,
                 SuggestedTime = p.SuggestedTime.ToFarsi(),
                 HelpRequestId = p.HelpRequestId,
-                 IsConfirmed = p.IsConfirmed
+                 IsConfirmed = p.IsConfirmed,
+                 IsRejected = p.IsRejected,
+                  Customer = new CustomerDTO()
+                 {
+                     Id = p.Customer.Id,
+                     FullName = p.Customer.FullName,
+                     Picture = new CustomerPictureDTO()
+                     {
+                         Name = p.Customer.Profile.Name,
+                         Alt = p.Customer.Profile.Alt
+                     }
+                 }
             });
 
             if (searchModel.HelpRequestId > 0)
-                query = query.Where(p => p.HelpRequest.Id == searchModel.HelpRequestId);
+                query = query.Where(p => p.HelpRequestId == searchModel.HelpRequestId);
 
             return query.OrderByDescending(c => c.CreationDate).ToList();
         }

@@ -23,15 +23,15 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             _helpRequestPictureService = helpRequestPictureService;
         }
 
-        public async Task<OperationResult> ChangeStatus(int helpRequestId, int customerId, int statusId, CancellationToken cancellationToken)
+        public async Task<OperationResult> ChangeStatus(int helpRequestId, int statusId, CancellationToken cancellationToken)
         {
             try
             {
-                return await _helpRequestService.ChangeStatus(helpRequestId, customerId, statusId, cancellationToken);
+                return await _helpRequestService.ChangeStatus(helpRequestId, statusId, cancellationToken);
             }
             catch
             {
-                var operation = await _helpRequestService.ChangeStatus(helpRequestId, customerId, statusId, cancellationToken);
+                var operation = await _helpRequestService.ChangeStatus(helpRequestId, statusId, cancellationToken);
                 _operationResultLogging.LogOperationResult(operation, nameof(ChangeStatus), _nameSpace, cancellationToken);
                 return operation;
             }
@@ -160,7 +160,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             return await _helpRequestService.SearchInUnChecked(searchModel, cancellation);
         }
 
-        public async Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<HelpRequestDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             var detail = await _helpRequestService.GetDetails(id, cancellationToken);
 
@@ -173,7 +173,7 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             var pictures = await _helpRequestPictureService.GetAll(id, cancellationToken);
 
             detail.Picture1Detail = pictures.First();
-            detail.Picture2Detail = pictures.Last();
+            detail.Picture2Detail = pictures.Count() > 1 ? pictures.Last() : null;
 
             return detail;
         }
@@ -225,7 +225,14 @@ namespace Help.Domain.AppServices.HelpServiceAgg
 
         public async Task<List<HelpRequestDTO>> GetAllConfirmed(SearchHelpRequestDTO searchModel, CancellationToken cancellation)
         {
-            return await _helpRequestService.GetAllConfirmed(searchModel, cancellation);
+            var requests = await _helpRequestService.GetAllConfirmed(searchModel, cancellation);
+
+            foreach (var request in requests)
+            {
+                request.Pictures = await _helpRequestPictureService.GetAll(request.Id, cancellation);
+            }
+
+            return requests;
         }
     }
 }

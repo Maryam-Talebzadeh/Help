@@ -1,6 +1,3 @@
-
-
-
 (function ($) {
     "use strict";
 
@@ -75,11 +72,6 @@
         $(this).siblings('.mini-cart').toggleClass('active');
         $('#settings-menu-wrapper').removeClass('active');
         $('body').addClass('active-overlay');
-    });
-
-    $('.persianDateInput').persianDatepicker({
-        format: 'YYYY/MM/DD',
-        autoClose: true
     });
 
     $('#header-settings-trigger').on('click', function(e){
@@ -443,7 +435,7 @@
     =============================================*/
     
     
-    $('[name="payment-method"]').on('click', function () {
+    $('[name="paymentMethod"]').on('click', function () {
 
         var $value = $(this).attr('value');
 
@@ -489,11 +481,5 @@
         slidesToShow: 1
     });
     /*=====  End of blog post gallery  ======*/
-    
-    
-	
-
-    
-
 
 })(jQuery);

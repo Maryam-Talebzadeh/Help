@@ -16,14 +16,11 @@ namespace Help.Domain.Services.HelpServiceAgg
             _helpRequestRepository = helpRequestRepository;
         }
 
-        public async Task<global::Base_Framework.Domain.Services.OperationResult> ChangeStatus(int helpRequestId, int customerId, int statusId, CancellationToken cancellationToken)
+        public async Task<global::Base_Framework.Domain.Services.OperationResult> ChangeStatus(int helpRequestId, int statusId, CancellationToken cancellationToken)
         {
             var operation = new OperationResult(_type, helpRequestId);
 
             if (!await _helpRequestRepository.IsExist(x => x.Id == helpRequestId, cancellationToken))
-                return operation.Failed(ApplicationMessages.RecordNotFound);
-
-            if (!await _helpRequestRepository.IsExist(x => x.CustomerId == customerId, cancellationToken))
                 return operation.Failed(ApplicationMessages.RecordNotFound);
 
             await _helpRequestRepository.ChangeStatus(helpRequestId, statusId, cancellationToken);
@@ -90,7 +87,7 @@ namespace Help.Domain.Services.HelpServiceAgg
             return await _helpRequestRepository.SearchInUnChecked(searchModel, cancellation);
         }
 
-        public async Task<EditHelpRequestDTO> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<HelpRequestDetailDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return await _helpRequestRepository.GetDetails(id, cancellationToken);
         }

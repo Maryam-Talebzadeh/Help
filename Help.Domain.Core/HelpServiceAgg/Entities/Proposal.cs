@@ -19,6 +19,7 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public DateTime SuggestedTime { get; private set; }
         public double SuggestedPrice { get; private set; }
         public bool IsConfirmed { get; private set; }
+        public bool IsRejected { get; private set; }
         public int HelpRequestId { get; private set; }
         public int CustomerId { get; private set; }
 
@@ -40,6 +41,13 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public void Confirm()
         {
             IsConfirmed = true;
+            IsRejected = false;
+        }
+
+        public void Reject()
+        {
+            IsConfirmed = false;
+            IsRejected = true;
         }
     }
 }

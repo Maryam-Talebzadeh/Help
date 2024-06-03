@@ -1,10 +1,5 @@
 ﻿using Base_Framework.Domain.Services;
 using Help.Domain.Core.HelpServiceAgg.DTOs.Proposal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Help.Domain.Core.HelpServiceAgg.AppServices
 {
@@ -15,6 +10,7 @@ namespace Help.Domain.Core.HelpServiceAgg.AppServices
         Task<EditProposalDTO> GetDetails(int id, CancellationToken cancellationToken);
         Task<List<ProposalDTO>> Search(SearchProposaltDTO searchModel, CancellationToken cancellationToken);
         Task<List<ProposalDTO>> SearchUnConfirmed(SearchProposaltDTO searchModel, CancellationToken cancellationToken);
-        Task<OperationResult> Confirm(int id, CancellationToken cancellationToken);
+        Task<OperationResult> Confirm(int id, int helpRequestId, CancellationToken cancellationToken);
+        Task<OperationResult> Reject(int id, CancellationToken cancellationToken);
     }
 }

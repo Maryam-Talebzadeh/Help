@@ -63,8 +63,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
             StatusId = 4;
         }
 
-        public void Confirm()
+       public void Confirm()
         {
+            StatusId = 2;
             IsConfirmed = true;
             IsRejected = false;
         }

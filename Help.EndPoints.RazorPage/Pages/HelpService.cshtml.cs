@@ -20,7 +20,6 @@ namespace Help.EndPoints.RazorPage.Pages
 
         public async Task OnGet(int id, CancellationToken cancellationToken)
         {
-
             HelpService = await _helpServiceAppService.GetDetails(id, cancellationToken);
             var searchModel = new SearchHelpRequestDTO()
             {

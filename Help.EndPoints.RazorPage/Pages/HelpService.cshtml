@@ -29,38 +29,7 @@
                 <div class="page-wrapper">
                     <div class="page-content-wrapper">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <div class="shop-header">
-                                    <div class="shop-header__left">
-                                        <div class="shop-header__left__message">
-                                            Showing 1 to 9 of 15 (2 Pages)
-                                        </div>
-                                    </div>
 
-                                    <div class="shop-header__right">
-
-                                        <div class="single-select-block d-inline-block">
-                                            <span class="select-title">Show:</span>
-                                            <select>
-                                                <option value="1">10</option>
-                                                <option value="2">20</option>
-                                                <option value="3">30</option>
-                                                <option value="4">40</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="single-select-block d-inline-block">
-                                            <span class="select-title">Sort By:</span>
-                                            <select class="pr-0">
-                                                <option value="1">Default</option>
-                                                <option value="2">Title</option>
-                                                <option value="3">Description</option>
-                                                <option value="4">Category</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <hr />
                             درخواست ها :
 
@@ -68,41 +37,70 @@
                                 <div class="shop-page-content">
                                     <div class="row shop-product-wrap grid three-column">
                                         @foreach (var request in Model.HelpService.HelpRequests)
-                                       {
-                                            <div class="col-12 col-lg-4 col-md-4 col-sm-6">
-                                                <div class="single-grid-product grid-view-product">
+                                        {
+                                            <div class="col-lg-4 col-sm-6 grid-item">
+                                                <div class="single-category-item">
                                                     <div class="single-grid-product__image">
 
                                                         <a asp-page="/HelpRequest" asp-route-id="@request.Id">
-                                                            <img src="~/Images/HelpRequestPictures/DefaultHelpServicePicture.jpg" class="img-fluid"
-                                                                />
+                                                            <img style="width:500px; height:100px;" src="~/Images/HelpRequestPictures/@request.Pictures.First().Name" class="img-fluid" />
                                                         </a>
-                                                        
+
                                                     </div>
                                                     <div class="single-grid-product__content">
+
                                                         <div class="single-grid-product__category-rating">
                                                             <span class="category">
-                                                                <a asp-page="/HelpService" asp-route-id="@Model.HelpService.Id">@Model.HelpService.Title</a>
+                                                                <a asp-page="/HelpService" asp-route-id="@request.HelpService.Id">@request.HelpService.Title</a>
                                                             </span>
-                                                          
+
                                                         </div>
 
                                                         <h2 class="single-grid-product__title">
                                                             <a asp-page="/HelpRequest" asp-route-id="@request.Title">@request.Title</a>
+                                                            <br />
+                                                            <a asp-page="HelpRequest" asp-route-id="@request.Id">
+                                                                <i class="ion-android-arrow-dropleft-circle"></i> جزییات
+                                                            </a>
                                                         </h2>
+                                                        @if (request.StatusId == 2)
+                                                        {
+                                                            <h2 class="text-success single-grid-product__title">
+                                                                منتظر پیشنهاد مناسب
+                                                            </h2>
+                                                        }
+                                                        else if (request.StatusId == 3)
+                                                        {
+                                                            <h2 class="text-warning single-grid-product__title">
+                                                                در حال انجام
+                                                            </h2>
+                                                        }
+                                                        else if (request.StatusId == 3)
+                                                        {
 
-                                                        <div class="row">
-                                                            <div class="col-6">
-                                                                <a href="/HelpRequest/@request.Id" class="register-button mt-0">جزییات</a>
-                                                            </div>
-                                                            <hr />
-                                                          
+                                                            <h2 class="text-danger single-grid-product__title">
+                                                                تمام شده
+
+                                                            </h2>
+                                                        }
+                                                        <div class="row text-center">
+                                                            @if (request.StatusId == 2)
+                                                            {
+                                                                <div class="row">
+
+
+                                                                    <a asp-page="HelpRequest" asp-route-id="@request.Id" class="btn btn-secondary">ثبت پیشنهاد</a>
+
+                                                                </div>
+                                                            }
+
                                                         </div>
 
                                                     </div>
                                                 </div>
+
                                             </div>
-                                       }
+                                        }
                                     </div>
                                 </div>
 
@@ -129,4 +127,3 @@
         </div>
     </div>
 </div>
-

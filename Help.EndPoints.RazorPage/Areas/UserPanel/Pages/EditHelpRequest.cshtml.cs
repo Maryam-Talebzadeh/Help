@@ -12,7 +12,7 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
         public string Icon { get; set; }
         public string Message { get; set; }
         [BindProperty]
-        public EditHelpRequestDTO EditHelpRequest { get; set; }
+        public HelpRequestDetailDTO EditHelpRequest { get; set; }
         private readonly IHelpRequestAppService _helpRequestAppService;
 
         private readonly IAuthHelper _authHelper;

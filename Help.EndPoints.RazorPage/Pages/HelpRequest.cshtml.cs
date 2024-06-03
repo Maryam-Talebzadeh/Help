@@ -2,17 +2,20 @@ using Base_Framework.Domain.Core.Contracts;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 using Help.Domain.Core.HelpServiceAgg.DTOs.Proposal;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Drawing;
 
 namespace Help.EndPoints.RazorPage.Pages
 {
     public class HelpRequestModel : PageModel
     {
         public string Message { get; set; }
+        public string Icon { get; set; }
         [BindProperty]
         public CreateProposalDTO CreateProposal { get; set; }
-        public EditHelpRequestDTO HelpRequest;
+        public HelpRequestDetailDTO HelpRequest;
 
         private readonly IProposalAppService _proposalAppService;
         private readonly IHelpRequestAppService _helpRequestAppService;
@@ -31,10 +34,18 @@ namespace Help.EndPoints.RazorPage.Pages
             HelpRequest = await _helpRequestAppService.GetDetails(id, cancellationToken);
         }
 
+
+    
         public async Task<IActionResult> OnPost(CancellationToken cancellationToken)
         {
+            if(_authHelper.CurrentAccountId() == 0)
+            {
+                return RedirectToPage("./Account");
+            }
+
             if (!ModelState.IsValid)
             {
+                HelpRequest = await _helpRequestAppService.GetDetails(CreateProposal.HelpRequestId, cancellationToken);
                 return Page();
             }
             CreateProposal.CustomerId = _authHelper.CurrentAccountId();
@@ -44,10 +55,19 @@ namespace Help.EndPoints.RazorPage.Pages
 
             if (!result.IsSuccedded)
             {
+
                 return Page();
             }
 
-            return RedirectToPage("Index", new { area ="UserPanel" ,id = _authHelper.CurrentAccountId()});
+            if (!result.IsSuccedded)
+            {
+                Icon = "error";
+                return Page();
+
+            }
+
+            Icon = "success";
+            return RedirectToPage("HelpRequestList", new { area = "userPanel", id = CreateProposal.CustomerId, message = Message, icon = Icon });
         }
     }
 }

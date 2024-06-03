@@ -158,6 +158,28 @@ else
                                     <img id="img1" class="thumbnail" src="~/Images/HelpRequestPictures/@Model.EditHelpRequest.Picture1Detail.Name" style="max-width: 150px" />
 
                                 </div>
+                                @if (Model.EditHelpRequest.Picture2 != null)
+                                {
+                                    <div class="col-md-6 col-6 mb-20">
+                                        <p class="help-block">
+                                            عکس دوم
+                                        </p>
+                                        <input type="file" asp-for="EditHelpRequest.Picture2" />
+                                        <p>لطفا فقط تصویر انتخاب کنید</p>
+                                        <img id="img2" class="thumbnail" src="~/Images/HelpRequestPictures/@Model.EditHelpRequest.Picture2Detail.Name" style="max-width: 150px" />
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-6 col-6 mb-20">
+                                        <p class="help-block">
+                                            عکس دوم
+                                        </p>
+                                        <input type="file" asp-for="EditHelpRequest.Picture2" />
+                                        <p>لطفا فقط تصویر انتخاب کنید</p>                                       
+                                    </div>
+                                }
                                 <div class="col-md-6 col-6 mb-20">
                                     <p class="help-block">
                                         عکس دوم
