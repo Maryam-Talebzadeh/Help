@@ -7,16 +7,15 @@ namespace Help.Domain.Core.AccountAgg.Entities
     {
         public Customer(string fullName, string userName, string password, string? email, string mobile, int roleId, int addressId) : base(fullName, userName, password, email, mobile, roleId)
         {
-            Score = 0;
             IsActive = false;
             AddressId = addressId;
+
         }
 
      
         public Int64? CardNumber { get; private set; }
         public string? Bio { get; private set; }
         public DateTime? Birthday { get; private set; }
-        public Int16? Score { get; private set; }
         public int AddressId { get; private set; } 
         public bool IsActive { get; private set; }
 
@@ -28,6 +27,7 @@ namespace Help.Domain.Core.AccountAgg.Entities
         public List<Proposal> Proposals { get; private set; }
         public Wallet Wallet { get; private set; }
         public Address Address { get; set; }
+        public List<Vote> Votes { get; set; }
 
         #endregion
 
@@ -52,6 +52,8 @@ namespace Help.Domain.Core.AccountAgg.Entities
         {
             IsActive = false;
         }
+
+
 
     }
 }

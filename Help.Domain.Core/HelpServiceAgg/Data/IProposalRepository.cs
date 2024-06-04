@@ -13,5 +13,6 @@ namespace Help.Domain.Core.HelpServiceAgg.Data
         Task<List<ProposalDTO>> SearchUnConfirmed(SearchProposaltDTO searchModel, CancellationToken cancellationToken);
         Task Confirm(int id, CancellationToken cancellationToken);
         Task Reject(int id, CancellationToken cancellationToken);
+        Task<ProposalDTO> GetBy(int helpRequestId, CancellationToken cancellationToken);
     }
 }

@@ -11,7 +11,6 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.Comment
         public string Message { get; set; }
         public bool IsConfirmed { get; set; }
         public bool IsRejected { get; set; }
-        public Int16 Score { get; set; }
         public string CreationDate { get; set; }
         public CustomerDTO Writer { get; set; }
         public CommentDTO Parent { get; set; }

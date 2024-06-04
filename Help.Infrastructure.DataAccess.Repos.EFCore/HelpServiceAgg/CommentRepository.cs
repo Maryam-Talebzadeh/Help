@@ -32,14 +32,14 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
         public async Task Create(CreateCommentDTO command, CancellationToken cancellationToken)
         {
-            var comment = new Comment(command.Message, command.Score, command.ParentId, command.HelpRequestId, command.CustomerId);
+            var comment = new Comment(command.Message, command.ParentId, command.HelpRequestId, command.CustomerId);
             _context.Comments.Add(comment);
         }
 
         public async Task Edit(EditCommentDTO command, CancellationToken cancellationToken)
         {
             var comment = Get(command.Id);
-            comment.Edit(command.Message, command.Score);
+            comment.Edit(command.Message);
         }
 
         public async Task<List<CommentDTO>> SearchUnConfirmed(SearchCommentDTO searchModel, CancellationToken cancellationToken)
@@ -49,7 +49,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             {
                 HelpRequestId = c.HelpRequestId,
                 Message = c.Message,
-                Score = c.Score,
                 Writer = new CustomerDTO()
                 {
                     Id = c.Id,
@@ -81,7 +80,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
               Id = c.Id,
               HelpRequestId = c.HelpRequestId,
               Message = c.Message,
-              Score = c.Score,
               IsConfirmed = c.IsConfirmed,
               IsRejected = c.IsRejected,
               Writer = new CustomerDTO()
@@ -101,7 +99,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                   {
                       HelpRequestId = c.HelpRequestId,
                       Message = c.Message,
-                      Score = c.Score,
                       Writer = new CustomerDTO()
                       {
                           Id = c.Id,
@@ -125,7 +122,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             {
                 HelpRequestId = c.HelpRequestId,
                 Message = c.Message,
-                Score = c.Score,
                 CustomerId = c.CustomerId,
                 Id = c.Id,
                 ParentId = c.ParentId,
@@ -133,7 +129,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                 {
                     HelpRequestId = c.HelpRequestId,
                     Message = c.Message,
-                    Score = c.Score,
                     Writer = new CustomerDTO()
                     {
                         Id = c.Id,
@@ -152,7 +147,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                     {
                         HelpRequestId = c.HelpRequestId,
                         Message = c.Message,
-                        Score = c.Score,
                         Writer = new CustomerDTO()
                         {
                             Id = c.Id,
@@ -178,7 +172,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                Id = c.Id,
                HelpRequestId = c.HelpRequestId,
                Message = c.Message,
-               Score = c.Score,
                IsConfirmed = c.IsConfirmed,
                IsRejected = c.IsRejected,
                Writer = new CustomerDTO()
@@ -198,7 +191,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                    {
                        HelpRequestId = c.HelpRequestId,
                        Message = c.Message,
-                       Score = c.Score,
                        Writer = new CustomerDTO()
                        {
                            Id = c.Id,
@@ -225,13 +217,12 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
         public async Task<List<CommentDTO>> SearchInUnChecked(SearchCommentDTO searchModel, CancellationToken cancellation)
         {
-            var query = _context.Comments.Where(c => c.IsConfirmed == false && !c.IsRejected == false).Select(c =>
+            var query = _context.Comments.Where(c => !c.IsConfirmed && !c.IsRejected ).Select(c =>
            new CommentDTO()
            {
                Id = c.Id,
                HelpRequestId = c.HelpRequestId,
                Message = c.Message,
-               Score = c.Score,
                IsConfirmed = c.IsConfirmed,
                IsRejected = c.IsRejected,
                Writer = new CustomerDTO()
@@ -251,7 +242,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                    {
                        HelpRequestId = c.HelpRequestId,
                        Message = c.Message,
-                       Score = c.Score,
                        Writer = new CustomerDTO()
                        {
                            Id = c.Id,
@@ -284,7 +274,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
               Id = c.Id,
               HelpRequestId = c.HelpRequestId,
               Message = c.Message,
-              Score = c.Score,
               IsConfirmed = c.IsConfirmed,
               IsRejected = c.IsRejected,
               Writer = new CustomerDTO()
@@ -304,7 +293,6 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
                   {
                       HelpRequestId = c.HelpRequestId,
                       Message = c.Message,
-                      Score = c.Score,
                       Writer = new CustomerDTO()
                       {
                           Id = c.Id,

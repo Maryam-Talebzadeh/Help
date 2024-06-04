@@ -68,6 +68,20 @@ namespace Help.Domain.AppServices.HelpServiceAgg
             }
         }
 
+        public async Task<ProposalDTO> GetBy(int helpRequestId, CancellationToken cancellationToken)
+        {
+            var detail = await _proposalService.GetBy(helpRequestId, cancellationToken);
+
+            if (detail == null)
+            {
+                var operation = new OperationResult(_type, helpRequestId);
+                _operationResultLogging.LogOperationResult(operation, nameof(GetBy), _nameSpace, cancellationToken);
+            }
+
+            return detail;
+
+        }
+
         public async Task<EditProposalDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             var detail = await _proposalService.GetDetails(id, cancellationToken);

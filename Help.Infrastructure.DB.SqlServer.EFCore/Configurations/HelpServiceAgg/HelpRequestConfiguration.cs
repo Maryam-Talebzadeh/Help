@@ -14,6 +14,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.HelpServiceAgg
 
             #region Relations
 
+
             builder.HasOne(h => h.Status)
               .WithMany(s => s.HelpRequests)
               .HasForeignKey(h => h.StatusId);

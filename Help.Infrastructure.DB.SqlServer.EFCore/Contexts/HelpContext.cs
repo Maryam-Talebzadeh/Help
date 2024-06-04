@@ -35,6 +35,7 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Contexts
         public DbSet<Address> Addresses { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Admin> Admins { get; set; }
+        public DbSet<Vote> Votes { get; set; }
 
         #endregion
 

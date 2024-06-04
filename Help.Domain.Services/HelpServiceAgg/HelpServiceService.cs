@@ -58,6 +58,7 @@ namespace Help.Domain.Services.HelpServiceAgg
             return await _helpServiceRepository.GetDetails(id, cancellationToken);
         }
 
+
         public async Task<OperationResult> Remove(int id, CancellationToken cancellationToken)
         {
             var operation = new OperationResult(_type, id);

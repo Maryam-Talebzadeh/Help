@@ -28,6 +28,10 @@ namespace Help.Infrastructure.DB.SqlServer.EFCore.Configurations.AccountAgg
              .WithOne(h => h.Customer)
              .HasForeignKey(h => h.CustomerId);
 
+            builder.HasMany(c => c.Votes)
+           .WithOne(h => h.Receiver)
+           .HasForeignKey(h => h.ReceiverId);
+
             builder.HasMany(c => c.Skills)
            .WithOne(s => s.Customer)
              .HasForeignKey(p => p.CustomerId).OnDelete(DeleteBehavior.NoAction);

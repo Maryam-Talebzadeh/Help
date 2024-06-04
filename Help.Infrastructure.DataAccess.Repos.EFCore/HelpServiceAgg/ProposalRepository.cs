@@ -140,5 +140,31 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
 
             return query.OrderByDescending(c => c.CreationDate).ToList();
         }
+
+        public async Task<ProposalDTO> GetBy(int helpRequestId, CancellationToken cancellationToken)
+        {
+           return  _context.Proposals.Include(p => p.Customer).ThenInclude(c => c.Profile).AsEnumerable().Select(p =>
+             new ProposalDTO()
+             {
+                 Id = p.Id,
+                 Description = p.Description,
+                 CreationDate = p.CreationDate.ToFarsi(),
+                 SuggestedPrice = p.SuggestedPrice,
+                 SuggestedTime = p.SuggestedTime.ToFarsi(),
+                 HelpRequestId = p.HelpRequestId,
+                 IsConfirmed = p.IsConfirmed,
+                 IsRejected = p.IsRejected,
+                 Customer = new CustomerDTO()
+                 {
+                     Id = p.Customer.Id,
+                     FullName = p.Customer.FullName,
+                     Picture = new CustomerPictureDTO()
+                     {
+                         Name = p.Customer.Profile.Name,
+                         Alt = p.Customer.Profile.Alt
+                     }
+                 }
+             }).FirstOrDefault(p => p.HelpRequestId == helpRequestId);
+        }
     }
 }

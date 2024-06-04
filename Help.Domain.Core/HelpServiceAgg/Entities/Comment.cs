@@ -5,10 +5,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 {
     public class Comment : BaseEntity
     {
-        public Comment(string message, Int16 score, int? parentId, int helpRequestId, int customerId)
+        public Comment(string message, int? parentId, int helpRequestId, int customerId)
         {
-            Message = message; 
-            Score = score; 
+            Message = message;  
             ParentId = parentId;
             IsConfirmed = false;
             HelpRequestId = helpRequestId;
@@ -19,7 +18,6 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
         public string Message { get; private set; }
         public bool IsConfirmed { get; private set; }
         public bool IsRejected { get; private set; }
-        public Int16 Score { get; private set; }
         public int? ParentId { get; private set; }
         public int CustomerId { get; private set; }
 
@@ -32,10 +30,9 @@ namespace Help.Domain.Core.HelpServiceAgg.Entities
 
         #endregion
 
-        public void Edit(string message, Int16 score)
+        public void Edit(string message)
         {
             Message = message;
-            Score = score;
             IsConfirmed = false;
         }
 

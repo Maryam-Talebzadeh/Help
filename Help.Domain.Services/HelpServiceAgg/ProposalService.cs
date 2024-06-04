@@ -52,6 +52,11 @@ namespace Help.Domain.Services.HelpServiceAgg
             return operation.Succedded();
         }
 
+        public async Task<ProposalDTO> GetBy(int helpRequestId, CancellationToken cancellationToken)
+        {
+            return await _proposalRepository.GetBy(helpRequestId, cancellationToken);
+        }
+
         public async Task<EditProposalDTO> GetDetails(int id, CancellationToken cancellationToken)
         {
             return await _proposalRepository.GetDetails(id, cancellationToken);

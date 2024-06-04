@@ -82,6 +82,7 @@ namespace HelpConfiguration
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<IVoteRepository, VoteRepository>();
 
             #endregion
 
@@ -94,6 +95,7 @@ namespace HelpConfiguration
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IVoteService, VoteService>();
 
             #endregion
 
@@ -106,6 +108,7 @@ namespace HelpConfiguration
             services.AddScoped<IAdminAppService, AdminAppService>();
             services.AddScoped<IAddressAppService, AddressAppService>();
             services.AddScoped<ICityAppService, CityAppService>();
+            services.AddScoped<IVoteAppService, VoteAppService>();
 
 
             #endregion

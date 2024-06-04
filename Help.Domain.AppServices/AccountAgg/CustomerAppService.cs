@@ -11,15 +11,18 @@ namespace Help.Domain.AppServices.AccountAgg
     {
         private readonly ICustomerService _customerService;
         private readonly ICustomerPictureService _customerPictureService;
+
+        private readonly IVoteAppService _voteAppService;
         private readonly IOperationResultLogging _operationResultLogging;
         private readonly string _nameSpace = typeof(CustomerAppService).Namespace;
         private readonly Type _type = new CustomerDTO().GetType();
 
-        public CustomerAppService(ICustomerService customerService, ICustomerPictureService customerPictureService, IOperationResultLogging operationResultLogging)
+        public CustomerAppService(ICustomerService customerService, ICustomerPictureService customerPictureService, IOperationResultLogging operationResultLogging, IVoteAppService voteAppService)
         {
             _customerService = customerService;
             _customerPictureService = customerPictureService;
             _operationResultLogging = operationResultLogging;
+            _voteAppService = voteAppService;
         }
 
         public async Task<OperationResult> Active(int id, CancellationToken cancellationToken)
@@ -108,6 +111,8 @@ namespace Help.Domain.AppServices.AccountAgg
                 _operationResultLogging.LogOperationResult(operation, nameof(GetDetails), _nameSpace, cancellationToken);
             }
 
+            detail.RateAsExpert = await _voteAppService.GetRateAsExpert(id, cancellationToken);
+            detail.RateAsRequester = await _voteAppService.GetRateAsRequester(id, cancellationToken);
             return detail;
         }
 

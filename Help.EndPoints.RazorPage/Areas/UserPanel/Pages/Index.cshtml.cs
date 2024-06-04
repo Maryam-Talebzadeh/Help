@@ -23,14 +23,12 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
 
         private readonly IAuthHelper _authHelper;
         private readonly ICustomerAppService _customerAppService;
-        private readonly IHelpRequestAppService _helpRequestAppService;
         private readonly IHelpServiceAppService _helpServiceAppService;
 
-        public IndexModel(IAuthHelper authHelper, ICustomerAppService customerAppService, IHelpRequestAppService helpRequestAppService, IHelpServiceAppService helpServiceAppService)
+        public IndexModel(IAuthHelper authHelper, ICustomerAppService customerAppService, IHelpServiceAppService helpServiceAppService)
         {
             _authHelper = authHelper;
             _customerAppService = customerAppService;
-            _helpRequestAppService = helpRequestAppService;
             _helpServiceAppService = helpServiceAppService;
         }
 

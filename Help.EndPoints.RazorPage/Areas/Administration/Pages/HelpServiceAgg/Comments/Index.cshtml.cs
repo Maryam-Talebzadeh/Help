@@ -25,7 +25,7 @@ namespace Help.EndPoints.RazorPage.Areas.Administration.Pages.HelpServiceAgg.Com
 
         public async Task OnGet(SearchCommentDTO searchModel, CancellationToken cancellationToken)
         {
-            Comments = await _commentAppService.Search(searchModel, cancellationToken);
+            Comments = await _commentAppService.SearchInUnChecked(searchModel, cancellationToken);
         }
 
 

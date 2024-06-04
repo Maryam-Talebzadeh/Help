@@ -7,5 +7,7 @@ namespace Help.Domain.Core.AccountAgg.DTOs.Customer
     {
         public CustomerPictureDTO Profile { get; set; }
         public AddressDTO Address { get; set; }
+        public Int16 RateAsExpert { get; set; }
+        public Int16 RateAsRequester { get; set; }
     }
 }

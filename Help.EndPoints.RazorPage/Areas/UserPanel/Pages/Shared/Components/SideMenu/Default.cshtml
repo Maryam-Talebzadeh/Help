@@ -1,34 +1,34 @@
 ﻿@inject Base_Framework.Domain.Core.Contracts.IAuthHelper AuthHelper
 
-@model Help.Domain.Core.AccountAgg.DTOs.CustomerPicture.CustomerPictureDTO
+@model Help.EndPoints.RazorPage.Models.SideMenuViewModel
 
 
-    <div class="user-panel-card">
-        <div class="user-panel-card-body">
-            <div class="d-flex flex-column align-items-center text-center">
-                <img src="~/Images/ProfilePictures/@Model.Name" alt="User" class="rounded-circle" height="150" width="150">
-                <div class="mt-3">
-                    <h4>@Model.CustomerName</h4>
-                <a asp-page="ChangeProfilePhoto" asp-area="UserPanel" asp-route-id="@Model.Id" class="btn btn-secondary">تغییر پروفایل</a>
-                    <a asp-page="./Account" asp-page-handler="Logout" class="btn btn-outline-danger">خروج</a>
-                </div>
+<div class="user-panel-card">
+    <div class="user-panel-card-body">
+        <div class="d-flex flex-column align-items-center text-center">
+            <img src="~/Images/ProfilePictures/@Model.Picture.Name" alt="User" class="rounded-circle" height="150" width="150">
+            <div class="mt-3">
+                <h4>@Model.Picture.CustomerName</h4>
+                <a asp-page="ChangeProfilePhoto" asp-area="UserPanel" asp-route-id="@Model.Picture.Id" class="btn btn-secondary">تغییر پروفایل</a>
+                <a asp-page="./Account" asp-page-handler="Logout" class="btn btn-outline-danger">خروج</a>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="user-panel-card mt-3">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                <a asp-page="AddHelpRequest">
+<div class="user-panel-card mt-3">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <a asp-page="AddHelpRequest">
                 <h6 class="mb-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-plus-fill" viewBox="0 0 16 16">
                         <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0" />
                     </svg>ایجاد درخواست
                 </h6>
             </a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-            <a asp-page="HelpRequestList" asp-area="UserPanel" asp-route-id="@AuthHelper.CurrentAccountId()" >
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <a asp-page="HelpRequestList" asp-area="UserPanel" asp-route-id="@AuthHelper.CurrentAccountId()">
                 <h6 class="mb-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-gear-fill mx-2" viewBox="0 0 16 16">
                         <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708z" />
@@ -37,50 +37,89 @@
                     </svg>درخواست ها
                 </h6>
             </a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <h6 class="mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-lock-fill mx-2" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
+                    <path d="m8 3.293 4.72 4.72a3 3 0 0 0-2.709 3.248A2 2 0 0 0 9 13v2H3.5A1.5 1.5 0 0 1 2 13.5V9.293z" />
+                    <path d="M13 9a2 2 0 0 0-2 2v1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1v-1a2 2 0 0 0-2-2m0 1a1 1 0 0 1 1 1v1h-2v-1a1 1 0 0 1 1-1" />
+                </svg>پشنهاد ها
+            </h6>
+
+        </li>
+
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+            <a asp-page="/ChangePassword" asp-route-id="@AuthHelper.CurrentAccountId()">
                 <h6 class="mb-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-lock-fill mx-2" viewBox="0 0 16 16">
-                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
-                        <path d="m8 3.293 4.72 4.72a3 3 0 0 0-2.709 3.248A2 2 0 0 0 9 13v2H3.5A1.5 1.5 0 0 1 2 13.5V9.293z" />
-                        <path d="M13 9a2 2 0 0 0-2 2v1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1v-1a2 2 0 0 0-2-2m0 1a1 1 0 0 1 1 1v1h-2v-1a1 1 0 0 1 1-1" />
-                    </svg>پشنهاد ها
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key-fill mx-2" viewBox="0 0 16 16">
+                        <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                    </svg>تغییر رمز عبور
                 </h6>
+            </a>
+        </li>
 
-            </li>
+    </ul>
+</div>
+<div class="user-panel-card mt-3">
+    <div class="login-form">
+        <div class="row gutters-sm">
+            <div class="col-sm-6 mb-3">
+                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>امتیازها</h6>
+               
 
-            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                <a asp-page="/ChangePassword" asp-route-id = "@AuthHelper.CurrentAccountId()">
-                    <h6 class="mb-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key-fill mx-2" viewBox="0 0 16 16">
-                            <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
-                        </svg>تغییر رمز عبور
-                    </h6>
-                </a>
-            </li>
+                <small>امتیاز به عنوان متخصص</small>
+                <div>
+                    <span id="start_rate1" class=" rating-star">
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                    </span>
+                </div>
 
-        </ul>
-    </div>
-    <div class="user-panel-card mt-3">
-        <div class="login-form">
-            <div class="row gutters-sm">
-                <div class="col-sm-6 mb-3">
-                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>فعالیت ها</h6>
-                    <small>تعداد درخواست ها</small>
-                    <div class="progress p-0 mx-0 mb-4" style="height: 5px">
-                        <div class="progress-bar p-0 bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <small>تعداد پیشنهاد ها</small>
-                    <div class="progress mb-4" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <small>امتیاز</small>
-                    <div class="progress mb-4" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                <div id="percent1">
 
                 </div>
-            </div>
+                <br />
+                <small> امتیاز به عنوان درخواست دهنده</small>
+             
+                <div>
+                    <span id="rate2" class=" rating-star">
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                    </span>
+                </div>
 
+                <div id="percent2">
+                </div>
+            </div>
         </div>
-    </div>
+
+
+
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', (event) => {
+
+                var ratingValue = @Html.Raw(Model.RateAsExpert);
+                var startlist = document.getElementById('start_rate1').childNodes
+                for (var i = 0; i < ratingValue; i++) {
+                    startlist[i*2+1].classList.remove('fa-star-o');
+                    startlist[i*2+1].classList.add('fa-star');
+                }
+                document.getElementById('percent1').innerHTML = (ratingValue / 5 * 100) + "%"
+
+                ratingValue = @Html.Raw(Model.RateAsRequester);
+                console.log("...")
+                var startlist2 = document.getElementById('rate2').childNodes
+                for (var i = 0; i < ratingValue; i++) {
+                    startlist2[i*2+1].classList.remove('fa-star-o');
+                    startlist2[i*2+1].classList.add('fa-star');
+                }
+                document.getElementById('percent2').innerHTML = (ratingValue / 5 * 100) + "%"
+            })
+        </script>
