@@ -31,8 +31,8 @@ namespace Help.EndPoints.RazorPage.ViewComponents
                 
             }
            
-            var helpServices = await _helpRequestAppService.Search(searchModel, cancellationToken);
-            return View(helpServices);
+            var helpRequests = await _helpRequestAppService.Search(searchModel, cancellationToken);
+            return View(helpRequests);
         }
 
     }

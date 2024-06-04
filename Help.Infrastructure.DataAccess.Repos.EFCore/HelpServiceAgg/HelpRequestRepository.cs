@@ -181,7 +181,7 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             if (searchModel.CustomerId > 0)
                 query = query.Where(hr => hr.CustomerId == searchModel.CustomerId);
 
-            if (searchModel.ServiceIds.Count() > 0)
+            if (searchModel.ServiceIds != null)
                 query = query.Where(hr => searchModel.ServiceIds.Any(s => s == hr.HelpService.Id));
 
             return query.ToList();
