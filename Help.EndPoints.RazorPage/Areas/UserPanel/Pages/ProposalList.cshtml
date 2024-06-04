@@ -1,0 +1,84 @@
+﻿@page
+@model Help.EndPoints.RazorPage.Areas.UserPanel.Pages.ProposalListModel
+@{
+}
+
+
+<div class="container">
+    <div class="main-body">
+        <partial name="_Breadcrumb" />
+
+        <div class="row gutters-sm">
+
+
+            <div class="col-md-4 mb-3">
+                @await Component.InvokeAsync("SideMenu")
+            </div>
+            <div class="col-md-8">
+                <h2>پیشنهاد ها: </h2>
+
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>کاربر</th>
+                            <th scope="col">تاریخ پیشنهادی</th>
+                            <th scope="col">قیمت پیشنهادی</th>
+                            <th scope="col">توضیحات</th>
+                            <th scope="col">وضعیت</th>
+                            <th scope="col">عملیات</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model.Proposals)
+                        {
+
+                            <tr>
+                                <td>
+                                    <a>
+                                        @item.Customer.FullName
+                                    </a>
+                                </td>
+                                <td>@item.SuggestedTime</td>
+                                <td>@item.SuggestedPrice</td>
+                                <td>@item.Description</td>
+
+                                @if (item.IsConfirmed)
+                                {
+                                    <td> تایید شده</td>
+                                }
+                                else if (item.IsRejected)
+                                {
+                                    <td>رد شده</td>
+                                }
+                                else
+                                {
+                                    <td>بررسی نشده</td>
+                                }
+
+                                <td>
+
+                                    @if (!item.IsRejected && !item.IsConfirmed)
+                                    {
+                                        <div class="col-12 ">
+                                            <a asp-page="ProposalDetail" asp-route-id="@item.Id"  class="register-button mt-0">جزییات</a>
+                                        </div>
+                                    }
+                                </td>
+
+
+                            </tr>
+
+
+
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+

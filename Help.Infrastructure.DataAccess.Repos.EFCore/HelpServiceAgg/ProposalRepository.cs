@@ -138,6 +138,10 @@ namespace Help.Infrastructure.DataAccess.Repos.EFCore.HelpServiceAgg
             if (searchModel.HelpRequestId > 0)
                 query = query.Where(p => p.HelpRequestId == searchModel.HelpRequestId);
 
+
+            if (searchModel.HelpRequestId > 0)
+                query = query.Where(p => p.Customer.Id == searchModel.CustomerId);
+
             return query.OrderByDescending(c => c.CreationDate).ToList();
         }
 

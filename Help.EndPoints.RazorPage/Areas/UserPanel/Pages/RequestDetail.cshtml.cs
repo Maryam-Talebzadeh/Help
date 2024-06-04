@@ -7,11 +7,8 @@ using Help.Domain.Core.HelpServiceAgg.DTOs.Comment;
 using Help.Domain.Core.HelpServiceAgg.DTOs.HelpRequest;
 using Help.Domain.Core.HelpServiceAgg.DTOs.Proposal;
 using Help.Domain.Core.HelpServiceAgg.Entities;
-using Help.EndPoints.RazorPage.Pages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Drawing;
-using System.Threading;
 
 namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
 {
@@ -20,7 +17,7 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
         public string Message { get; set; }
         public string Icon { get; set; }
         public List<ProposalDTO> Proposals { get; set; }
-        public EditHelpRequestDTO HelpRequest;
+        public HelpRequestDetailDTO HelpRequest;
         public ProposalDTO Proposal { get; set; }
         public List<CommentDTO> Comments;
         public bool HasVoted { get; set; }
@@ -75,13 +72,19 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
             SearchProposaltDTO searchMedel;
             var result = await _proposalAppService.Confirm(id, helpRequestId, cancellationToken);
 
+            SearchCommentDTO commentSearchModel;
+
             Message = result.Message;
 
             if (!result.IsSuccedded)
             {
                 Icon = "error";
                 HelpRequest = await _helpRequestAppService.GetDetails(helpRequestId, cancellationToken);
-                var commentSearchModel = new SearchCommentDTO()
+                if (HelpRequest.StatusId == 4 || HelpRequest.StatusId == 5)
+                {
+                    Proposal = await _proposalAppService.GetBy(HelpRequest.Id, cancellationToken);
+                }
+                commentSearchModel = new SearchCommentDTO()
                 {
                     HelpRequestId = HelpRequest.Id
                 };
@@ -91,17 +94,38 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
                     HelpRequestId = HelpRequest.Id
                 };
                 Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+                HasVoted = await _voteAppService.IsExist(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                if (HasVoted)
+                {
+                    var res = await _voteAppService.GetByvoterId(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                    Vote = res.Rate;
+                }
                 return Page();
 
             }
 
             Icon = "success";
             HelpRequest = await _helpRequestAppService.GetDetails(helpRequestId, cancellationToken);
+            if (HelpRequest.StatusId == 4 || HelpRequest.StatusId == 5)
+            {
+                Proposal = await _proposalAppService.GetBy(HelpRequest.Id, cancellationToken);
+            }
+            commentSearchModel = new SearchCommentDTO()
+            {
+                HelpRequestId = HelpRequest.Id
+            };
+            Comments = await _commentAppService.Search(commentSearchModel, cancellationToken);
             searchMedel = new SearchProposaltDTO()
             {
                 HelpRequestId = HelpRequest.Id
             };
             Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+            HasVoted = await _voteAppService.IsExist(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+            if (HasVoted)
+            {
+                var res = await _voteAppService.GetByvoterId(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                Vote = res.Rate;
+            }
             return Page();
 
         }
@@ -118,6 +142,10 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
             {
                 Icon = "error";
                 HelpRequest = await _helpRequestAppService.GetDetails(id, cancellationToken);
+                if (HelpRequest.StatusId == 4 || HelpRequest.StatusId == 5)
+                {
+                    Proposal = await _proposalAppService.GetBy(HelpRequest.Id, cancellationToken);
+                }
                 commentSearchModel = new SearchCommentDTO()
                 {
                     HelpRequestId = HelpRequest.Id
@@ -128,21 +156,37 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
                     HelpRequestId = HelpRequest.Id
                 };
                 Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+                HasVoted = await _voteAppService.IsExist(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                if (HasVoted)
+                {
+                    var res = await _voteAppService.GetByvoterId(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                    Vote = res.Rate;
+                }
                 return Page();
             }
 
             Icon = "success";
             HelpRequest = await _helpRequestAppService.GetDetails(id, cancellationToken);
-            searchMedel = new SearchProposaltDTO()
+            if (HelpRequest.StatusId == 4 || HelpRequest.StatusId == 5)
             {
-                HelpRequestId = HelpRequest.Id
-            };
-            Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+                Proposal = await _proposalAppService.GetBy(HelpRequest.Id, cancellationToken);
+            }
             commentSearchModel = new SearchCommentDTO()
             {
                 HelpRequestId = HelpRequest.Id
             };
             Comments = await _commentAppService.Search(commentSearchModel, cancellationToken);
+            searchMedel = new SearchProposaltDTO()
+            {
+                HelpRequestId = HelpRequest.Id
+            };
+            Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+            HasVoted = await _voteAppService.IsExist(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+            if (HasVoted)
+            {
+                var res = await _voteAppService.GetByvoterId(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                Vote = res.Rate;
+            }
             return Page();
         }
 
@@ -158,7 +202,6 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
 
             if (!result.IsSuccedded)
             {
-                Icon = "error";
                 HelpRequest = await _helpRequestAppService.GetDetails(votemodel.HelpRequestId, cancellationToken);
                 if (HelpRequest.StatusId == 4 || HelpRequest.StatusId == 5)
                 {
@@ -166,14 +209,20 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
                 }
                 commentSearchModel = new SearchCommentDTO()
                 {
-                    HelpRequestId = votemodel.HelpRequestId
+                    HelpRequestId = HelpRequest.Id
                 };
                 Comments = await _commentAppService.Search(commentSearchModel, cancellationToken);
                 searchMedel = new SearchProposaltDTO()
                 {
-                    HelpRequestId = votemodel.HelpRequestId
+                    HelpRequestId = HelpRequest.Id
                 };
                 Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+                HasVoted = await _voteAppService.IsExist(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                if (HasVoted)
+                {
+                    var res = await _voteAppService.GetByvoterId(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                    Vote = res.Rate;
+                }
                 return Page();
             }
 
@@ -183,16 +232,22 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
             {
                 Proposal = await _proposalAppService.GetBy(HelpRequest.Id, cancellationToken);
             }
-            searchMedel = new SearchProposaltDTO()
-            {
-                HelpRequestId = votemodel.HelpRequestId
-            };
-            Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
             commentSearchModel = new SearchCommentDTO()
             {
-                HelpRequestId = votemodel.HelpRequestId
+                HelpRequestId = HelpRequest.Id
             };
             Comments = await _commentAppService.Search(commentSearchModel, cancellationToken);
+            searchMedel = new SearchProposaltDTO()
+            {
+                HelpRequestId = HelpRequest.Id
+            };
+            Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+            HasVoted = await _voteAppService.IsExist(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+            if (HasVoted)
+            {
+                var res = await _voteAppService.GetByvoterId(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                Vote = res.Rate;
+            }
             return Page();
         }
 
@@ -215,31 +270,51 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
             {
                 Icon = "error";
                 HelpRequest = await _helpRequestAppService.GetDetails(helpRequestId, cancellationToken);
+                if (HelpRequest.StatusId == 4 || HelpRequest.StatusId == 5)
+                {
+                    Proposal = await _proposalAppService.GetBy(HelpRequest.Id, cancellationToken);
+                }
                 commentSearchModel = new SearchCommentDTO()
                 {
-                    HelpRequestId = helpRequestId
+                    HelpRequestId = HelpRequest.Id
                 };
                 Comments = await _commentAppService.Search(commentSearchModel, cancellationToken);
                 searchMedel = new SearchProposaltDTO()
                 {
-                    HelpRequestId = helpRequestId
+                    HelpRequestId = HelpRequest.Id
                 };
                 Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+                HasVoted = await _voteAppService.IsExist(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                if (HasVoted)
+                {
+                    var res = await _voteAppService.GetByvoterId(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                    Vote = res.Rate;
+                }
                 return Page();
             }
 
             Icon = "success";
             HelpRequest = await _helpRequestAppService.GetDetails(helpRequestId, cancellationToken);
-            searchMedel = new SearchProposaltDTO()
+            if (HelpRequest.StatusId == 4 || HelpRequest.StatusId == 5)
             {
-                HelpRequestId = helpRequestId
-            };
-            Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+                Proposal = await _proposalAppService.GetBy(HelpRequest.Id, cancellationToken);
+            }
             commentSearchModel = new SearchCommentDTO()
             {
-                HelpRequestId = helpRequestId
+                HelpRequestId = HelpRequest.Id
             };
             Comments = await _commentAppService.Search(commentSearchModel, cancellationToken);
+            searchMedel = new SearchProposaltDTO()
+            {
+                HelpRequestId = HelpRequest.Id
+            };
+            Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+            HasVoted = await _voteAppService.IsExist(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+            if (HasVoted)
+            {
+                var res = await _voteAppService.GetByvoterId(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                Vote = res.Rate;
+            }
             return Page();
         }
 
@@ -264,14 +339,20 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
                 }
                 commentSearchModel = new SearchCommentDTO()
                 {
-                    HelpRequestId = command.HelpRequestId
+                    HelpRequestId = HelpRequest.Id
                 };
                 Comments = await _commentAppService.Search(commentSearchModel, cancellationToken);
                 searchMedel = new SearchProposaltDTO()
                 {
-                    HelpRequestId = command.HelpRequestId
+                    HelpRequestId = HelpRequest.Id
                 };
                 Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+                HasVoted = await _voteAppService.IsExist(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                if (HasVoted)
+                {
+                    var res = await _voteAppService.GetByvoterId(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                    Vote = res.Rate;
+                }
                 return Page();
             }
 
@@ -281,16 +362,22 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
             {
                 Proposal = await _proposalAppService.GetBy(HelpRequest.Id, cancellationToken);
             }
-            searchMedel = new SearchProposaltDTO()
-            {
-                HelpRequestId = command.HelpRequestId
-            };
-            Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
             commentSearchModel = new SearchCommentDTO()
             {
-                HelpRequestId = command.HelpRequestId
+                HelpRequestId = HelpRequest.Id
             };
             Comments = await _commentAppService.Search(commentSearchModel, cancellationToken);
+            searchMedel = new SearchProposaltDTO()
+            {
+                HelpRequestId = HelpRequest.Id
+            };
+            Proposals = await _proposalAppService.Search(searchMedel, cancellationToken);
+            HasVoted = await _voteAppService.IsExist(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+            if (HasVoted)
+            {
+                var res = await _voteAppService.GetByvoterId(HelpRequest.Id, _authHelper.CurrentAccountId(), cancellationToken);
+                Vote = res.Rate;
+            }
             return Page();
         }
 

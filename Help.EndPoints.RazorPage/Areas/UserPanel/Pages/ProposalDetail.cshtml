@@ -1,7 +1,8 @@
-﻿@page "{id}"
-@model Help.EndPoints.RazorPage.Areas.UserPanel.Pages.RequestDetailModel
+﻿@page "{int}"
+@model Help.EndPoints.RazorPage.Areas.UserPanel.Pages.ProposalDetailModel
 @{
 }
+
 
 
 @if (Model.Message != null)
@@ -152,8 +153,30 @@
 
                                 <div class="single-product-content-description">
 
-                                   <h3>درخواست :</h3>
+                                   <h3>درخواست: </h3>
 
+                                    <div class="user-panel-card-body">
+                                        <div class="row ">
+                                            <div col-lg-6>
+                                                <img src="~/Images/ProfilePictures/@Model.HelpRequest.Customer.Picture.Name" alt="@Model.HelpRequest.Customer.Picture.Alt" class="rounded-circle" height="150" width="150">
+
+                                            </div>
+                                            <div col-lg-6>
+                                                <h4>@Model.HelpRequest.Customer.FullName</h4>
+                                                <div class="product-rating">
+                                                    <span class="rating">
+                                                        <i class="ion-android-star active"></i>
+                                                        <i class="ion-android-star active"></i>
+                                                        <i class="ion-android-star active"></i>
+                                                        <i class="ion-android-star active"></i>
+                                                        <i class="ion-android-star-outline"></i>
+                                                    </span>
+                                                </div>
+                                                <br />
+                                                <h4 class="product-title mx-2">@Model.HelpRequest.Title</h4>
+                                            </div>
+
+                                        </div>
 
                                     <p class="single-grid-product__price" style="direction: rtl">
 
@@ -210,37 +233,12 @@
                         </div>
                     </div>
 
-                    @if (Model.HelpRequest.StatusId == 3)
-                    {
-                        <a class="register-button mt-0" asp-page-handler="Done" asp-route-id="@Model.HelpRequest.Id">اتمام</a>
-                    }
 
                     @if (Model.HelpRequest.StatusId == 4)
                     {
-                        <h3>پیشنهاد قبول شده : </h3>
-                        <div class="user-panel-card-body">
-                            <div class="row ">
-                                <div col-lg-6>
-                                    <img src="~/Images/ProfilePictures/@Model.Proposal.Customer.Picture.Name" alt="@Model.Proposal.Customer.Picture.Alt" class="rounded-circle" height="150" width="150">
-
-                                </div>
-                                <div col-lg-6>
-                                    <h4>@Model.Proposal.Customer.FullName</h4>
-                                    <div class="product-rating">
-                                        <span class="rating">
-                                            <i class="ion-android-star active"></i>
-                                            <i class="ion-android-star active"></i>
-                                            <i class="ion-android-star active"></i>
-                                            <i class="ion-android-star active"></i>
-                                            <i class="ion-android-star-outline"></i>
-                                        </span>
-                                    </div>
-                                    <br />
-                                    <h4 class="product-title mx-2">@Model.HelpRequest.Title</h4>
-                                </div>
-
-                            </div>
-                        </div>
+                        <h3>پیشنهاد شما : </h3>
+                        
+                    
 
                         <p class="single-grid-product__price" style="direction: rtl">
 
@@ -294,7 +292,7 @@
                     }
                     else
                     {
-                        <ا4>امتیازی که شما به متخصص دادید : </ا4>
+                        <ا4>امتیازی که شما به درخواست دهنده دادید : </ا4>
                         <div>
                             <span id="rate2" class=" rating-star">
                                 <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -312,75 +310,8 @@
         </div>
 
 
-
-        @if (Model.HelpRequest.StatusId == 2)
-        {
-            <h2>پیشنهاد ها: </h2>
-
-            <table class="table table-sm">
-                <thead>
-                    <tr>
-                        <th>کاربر</th>
-                        <th scope="col">تاریخ پیشنهادی</th>
-                        <th scope="col">قیمت پیشنهادی</th>
-                        <th scope="col">توضیحات</th>
-                        <th scope="col">وضعیت</th>
-                        <th scope="col">عملیات</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @foreach (var item in Model.Proposals)
-                    {
-
-                        <tr>
-                            <td>
-                                <a>
-                                    @item.Customer.FullName
-                                </a>
-                            </td>
-                            <td>@item.SuggestedTime</td>
-                            <td>@item.SuggestedPrice</td>
-                            <td>@item.Description</td>
-
-                            @if (item.IsConfirmed)
-                            {
-                                <td> تایید کردید</td>
-                            }
-                            else if (item.IsRejected)
-                            {
-                                <td>رد شده</td>
-                            }
-                            else
-                            {
-                                <td>بررسی نشده</td>
-                            }
-
-                            <td>
-
-                                @if (!item.IsRejected && !item.IsConfirmed)
-                                {
-                                    <div class="col-12 ">
-                                        <a asp-page-handler="Confirm" asp-route-id="@item.Id" asp-route-helpRequestId="@item.HelpRequest.Id" class="register-button mt-0">تایید</a>
-                                    </div>
-                                }
-                            </td>
-
-
-                        </tr>
-
-
-
-                    }
-
-
-                </tbody>
-            </table>
-        }
-
         @if (Model.HelpRequest.StatusId == 4)
         {
-            <h3>نظرات :</h3>
             @foreach (var comment in Model.Comments)
             {
                 <div class="ratings-wrapper">
