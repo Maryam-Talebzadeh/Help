@@ -1,4 +1,4 @@
-﻿@page "{int}"
+﻿@page "{id}"
 @model Help.EndPoints.RazorPage.Areas.UserPanel.Pages.ProposalDetailModel
 @{
 }
@@ -85,7 +85,7 @@
                                                 ]'>
 
                                                 <div class="single-image">
-                                                    <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture1Detail" class="img-fluid">
+                                                    <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture1Detail.Name" class="img-fluid">
                                                 </div>
 
                                                 @if (@Model.HelpRequest.Picture2Detail != null)
@@ -121,12 +121,12 @@
                                                     {"breakpoint":479, "settings": {"slidesToShow": 2, "arrows": false, "slidesToScroll": 1} }
                                                 ]'>
                                             <div class="single-image">
-                                                <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture1Detail.Name" class="img-fluid">
+                                                <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture1Detail.Name" class="img-fluid" style="height:150px">
                                             </div>
                                             @if (@Model.HelpRequest.Picture2Detail != null)
                                             {
                                                 <div class="single-image">
-                                                    <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture2Detail.Name" class="img-fluid">
+                                                    <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture2Detail.Name" class="img-fluid" style="height:150px">
                                                 </div>
                                             }
                                         </div>
@@ -153,7 +153,7 @@
 
                                 <div class="single-product-content-description">
 
-                                   <h3>درخواست: </h3>
+                                    <h3>درخواست: </h3>
 
                                     <div class="user-panel-card-body">
                                         <div class="row ">
@@ -178,200 +178,207 @@
 
                                         </div>
 
-                                    <p class="single-grid-product__price" style="direction: rtl">
+                                        <p class="single-grid-product__price" style="direction: rtl">
 
-                                        قیمت پیشنهادی : <span class="main-price">@Model.HelpRequest.ProposedPrice تومان</span>
+                                            قیمت پیشنهادی : <span class="main-price">@Model.HelpRequest.ProposedPrice تومان</span>
 
-                                    </p>
+                                        </p>
 
-                                    <p class="single-grid-product__price" style="direction: rtl">
-                                        تاریخ انقضا : <span class="date"> @Model.HelpRequest.ExpirationDate </span>
-
-
-                                    </p>
+                                        <p class="single-grid-product__price" style="direction: rtl">
+                                            تاریخ انقضا : <span class="date"> @Model.HelpRequest.ExpirationDate </span>
 
 
-
-                                    <p class="single-info">
-                                        @if (Model.HelpRequest.StatusId == 2)
-                                        {
-                                            <span class="text-success">منتظر پیشنهاد افراد</span>
-                                        }
-                                        else if (Model.HelpRequest.StatusId == 3)
-                                        {
-                                            <span class="text-warning">در حال انجام</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="text-danger">به پایان رسیده</span>
-                                        }
-
-                                    </p>
-                                </div>
+                                        </p>
 
 
 
-                                <h5 class="single-info">توضیحات: @Model.HelpRequest.Description </h5>
+                                        <p class="single-info">
+                                            @if (Model.HelpRequest.StatusId == 2)
+                                            {
+                                                <span class="text-success">منتظر پیشنهاد افراد</span>
+                                            }
+                                            else if (Model.HelpRequest.StatusId == 3)
+                                            {
+                                                <span class="text-warning">در حال انجام</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">به پایان رسیده</span>
+                                            }
 
-                                @if (Model.HelpRequest.StatusId == 1)
-                                {
-                                    <div class="row">
-
-
-                                        <a asp-page="EditHelpRequest" asp-area="UserPanel" asp-route-id="@Model.HelpRequest.Id" class="btn btn-secondary">ویرایش</a>
-                                        <a asp-page-handler="Remove" asp-page="HelpRequestList" asp-route-id="@Model.HelpRequest.Id" class="btn btn-outline-danger">حذف</a>
+                                        </p>
                                     </div>
-                                }
-
-                                <br />
-                                <br />
 
 
 
+                                    <h5 class="single-info">توضیحات: @Model.HelpRequest.Description </h5>
 
+                                    @if (Model.HelpRequest.StatusId == 1)
+                                    {
+                                        <div class="row">
+
+
+                                            <a asp-page="EditHelpRequest" asp-area="UserPanel" asp-route-id="@Model.HelpRequest.Id" class="btn btn-secondary">ویرایش</a>
+                                            <a asp-page-handler="Remove" asp-page="HelpRequestList" asp-route-id="@Model.HelpRequest.Id" class="btn btn-outline-danger">حذف</a>
+                                        </div>
+                                    }
+
+                                    <br />
+                                    <br />
+
+
+
+
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    @if (Model.HelpRequest.StatusId == 4)
-                    {
-                        <h3>پیشنهاد شما : </h3>
-                        
-                    
-
-                        <p class="single-grid-product__price" style="direction: rtl">
-
-                            قیمت پیشنهادی : <span class="main-price">@Model.Proposal.SuggestedPrice تومان</span>
-
-                        </p>
-
-                        <p class="single-grid-product__price" style="direction: rtl">
-                            تاریخ انقضا : <span class="date"> @Model.Proposal.SuggestedTime </span>
-
-
-                        </p>
-
-                        <h5 class="single-info">توضیحات: @Model.HelpRequest.Description </h5>
-
-
-                    }
-
-                    @if (Model.HelpRequest.StatusId == 4)
-                    {
-                        @if (!Model.HasVoted)
+                        @if (Model.HelpRequest.StatusId == 4)
                         {
-                            <hr />
-                            <h4>به متخصص امتیاز دهید</h4>
-                            <form asp-page-handler="AddVote" method="post">
-                                <input type="hidden" name="HelpRequestId" value="@Model.HelpRequest.Id" />
-                                <input type="hidden" name="ReceiverId" value="@Model.Proposal.Customer.Id" />
+                            <div class=" col-12">
+                                <h4>پیشنهاد شما : </h4>
+
+
+                                <br />
+                                <p class="single-grid-product__price" style="direction: rtl">
+
+                                    قیمت پیشنهادی : <span class="main-price">@Model.Proposal.SuggestedPrice تومان</span>
+
+                                </p>
+                                <br />
+                                <p class="single-grid-product__price" style="direction: rtl">
+                                    تاریخ انقضا : <span class="date"> @Model.Proposal.SuggestedTime </span>
+
+
+                                </p>
+                                <br />
+                            </div>
 
 
 
-                                <fieldset class="rating">
-                                    <input type="radio" id="1star5" name="Rate" value="5" />
-                                    <label class="full" for="1star5" title="Awesome - 5 stars"></label>
-                                    <input type="radio" id="1star4" name="Rate" value="4" />
-                                    <label class="full" for="1star4" title="Pretty good - 4 stars"></label>
-                                    <input type="radio" id="1star3half" name="Rate" value="3" />
-                                    <label class="half" for="1star3half" title="Meh - 3 stars"></label>
-                                    <input type="radio" id="1star3" name="Rate" value="2" />
-                                    <label class="full" for="1star3" title="Kinda bad - 2 stars - 2 stars"></label>
-                                    <input type="radio" id="2star1" name="Rate" value="1" />
-                                    <label class="full" for="2star1" title="Sucks big time - 1 star"></label>
 
-                                </fieldset>
-
-
-                                <div class="col-12">
-                                    <input value="ثبت" type="submit">
-                                </div>
-                            </form>
                         }
-                    }
-                    else
-                    {
-                        <ا4>امتیازی که شما به درخواست دهنده دادید : </ا4>
-                        <div>
-                            <span id="rate2" class=" rating-star">
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                    }
 
-                </div>
+                        @if (Model.HelpRequest.StatusId == 4)
+                        {
+                            @if (!Model.HasVoted)
+                            {
 
-            </div>
-        </div>
+                                <hr />
+                              
+                                <div class="col-12">
+                                    <form asp-page-handler="AddVote" method="post" class="row">
+                                        <input type="hidden" name="HelpRequestId" value="@Model.HelpRequest.Id" />
+                                        <input type="hidden" name="ReceiverId" value="@Model.HelpRequest.Customer.Id" />
+
+                                        <h4 class="col-4">به متخصص امتیاز دهید</h4>
 
 
-        @if (Model.HelpRequest.StatusId == 4)
-        {
-            @foreach (var comment in Model.Comments)
-            {
-                <div class="ratings-wrapper">
-                    <div class="sin-ratings">
-                        <div class="rating-author">
-                            <h3>@comment.Writer.FullName</h3>
-                            @*<div class="rating-star">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <span>(5)</span>
-                    </div>*@
-                        </div>
-                        <p>@comment.Message</p>
+                                        <div class="col-8 mx-0">
+                                            <div style="display:flex">
+
+                                                <fieldset class="rating " style="margin-right:auto">
+                                                    <input type="radio" id="1star5" name="Rate" value="5" />
+                                                    <label style="font-size:x-large" class="full" for="1star5"></label>
+                                                    <input type="radio" id="1star4" name="Rate" value="4" />
+                                                    <label style="font-size:x-large" class="full" for="1star4"></label>
+                                                    <input type="radio" id="1star3half" name="Rate" value="3" />
+                                                    <label style="font-size:x-large" class="full" for="1star3half"></label>
+                                                    <input type="radio" id="1star3" name="Rate" value="2" />
+                                                    <label style="font-size:x-large" class="full" for="1star3"></label>
+                                                    <input type="radio" id="2star1" name="Rate" value="1" />
+                                                    <label style="font-size:x-large" class="full" for="2star1"></label>
+
+                                                </fieldset>
+                                                <input class="btn btn-dark" value="ثبت" type="submit">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            }
+                            <h5 class="single-info">توضیحات: @Model.HelpRequest.Description </h5>
+                        }
+                        else
+                        {
+                            <ا4>امتیازی که شما به درخواست دهنده دادید : </ا4>
+                            <div>
+                                <span id="rate2" class=" rating-star">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        }
+
                     </div>
+
                 </div>
+            </div>
+
+
+            @if (Model.HelpRequest.StatusId == 4)
+            {
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="ratings-wrapper">
+                        <div class="sin-ratings">
+                            <div class="rating-author">
+                                <h3>@comment.Writer.FullName</h3>
+                                @*<div class="rating-star">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <span>(5)</span>
+                        </div>*@
+                            </div>
+                            <p>@comment.Message</p>
+                        </div>
+                    </div>
+                }
+
+                <div class="rating-form-wrapper fix">
+                    <h3>نظر خود را درباره درخواست دهنده بنویسید:</h3>
+                    <form method="post" asp-page-handler="AddComment">
+                        <div class="rating-form row">
+
+                            <div class="col-12 form-group">
+                                <label for="your-review">نظر شما:</label>
+                                <textarea name="Message" id="message" placeholder="نظر خود را بنویسید ..."></textarea>
+                            </div>
+                            <input type="hidden" name="HelpRequestId" value="@Model.HelpRequest.Id" />
+                            <div class="col-12">
+                                <input value="ارسال" type="submit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
             }
 
-            <div class="rating-form-wrapper fix">
-                <h3>نظر خود را به ما بگویید</h3>
-                <form method="post" asp-page-handler="AddComment">
-                    <div class="rating-form row">
-
-                        <div class="col-12 form-group">
-                            <label for="your-review">نظر شما:</label>
-                            <textarea name="Message" id="message" placeholder="نظر خود را بنویسید ..."></textarea>
-                        </div>
-                        <input type="hidden" name="HelpRequestId" value="@Model.HelpRequest.Id" />
-                        <div class="col-12">
-                            <input value="ارسال" type="submit">
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-        }
 
 
 
-
+        </div>
     </div>
-</div>
 
 
 
-<script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', (event) => {
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', (event) => {
 
 
-        ratingValue = @Html.Raw(Model.Vote);
-        console.log("...")
-        var startlist2 = document.getElementById('rate2').childNodes
-        for (var i = 0; i < ratingValue; i++) {
-            startlist2[i * 2 + 1].classList.remove('fa-star-o');
-            startlist2[i * 2 + 1].classList.add('fa-star');
-        }
-        document.getElementById('percent2').innerHTML = (ratingValue / 5 * 100) + "%"
-    })
-</script>
-
-
+            ratingValue = @Html.Raw(Model.Vote);
+            console.log("...")
+            var startlist2 = document.getElementById('rate2').childNodes
+            for (var i = 0; i < ratingValue; i++) {
+                startlist2[i * 2 + 1].classList.remove('fa-star-o');
+                startlist2[i * 2 + 1].classList.add('fa-star');
+            }
+            document.getElementById('percent2').innerHTML = (ratingValue / 5 * 100) + "%"
+        })
+    </script>

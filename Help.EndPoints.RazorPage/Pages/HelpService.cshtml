@@ -38,68 +38,70 @@
                                     <div class="row shop-product-wrap grid three-column">
                                         @foreach (var request in Model.HelpService.HelpRequests)
                                         {
-                                            <div class="col-lg-4 col-sm-6 grid-item">
-                                                <div class="single-category-item">
-                                                    <div class="single-grid-product__image">
 
-                                                        <a asp-page="/HelpRequest" asp-route-id="@request.Id">
-                                                            <img style="width:500px; height:100px;" src="~/Images/HelpRequestPictures/@request.Pictures.First().Name" class="img-fluid" />
+
+                                            <div class="col">
+                                                <!--=======  single slider post  =======-->
+                                                <div class="single-slider-post">
+                                                    <div class="single-slider-post__image">
+                                                        <a href="blog-post-left-sidebar.html">
+                                                            <img style="width:500px; height:300px;" src="~/Images/HelpRequestPictures/@request.Pictures.First().Name" class="img-fluid" />
                                                         </a>
-
-                                                    </div>
-                                                    <div class="single-grid-product__content">
-
-                                                        <div class="single-grid-product__category-rating">
-                                                            <span class="category">
-                                                                <a asp-page="/HelpService" asp-route-id="@request.HelpService.Id">@request.HelpService.Title</a>
-                                                            </span>
-
-                                                        </div>
-
-                                                        <h2 class="single-grid-product__title">
-                                                            <a asp-page="/HelpRequest" asp-route-id="@request.Title">@request.Title</a>
-                                                            <br />
+                                                        <div class="single-slider-post__date-sticker">
                                                             <a asp-page="HelpRequest" asp-route-id="@request.Id">
                                                                 <i class="ion-android-arrow-dropleft-circle"></i> جزییات
                                                             </a>
-                                                        </h2>
-                                                        @if (request.StatusId == 2)
-                                                        {
-                                                            <h2 class="text-success single-grid-product__title">
-                                                                منتظر پیشنهاد مناسب
-                                                            </h2>
-                                                        }
-                                                        else if (request.StatusId == 3)
-                                                        {
-                                                            <h2 class="text-warning single-grid-product__title">
-                                                                در حال انجام
-                                                            </h2>
-                                                        }
-                                                        else if (request.StatusId == 3)
-                                                        {
 
-                                                            <h2 class="text-danger single-grid-product__title">
-                                                                تمام شده
 
-                                                            </h2>
-                                                        }
-                                                        <div class="row text-center">
+
                                                             @if (request.StatusId == 2)
                                                             {
-                                                                <div class="row">
+                                                                <span class=" text-secondary">منتظر پیشنهاد مناسب</span>
 
+                                                            }
+                                                            else if (request.StatusId == 3)
+                                                            {
+                                                                <span class=" text-warning">    در حال انجام</span>
+                                                            }
+                                                            else if (request.StatusId == 3)
+                                                            {
 
-                                                                    <a asp-page="HelpRequest" asp-route-id="@request.Id" class="btn btn-secondary">ثبت پیشنهاد</a>
-
-                                                                </div>
+                                                                <span class=" text-danger">       تمام شده</span>
                                                             }
 
-                                                        </div>
 
+                                                        </div>
+                                                    </div>
+                                                    <div class="single-slider-post__content">
+                                                        <h3 class="title">
+                                                            @request.Title
+                                                        </h3>
+
+                                                        <p class="post-meta">by <a href="#">@request.Customer.FullName</a></p>
+
+
+                                                        <p class="short-desc">
+                                                            @request.Description
+                                                        </p>
+
+
+                                                        <a asp-page="HelpRequest" asp-route-id="@request.Id" class="button small type--B">
+                                                            <div class="button__line"></div>
+                                                            <div class="button__line"></div>
+                                                            <span class="button__text">ثبت پیشنهاد</span>
+                                                            <div class="button__drow1"></div>
+                                                            <div class="button__drow2"></div>
+                                                        </a>
                                                     </div>
                                                 </div>
-
+                                                <!--=======  End of single slider post  =======-->
                                             </div>
+
+
+
+
+
+                                         
                                         }
                                     </div>
                                 </div>

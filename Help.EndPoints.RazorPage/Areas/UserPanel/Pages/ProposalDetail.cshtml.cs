@@ -66,7 +66,7 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
             }
         }
 
-     
+
 
         public async Task<IActionResult> OnPostAddVote(CreateVoteDTO votemodel, CancellationToken cancellationToken)
         {

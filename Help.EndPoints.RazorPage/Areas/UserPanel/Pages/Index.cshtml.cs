@@ -47,9 +47,20 @@ namespace Help.EndPoints.RazorPage.Areas.UserPanel.Pages
 
         public async Task<IActionResult> OnPostEdit(List<int> HelpServicesIds, CancellationToken cancellationToken)
         {
+
             Customer.SkillIds = HelpServicesIds;
             var result = await _customerAppService.Edit(Customer, cancellationToken);
-            
+
+            Message = result.Message;
+
+            if (!result.IsSuccedded)
+            {
+                Icon = "error";
+                return Page();
+            }
+
+            Icon = "success";
+
             HelpServices = await _helpServiceAppService.Search(new SearchHelpServiceDTO(), cancellationToken);
             Customer = await _customerAppService.GetDetails(Customer.Id, cancellationToken);
             return Page();

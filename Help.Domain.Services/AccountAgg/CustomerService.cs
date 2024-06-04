@@ -167,7 +167,7 @@ namespace Help.Domain.Services.AccountAgg
         public async Task<List<int>> GetSkillsId(int id, CancellationToken cancellationToken)
         {
             var skills = await _skillRepository.GetAllByCustomerId(id, cancellationToken);
-            return skills.Select(s => s.Id).ToList();
+            return skills.Select(s => s.HelpServiceId).ToList();
         }
     }
 }

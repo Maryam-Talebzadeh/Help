@@ -84,7 +84,7 @@
                                                 ]'>
 
                                                 <div class="single-image">
-                                                    <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture1Detail" class="img-fluid">
+                                                    <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture1Detail.Name" class="img-fluid">
                                                 </div>
 
                                                 @if (@Model.HelpRequest.Picture2Detail != null)
@@ -120,12 +120,12 @@
                                                     {"breakpoint":479, "settings": {"slidesToShow": 2, "arrows": false, "slidesToScroll": 1} }
                                                 ]'>
                                             <div class="single-image">
-                                                <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture1Detail.Name" class="img-fluid">
+                                                <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture1Detail.Name" class="img-fluid" style="height:150px">
                                             </div>
                                             @if (@Model.HelpRequest.Picture2Detail != null)
                                             {
                                                 <div class="single-image">
-                                                    <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture2Detail.Name" class="img-fluid">
+                                                    <img src="~/Images/HelpRequestPictures/@Model.HelpRequest.Picture2Detail.Name" class="img-fluid" style="height:150px">
                                                 </div>
                                             }
                                         </div>
@@ -152,7 +152,7 @@
 
                                 <div class="single-product-content-description">
 
-                                   <h3>درخواست :</h3>
+                                    <h3>درخواست :</h3>
 
 
                                     <p class="single-grid-product__price" style="direction: rtl">
@@ -212,7 +212,7 @@
 
                     @if (Model.HelpRequest.StatusId == 3)
                     {
-                        <a class="register-button mt-0" asp-page-handler="Done" asp-route-id="@Model.HelpRequest.Id">اتمام</a>
+                        <a class="register-button mt-0" asp-page-handler="Done" asp-route-id="@Model.HelpRequest.Id">اتمام کار</a>
                     }
 
                     @if (Model.HelpRequest.StatusId == 4)
@@ -220,11 +220,11 @@
                         <h3>پیشنهاد قبول شده : </h3>
                         <div class="user-panel-card-body">
                             <div class="row ">
-                                <div col-lg-6>
+                                <div col-6>
                                     <img src="~/Images/ProfilePictures/@Model.Proposal.Customer.Picture.Name" alt="@Model.Proposal.Customer.Picture.Alt" class="rounded-circle" height="150" width="150">
 
                                 </div>
-                                <div col-lg-6>
+                                <div class="col-3">
                                     <h4>@Model.Proposal.Customer.FullName</h4>
                                     <div class="product-rating">
                                         <span class="rating">
@@ -238,23 +238,26 @@
                                     <br />
                                     <h4 class="product-title mx-2">@Model.HelpRequest.Title</h4>
                                 </div>
+                                <div class="col-3">
+                                    <p class="single-grid-product__price" style="direction: rtl">
 
+                                        قیمت پیشنهادی : <span class="main-price">@Model.Proposal.SuggestedPrice تومان</span>
+
+                                    </p>
+
+                                    <p class="single-grid-product__price" style="direction: rtl">
+                                        تاریخ انقضا : <span class="date"> @Model.Proposal.SuggestedTime </span>
+
+
+                                    </p>
+
+
+
+                                </div>
                             </div>
+                            <h5 class="single-info">توضیحات: @Model.HelpRequest.Description </h5>
                         </div>
 
-                        <p class="single-grid-product__price" style="direction: rtl">
-
-                            قیمت پیشنهادی : <span class="main-price">@Model.Proposal.SuggestedPrice تومان</span>
-
-                        </p>
-
-                        <p class="single-grid-product__price" style="direction: rtl">
-                            تاریخ انقضا : <span class="date"> @Model.Proposal.SuggestedTime </span>
-
-
-                        </p>
-
-                        <h5 class="single-info">توضیحات: @Model.HelpRequest.Description </h5>
 
 
                     }
@@ -264,36 +267,42 @@
                         @if (!Model.HasVoted)
                         {
                             <hr />
-                            <h4>به متخصص امتیاز دهید</h4>
-                            <form asp-page-handler="AddVote" method="post">
+
+                            <form asp-page-handler="AddVote" method="post" class="row">
+                                <h4 class="col-4" style="padding-top:5px">به متخصص امتیاز دهید</h4>
                                 <input type="hidden" name="HelpRequestId" value="@Model.HelpRequest.Id" />
                                 <input type="hidden" name="ReceiverId" value="@Model.Proposal.Customer.Id" />
 
 
 
-                                <fieldset class="rating">
-                                    <input type="radio" id="1star5" name="Rate" value="5" />
-                                    <label class="full" for="1star5" title="Awesome - 5 stars"></label>
-                                    <input type="radio" id="1star4" name="Rate" value="4" />
-                                    <label class="full" for="1star4" title="Pretty good - 4 stars"></label>
-                                    <input type="radio" id="1star3half" name="Rate" value="3" />
-                                    <label class="half" for="1star3half" title="Meh - 3 stars"></label>
-                                    <input type="radio" id="1star3" name="Rate" value="2" />
-                                    <label class="full" for="1star3" title="Kinda bad - 2 stars - 2 stars"></label>
-                                    <input type="radio" id="2star1" name="Rate" value="1" />
-                                    <label class="full" for="2star1" title="Sucks big time - 1 star"></label>
-
-                                </fieldset>
 
 
-                                <div class="col-12">
-                                    <input value="ثبت" type="submit">
+
+                                <div class="col-8 mx-0">
+                                    <div style="display:flex">
+
+                                        <fieldset class="rating " style="margin-right:auto">
+                                            <input type="radio" id="1star5" name="Rate" value="5" />
+                                            <label style="font-size:x-large" class="full" for="1star5"></label>
+                                            <input type="radio" id="1star4" name="Rate" value="4" />
+                                            <label style="font-size:x-large" class="full" for="1star4" ></label>
+                                            <input type="radio" id="1star3half" name="Rate" value="3" />
+                                            <label style="font-size:x-large" class="full" for="1star3half" ></label>
+                                            <input type="radio" id="1star3" name="Rate" value="2" />
+                                            <label style="font-size:x-large" class="full" for="1star3" ></label>
+                                            <input type="radio" id="2star1" name="Rate" value="1" />
+                                            <label style="font-size:x-large" class="full" for="2star1" ></label>
+
+                                        </fieldset>
+                                        <input class="btn btn-dark" value="ثبت" type="submit">
+                                    </div>
+
                                 </div>
                             </form>
                         }
                         else
                         {
-                            <ا4>امتیازی که شما به متخصص دادید : </ا4>
+                            <h3>امتیازی که شما به متخصص دادید : </h3>
                             <div>
                                 <span id="rate2" class=" rating-star">
                                     <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -305,7 +314,7 @@
                             </div>
                         }
                     }
-                    
+                  
 
                 </div>
 
@@ -403,7 +412,7 @@
             }
 
             <div class="rating-form-wrapper fix">
-                <h3>نظر خود را به ما بگویید</h3>
+                <h3>نظر خود رادرباره متخصص بنویسید:</h3>
                 <form method="post" asp-page-handler="AddComment">
                     <div class="rating-form row">
 

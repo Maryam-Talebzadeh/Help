@@ -39,14 +39,15 @@
             </a>
         </li>
         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-            <h6 class="mb-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-lock-fill mx-2" viewBox="0 0 16 16">
-                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
-                    <path d="m8 3.293 4.72 4.72a3 3 0 0 0-2.709 3.248A2 2 0 0 0 9 13v2H3.5A1.5 1.5 0 0 1 2 13.5V9.293z" />
-                    <path d="M13 9a2 2 0 0 0-2 2v1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1v-1a2 2 0 0 0-2-2m0 1a1 1 0 0 1 1 1v1h-2v-1a1 1 0 0 1 1-1" />
-                </svg>پشنهاد ها
-            </h6>
-
+            <a asp-page="ProposalList" asp-area="UserPanel" asp-route-id="@AuthHelper.CurrentAccountId()">
+                <h6 class="mb-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-lock-fill mx-2" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
+                        <path d="m8 3.293 4.72 4.72a3 3 0 0 0-2.709 3.248A2 2 0 0 0 9 13v2H3.5A1.5 1.5 0 0 1 2 13.5V9.293z" />
+                        <path d="M13 9a2 2 0 0 0-2 2v1a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1v-1a2 2 0 0 0-2-2m0 1a1 1 0 0 1 1 1v1h-2v-1a1 1 0 0 1 1-1" />
+                    </svg>پشنهاد ها
+                </h6>
+            </a>
         </li>
 
         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -66,7 +67,7 @@
         <div class="row gutters-sm">
             <div class="col-sm-6 mb-3">
                 <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>امتیازها</h6>
-               
+
 
                 <small>امتیاز به عنوان متخصص</small>
                 <div>
@@ -80,11 +81,10 @@
                 </div>
 
                 <div id="percent1">
-
                 </div>
                 <br />
                 <small> امتیاز به عنوان درخواست دهنده</small>
-             
+
                 <div>
                     <span id="rate2" class=" rating-star">
                         <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -99,27 +99,30 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
 
 
-        <script type="text/javascript">
-            document.addEventListener('DOMContentLoaded', (event) => {
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', (event) => {
 
-                var ratingValue = @Html.Raw(Model.RateAsExpert);
-                var startlist = document.getElementById('start_rate1').childNodes
-                for (var i = 0; i < ratingValue; i++) {
-                    startlist[i*2+1].classList.remove('fa-star-o');
-                    startlist[i*2+1].classList.add('fa-star');
-                }
-                document.getElementById('percent1').innerHTML = (ratingValue / 5 * 100) + "%"
+        var ratingValue = @Html.Raw(Model.RateAsExpert);
+        var startlist = document.getElementById('start_rate1').childNodes
+        for (var i = 0; i < ratingValue; i++) {
+            startlist[i * 2 + 1].classList.remove('fa-star-o');
+            startlist[i * 2 + 1].classList.add('fa-star');
+        }
+        document.getElementById('percent1').innerHTML = (ratingValue / 5 * 100) + "%"
 
-                ratingValue = @Html.Raw(Model.RateAsRequester);
-                console.log("...")
-                var startlist2 = document.getElementById('rate2').childNodes
-                for (var i = 0; i < ratingValue; i++) {
-                    startlist2[i*2+1].classList.remove('fa-star-o');
-                    startlist2[i*2+1].classList.add('fa-star');
-                }
-                document.getElementById('percent2').innerHTML = (ratingValue / 5 * 100) + "%"
-            })
-        </script>
+        ratingValue = @Html.Raw(Model.RateAsRequester);
+        console.log("...")
+        var startlist2 = document.getElementById('rate2').childNodes
+        for (var i = 0; i < ratingValue; i++) {
+            startlist2[i * 2 + 1].classList.remove('fa-star-o');
+            startlist2[i * 2 + 1].classList.add('fa-star');
+        }
+        document.getElementById('percent2').innerHTML = (ratingValue / 5 * 100) + "%"
+    })
+</script>
+

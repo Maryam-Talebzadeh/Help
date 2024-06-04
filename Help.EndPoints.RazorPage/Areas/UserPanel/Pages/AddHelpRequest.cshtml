@@ -68,32 +68,32 @@
                                     <span class="text-danger" asp-validation-for="CreateHelpRequest.ProposedPrice"></span>
                                 </div>
 
-                          
+
                                 @* <div class=" file-upload file-upload1">
-                                    <div class="file-select">
-                                        <div class="file-select-button" id="fileName">انتخاب کنید</div>
-                                        <div class="file-select-name" id="noFile1">عکس اول</div>
-                                        <input asp-for="CreateHelpRequest.Picture1" type="file" name="chooseFile1" id="chooseFile1">
-                                    </div>
+                                <div class="file-select">
+                                <div class="file-select-button" id="fileName">انتخاب کنید</div>
+                                <div class="file-select-name" id="noFile1">عکس اول</div>
+                                <input asp-for="CreateHelpRequest.Picture1" type="file" name="chooseFile1" id="chooseFile1">
+                                </div>
                                 </div>
 
                                 <div class="  file-upload file-upload2">
-                                    <div class="file-select">
-                                        <div class="file-select-button" id="fileName">انتخاب کنید</div>
-                                        <div class="file-select-name" id="noFile2">عکس دوم</div>
-                                        <input asp-for="CreateHelpRequest.Picture2" type="file" name="chooseFile2" id="chooseFile2">
-                                    </div>
+                                <div class="file-select">
+                                <div class="file-select-button" id="fileName">انتخاب کنید</div>
+                                <div class="file-select-name" id="noFile2">عکس دوم</div>
+                                <input asp-for="CreateHelpRequest.Picture2" type="file" name="chooseFile2" id="chooseFile2">
+                                </div>
                                 </div> *@
-                                <div class="mb-3">
+                                <div class="col-6">
 
-                                    <input asp-for="CreateHelpRequest.Picture1" class="form-control" type="file" id="formFile">
+                                    <input asp-for="CreateHelpRequest.Picture1" style="padding:0;height:auto" class="form-control" type="file" id="formFile">
                                 </div>
-                             
-                                <div class="mb-3">
-                                  
-                                    <input asp-for="CreateHelpRequest.Picture2" class="form-control" type="file" id="formFile">
+
+                                <div class="col-6">
+
+                                    <input asp-for="CreateHelpRequest.Picture2" style="padding:0;height:auto" class="form-control" type="file" id="formFile">
                                 </div>
-                                
+
 
                                 <div class="col-md-12 col-12 mb-20">
                                     <span class="text-danger" asp-validation-for="CreateHelpRequest.ServiceId"></span>
