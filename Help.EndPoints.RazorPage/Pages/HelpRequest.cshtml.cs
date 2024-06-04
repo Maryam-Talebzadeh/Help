@@ -53,14 +53,10 @@ namespace Help.EndPoints.RazorPage.Pages
             var result = await _proposalAppService.Create(CreateProposal, cancellationToken);
             Message = result.Message;
 
-            if (!result.IsSuccedded)
-            {
-
-                return Page();
-            }
 
             if (!result.IsSuccedded)
             {
+                HelpRequest = await _helpRequestAppService.GetDetails(CreateProposal.HelpRequestId, cancellationToken);
                 Icon = "error";
                 return Page();
 

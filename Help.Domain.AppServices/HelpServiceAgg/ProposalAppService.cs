@@ -1,4 +1,5 @@
-﻿using Base_Framework.Domain.Services;
+﻿using Base_Framework.Domain.Core.Contracts;
+using Base_Framework.Domain.Services;
 using Base_Framework.LogError;
 using Help.Domain.Core.HelpServiceAgg.AppServices;
 using Help.Domain.Core.HelpServiceAgg.DTOs.Proposal;
@@ -11,14 +12,16 @@ namespace Help.Domain.AppServices.HelpServiceAgg
         private readonly IProposalService _proposalService;
         private readonly IHelpRequestService _helpRequestService;
         private readonly IOperationResultLogging _operationResultLogging;
+        private readonly IAuthHelper _authHelper;
         private readonly string _nameSpace = typeof(ProposalAppService).Namespace;
         private readonly Type _type = new ProposalDTO().GetType();
 
-        public ProposalAppService(IProposalService proposalService, IOperationResultLogging operationResultLogging, IHelpRequestService helpRequestService)
+        public ProposalAppService(IProposalService proposalService, IOperationResultLogging operationResultLogging, IHelpRequestService helpRequestService, IAuthHelper authHelper)
         {
             _proposalService = proposalService;
             _operationResultLogging = operationResultLogging;
             _helpRequestService = helpRequestService;
+            _authHelper = authHelper;
         }
 
         public async Task<OperationResult> Confirm(int id, int helpRequestId,  CancellationToken cancellationToken)
@@ -42,13 +45,18 @@ namespace Help.Domain.AppServices.HelpServiceAgg
 
         public async Task<OperationResult> Create(CreateProposalDTO command, CancellationToken cancellationToken)
         {
+            OperationResult operation = new OperationResult( _type, command.CustomerId);
+
+            if (command.CustomerId == command.HelpRequestCustomerId)
+                return operation.Failed("شما نمیتوانید پیشنهادی برای درخواست خودتان ارسال کنید.");
+
             try
             {
                 return await _proposalService.Create(command, cancellationToken);
             }
             catch
             {
-                var operation = await _proposalService.Create(command, cancellationToken);
+                operation = await _proposalService.Create(command, cancellationToken);
                 _operationResultLogging.LogOperationResult(operation, nameof(Create), _nameSpace, cancellationToken);
                 return operation;
             }

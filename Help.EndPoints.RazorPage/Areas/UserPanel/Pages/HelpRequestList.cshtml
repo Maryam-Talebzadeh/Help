@@ -64,9 +64,9 @@
                                                             </div>
 
                                                             <h2 class="single-grid-product__title">
-                                                                <a asp-page="/HelpRequest" asp-route-id="@request.Title">@request.Title</a>
-                                                                <br />
-                                                                <a href="../RequestDetail/@request.Id">
+
+                                                                <a asp-page="/HelpRequest" asp-route-id="@request.Title">@request.Title</a>    <br />
+                                                                <a asp-page="RequestDetail" asp-route-id="@request.Id">
                                                                     <i class="ion-android-arrow-dropleft-circle"></i> جزییات
                                                                 </a>
                                                             </h2>

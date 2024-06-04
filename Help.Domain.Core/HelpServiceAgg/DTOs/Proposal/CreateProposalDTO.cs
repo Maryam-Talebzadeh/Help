@@ -9,5 +9,7 @@ namespace Help.Domain.Core.HelpServiceAgg.DTOs.Proposal
         public double SuggestedPrice { get; set; }
         public int HelpRequestId { get; set; }
         public int CustomerId { get; set; }
+        public int HelpRequestCustomerId { get; set; }
+       
     }
 }
