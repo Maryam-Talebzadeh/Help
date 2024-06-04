@@ -134,5 +134,10 @@ namespace Help.Domain.AppServices.AccountAgg
         {
             return await _customerService.Search(searchModel, cancellationToken);
         }
+
+        public async Task<List<int>> GetSkillsId(int id, CancellationToken cancellationToken)
+        {
+            return await _customerService.GetSkillsId(id, cancellationToken);
+        }
     }
 }

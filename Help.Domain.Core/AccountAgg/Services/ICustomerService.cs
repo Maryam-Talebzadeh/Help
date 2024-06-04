@@ -13,5 +13,7 @@ namespace Help.Domain.Core.AccountAgg.Services
         Task<OperationResult> DeActive(int id, CancellationToken cancellationToken);
         Task<OperationResult> ChangePassword(ChangeCustomerPasswordDTO changePasswordModel, CancellationToken cancellationToken);
         Task<OperationResult> Remove(int id, CancellationToken cancellationToken);
+
+        Task<List<int>> GetSkillsId(int id, CancellationToken cancellationToken);
     }
 }

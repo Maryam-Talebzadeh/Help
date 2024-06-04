@@ -75,9 +75,9 @@ namespace Help.Domain.Services.AccountAgg
                 AlleyNumber = 0
             };
 
-           int addressId = await _addressRepository.Create(address, cancellationToken);
+            int addressId = await _addressRepository.Create(address, cancellationToken);
             command.AddressId = addressId;
-           int customerId = await _customerRepository.Create(command, cancellationToken);
+            int customerId = await _customerRepository.Create(command, cancellationToken);
             operation.RecordReferenceId = customerId;
 
             return operation.Succedded();
@@ -111,25 +111,25 @@ namespace Help.Domain.Services.AccountAgg
                 operation.Failed("شماره موبایل تکراری می باشد. لطفا شماره موبایل دیگری وارد کنید.");
 
             var skills = await _skillRepository.GetAllByCustomerId(command.Id, cancellationToken);
-           
 
-            foreach(var skill in skills)
+
+            foreach (var skill in skills)
             {
                 await _skillRepository.Remove(skill.Id, cancellationToken);
-               await _skillRepository.Save(cancellationToken) ;
+                await _skillRepository.Save(cancellationToken);
             }
 
-            if(command.SkillIds.Count() > 0)
+            if (command.SkillIds.Count() > 0)
             {
-                foreach(var skillId in command.SkillIds)
+                foreach (var skillId in command.SkillIds)
                 {
                     var skill = new CreateSkillDTO
                     {
                         CustomerId = command.Id,
                         HelpServiceId = skillId
                     };
-                   await _skillRepository.Create(skill, cancellationToken);
-                 await   _skillRepository.Save(cancellationToken);
+                    await _skillRepository.Create(skill, cancellationToken);
+                    await _skillRepository.Save(cancellationToken);
                 }
             }
 
@@ -162,6 +162,12 @@ namespace Help.Domain.Services.AccountAgg
         public async Task<List<CustomerDTO>> Search(SearchCustomerDTO searchModel, CancellationToken cancellationToken)
         {
             return await _customerRepository.Search(searchModel, cancellationToken);
+        }
+
+        public async Task<List<int>> GetSkillsId(int id, CancellationToken cancellationToken)
+        {
+            var skills = await _skillRepository.GetAllByCustomerId(id, cancellationToken);
+            return skills.Select(s => s.Id).ToList();
         }
     }
 }
